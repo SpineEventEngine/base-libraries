@@ -38,7 +38,7 @@ dependencies {
 
 afterEvaluate {
     dokka {
-        configureForKotlin(
+        configureForJava(
             project,
             DocumentationSettings.SourceLink.url
         )
