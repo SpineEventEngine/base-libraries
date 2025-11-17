@@ -57,7 +57,7 @@ spinePublishing {
     destinations = with(PublishingRepos) {
         setOf(
             cloudArtifactRegistry,
-            gitHub("base")
+            gitHub("base-libraries")
         )
     }
     modules = productionModuleNames.toSet()
