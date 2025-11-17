@@ -28,6 +28,7 @@ import org.jetbrains.dokka.gradle.tasks.DokkaBaseTask
 
 plugins {
     id("org.jetbrains.dokka") // Cannot use `Dokka` dependency object here yet.
+    id("org.jetbrains.dokka-javadoc")
 }
 
 dependencies {
