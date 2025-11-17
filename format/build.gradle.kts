@@ -46,3 +46,7 @@ dependencies {
         runtimeOnly(moduleKotlin)
     }
 }
+
+dokka {
+    moduleName.set("Format Library")
+}
