@@ -24,7 +24,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.dokka.gradle.tasks.DokkaBaseTask
 
 plugins {
     id("org.jetbrains.dokka") // Cannot use `Dokka` dependency object here yet.
@@ -44,7 +44,7 @@ afterEvaluate {
     }
 }
 
-tasks.withType<DokkaTaskPartial>().configureEach {
+tasks.withType<DokkaBaseTask>().configureEach {
     onlyIf {
         isInPublishingGraph()
     }

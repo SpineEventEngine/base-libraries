@@ -131,6 +131,7 @@ fun Module.forceConfigurations() {
                     Kotlin.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
+                    Base.annotations,
                     Base.lib,
                     Logging.lib,
                 )

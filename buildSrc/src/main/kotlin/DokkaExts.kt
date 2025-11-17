@@ -29,17 +29,14 @@ import io.spine.gradle.publish.getOrCreate
 import java.io.File
 import java.time.LocalDate
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.DependencyHandlerScope
-import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.dokka.gradle.DokkaExtension
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.gradle.GradleDokkaSourceSetBuilder
 import org.jetbrains.dokka.gradle.engine.parameters.DokkaSourceSetSpec
 import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
@@ -187,14 +184,14 @@ private fun DokkaSourceSetSpec.configureSourceSet(config: SourceSetConfig) {
 }
 
 /**
- * Configures this [DokkaTask] to accept only Kotlin files.
+ * Configures this [DokkaExtension] to accept only Kotlin files.
  */
 fun DokkaExtension.configureForKotlin(project: Project, sourceLinkRemoteUrl: String) {
     configureFor(project, "kotlin", sourceLinkRemoteUrl)
 }
 
 /**
- * Configures this [DokkaTask] to accept only Java files.
+ * Configures this [DokkaExtension] to accept only Java files.
  */
 @Suppress("unused")
 fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: String) {
@@ -204,24 +201,7 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 /**
  * Finds the `dokkaHtml` Gradle task.
  */
-fun TaskContainer.dokkaHtmlTask(): DokkaTask? = this.findByName("dokkaHtml") as DokkaTask?
-
-/**
- * Returns only Java source roots out of all present in the source set.
- *
- * It is a helper method for generating documentation by Dokka only for Java code.
- * It is helpful when both Java and Kotlin source files are present in a source set.
- * Dokka can properly generate documentation for either Kotlin or Java depending on
- * the configuration, but not both.
- */
-@Suppress("unused")
-internal fun GradleDokkaSourceSetBuilder.onlyJavaSources(): FileCollection {
-    return sourceRoots.filter(File::isJavaSourceDirectory)
-}
-
-private fun File.isJavaSourceDirectory(): Boolean {
-    return isDirectory && name == "java"
-}
+fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaHtml")
 
 /**
  * Locates or creates `dokkaKotlinJar` task in this [Project].
@@ -248,7 +228,7 @@ fun Project.dokkaKotlinJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaKotlin
  * integration tests that (of course) do not test the documentation
  * generation proces and its resuults.
  */
-fun AbstractDokkaTask.isInPublishingGraph(): Boolean =
+fun Task.isInPublishingGraph(): Boolean =
     project.gradle.taskGraph.allTasks.any {
         it.name == "publish" || it.name.contains("dokkaGenerate")
     }
