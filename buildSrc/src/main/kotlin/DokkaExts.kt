@@ -199,9 +199,9 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 }
 
 /**
- * Finds the `dokkaHtml` Gradle task.
+ * Finds the `dokkaGenerateHtml` Gradle task.
  */
-fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaHtml")
+fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
 
 /**
  * Locates or creates `dokkaKotlinJar` task in this [Project].

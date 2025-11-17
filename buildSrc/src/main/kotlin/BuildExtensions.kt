@@ -219,13 +219,13 @@ fun Project.configureTaskDependencies() {
             dependOn(createVersionFile)
             dependOn("prepareProtocConfigVersions")
         }
-        val dokkaHtml = "dokkaHtml"
-        dokkaHtml.run {
+        val dokkaGenerate = "dokkaGenerate"
+        dokkaGenerate.run {
             dependOn(generateProto)
             dependOn(launchProtoData)
             dependOn(kspKotlin)
         }
-        val dokkaJavadoc = "dokkaJavadoc"
+        val dokkaJavadoc = "dokkaGeneratePublicationJavadoc"
         dokkaJavadoc.run {
             dependOn(launchProtoData)
             dependOn(kspKotlin)
@@ -234,7 +234,7 @@ fun Project.configureTaskDependencies() {
         compileKotlin.dependOn(kspKotlin)
         compileTestKotlin.dependOn("kspTestKotlin")
         "compileTestFixturesKotlin".dependOn("kspTestFixturesKotlin")
-        "javadocJar".dependOn(dokkaHtml)
+        "javadocJar".dependOn(dokkaJavadoc)
         "dokkaKotlinJar".dependOn(dokkaJavadoc)
     }
 }
