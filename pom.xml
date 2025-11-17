@@ -302,6 +302,11 @@ all modules and does not describe the project structure per-subproject.
   </dependency>
   <dependency>
     <groupId>org.jetbrains.dokka</groupId>
+    <artifactId>javadoc-plugin</artifactId>
+    <version>2.1.0</version>
+  </dependency>
+  <dependency>
+    <groupId>org.jetbrains.dokka</groupId>
     <artifactId>kotlin-as-java-plugin</artifactId>
     <version>2.1.0</version>
   </dependency>
