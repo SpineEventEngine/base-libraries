@@ -24,7 +24,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "base"
+rootProject.name = "base-libraries"
 
 pluginManagement {
     repositories {

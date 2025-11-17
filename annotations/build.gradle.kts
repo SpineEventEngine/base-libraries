@@ -43,5 +43,5 @@ dependencies {
 }
 
 dokka {
-    moduleName.set("Spine Annotations")
+    moduleName.set("Annotations")
 }
