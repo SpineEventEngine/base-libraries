@@ -69,9 +69,9 @@ private fun DependencyHandler.dokkaPlugin(dependencyNotation: Any): Dependency? 
 /**
  * Resolves the directory where Dokka outputs HTML documentation for the given language.
  */
-internal fun Project.dokkaOutput(language: String): File {
+internal fun Project.dokkaHtmlOutput(language: String): File {
     val lng = language.lowercase()
-    return layout.buildDirectory.dir("docs/reference/$lng").get().asFile
+    return layout.buildDirectory.dir("dokka/html").get().asFile
 }
 
 /**
@@ -212,7 +212,7 @@ fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
  */
 fun Project.dokkaKotlinJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaKotlinJar") {
     archiveClassifier.set("reference-kotlin")
-    from(files(dokkaOutput("kotlin")))
+    from(files(dokkaHtmlOutput("kotlin")))
 
     tasks.dokkaHtmlTask()?.let{ dokkaTask ->
         this@getOrCreate.dependsOn(dokkaTask)
@@ -242,7 +242,7 @@ fun Task.isInPublishingGraph(): Boolean =
  */
 fun Project.dokkaJavaJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaJavaJar") {
     archiveClassifier.set("reference-java")
-    from(files(dokkaOutput("java")))
+    from(files(dokkaHtmlOutput("java")))
 
     tasks.dokkaHtmlTask()?.let{ dokkaTask ->
         this@getOrCreate.dependsOn(dokkaTask)
