@@ -342,9 +342,6 @@ open class SpinePublishing(private val project: Project) {
      * Configures publishing of [dokkaKotlinJar] and [dokkaJavaJar] artifacts,
      * containing Dokka-generated documentation.
      *
-     * By default, publishing of the [dokkaKotlinJar] artifact is enabled, and [dokkaJavaJar]
-     * is disabled.
-     *
      * Remember that the Dokka Gradle plugin should be applied to publish this artifact as it is
      * produced by the `dokkaHtml` task. It can be done by using the
      * [io.spine.dependency.build.Dokka] dependency object or by applying the
