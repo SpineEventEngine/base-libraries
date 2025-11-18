@@ -46,14 +46,14 @@ import io.spine.gradle.report.license.LicenseReporter
 
 plugins {
     `java-library`
+    kotlin("jvm")
     id("module-testing")
     id("net.ltgt.errorprone")
     id("pmd-settings")
-    id("project-report")
-    id("dokka-for-java")
-    kotlin("jvm")
     id("org.jetbrains.kotlinx.kover")
+    id("project-report")
     id("detekt-code-analysis")
+    id("dokka-for-java")
     id("dokka-for-kotlin")
 }
 apply<BomsPlugin>()
