@@ -271,9 +271,9 @@ internal fun Project.testJar(): TaskProvider<Jar> = tasks.getOrCreate("testJar")
  */
 fun Project.javadocJar(): TaskProvider<Jar> = tasks.getOrCreate("javadocJar") {
     archiveClassifier.set("javadoc")
-    val javadocFiles = layout.buildDirectory.files("/docs/javadoc")
+    val javadocFiles = layout.buildDirectory.files("/dokka/javadoc")
     from(javadocFiles)
-    dependsOn("javadoc")
+    dependsOn("dokkaGeneratePublicationJavadoc")
 }
 
 internal fun TaskContainer.getOrCreate(name: String, init: Jar.() -> Unit): TaskProvider<Jar> =
