@@ -37,12 +37,6 @@ package io.spine.gradle.publish
  * @see [artifacts]
  */
 class DokkaJar {
-    /**
-     * Enables publishing `JAR`s with Dokka-generated documentation for all published modules.
-     */
-    @Suppress("unused")
-    @Deprecated("Please use `kotlin` and `java` flags instead.")
-    var enabled = false
 
     /**
      * Controls whether [dokkaKotlinJar] artifact should be published.
@@ -52,9 +46,9 @@ class DokkaJar {
 
     /**
      * Controls whether [dokkaJavaJar] artifact should be published.
-     * The default value is `false`.
+     * The default value is `true`.
      */
-    var java = false
+    var java = true
 }
 
 /**
