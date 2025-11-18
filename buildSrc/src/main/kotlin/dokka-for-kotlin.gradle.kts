@@ -38,7 +38,7 @@ afterEvaluate {
     dokka {
         configureForKotlin(
             project,
-            DocumentationSettings.SourceLink.url
+            DocumentationSettings.SourceLink.url(project, "kotlin")
         )
     }
 }

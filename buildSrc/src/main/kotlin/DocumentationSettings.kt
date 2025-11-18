@@ -1,3 +1,5 @@
+import org.gradle.api.Project
+
 /*
  * Copyright 2025, TeamDev. All rights reserved.
  *
@@ -43,7 +45,9 @@ object DocumentationSettings {
          * The URL of the remote source code
          * [location][org.jetbrains.dokka.gradle.engine.parameters.DokkaSourceLinkSpec.remoteUrl].
          */
-        const val url: String = "https://github.com/SpineEventEngine/base/tree/master/src"
+        fun url(project: Project, language: String): String =
+            "https://github.com/SpineEventEngine/base-libraries/tree/master/" +
+                    "${project.name}/src/main/$language"
 
         /**
          * The suffix used to append the source code line number to the URL.

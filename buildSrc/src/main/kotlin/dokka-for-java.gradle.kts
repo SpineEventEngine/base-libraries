@@ -40,7 +40,7 @@ afterEvaluate {
     dokka {
         configureForJava(
             project,
-            DocumentationSettings.SourceLink.url
+            DocumentationSettings.SourceLink.url(project, "java")
         )
     }
 }
