@@ -41,8 +41,9 @@ import io.spine.io.Glob
 import java.io.File
 
 /**
- * Formats supported for I/O operations supported by the [io.spine.format] package.
+ * A format of a file supported by the [io.spine.format] package.
  *
+ * This class is an abstract base for the supported format classes.
  * A format of a file can be obtained using the [Format.of] function.
  *
  * You can check if a file is in the supported format using the function
@@ -50,7 +51,7 @@ import java.io.File
  *
  * ## Formats handling Protobuf message types
  *
- * The following formats:
+ * The following formats handle Protobuf message types:
  *  * [ProtoBinary] — storing and parsing in Protobuf binary encoding.
  *   This is the performance and memory-efficient format.
  *
@@ -70,9 +71,8 @@ import java.io.File
  * [not backed](https://github.com/FasterXML/jackson-dataformats-binary/blob/2.19/protobuf/README.md#dependencies)
  * by the official Protobuf library.
  *
- * This is why regular Java or Kotlin objects should be handled using [Json] and [Yaml] formats,
- * while Protobuf types created in Java or Kotlin are to be handled by [ProtoBinary] or
- * [ProtoJson] formats.
+ * This is why regular Java or Kotlin class instances should be handled using [Json] and [Yaml]
+ * formats, while Protobuf types created are to be handled by [ProtoBinary] or [ProtoJson] formats.
  *
  * @param T The type of the upper bound served by this format.
  *   For example, if the format supports only Protobuf message types,
