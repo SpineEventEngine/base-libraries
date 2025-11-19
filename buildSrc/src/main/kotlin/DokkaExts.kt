@@ -192,13 +192,13 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
 
 /**
- * Locates or creates `dokkaKotlinJar` task in this [Project].
+ * Locates or creates `htmlDocsJar` task in this [Project].
  *
  * The output of this task is a `jar` archive. The archive contains the Dokka output, generated upon
  * Kotlin sources from `main` source set. Requires Dokka to be configured in the target project by
  * applying `dokka-for-kotlin` plugin.
  */
-fun Project.dokkaKotlinJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaKotlinJar") {
+fun Project.htmlDocsJar(): TaskProvider<Jar> = tasks.getOrCreate("htmlDocsJar") {
     archiveClassifier.set("html-docs")
     from(files(dokkaHtmlOutput()))
 

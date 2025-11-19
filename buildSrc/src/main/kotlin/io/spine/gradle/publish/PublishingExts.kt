@@ -26,7 +26,7 @@
 
 package io.spine.gradle.publish
 
-import dokkaKotlinJar
+import htmlDocsJar
 import io.spine.gradle.isSnapshot
 import io.spine.gradle.repo.Repository
 import io.spine.gradle.sourceSets
@@ -301,7 +301,7 @@ internal fun Project.artifacts(jarFlags: JarFlags): Set<TaskProvider<Jar>> {
     }
 
     tasks.add(javadocJar())
-    tasks.add(dokkaKotlinJar())
+    tasks.add(htmlDocsJar())
 
 
     // We don't want to have an empty "proto.jar" when a project doesn't have any Proto files.
