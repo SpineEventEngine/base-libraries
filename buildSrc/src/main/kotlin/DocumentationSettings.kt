@@ -45,14 +45,16 @@ object DocumentationSettings {
          * The URL of the remote source code
          * [location][org.jetbrains.dokka.gradle.engine.parameters.DokkaSourceLinkSpec.remoteUrl].
          */
-        fun url(project: Project, language: String): String =
-            "https://github.com/SpineEventEngine/base-libraries/tree/master/" +
-                    "${project.name}/src/main/$language"
+        fun url(project: Project): String {
+            val root = project.rootProject.name
+            val module = project.name
+            return "https://github.com/SpineEventEngine/$root/tree/master/$module/src/main/kotlin"
+        }
 
         /**
          * The suffix used to append the source code line number to the URL.
          *
-         * The suffix depends on the online code repository.
+         * The value depends on the online code repository and is set for GitHub (`#L`).
          *
          * @see <a href="https://kotlinlang.org/docs/dokka-gradle.html#fwor0d_534">
          *     remoteLineSuffix</a>
