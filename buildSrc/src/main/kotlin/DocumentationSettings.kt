@@ -36,6 +36,36 @@ import org.gradle.api.Project
 object DocumentationSettings {
 
     /**
+     * The organization infix for the Spine SDK.
+     */
+    private const val orgPath = "github.com/SpineEventEngine"
+
+    /**
+     * The organization URL of the Spine SDK.
+     */
+    private const val orgUrl = "https://$orgPath"
+
+    /**
+     * Obtains the repository URL for the given project.
+     */
+    fun repoUrl(project: Project) = "https://${repoPath(project)}"
+
+    /**
+     * Obtains the repository path for the given project.
+     */
+    private fun repoPath(project: Project) = "$orgPath/${project.rootProject.name}"
+
+    /**
+     * Obtains the connection URL for the given project.
+     */
+    fun connectionUrl(project: Project) = "scm:git:git://${repoPath(project)}.git"
+
+    /**
+     * Obtains the developer connection URL for the given project.
+     */
+    fun developerConnectionUrl(project: Project) = "scm:git:ssh://${repoPath(project)}.git"
+
+    /**
      * Settings passed to Dokka for
      * [sourceLink][[org.jetbrains.dokka.gradle.engine.parameters.DokkaSourceLinkSpec]
      */
@@ -48,7 +78,7 @@ object DocumentationSettings {
         fun url(project: Project): String {
             val root = project.rootProject.name
             val module = project.name
-            return "https://github.com/SpineEventEngine/$root/tree/master/$module/src/main/kotlin"
+            return "$orgUrl/$root/tree/master/$module/src/main/kotlin"
         }
 
         /**
