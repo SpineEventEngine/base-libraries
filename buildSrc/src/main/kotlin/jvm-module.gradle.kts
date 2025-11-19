@@ -46,10 +46,9 @@ plugins {
     id("net.ltgt.errorprone")
     id("pmd-settings")
     id("project-report")
-    id("dokka-for-java")
     kotlin("jvm")
     id("detekt-code-analysis")
-    id("dokka-for-kotlin")
+    id("dokka-setup")
     id("org.jetbrains.kotlinx.kover")
     id("module-testing")
 }

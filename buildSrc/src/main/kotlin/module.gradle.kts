@@ -52,8 +52,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
     id("project-report")
     id("detekt-code-analysis")
-    id("dokka-for-java")
-    id("dokka-for-kotlin")
+    id("dokka-setup")
 }
 apply<BomsPlugin>()
 LicenseReporter.generateReportIn(project)

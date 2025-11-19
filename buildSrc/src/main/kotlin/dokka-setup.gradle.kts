@@ -32,21 +32,26 @@ plugins {
 }
 
 dependencies {
-    useDokkaForKotlinAsJava()
     useDokkaWithSpineExtensions()
-}
-
-afterEvaluate {
-    dokka {
-        configureForJava(
-            project,
-            DocumentationSettings.SourceLink.url(project, "java")
-        )
-    }
 }
 
 tasks.withType<DokkaBaseTask>().configureEach {
     onlyIf {
         isInPublishingGraph()
+    }
+}
+
+afterEvaluate {
+    dokka {
+        configureForKotlin(
+            project,
+            DocumentationSettings.SourceLink.url(project)
+        )
+    }
+    val kspKotlin = tasks.findByName("kspKotlin")
+    kspKotlin?.let {
+        tasks.withType<DokkaBaseTask>().configureEach {
+            dependsOn(kspKotlin)
+        }
     }
 }

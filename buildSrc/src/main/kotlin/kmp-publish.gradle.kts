@@ -59,7 +59,7 @@ val about = ""
 
 plugins {
     `maven-publish`
-    id("dokka-for-kotlin")
+    id("dokka-setup")
 }
 
 publishing.publications {
