@@ -152,6 +152,7 @@ internal sealed class PublicationHandler(
             license {
                 name.set(LicenseSettings.name)
                 url.set(LicenseSettings.url)
+                distribution.set(LicenseSettings.url)
             }
         }
         pom.scm {
