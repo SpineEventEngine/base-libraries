@@ -271,7 +271,7 @@ internal fun Project.testJar(): TaskProvider<Jar> = tasks.getOrCreate("testJar")
  */
 fun Project.javadocJar(): TaskProvider<Jar> = tasks.getOrCreate("javadocJar") {
     archiveClassifier.set("javadoc")
-    val javadocFiles = layout.buildDirectory.files("/dokka/javadoc")
+    val javadocFiles = layout.buildDirectory.dir("/dokka/javadoc")
     from(javadocFiles)
     dependsOn("dokkaGeneratePublicationJavadoc")
 }
@@ -300,12 +300,12 @@ internal fun Project.artifacts(jarFlags: JarFlags): Set<TaskProvider<Jar>> {
         tasks.add(sourcesJar())
     }
 
-    if (jarFlags.javadocJar) {
-        tasks.add(javadocJar())
-    }
+    tasks.add(javadocJar())
+    tasks.add(dokkaKotlinJar())
+
 
     // We don't want to have an empty "proto.jar" when a project doesn't have any Proto files.
-    if (hasProto() && jarFlags.publishProtoJar) {
+    if (hasProto()) {
         tasks.add(protoJar())
     }
 
@@ -313,10 +313,6 @@ internal fun Project.artifacts(jarFlags: JarFlags): Set<TaskProvider<Jar>> {
     // by default. And turning it on means "We have tests and need them to be published."
     if (jarFlags.publishTestJar) {
         tasks.add(testJar())
-    }
-
-    if (jarFlags.publishDokkaKotlinJar) {
-        tasks.add(dokkaKotlinJar())
     }
 
     return tasks

@@ -42,17 +42,6 @@ import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
 
 /**
- * To generate the documentation as seen from Java perspective, the `kotlin-as-java`
- * plugin was added to the Dokka classpath.
- *
- * @see <a href="https://github.com/Kotlin/dokka#output-formats">
- *     Dokka output formats</a>
- */
-fun DependencyHandlerScope.useDokkaForKotlinAsJava() {
-    dokkaPlugin(Dokka.KotlinAsJavaPlugin.lib)
-}
-
-/**
  * To exclude pieces of code annotated with `@Internal` from the documentation
  * a custom plugin is added to the Dokka classpath.
  *
@@ -210,7 +199,7 @@ fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
  * applying `dokka-for-kotlin` plugin.
  */
 fun Project.dokkaKotlinJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaKotlinJar") {
-    archiveClassifier.set("reference-kotlin")
+    archiveClassifier.set("html-docs")
     from(files(dokkaHtmlOutput()))
 
     tasks.dokkaHtmlTask()?.let{ dokkaTask ->
@@ -231,22 +220,6 @@ fun Task.isInPublishingGraph(): Boolean =
     project.gradle.taskGraph.allTasks.any {
         it.name == "publish" || it.name.contains("dokkaGenerate")
     }
-
-/**
- * Locates or creates `dokkaJavaJar` task in this [Project].
- *
- * The output of this task is a `jar` archive. The archive contains the Dokka output, generated upon
- * Kotlin sources from `main` source set. Requires Dokka to be configured in the target project by
- * applying `dokka-for-java` and/or `dokka-for-kotlin` script plugin.
- */
-fun Project.dokkaJavaJar(): TaskProvider<Jar> = tasks.getOrCreate("dokkaJavaJar") {
-    archiveClassifier.set("reference-java")
-    from(files(dokkaHtmlOutput()))
-
-    tasks.dokkaHtmlTask()?.let{ dokkaTask ->
-        this@getOrCreate.dependsOn(dokkaTask)
-    }
-}
 
 /**
  * Disables Dokka and Javadoc tasks in this `Project`.

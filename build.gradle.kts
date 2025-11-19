@@ -61,10 +61,6 @@ spinePublishing {
         )
     }
     modules = productionModuleNames.toSet()
-    dokkaJar {
-        kotlin = true
-        java = true
-    }
 }
 
 allprojects {
