@@ -1,5 +1,3 @@
-import org.gradle.api.Project
-
 /*
  * Copyright 2025, TeamDev. All rights reserved.
  *
@@ -25,6 +23,8 @@ import org.gradle.api.Project
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+import org.gradle.api.Project
 
 /**
  * The documentation settings specific to this project.
