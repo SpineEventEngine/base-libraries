@@ -149,3 +149,7 @@ private fun GenerateProtoTask.generatedDir(language: String = ""): File {
     val path = "${project.generatedDir}/${sourceSet.name}/$language"
     return File(path)
 }
+
+dokka {
+    moduleName.set("Base Library")
+}

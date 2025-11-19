@@ -2,12 +2,17 @@
 [![codecov][codecov-badge]][codecov] &nbsp;
 [![license][license-badge]][license]
 
-# Welcome to the `spine-base` repository
+# Welcome to the `base-libraries` repository
 
 This repository contains common data types and utilities used by
 the Spine SDK subprojects (e.g. [core-jvm][core-java]).
 
-## The `spine-base` module
+## The `annotations` module
+
+Contains annotation types used by the Spine SDK.
+
+## The `base` module
+
 This module is not supposed to be used directly in an end-user project because it is 
 exposed as an API dependency by [`core-jvm`][core-java] modules [`spine-client`][spine-client] and
 [`spine-server`][spine-server].
@@ -19,7 +24,8 @@ dependencies {
 }
 ```
 
-## The `spine-format` module
+## The `format` module
+
 This module contains utilities for parsing files in various types like YAML, JSON, binary Protobuf,
 or Protobuf JSON. This module is used internally by Spine SDK components. 
 If you need it as a direct dependency in your Gradle project, please use the following code: 

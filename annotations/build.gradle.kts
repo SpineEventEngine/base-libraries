@@ -41,3 +41,7 @@ dependencies {
     // Test dependencies
     testImplementation(TestLib.lib)
 }
+
+dokka {
+    moduleName.set("Annotations")
+}

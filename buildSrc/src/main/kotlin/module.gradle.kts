@@ -39,26 +39,25 @@ import io.spine.gradle.checkstyle.CheckStyleConfig
 import io.spine.gradle.github.pages.updateGitHubPages
 import io.spine.gradle.javac.configureErrorProne
 import io.spine.gradle.javac.configureJavac
-import io.spine.gradle.javadoc.JavadocConfig
 import io.spine.gradle.kotlin.applyJvmToolchain
 import io.spine.gradle.kotlin.setFreeCompilerArgs
 import io.spine.gradle.report.license.LicenseReporter
 
 plugins {
     `java-library`
+    kotlin("jvm")
     id("module-testing")
     id("net.ltgt.errorprone")
     id("pmd-settings")
-    id("project-report")
-    id("dokka-for-java")
-    kotlin("jvm")
     id("org.jetbrains.kotlinx.kover")
+    id("project-report")
     id("detekt-code-analysis")
-    id("dokka-for-kotlin")
+    id("dokka-setup")
 }
 apply<BomsPlugin>()
 LicenseReporter.generateReportIn(project)
-JavadocConfig.applyTo(project)
+// Disable `javadoc` task because we use Dokka for building Javadoc-alike docs.
+tasks.javadoc.get().enabled = false
 CheckStyleConfig.applyTo(project)
 
 project.run {
@@ -131,6 +130,7 @@ fun Module.forceConfigurations() {
                     Kotlin.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
+                    Base.annotations,
                     Base.lib,
                     Logging.lib,
                 )

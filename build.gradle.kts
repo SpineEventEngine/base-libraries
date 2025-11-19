@@ -49,7 +49,7 @@ plugins {
     jacoco
     `gradle-doctor`
     `project-report`
-    `dokka-for-kotlin`
+    `dokka-setup`
 }
 apply<BomsPlugin>()
 
@@ -57,14 +57,10 @@ spinePublishing {
     destinations = with(PublishingRepos) {
         setOf(
             cloudArtifactRegistry,
-            gitHub("base")
+            gitHub("base-libraries")
         )
     }
     modules = productionModuleNames.toSet()
-    dokkaJar {
-        kotlin = true
-        java = true
-    }
 }
 
 allprojects {
@@ -84,6 +80,7 @@ dependencies {
 configurations.all {
     resolutionStrategy {
         force(
+            Base.annotations,
             Base.lib,
             Logging.lib,
         )
