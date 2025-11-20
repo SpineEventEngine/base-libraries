@@ -129,15 +129,19 @@ class Repository private constructor(
     }
 
     companion object Factory {
+
         /**
          * Clones the repository with the provided SSH URL in a temporal folder.
-         * Configures the username and the email of the Git user. See [configureUser]
-         * documentation for more information. Performs checkout of the branch in
-         * case it was passed. By default, [master][Branch.master] is checked out.
+         *
+         * Configures the username and the email of the Git user.
+         * See [configureUser] documentation for more information.
+         *
+         * Performs checkout of the branch in case it was passed.
+         * By default, [master][Branch.master] is checked out.
          *
          * @throws IllegalArgumentException if SSH URL is an empty string.
          */
-        fun of(sshUrl: String, user: UserInfo, branch: String = Branch.master): Repository {
+        fun clone(sshUrl: String, user: UserInfo, branch: String = Branch.master): Repository {
             require(sshUrl.isNotBlank()) { "SSH URL cannot be an empty string." }
 
             val repo = Repository(sshUrl, user, branch)

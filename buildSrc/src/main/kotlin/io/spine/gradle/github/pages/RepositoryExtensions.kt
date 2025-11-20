@@ -55,5 +55,5 @@ internal fun Repository.Factory.forPublishingDocumentation(version: String): Rep
 
     val branch = Branch.documentation(version)
 
-    return of(host, user, branch)
+    return clone(host, user, branch)
 }
