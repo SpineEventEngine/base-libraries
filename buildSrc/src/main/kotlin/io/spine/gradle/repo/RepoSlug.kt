@@ -50,7 +50,7 @@ class RepoSlug(val value: String) {
         fun fromVar(): RepoSlug {
             val envValue = System.getenv(environmentVariable)
             if (envValue.isNullOrEmpty()) {
-                throw GradleException("`REPO_SLUG` environment variable is not set.")
+                throw GradleException("`$environmentVariable` environment variable is not set.")
             }
             return RepoSlug(envValue)
         }
