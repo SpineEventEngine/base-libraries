@@ -192,6 +192,11 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
 
 /**
+ * Finds the `dokkaGeneratePublicationJavadoc` Gradle task.
+ */
+fun TaskContainer.dokkaJavadocTask(): Task? = this.findByName("dokkaGeneratePublicationJavadoc")
+
+/**
  * Locates or creates `htmlDocsJar` task in this [Project].
  *
  * The output of this task is a `jar` archive. The archive contains the Dokka output, generated upon

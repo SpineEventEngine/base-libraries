@@ -38,21 +38,22 @@ import io.spine.gradle.repo.RepoSlug
  * The repository's GitHub SSH URL is derived from the `REPO_SLUG` environment
  * variable. The [branch][Branch.documentation] dedicated to publishing documentation
  * is automatically checked out in this repository. Also, the username and the email
- * of the git user are automatically configured. The username is set
- * to "UpdateGitHubPages Plugin", and the email is derived from
+ * of the git user are automatically configured.
+ *
+ * The username is set to `"UpdateGitHubPages Plugin"`, and the email is derived from
  * the `FORMAL_GIT_HUB_PAGES_AUTHOR` environment variable.
  *
  * @throws org.gradle.api.GradleException if any of the environment variables described above
  *         is not set.
  */
-internal fun Repository.Factory.forPublishingDocumentation(): Repository {
+internal fun Repository.Factory.forPublishingDocumentation(version: String): Repository {
     val host = RepoSlug.fromVar().gitHost()
 
     val username = "UpdateGitHubPages Plugin"
     val userEmail = AuthorEmail.fromVar().toString()
     val user = UserInfo(username, userEmail)
 
-    val branch = Branch.documentation
+    val branch = Branch.documentation(version)
 
-    return of(host, user, branch)
+    return clone(host, user, branch)
 }

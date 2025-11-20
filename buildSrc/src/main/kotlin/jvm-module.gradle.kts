@@ -161,7 +161,6 @@ fun Module.setTaskDependencies(generatedDir: String) {
 fun Module.configureGitHubPages() {
     val docletVersion = project.version.toString()
     updateGitHubPages(docletVersion) {
-        allowInternalJavadoc.set(true)
         rootFolder.set(rootDir)
     }
 }
