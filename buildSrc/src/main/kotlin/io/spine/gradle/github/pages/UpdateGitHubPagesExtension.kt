@@ -52,16 +52,13 @@ fun Project.updateGitHubPages(
 /**
  * The extension for configuring the [UpdateGitHubPages] plugin.
  *
- * @property allowInternalJavadoc Tells whether the types marked `@Internal` should
- *   be included into the doc generation.
  * @property rootFolder The root folder of the repository to which the updated `Project` belongs.
- * @property includeInputs The external inputs, which output should be included into
- *   the GitHub Pages update.
- *   The values are interpreted according to [org.gradle.api.tasks.Copy.from] specification.
+ * @property includeInputs The external inputs, which output should be included
+ *   into the GitHub Pages update. The values are interpreted according to
+ *   [Copy.from][org.gradle.api.tasks.Copy.from] specification.
  *   This property is optional.
  */
 class UpdateGitHubPagesExtension private constructor(
-    val allowInternalJavadoc: Property<Boolean>,
     var rootFolder: Property<File>,
     var includeInputs: SetProperty<Any>
 ) {
@@ -89,7 +86,6 @@ class UpdateGitHubPagesExtension private constructor(
         fun createIn(project: Project): UpdateGitHubPagesExtension {
             val factory = project.objects
             val result = UpdateGitHubPagesExtension(
-                allowInternalJavadoc = factory.property(Boolean::class),
                 rootFolder = factory.property(File::class),
                 includeInputs = factory.setProperty(Any::class.java)
             )
@@ -97,12 +93,6 @@ class UpdateGitHubPagesExtension private constructor(
             return result
         }
     }
-
-    /**
-     * Returns `true` if the `@Internal`-annotated code should be included into the
-     * generated documentation, `false` otherwise.
-     */
-    fun allowInternalJavadoc(): Boolean = allowInternalJavadoc.get()
 
     /**
      * Returns the local root folder of the repository, to which the handled Gradle
