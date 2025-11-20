@@ -43,26 +43,16 @@ import io.spine.gradle.fs.LazyTempPath
  * NOTE: This class creates a temporal folder, so it holds resources. For the proper
  * release of resources please use the provided functionality inside a `use` block or
  * call the `close` method manually.
+ *
+ * @property sshUrl The GitHub SSH URL to the underlying repository.
+ * @property user Current user configuration.
+ *   This configuration determines what ends up in the `author` and `committer` fields of a commit.
+ * @property currentBranch The currently checked-out branch.
  */
 class Repository private constructor(
-
-    /**
-     * The GitHub SSH URL to the underlying repository.
-     */
     private val sshUrl: String,
-
-    /**
-     * Current user configuration.
-     *
-     * This configuration determines what ends up in author and committer fields of a commit.
-     */
     private var user: UserInfo,
-
-    /**
-     * Currently checked out branch.
-     */
     private var currentBranch: String
-
 ) : AutoCloseable {
 
     /**
@@ -128,7 +118,7 @@ class Repository private constructor(
     }
 
     /**
-     * Pushes local repository to the remote.
+     * Pushes the local repository to the remote.
      */
     fun push() {
         repoExecute("git", "push")
