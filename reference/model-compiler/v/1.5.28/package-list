@@ -1,9 +1,0 @@
-io.spine.tools.compiler
-io.spine.tools.compiler.annotation
-io.spine.tools.compiler.check
-io.spine.tools.compiler.field
-io.spine.tools.compiler.field.type
-io.spine.tools.compiler.gen
-io.spine.tools.compiler.gen.column
-io.spine.tools.compiler.gen.rejection
-io.spine.tools.gradle.compiler

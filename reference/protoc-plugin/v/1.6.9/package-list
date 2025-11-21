@@ -1,8 +1,0 @@
-io.spine.tools.protoc
-io.spine.tools.protoc.builder
-io.spine.tools.protoc.column
-io.spine.tools.protoc.field
-io.spine.tools.protoc.iface
-io.spine.tools.protoc.method
-io.spine.tools.protoc.nested
-io.spine.tools.protoc.validation
