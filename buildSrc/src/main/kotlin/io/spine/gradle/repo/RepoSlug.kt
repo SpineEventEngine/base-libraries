@@ -62,6 +62,6 @@ class RepoSlug(val value: String) {
      * Returns the GitHub URL to the project repository.
      */
     fun gitHost(): String {
-        return "git@github.com-publish:${value}.git"
+        return "git@github-publish:${value}.git"
     }
 }

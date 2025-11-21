@@ -65,7 +65,7 @@ internal class SshKey(private val rootProjectFolder: File) {
      * publishing.
      *
      * Thus, we configure the SSH agent to use the `deploy_rsa_key` only for specific
-     * references, namely in `github.com-publish`.
+     * references, namely in `github-publish`.
      *
      * @throws GradleException if `deploy_key_rsa` is not found.
      */
@@ -97,9 +97,10 @@ internal class SshKey(private val rootProjectFolder: File) {
         val nl = System.lineSeparator()
         this.appendText(
             nl +
-                    "Host github.com-publish" + nl +
-                    "User git" + nl +
-                    "IdentityFile ${privateKey.absolutePath}" + nl
+                    "Host github-publish" + nl +
+                    "   HostName github.com" + nl +
+                    "   User git" + nl +
+                    "   IdentityFile ${privateKey.absolutePath}" + nl
         )
     }
 
