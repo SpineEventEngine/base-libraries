@@ -39,14 +39,20 @@ internal class SshKey(private val rootProjectFolder: File) {
      * `register-ssh-key.sh` script.
      */
     fun register() {
+        System.err.println("[SshKey] Registering using ${rootProjectFolder.absolutePath}.")
         val gitHubAccessKey = gitHubKey()
+        System.err.println("[SshKey] Obtained the key file at ${gitHubAccessKey.absolutePath}.")
         val sshConfigFile = sshConfigFile()
+        System.err.println("[SshKey] Located the SSH key file at ${sshConfigFile.absolutePath}.")
         sshConfigFile.appendPublisher(gitHubAccessKey)
+        System.err.println("[SshKey] SSH config file appended.")
+        System.err.println("[SshKey] Contents: ${sshConfigFile.readText()}.")
 
         execute(
             "${rootProjectFolder.absolutePath}/config/scripts/register-ssh-key.sh",
             gitHubAccessKey.absolutePath
         )
+        System.err.println("[SshKey] The SSH key registered.")
     }
 
     /**
