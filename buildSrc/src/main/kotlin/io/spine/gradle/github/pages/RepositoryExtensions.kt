@@ -53,7 +53,7 @@ internal fun Repository.Factory.forPublishingDocumentation(version: String): Rep
     val userEmail = AuthorEmail.fromVar().toString()
     val user = UserInfo(username, userEmail)
 
-    val branch = Branch.documentation(version)
+    val branch = Branch.documentation
 
     return clone(host, user, branch)
 }

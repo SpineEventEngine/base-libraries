@@ -189,7 +189,7 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 /**
  * Finds the `dokkaGenerateHtml` Gradle task.
  */
-fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
+fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGeneratePublicationHtml")
 
 /**
  * Finds the `dokkaGeneratePublicationJavadoc` Gradle task.
@@ -207,7 +207,7 @@ fun Project.htmlDocsJar(): TaskProvider<Jar> = tasks.getOrCreate("htmlDocsJar") 
     archiveClassifier.set("html-docs")
     from(files(dokkaHtmlOutput()))
 
-    tasks.dokkaHtmlTask()?.let{ dokkaTask ->
+    tasks.dokkaHtmlTask()?.let { dokkaTask ->
         this@getOrCreate.dependsOn(dokkaTask)
     }
 }
