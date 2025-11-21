@@ -207,7 +207,7 @@ fun Project.htmlDocsJar(): TaskProvider<Jar> = tasks.getOrCreate("htmlDocsJar") 
     archiveClassifier.set("html-docs")
     from(files(dokkaHtmlOutput()))
 
-    tasks.dokkaHtmlTask()?.let{ dokkaTask ->
+    tasks.dokkaHtmlTask()?.let { dokkaTask ->
         this@getOrCreate.dependsOn(dokkaTask)
     }
 }
