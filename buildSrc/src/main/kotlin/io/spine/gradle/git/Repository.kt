@@ -119,8 +119,12 @@ class Repository private constructor(
 
     /**
      * Pushes the local repository to the remote.
+     *
+     * Before performing the `push` itself, configures the local `git`
+     * to automatically create the corresponding upstream branch at the remote side.
      */
     fun push() {
+        repoExecute("git", "config", "--global", "push.autoSetupRemote", "always")
         repoExecute("git", "push")
     }
 
