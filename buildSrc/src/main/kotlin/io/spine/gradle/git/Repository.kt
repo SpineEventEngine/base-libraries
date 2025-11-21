@@ -119,11 +119,9 @@ class Repository private constructor(
 
     /**
      * Pushes the current branch of the repository to the remote.
-     *
-     * If no such branch exists on the remote side, it is created as an upstream one.
      */
     fun push() {
-        repoExecute("git", "push", "-u", "origin", "HEAD")
+        repoExecute("git", "push", "--set-upstream", "origin", currentBranch)
     }
 
     override fun close() {
