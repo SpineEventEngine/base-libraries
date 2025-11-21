@@ -189,7 +189,7 @@ fun DokkaExtension.configureForJava(project: Project, sourceLinkRemoteUrl: Strin
 /**
  * Finds the `dokkaGenerateHtml` Gradle task.
  */
-fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGenerateHtml")
+fun TaskContainer.dokkaHtmlTask(): Task? = this.findByName("dokkaGeneratePublicationHtml")
 
 /**
  * Finds the `dokkaGeneratePublicationJavadoc` Gradle task.
