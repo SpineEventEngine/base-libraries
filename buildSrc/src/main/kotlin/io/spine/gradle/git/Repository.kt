@@ -70,8 +70,10 @@ class Repository private constructor(
     /**
      * Executes a command in the [location].
      */
-    private fun repoExecute(vararg command: String): String =
-        Cli(location.toFile()).execute(*command)
+    private fun repoExecute(vararg command: String): String {
+        System.err.println("[Repository] executing ${command.toList().joinToString(" ")}.")
+        return Cli(location.toFile()).execute(*command)
+    }
 
     /**
      * Checks out the branch by its name.
