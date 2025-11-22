@@ -78,6 +78,8 @@ class Repository private constructor(
 
     /**
      * Checks out the branch by its name.
+     *
+     * IMPORTANT. The branch must exist in the upstream repository.
      */
     fun checkout(branch: String) {
         repoExecute("git", "checkout", branch)
