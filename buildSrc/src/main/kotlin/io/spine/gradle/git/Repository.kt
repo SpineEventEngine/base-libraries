@@ -80,7 +80,7 @@ class Repository private constructor(
      * Checks out the branch by its name.
      */
     fun checkout(branch: String) {
-        repoExecute("git", "checkout", "-B", branch)
+        repoExecute("git", "checkout", branch)
         repoExecute("git", "pull")
 
         currentBranch = branch
