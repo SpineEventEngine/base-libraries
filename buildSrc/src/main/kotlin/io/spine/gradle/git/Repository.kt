@@ -70,14 +70,19 @@ class Repository private constructor(
     /**
      * Executes a command in the [location].
      */
-    private fun repoExecute(vararg command: String): String =
-        Cli(location.toFile()).execute(*command)
+    private fun repoExecute(vararg command: String): String {
+        System.err.println("[Repository] Executing command: " +
+                "`${command.toList().joinToString(" ")}`.")
+        return Cli(location.toFile()).execute(*command)
+    }
 
     /**
      * Checks out the branch by its name.
+     *
+     * IMPORTANT. The branch must exist in the upstream repository.
      */
     fun checkout(branch: String) {
-        repoExecute("git", "checkout", "-B", branch)
+        repoExecute("git", "checkout", branch)
         repoExecute("git", "pull")
 
         currentBranch = branch
