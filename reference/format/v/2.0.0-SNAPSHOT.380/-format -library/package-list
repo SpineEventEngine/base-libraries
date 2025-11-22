@@ -1,0 +1,37 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:io.spine.format.parse////PointingToDeclaration/-format -library/io.spine.format.parse/index.html
+$dokka.location:io.spine.format.parse/JacksonParser///PointingToDeclaration/-format -library/io.spine.format.parse/-jackson-parser/index.html
+$dokka.location:io.spine.format.parse/JacksonParser/JacksonParser/#/PointingToDeclaration/-format -library/io.spine.format.parse/-jackson-parser/-jackson-parser.html
+$dokka.location:io.spine.format.parse/JacksonParser/parse/#com.google.common.io.ByteSource#java.lang.Class[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/-format -library/io.spine.format.parse/-jackson-parser/parse.html
+$dokka.location:io.spine.format.write////PointingToDeclaration/-format -library/io.spine.format.write/index.html
+$dokka.location:io.spine.format.write/JacksonWriter///PointingToDeclaration/-format -library/io.spine.format.write/-jackson-writer/index.html
+$dokka.location:io.spine.format.write/JacksonWriter/JacksonWriter/#/PointingToDeclaration/-format -library/io.spine.format.write/-jackson-writer/-jackson-writer.html
+$dokka.location:io.spine.format////PointingToDeclaration/-format -library/io.spine.format/index.html
+$dokka.location:io.spine.format//ensureFormatExtension/java.io.File#io.spine.format.Format[*]/PointingToDeclaration/-format -library/io.spine.format/ensure-format-extension.html
+$dokka.location:io.spine.format//hasSupportedFormat/java.io.File#/PointingToDeclaration/-format -library/io.spine.format/has-supported-format.html
+$dokka.location:io.spine.format//parse/#java.io.File#io.spine.format.Format[TypeParam(bounds=[kotlin.Any])]#java.lang.Class[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/-format -library/io.spine.format/parse.html
+$dokka.location:io.spine.format//parse/#java.io.File#io.spine.format.Format[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/-format -library/io.spine.format/parse.html
+$dokka.location:io.spine.format//parse/#java.io.File#java.lang.Class[TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/-format -library/io.spine.format/parse.html
+$dokka.location:io.spine.format//parse/#java.io.File/PointingToDeclaration/-format -library/io.spine.format/parse.html
+$dokka.location:io.spine.format//write/#java.io.File#io.spine.format.Format[TypeParam(bounds=[kotlin.Any])]#TypeParam(bounds=[kotlin.Any])/PointingToDeclaration/-format -library/io.spine.format/write.html
+$dokka.location:io.spine.format/Format.Companion///PointingToDeclaration/-format -library/io.spine.format/-format/-companion/index.html
+$dokka.location:io.spine.format/Format.Companion/of/#java.io.File/PointingToDeclaration/-format -library/io.spine.format/-format/-companion/of.html
+$dokka.location:io.spine.format/Format.Json///PointingToDeclaration/-format -library/io.spine.format/-format/-json/index.html
+$dokka.location:io.spine.format/Format.Json/matches/#java.io.File/PointingToDeclaration/-format -library/io.spine.format/-format/-json/matches.html
+$dokka.location:io.spine.format/Format.ProtoBinary///PointingToDeclaration/-format -library/io.spine.format/-format/-proto-binary/index.html
+$dokka.location:io.spine.format/Format.ProtoJson///PointingToDeclaration/-format -library/io.spine.format/-format/-proto-json/index.html
+$dokka.location:io.spine.format/Format.Yaml///PointingToDeclaration/-format -library/io.spine.format/-format/-yaml/index.html
+$dokka.location:io.spine.format/Format///PointingToDeclaration/-format -library/io.spine.format/-format/index.html
+$dokka.location:io.spine.format/Format/Format/#io.spine.format.write.Writer[TypeParam(bounds=[kotlin.Any])]#io.spine.format.parse.Parser[TypeParam(bounds=[kotlin.Any])]#kotlin.String/PointingToDeclaration/-format -library/io.spine.format/-format/-format.html
+$dokka.location:io.spine.format/Format/extension/#/PointingToDeclaration/-format -library/io.spine.format/-format/extension.html
+$dokka.location:io.spine.format/Format/extensions/#/PointingToDeclaration/-format -library/io.spine.format/-format/extensions.html
+$dokka.location:io.spine.format/Format/matches/#java.io.File/PointingToDeclaration/-format -library/io.spine.format/-format/matches.html
+$dokka.location:io.spine.format/JacksonSupport.Companion///PointingToDeclaration/-format -library/io.spine.format/-jackson-support/-companion/index.html
+$dokka.location:io.spine.format/JacksonSupport.Companion/modules/#/PointingToDeclaration/-format -library/io.spine.format/-jackson-support/-companion/modules.html
+$dokka.location:io.spine.format/JacksonSupport///PointingToDeclaration/-format -library/io.spine.format/-jackson-support/index.html
+$dokka.location:io.spine.format/JacksonSupport/JacksonSupport/#/PointingToDeclaration/-format -library/io.spine.format/-jackson-support/-jackson-support.html
+$dokka.location:io.spine.format/JacksonSupport/mapper/#/PointingToDeclaration/-format -library/io.spine.format/-jackson-support/mapper.html
+io.spine.format
+io.spine.format.parse
+io.spine.format.write
