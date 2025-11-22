@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<!-- NewPage -->
+<html lang="en"><head>
+    <title>Package io.spine.base </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="dc.created" content="2020-03-25">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../dokka-javadoc-stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../jquery/jquery-ui.css" title="Style">
+    <script type="text/javascript" src="../../../jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-migrate-3.4.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../../../search.js"></script>
+    <script async type="text/javascript" src="../../../module-search-index.js"></script>
+    <script async type="text/javascript" src="../../../package-search-index.js"></script>
+    <script async type="text/javascript" src="../../../type-search-index.js"></script>
+    <script async type="text/javascript" src="../../../member-search-index.js"></script>
+    <script async type="text/javascript" src="../../../tag-search-index.js"></script>
+</head><body>
+<script type="text/javascript">
+var pathtoroot = "../../../";
+</script>
+<noscript>
+    <div>JavaScript is disabled on your browser.</div>
+</noscript><header role="banner">
+    <nav role="navigation">
+        <div class="fixedNav">
+            <!-- ========= START OF TOP NAVBAR ======= -->
+            <div class="topNav"><a id="navbar.top">
+                <!--   -->
+            </a>
+                <div class="skipNav"><a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
+                </div>
+                <a id="navbar.top.firstrow">
+                    <!--   -->
+                </a>
+                <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+            <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+
+<ul class="navListSearch">
+<li><label for="search">SEARCH:</label>
+<input type="text" id="search" value="search" class="ui-autocomplete-input" autocomplete="off" placeholder="Search">
+<input type="reset" id="reset" value="reset">
+</li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ========= END OF TOP NAVBAR ========= -->
+        </div>
+        <div class="navPadding">&nbsp;</div>
+        <script type="text/javascript"><!--
+        $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
+        //-->
+        </script>
+    </nav>
+</header>
+<main role="main">
+    <div class="header">
+        <h1 title="Package" class="title">Package io.spine.base </h1>
+    </div>
+        <div class="header">
+            <div class="subtitle">
+                <div class="block"><p>This package provides base data classes for commands, events, errors, rejections, and utilities for working with them.</p></div>
+            </div>
+            <p>See: <a href="#overview_description">Description</a></p>
+        </div>
+    <div class="contentContainer">
+        
+            <ul class="blockList">
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EventMessage.html>EventMessage</a></th><td class="colLast">A common interface for event messages.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MessageContext.html>MessageContext</a></th><td class="colLast">The base interface for messages that provide additional information common for a certain type of messages.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RejectionMessage.html>RejectionMessage</a></th><td class="colLast">A common interface for rejection messages.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=UuidValue.html>UuidValue</a></th><td class="colLast">A common interface for the <code>string</code>-based unique identifiers.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=CommandMessage.html>CommandMessage</a></th><td class="colLast">A common interface for command messages.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ErrorWithMessage.html>ErrorWithMessage</a></th><td class="colLast">Common interface for exceptions that can convert to a message instance for later inclusion into an <a href=Error.html>Error</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Routable.html>Routable</a></th><td class="colLast">A message which can be dispatched to one or more entities.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=SignalMessage.html>SignalMessage</a></th><td class="colLast">A message of a signal, such as an event or a command.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnysOrBuilder.html>MapOfAnysOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldFilterOrBuilder.html>FieldFilterOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ListOfAnysOrBuilder.html>ListOfAnysOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldPathOrBuilder.html>FieldPathOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ErrorOrBuilder.html>ErrorOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnys.EntryOrBuilder.html>EntryOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityState.html>EntityState</a></th><td class="colLast">A common interface for entity state messages.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=AggregateState.html>AggregateState</a></th><td class="colLast">An entity state of an aggregate.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ProjectionState.html>ProjectionState</a></th><td class="colLast">An entity state of a projection.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ProcessManagerState.html>ProcessManagerState</a></th><td class="colLast">An entity state of a process manager.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Time.html>Time</a></th><td class="colLast">Utilities for working with time information.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=SubscribableField.html>SubscribableField</a></th><td class="colLast">A subscribable message field which can be passed to subscription filters.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RejectionThrowable.html>RejectionThrowable</a></th><td class="colLast">A <code>Throwable</code>, which state is a Message.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RejectionType.html>RejectionType</a></th><td class="colLast">A code generation metadata on a rejection.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Field.html>Field</a></th><td class="colLast">A reference to a Protobuf message field.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Identifier.html>Identifier</a></th><td class="colLast">Wrapper of an identifier value.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Errors.html>Errors</a></th><td class="colLast">Utility class for working with <a href=Error.html>Error</a>s.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EventMessageField.html>EventMessageField</a></th><td class="colLast">A subscribable field of an <a href=EventMessage.html>event message</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldFilterProto.html>FieldFilterProto</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldFilter.Builder.html>Builder</a></th><td class="colLast"><pre><code>`FieldFilter` specifies accepted values for a field.
+</code></pre> Protobuf type <code>spine.base.FieldFilter</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldFilter.html>FieldFilter</a></th><td class="colLast"><pre><code>`FieldFilter` specifies accepted values for a field.
+</code></pre> Protobuf type <code>spine.base.FieldFilter</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CollectionsProto.html>CollectionsProto</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Error.Builder.html>Builder</a></th><td class="colLast"><pre><code>Information on a technical error occurred in the system.
+</code></pre> Protobuf type <code>spine.base.Error</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Error.html>Error</a></th><td class="colLast"><pre><code>Information on a technical error occurred in the system.
+</code></pre> Protobuf type <code>spine.base.Error</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPath.Builder.html>Builder</a></th><td class="colLast"><pre><code>Field path provides field names of nested messages.
+
+The first entry in the names list is a name of a field in the root message.
+The second entry is the name of the field in the nested message, and so on.
+
+For example, consider the following message declarations:
+
+message CustomerAccount {
+User user = 1;
+}
+
+message User {
+string name = 1;
+}
+
+The field path for `name` field of the `User` message enclosed into the `CustomerAccount`
+is [&quot;user&quot;, &quot;name&quot;].
+</code></pre> Protobuf type <code>spine.base.FieldPath</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldPath.html>FieldPath</a></th><td class="colLast"><pre><code>Field path provides field names of nested messages.
+
+The first entry in the names list is a name of a field in the root message.
+The second entry is the name of the field in the nested message, and so on.
+
+For example, consider the following message declarations:
+
+message CustomerAccount {
+User user = 1;
+}
+
+message User {
+string name = 1;
+}
+
+The field path for `name` field of the `User` message enclosed into the `CustomerAccount`
+is [&quot;user&quot;, &quot;name&quot;].
+</code></pre> Protobuf type <code>spine.base.FieldPath</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ErrorProto.html>ErrorProto</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldPathProto.html>FieldPathProto</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ListOfAnys.Builder.html>Builder</a></th><td class="colLast"><pre><code>A list of values packed into `google.protobuf.Any`.
+
+Unlike any other list in any target language, this message can itself be packed into `Any`.
+</code></pre> Protobuf type <code>spine.base.ListOfAnys</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ListOfAnys.html>ListOfAnys</a></th><td class="colLast"><pre><code>A list of values packed into `google.protobuf.Any`.
+
+Unlike any other list in any target language, this message can itself be packed into `Any`.
+</code></pre> Protobuf type <code>spine.base.ListOfAnys</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnys.Entry.Builder.html>Builder</a></th><td class="colLast"><pre><code>An entry in a map of `Any`s.
+</code></pre> Protobuf type <code>spine.base.MapOfAnys.Entry</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnys.Entry.html>Entry</a></th><td class="colLast"><pre><code>An entry in a map of `Any`s.
+</code></pre> Protobuf type <code>spine.base.MapOfAnys.Entry</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnys.Builder.html>Builder</a></th><td class="colLast"><pre><code>A map of values packed into `google.protobuf.Any`.
+
+Unlike a `map` natively supported by Protobuf, this data structure can
+contain keys of `Any` message type.
+
+Unlike any other map/dictionary/structure in any target language, this message
+can itself be packed into `Any`.
+</code></pre> Protobuf type <code>spine.base.MapOfAnys</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnys.html>MapOfAnys</a></th><td class="colLast"><pre><code>A map of values packed into `google.protobuf.Any`.
+
+Unlike a `map` natively supported by Protobuf, this data structure can
+contain keys of `Any` message type.
+
+Unlike any other map/dictionary/structure in any target language, this message
+can itself be packed into `Any`.
+</code></pre> Protobuf type <code>spine.base.MapOfAnys</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ErrorKt.Dsl.AttributesProxy.html>AttributesProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ErrorKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldFilterKt.Dsl.ValueProxy.html>ValueProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldFilterKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPathKt.Dsl.FieldNameProxy.html>FieldNameProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldPathKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ListOfAnysKt.Dsl.ValueProxy.html>ValueProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ListOfAnysKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnysKt.Dsl.EntryProxy.html>EntryProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnysKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnysKt.EntryKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Mistake.html>Mistake</a></th><td class="colLast">A special kind of <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-runtime-exception/index.html>RuntimeException</a> that represents an error, such as a programming or a system configuration error made by a human or a software agent.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ErrorKtKt.html>ErrorKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnysKtKt.html>MapOfAnysKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPaths.html>FieldPaths</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldFilterKtKt.html>FieldFilterKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPathKtKt.html>FieldPathKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ListOfAnysKtKt.html>ListOfAnysKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ThrowableExtensions.html>ThrowableExtensions</a></th><td class="colLast"></td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Enum Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Enum</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IdType.html>IdType</a></th><td class="colLast">Supported types of identifiers.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MessageFile.html>MessageFile</a></th><td class="colLast">A enumeration of file naming conventions for pre-defined types of messages.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Object Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Object</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ErrorKt.html>ErrorKt</a></th><td class="colLast"><pre><code>Information on a technical error occurred in the system.</code></pre>Protobuf type <code>spine.base.Error</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=FieldFilterKt.html>FieldFilterKt</a></th><td class="colLast"><pre><code>`FieldFilter` specifies accepted values for a field.</code></pre>Protobuf type <code>spine.base.FieldFilter</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPathKt.html>FieldPathKt</a></th><td class="colLast"><pre><code>Field path provides field names of nested messages.
+
+The first entry in the names list is a name of a field in the root message.
+The second entry is the name of the field in the nested message, and so on.
+
+For example, consider the following message declarations:
+
+message CustomerAccount {
+User user = 1;
+}
+
+message User {
+string name = 1;
+}
+
+The field path for `name` field of the `User` message enclosed into the `CustomerAccount`
+is [&quot;user&quot;, &quot;name&quot;].</code></pre>Protobuf type <code>spine.base.FieldPath</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ListOfAnysKt.html>ListOfAnysKt</a></th><td class="colLast"><pre><code>A list of values packed into `google.protobuf.Any`.
+
+Unlike any other list in any target language, this message can itself be packed into `Any`.</code></pre>Protobuf type <code>spine.base.ListOfAnys</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MapOfAnysKt.EntryKt.html>EntryKt</a></th><td class="colLast"><pre><code>An entry in a map of `Any`s.</code></pre>Protobuf type <code>spine.base.MapOfAnys.Entry</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MapOfAnysKt.html>MapOfAnysKt</a></th><td class="colLast"><pre><code>A map of values packed into `google.protobuf.Any`.
+
+Unlike a `map` natively supported by Protobuf, this data structure can
+contain keys of `Any` message type.
+
+Unlike any other map/dictionary/structure in any target language, this message
+can itself be packed into `Any`.</code></pre>Protobuf type <code>spine.base.MapOfAnys</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=FieldPathConstants.html>FieldPathConstants</a></th><td class="colLast">Constants related to parsing string representations of <a href=FieldPath.html>FieldPath</a>.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+            </ul>
+        
+    </div>
+</main>
+<footer role="contentinfo">
+    <nav role="navigation">
+        <!-- ======= START OF BOTTOM NAVBAR ====== -->
+        <div class="bottomNav"><a id="navbar.bottom">
+            <!--   -->
+        </a>
+            <div class="skipNav"><a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
+            </div>
+            <a id="navbar.bottom.firstrow">
+                <!--   -->
+            </a>
+            <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+        <a id="skip.navbar.bottom">
+            <!--   -->
+        </a>
+        <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ======== END OF BOTTOM NAVBAR ======= -->
+    </nav>
+</footer><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0"
+    style="display: none;"></ul>
+<span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span>
+</body>
+</html>
