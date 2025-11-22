@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.spine.option</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<link href="../../images/logo-icon.svg">
+<link href="../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    Base Library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2.0.0-SNAPSHOT.380        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":base/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":base/main"
+                                       data-filter=":base/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Base Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="Base Library::io.spine.option////PointingToDeclaration//256907473">
+  <div class="breadcrumbs"><a href="../../index.html">Base Library</a><span class="delimiter">/</span><span class="current">io.spine.option</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><p class="paragraph">This package provides the code generated from <code class="lang-kotlin">spine/options.proto</code>, the API for registering custom options (via the <a href="-options-provider/index.html">OptionsProvider</a> interface), and implementation of the <code class="lang-kotlin">OptionsProvider</code> interface for registering base options types.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="239108858%2FClasslikes%2F256907473" anchor-label="BaseOptionsProvider" id="239108858%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-base-options-provider/index.html"><span>Base</span><wbr></wbr><span>Options</span><wbr></wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="239108858%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.auto.service/AutoService///PointingToDeclaration/"><span class="token annotation builtin">AutoService</span></span><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><a href="-options-provider/index.html">OptionsProvider::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="-base-options-provider/index.html">BaseOptionsProvider</a> : <a href="-options-provider/index.html">OptionsProvider</a></div><div class="brief ">Register options generated for the <code class="lang-kotlin">spine/options.proto</code> file.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-836466508%2FClasslikes%2F256907473" anchor-label="ChoiceOption" id="-836466508%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-choice-option/index.html"><span>Choice</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-836466508%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-choice-option/index.html">ChoiceOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-choice-option-or-builder/index.html">ChoiceOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Controls whether a `oneof` group must always have one of its fields set.
+
+Note that unlike the `(required)` constraint, this option supports any field types
+within the group cases.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">ChoiceOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1234929291%2FClasslikes%2F256907473" anchor-label="ChoiceOptionKt" id="1234929291%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-choice-option-kt/index.html"><span>Choice</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1234929291%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-choice-option-kt/index.html">ChoiceOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">ChoiceOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-666841610%2FClasslikes%2F256907473" anchor-label="ChoiceOptionOrBuilder" id="-666841610%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-choice-option-or-builder/index.html"><span>Choice</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-666841610%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-choice-option-or-builder/index.html">ChoiceOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1309273657%2FClasslikes%2F256907473" anchor-label="CompareByOption" id="-1309273657%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compare-by-option/index.html"><span>Compare</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1309273657%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-compare-by-option/index.html">CompareByOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-compare-by-option-or-builder/index.html">CompareByOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines the way to compare two messages of the same type to one another.
+
+Comparisons can be used to sort values.
+
+See the `(compare_by)` option.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">CompareByOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2133792478%2FClasslikes%2F256907473" anchor-label="CompareByOptionKt" id="2133792478%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compare-by-option-kt/index.html"><span>Compare</span><wbr></wbr><span>By</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2133792478%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-compare-by-option-kt/index.html">CompareByOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">CompareByOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="512543299%2FClasslikes%2F256907473" anchor-label="CompareByOptionOrBuilder" id="512543299%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compare-by-option-or-builder/index.html"><span>Compare</span><wbr></wbr><span>By</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="512543299%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-compare-by-option-or-builder/index.html">CompareByOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1337738702%2FClasslikes%2F256907473" anchor-label="EntityOption" id="-1337738702%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-entity-option/index.html"><span>Entity</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337738702%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-entity-option/index.html">EntityOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-entity-option-or-builder/index.html">EntityOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines options of a message representing a state of an entity.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">EntityOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="548688009%2FClasslikes%2F256907473" anchor-label="EntityOptionKt" id="548688009%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-entity-option-kt/index.html"><span>Entity</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="548688009%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-entity-option-kt/index.html">EntityOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">EntityOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="869165624%2FClasslikes%2F256907473" anchor-label="EntityOptionOrBuilder" id="869165624%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-entity-option-or-builder/index.html"><span>Entity</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="869165624%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-entity-option-or-builder/index.html">EntityOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="459406558%2FClasslikes%2F256907473" anchor-label="EveryIsOption" id="459406558%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-every-is-option/index.html"><span>Every</span><wbr></wbr><span>Is</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="459406558%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-every-is-option/index.html">EveryIsOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-every-is-option-or-builder/index.html">EveryIsOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines a common type for message types declared in the same proto file.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface common
+to all message classes generated for the proto file having this option.
+
+The option triggers creation of the common type if the `generate` property is set to true.
+Otherwise, it is expected that the user provides the reference to an existing type.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">EveryIsOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1028429877%2FClasslikes%2F256907473" anchor-label="EveryIsOptionKt" id="1028429877%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-every-is-option-kt/index.html"><span>Every</span><wbr></wbr><span>Is</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1028429877%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-every-is-option-kt/index.html">EveryIsOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">EveryIsOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2062706956%2FClasslikes%2F256907473" anchor-label="EveryIsOptionOrBuilder" id="2062706956%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-every-is-option-or-builder/index.html"><span>Every</span><wbr></wbr><span>Is</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2062706956%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-every-is-option-or-builder/index.html">EveryIsOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-254221729%2FClasslikes%2F256907473" anchor-label="GoesOption" id="-254221729%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-goes-option/index.html"><span>Goes</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-254221729%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-goes-option/index.html">GoesOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-goes-option-or-builder/index.html">GoesOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Specifies that another field must be present if the option's target field is present.
+
+Unlike the `required_field` that handles combination of required fields, this option is useful
+when it is needed to say that an optional field makes sense only when another optional field
+is present.
+
+This option can be applied to the same field types as `(required)`, including both the
+target field and its companion. Supported field types are:
+
+- Messages and enums.
+- Repeated fields and maps.
+- `string` and `bytes`.
+
+Example: requiring mutual presence of optional fields.
+
+message ScheduledItem {
+...
+spine.time.LocalDate date = 4;
+spine.time.LocalTime time = 5 [(goes).with = &quot;date&quot;];
+}
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">GoesOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1868553866%2FClasslikes%2F256907473" anchor-label="GoesOptionKt" id="-1868553866%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-goes-option-kt/index.html"><span>Goes</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1868553866%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-goes-option-kt/index.html">GoesOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">GoesOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="896476331%2FClasslikes%2F256907473" anchor-label="GoesOptionOrBuilder" id="896476331%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-goes-option-or-builder/index.html"><span>Goes</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="896476331%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-goes-option-or-builder/index.html">GoesOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1320352414%2FClasslikes%2F256907473" anchor-label="IfHasDuplicatesOption" id="1320352414%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-has-duplicates-option/index.html"><span>If</span><wbr></wbr><span>Has</span><wbr></wbr><span>Duplicates</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1320352414%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-if-has-duplicates-option/index.html">IfHasDuplicatesOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-if-has-duplicates-option-or-builder/index.html">IfHasDuplicatesOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines the error message used if a `distinct` field has duplicates.
+
+Applies only to the `repeated` and `map` fields marked with the `(distinct)` option.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">IfHasDuplicatesOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-531290635%2FClasslikes%2F256907473" anchor-label="IfHasDuplicatesOptionKt" id="-531290635%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-has-duplicates-option-kt/index.html"><span>If</span><wbr></wbr><span>Has</span><wbr></wbr><span>Duplicates</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-531290635%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-if-has-duplicates-option-kt/index.html">IfHasDuplicatesOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">IfHasDuplicatesOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-847060148%2FClasslikes%2F256907473" anchor-label="IfHasDuplicatesOptionOrBuilder" id="-847060148%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-has-duplicates-option-or-builder/index.html"><span>If</span><wbr></wbr><span>Has</span><wbr></wbr><span>Duplicates</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847060148%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-if-has-duplicates-option-or-builder/index.html">IfHasDuplicatesOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="893714441%2FClasslikes%2F256907473" anchor-label="IfInvalidOption" id="893714441%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-invalid-option/index.html"><span>If</span><wbr></wbr><span>Invalid</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="893714441%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-if-invalid-option/index.html"><strike>IfInvalidOption</strike></a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-if-invalid-option-or-builder/index.html">IfInvalidOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Specifies the message to show if a validated field happens to be invalid.
+
+It is applicable only to fields marked with `(validate)`.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">IfInvalidOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1786477728%2FClasslikes%2F256907473" anchor-label="IfInvalidOptionKt" id="1786477728%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-invalid-option-kt/index.html"><span>If</span><wbr></wbr><span>Invalid</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1786477728%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-if-invalid-option-kt/index.html">IfInvalidOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">IfInvalidOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1256667583%2FClasslikes%2F256907473" anchor-label="IfInvalidOptionOrBuilder" id="-1256667583%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-invalid-option-or-builder/index.html"><span>If</span><wbr></wbr><span>Invalid</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1256667583%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-if-invalid-option-or-builder/index.html"><strike>IfInvalidOptionOrBuilder</strike></a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1926217030%2FClasslikes%2F256907473" anchor-label="IfMissingOption" id="-1926217030%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-missing-option/index.html"><span>If</span><wbr></wbr><span>Missing</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1926217030%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-if-missing-option/index.html">IfMissingOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-if-missing-option-or-builder/index.html">IfMissingOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines the error message used if a `required` field is not set.
+
+Applies only to the fields marked as `required`.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">IfMissingOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1956697873%2FClasslikes%2F256907473" anchor-label="IfMissingOptionKt" id="1956697873%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-missing-option-kt/index.html"><span>If</span><wbr></wbr><span>Missing</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1956697873%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-if-missing-option-kt/index.html">IfMissingOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">IfMissingOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-343999824%2FClasslikes%2F256907473" anchor-label="IfMissingOptionOrBuilder" id="-343999824%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-missing-option-or-builder/index.html"><span>If</span><wbr></wbr><span>Missing</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-343999824%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-if-missing-option-or-builder/index.html">IfMissingOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-768880070%2FClasslikes%2F256907473" anchor-label="IfSetAgainOption" id="-768880070%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-set-again-option/index.html"><span>If</span><wbr></wbr><span>Set</span><wbr></wbr><span>Again</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-768880070%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-if-set-again-option/index.html">IfSetAgainOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-if-set-again-option-or-builder/index.html">IfSetAgainOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines the error message used if a `set_once` field is set again.
+
+Applies only to the fields marked as `set_once`.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">IfSetAgainOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1760986769%2FClasslikes%2F256907473" anchor-label="IfSetAgainOptionKt" id="1760986769%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-set-again-option-kt/index.html"><span>If</span><wbr></wbr><span>Set</span><wbr></wbr><span>Again</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1760986769%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-if-set-again-option-kt/index.html">IfSetAgainOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">IfSetAgainOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1003281200%2FClasslikes%2F256907473" anchor-label="IfSetAgainOptionOrBuilder" id="1003281200%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-if-set-again-option-or-builder/index.html"><span>If</span><wbr></wbr><span>Set</span><wbr></wbr><span>Again</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1003281200%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-if-set-again-option-or-builder/index.html">IfSetAgainOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1813294219%2FClasslikes%2F256907473" anchor-label="IsOption" id="1813294219%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-is-option/index.html"><span>Is</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1813294219%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-is-option/index.html">IsOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-is-option-or-builder/index.html">IsOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Defines additional type for a message type in which this option is declared.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface which
+the generated message class will implement.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">IsOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="739381410%2FClasslikes%2F256907473" anchor-label="IsOptionKt" id="739381410%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-is-option-kt/index.html"><span>Is</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="739381410%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-is-option-kt/index.html">IsOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">IsOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="477498367%2FClasslikes%2F256907473" anchor-label="IsOptionOrBuilder" id="477498367%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-is-option-or-builder/index.html"><span>Is</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="477498367%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-is-option-or-builder/index.html">IsOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1717580609%2FClasslikes%2F256907473" anchor-label="MaxOption" id="-1717580609%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-max-option/index.html"><span>Max</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1717580609%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-max-option/index.html">MaxOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-max-option-or-builder/index.html">MaxOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Indicates that the numeric field must be less than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">MaxOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="592835542%2FClasslikes%2F256907473" anchor-label="MaxOptionKt" id="592835542%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-max-option-kt/index.html"><span>Max</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="592835542%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-max-option-kt/index.html">MaxOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">MaxOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-933632437%2FClasslikes%2F256907473" anchor-label="MaxOptionOrBuilder" id="-933632437%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-max-option-or-builder/index.html"><span>Max</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-933632437%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-max-option-or-builder/index.html">MaxOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="914042385%2FClasslikes%2F256907473" anchor-label="MinOption" id="914042385%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-min-option/index.html"><span>Min</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="914042385%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-min-option/index.html">MinOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-min-option-or-builder/index.html">MinOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Indicates that the numeric field must be greater than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">MinOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-153204568%2FClasslikes%2F256907473" anchor-label="MinOptionKt" id="-153204568%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-min-option-kt/index.html"><span>Min</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-153204568%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-min-option-kt/index.html">MinOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">MinOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2059280071%2FClasslikes%2F256907473" anchor-label="MinOptionOrBuilder" id="-2059280071%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-min-option-or-builder/index.html"><span>Min</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2059280071%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-min-option-or-builder/index.html">MinOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1541587648%2FClasslikes%2F256907473" anchor-label="OptionsProto" id="1541587648%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-options-proto/index.html"><span>Options</span><wbr></wbr><span><span>Proto</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1541587648%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-options-proto/index.html">OptionsProto</a> : <span data-unresolved-link="com.google.protobuf/GeneratedFile///PointingToDeclaration/">GeneratedFile</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-517019511%2FClasslikes%2F256907473" anchor-label="OptionsProvider" id="-517019511%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-options-provider/index.html"><span>Options</span><wbr></wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-517019511%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-options-provider/index.html">OptionsProvider</a></div><div class="brief ">A service provider interface for custom Protobuf options.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="45135251%2FClasslikes%2F256907473" anchor-label="PatternOption" id="45135251%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pattern-option/index.html"><span>Pattern</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="45135251%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-pattern-option/index.html">PatternOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-pattern-option-or-builder/index.html">PatternOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">A string field value must match the given regular expression.
+
+This option is applicable only to string fields,
+including those that are repeated.
+
+Example: using the `(pattern)` option.
+
+message CreateAccount {
+string id = 1 [(pattern).regex = &quot;^[A-Za-z0-9+]+$&quot;,
+(pattern).error_msg = &quot;ID must be alphanumerical in `${parent.type}`. Provided: `${field.value}`.&quot;];
+}
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">PatternOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1949304918%2FClasslikes%2F256907473" anchor-label="PatternOptionKt" id="-1949304918%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pattern-option-kt/index.html"><span>Pattern</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1949304918%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-pattern-option-kt/index.html">PatternOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">PatternOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1822403575%2FClasslikes%2F256907473" anchor-label="PatternOptionOrBuilder" id="1822403575%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pattern-option-or-builder/index.html"><span>Pattern</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1822403575%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-pattern-option-or-builder/index.html">PatternOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="358072326%2FClasslikes%2F256907473" anchor-label="RangeOption" id="358072326%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-range-option/index.html"><span>Range</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="358072326%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-range-option/index.html">RangeOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-range-option-or-builder/index.html">RangeOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Indicate that the numeric field must belong to the specified bounded range.
+
+For unbounded ranges, please use `(min)` and `(max) options.
+
+The option supports all singular and repeated numeric fields.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">RangeOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864486563%2FClasslikes%2F256907473" anchor-label="RangeOptionKt" id="-1864486563%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-range-option-kt/index.html"><span>Range</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864486563%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-range-option-kt/index.html">RangeOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">RangeOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="21082852%2FClasslikes%2F256907473" anchor-label="RangeOptionOrBuilder" id="21082852%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-range-option-or-builder/index.html"><span>Range</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="21082852%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-range-option-or-builder/index.html">RangeOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1222452510%2FClasslikes%2F256907473" anchor-label="RequireOption" id="1222452510%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-require-option/index.html"><span>Require</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1222452510%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">class </span><a href="-require-option/index.html">RequireOption</a> : <span data-unresolved-link="com.google.protobuf/GeneratedMessage///PointingToDeclaration/">GeneratedMessage</span>, <a href="-require-option-or-builder/index.html">RequireOptionOrBuilder</a></div><div class="brief "><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Declares the field groups, at least one of which must have all of its fields set.
+
+Unlike the `(required)` field constraint, which requires the presence of
+a specific field, this option allows to specify alternative field groups.
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> Protobuf type <code class="lang-kotlin">RequireOption</code></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-123817867%2FClasslikes%2F256907473" anchor-label="RequireOptionKt" id="-123817867%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-require-option-kt/index.html"><span>Require</span><wbr></wbr><span>Option</span><wbr></wbr><span><span>Kt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-123817867%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-require-option-kt/index.html">RequireOptionKt</a></div><div class="brief "><p class="paragraph">Protobuf type <code class="lang-kotlin">RequireOption</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-740259636%2FClasslikes%2F256907473" anchor-label="RequireOptionOrBuilder" id="-740259636%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-require-option-or-builder/index.html"><span>Require</span><wbr></wbr><span>Option</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-740259636%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.protobuf/Generated///PointingToDeclaration/"><span class="token annotation builtin">Generated</span></span></div></div><span class="token keyword">interface </span><a href="-require-option-or-builder/index.html">RequireOptionOrBuilder</a> : <span data-unresolved-link="com.google.protobuf/MessageOrBuilder///PointingToDeclaration/">MessageOrBuilder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_PROPERTY">
+        <h2 class="tableheader">Inherited properties</h2>
+        <div class="table"><a data-name="1501299917%2FProperties%2F256907473" anchor-label="modifierOrNull" id="1501299917%2FProperties%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="modifier-or-null.html"><span>modifier</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1501299917%2FProperties%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pattern-option-or-builder/index.html">PatternOptionOrBuilder</a><span class="token punctuation">.</span><a href="modifier-or-null.html">modifierOrNull</a><span class="token operator">: </span><a href="-pattern-option/-modifier/index.html">PatternOption.Modifier</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1836962090%2FFunctions%2F256907473" anchor-label="choiceOption" id="1836962090%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="choice-option.html"><span>choice</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1836962090%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializechoiceOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="choice-option.html"><span class="token function">choiceOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-choice-option-kt/-dsl/index.html">ChoiceOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-choice-option/index.html">ChoiceOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1751130070%2FFunctions%2F256907473" anchor-label="compareByOption" id="-1751130070%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="compare-by-option.html"><span>compare</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1751130070%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializecompareByOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="compare-by-option.html"><span class="token function">compareByOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-compare-by-option-kt/-dsl/index.html">CompareByOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-compare-by-option/index.html">CompareByOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="766004458%2FFunctions%2F256907473" anchor-label="entityOption" id="766004458%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="entity-option.html"><span>entity</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="766004458%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeentityOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="entity-option.html"><span class="token function">entityOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-entity-option-kt/-dsl/index.html">EntityOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-entity-option/index.html">EntityOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1832277700%2FFunctions%2F256907473" anchor-label="everyIsOption" id="-1832277700%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="every-is-option.html"><span>every</span><wbr></wbr><span>Is</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1832277700%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeeveryIsOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="every-is-option.html"><span class="token function">everyIsOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-every-is-option-kt/-dsl/index.html">EveryIsOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-every-is-option/index.html">EveryIsOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-484678134%2FFunctions%2F256907473" anchor-label="goesOption" id="-484678134%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="goes-option.html"><span>goes</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-484678134%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializegoesOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="goes-option.html"><span class="token function">goesOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-goes-option-kt/-dsl/index.html">GoesOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-goes-option/index.html">GoesOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="385726140%2FFunctions%2F256907473" anchor-label="ifHasDuplicatesOption" id="385726140%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="if-has-duplicates-option.html"><span>if</span><wbr></wbr><span>Has</span><wbr></wbr><span>Duplicates</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="385726140%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeifHasDuplicatesOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="if-has-duplicates-option.html"><span class="token function">ifHasDuplicatesOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-has-duplicates-option-kt/-dsl/index.html">IfHasDuplicatesOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-has-duplicates-option/index.html">IfHasDuplicatesOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1093377882%2FFunctions%2F256907473" anchor-label="ifInvalidOption" id="-1093377882%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="if-invalid-option.html"><span>if</span><wbr></wbr><span>Invalid</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1093377882%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeifInvalidOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="if-invalid-option.html"><span class="token function">ifInvalidOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-invalid-option-kt/-dsl/index.html">IfInvalidOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-invalid-option/index.html">IfInvalidOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-691818044%2FFunctions%2F256907473" anchor-label="ifMissingOption" id="-691818044%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="if-missing-option.html"><span>if</span><wbr></wbr><span>Missing</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-691818044%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeifMissingOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="if-missing-option.html"><span class="token function">ifMissingOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-missing-option-kt/-dsl/index.html">IfMissingOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-missing-option/index.html">IfMissingOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1221784938%2FFunctions%2F256907473" anchor-label="ifSetAgainOption" id="1221784938%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="if-set-again-option.html"><span>if</span><wbr></wbr><span>Set</span><wbr></wbr><span>Again</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1221784938%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeifSetAgainOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="if-set-again-option.html"><span class="token function">ifSetAgainOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-set-again-option-kt/-dsl/index.html">IfSetAgainOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-set-again-option/index.html">IfSetAgainOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="724409098%2FFunctions%2F256907473" anchor-label="isOption" id="724409098%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-option.html"><span>is</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="724409098%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeisOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="is-option.html"><span class="token function">isOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-is-option-kt/-dsl/index.html">IsOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-is-option/index.html">IsOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-655468870%2FFunctions%2F256907473" anchor-label="maxOption" id="-655468870%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-option.html"><span>max</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-655468870%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializemaxOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="max-option.html"><span class="token function">maxOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-max-option-kt/-dsl/index.html">MaxOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-max-option/index.html">MaxOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-265583722%2FFunctions%2F256907473" anchor-label="minOption" id="-265583722%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="min-option.html"><span>min</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-265583722%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializeminOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="min-option.html"><span class="token function">minOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-min-option-kt/-dsl/index.html">MinOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-min-option/index.html">MinOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-154511598%2FFunctions%2F256907473" anchor-label="patternOption" id="-154511598%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pattern-option.html"><span>pattern</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-154511598%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializepatternOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="pattern-option.html"><span class="token function">patternOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-pattern-option-kt/-dsl/index.html">PatternOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-pattern-option/index.html">PatternOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1157725012%2FFunctions%2F256907473" anchor-label="rangeOption" id="-1157725012%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="range-option.html"><span>range</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1157725012%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializerangeOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="range-option.html"><span class="token function">rangeOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-range-option-kt/-dsl/index.html">RangeOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-range-option/index.html">RangeOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1837623484%2FFunctions%2F256907473" anchor-label="requireOption" id="1837623484%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="require-option.html"><span>require</span><wbr></wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1837623484%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;-initializerequireOption&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="require-option.html"><span class="token function">requireOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-require-option-kt/-dsl/index.html">RequireOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-require-option/index.html">RequireOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="tableheader">Inherited functions</h2>
+        <div class="table"><a data-name="-1765915237%2FFunctions%2F256907473" anchor-label="copy" id="-1765915237%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1765915237%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-choice-option/index.html">ChoiceOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-choice-option-kt/-dsl/index.html">ChoiceOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-choice-option/index.html">ChoiceOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-compare-by-option/index.html">CompareByOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-compare-by-option-kt/-dsl/index.html">CompareByOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-compare-by-option/index.html">CompareByOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-entity-option/index.html">EntityOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-entity-option-kt/-dsl/index.html">EntityOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-entity-option/index.html">EntityOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-every-is-option/index.html">EveryIsOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-every-is-option-kt/-dsl/index.html">EveryIsOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-every-is-option/index.html">EveryIsOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-goes-option/index.html">GoesOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-goes-option-kt/-dsl/index.html">GoesOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-goes-option/index.html">GoesOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-if-has-duplicates-option/index.html">IfHasDuplicatesOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-has-duplicates-option-kt/-dsl/index.html">IfHasDuplicatesOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-has-duplicates-option/index.html">IfHasDuplicatesOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-if-invalid-option/index.html">IfInvalidOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-invalid-option-kt/-dsl/index.html">IfInvalidOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-invalid-option/index.html">IfInvalidOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-if-missing-option/index.html">IfMissingOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-missing-option-kt/-dsl/index.html">IfMissingOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-missing-option/index.html">IfMissingOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-if-set-again-option/index.html">IfSetAgainOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-if-set-again-option-kt/-dsl/index.html">IfSetAgainOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-if-set-again-option/index.html">IfSetAgainOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-is-option/index.html">IsOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-is-option-kt/-dsl/index.html">IsOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-is-option/index.html">IsOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-max-option/index.html">MaxOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-max-option-kt/-dsl/index.html">MaxOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-max-option/index.html">MaxOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-min-option/index.html">MinOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-min-option-kt/-dsl/index.html">MinOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-min-option/index.html">MinOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-pattern-option/index.html">PatternOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-pattern-option-kt/-dsl/index.html">PatternOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-pattern-option/index.html">PatternOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-pattern-option/-modifier/index.html">PatternOption.Modifier</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-pattern-option-kt/-modifier-kt/-dsl/index.html">PatternOptionKt.ModifierKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-pattern-option/-modifier/index.html">PatternOption.Modifier</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-range-option/index.html">RangeOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-range-option-kt/-dsl/index.html">RangeOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-range-option/index.html">RangeOption</a></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-require-option/index.html">RequireOption</a><span class="token punctuation">.</span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-require-option-kt/-dsl/index.html">RequireOptionKt.Dsl</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-require-option/index.html">RequireOption</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright 2025, TeamDev</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

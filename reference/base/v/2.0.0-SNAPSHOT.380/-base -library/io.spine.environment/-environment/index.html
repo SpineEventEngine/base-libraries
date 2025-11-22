@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Environment</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Base Library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2.0.0-SNAPSHOT.380        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":base/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":base/main"
+                                       data-filter=":base/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Base Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Base Library::io.spine.environment/Environment///PointingToDeclaration//256907473">
+  <div class="breadcrumbs"><a href="../../../index.html">Base Library</a><span class="delimiter">/</span><a href="../index.html">io.spine.environment</a><span class="delimiter">/</span><span class="current">Environment</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Environment</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.spine.annotation/SPI///PointingToDeclaration/"><span class="token annotation builtin">SPI</span></span></div></div><span class="token keyword">class </span><a href="index.html">Environment</a> : <span data-unresolved-link="io.spine.logging/WithLogging///PointingToDeclaration/">WithLogging</span></div><p class="paragraph">Provides information about the environment (current platform used, etc.). </p><h3 class="">Detecting the type of the environment</h3><p class="paragraph">It is possible to <a href="type.html">obtain the type</a> of the current environment, or to check whether current environment type <a href="is.html">matches another type</a>. </p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">
+public final class Application {
+
+    private final EmailSender sender;
+
+    private Application() {
+        Environment environment = Environment.instance();
+        if (environment.is(Tests.class)) {
+            // Do not send out emails if in tests.
+            this.sender = new MockEmailSender();
+        } else {
+            this.sender = EmailSender.withConfig(&quot;email_gateway.yml&quot;);
+        }
+        //...
+    }
+}
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The following standard types are always available for checking with the current environment: </p><ul><li><a href="../-tests/index.html">Tests</a> is detected if the current call stack has a reference to a <a href="../-tests/known-testing-frameworks.html">unit testing framework</a>. </li><li><a href="../-default-mode/index.html">DefaultMode</a> is set in all other cases. </li></ul><p class="paragraph">The framework users may define their custom settings depending on the current environment type and then <a href="register.html">register</a> them for further detection. Custom types are <a href="../-environment-type/enabled.html">evaluated</a> in the order reverse to registration. That is, last registered type would be checked first and so on. Please see <a href="../-custom-environment-type/index.html">CustomEnvironmentType</a> for details. </p><h3 class="">When environment changes</h3><p class="paragraph">When calculating the <a href="type.html">current type</a><code class="lang-kotlin">Environment</code> finds the first <a href="../-environment-type/enabled.html">enabled</a><code class="lang-kotlin">EnvironmentType</code>, and then remembers it as the currently active. Subsequent calls will not cause re-evaluation of the <a href="../-environment-type/enabled.html">enabled</a>. </p><p class="paragraph">If later the current type becomes logically inactive, <code class="lang-kotlin">Environment</code> needs to be updated by one of the following approaches: </p><ul><li>Setting a new environment type, directly by calling <a href="set-to.html">setTo</a>. </li><li>Calling the <a href="reset.html">reset</a> method (which would drop the currently selected type) and re-registering environment types. </li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">
+    Environment environment = Environment.instance();
+    environment.register(AwsLambda.class);
+    assertThat(environment.is(AwsLambda.class)).isTrue();
+
+    System.clearProperty(AwsLambda.AWS_ENV_VARIABLE);
+
+    // Even though `AwsLambda` is not active, we have remembered the value, and
+    // `is(AwsLambda.class)` is `true`.
+    assertThat(environment.is(AwsLambda.class)).isTrue();
+
+    environment.reset();
+    environment.register(AwsLambda.class);
+
+    // When `reset()` is called, the stored value is cleared.
+    assertThat(environment.is(AwsLambda.class)).isFalse();
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-environment-type/index.html"><span>Environment</span><wbr></wbr><span><span>Type</span></span></a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-custom-environment-type/index.html"><span>Custom</span><wbr></wbr><span>Environment</span><wbr></wbr><span><span>Type</span></span></a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tests/index.html"><span><span>Tests</span></span></a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-default-mode/index.html"><span>Default</span><wbr></wbr><span><span>Mode</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="321695329%2FFunctions%2F256907473" anchor-label="createCopy" id="321695329%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-copy.html"><span>create</span><wbr></wbr><span><span>Copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="321695329%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.spine.annotation/VisibleForTesting///PointingToDeclaration/"><span class="token annotation builtin">VisibleForTesting</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-copy.html"><span class="token function">createCopy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Environment</a></div><div class="brief ">Creates a copy of the instance so that it can be later restored via <a href="restore-from.html">restoreFrom</a> by cleanup in tests.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="226627101%2FFunctions%2F256907473" anchor-label="instance" id="226627101%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="instance.html"><span><span>instance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="226627101%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="instance.html"><span class="token function">instance</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Environment</a></div><div class="brief ">Returns the singleton instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="22052603%2FFunctions%2F256907473" anchor-label="is" id="22052603%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is.html"><span><span>is</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="22052603%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is.html"><span class="token function">is</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../-environment-type/index.html">EnvironmentType</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Determines whether the current environment is the same as the specified one.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2139919550%2FFunctions%2F256907473" anchor-label="register" id="2139919550%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="register.html"><span><span>register</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2139919550%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.errorprone.annotations/CanIgnoreReturnValue///PointingToDeclaration/"><span class="token annotation builtin">CanIgnoreReturnValue</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="register.html"><span class="token function">register</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../-custom-environment-type/index.html">CustomEnvironmentType</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Environment</a></div><div class="brief ">Remembers the specified environment type, allowing <a href="is.html">to determine whether it's enabled</a> later.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1591494631%2FFunctions%2F256907473" anchor-label="reset" id="-1591494631%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset.html"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1591494631%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.spine.annotation/VisibleForTesting///PointingToDeclaration/"><span class="token annotation builtin">VisibleForTesting</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Resets the instance and clears the <span data-unresolved-link="io.spine.environment/TestsProperty///PointingToDeclaration/">TestsProperty</span>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2111233291%2FFunctions%2F256907473" anchor-label="restoreFrom" id="2111233291%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="restore-from.html"><span>restore</span><wbr></wbr><span><span>From</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2111233291%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="io.spine.annotation/VisibleForTesting///PointingToDeclaration/"><span class="token annotation builtin">VisibleForTesting</span></span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="restore-from.html"><span class="token function">restoreFrom</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">copy<span class="token operator">: </span><a href="index.html">Environment</a></span></span><span class="token punctuation">)</span></div><div class="brief ">Restores the state from the instance created by <a href="create-copy.html">createCopy</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1126759241%2FFunctions%2F256907473" anchor-label="setTo" id="1126759241%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-to.html"><span>set</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1126759241%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-to.html"><span class="token function">setTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../-environment-type/index.html">EnvironmentType</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the current environment type to the specified one.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1847076456%2FFunctions%2F256907473" anchor-label="type" id="-1847076456%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="type.html"><span><span>type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1847076456%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="type.html"><span class="token function">type</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../-environment-type/index.html">EnvironmentType</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief ">Returns the type of the current environment.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1089530447%2FFunctions%2F256907473" anchor-label="whenDetected" id="-1089530447%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="when-detected.html"><span>when</span><wbr></wbr><span><span>Detected</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1089530447%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="when-detected.html">T</a><span class="token operator"> : </span><a href="../-environment-type/index.html">EnvironmentType</a><span class="token operator">&lt;</span><a href="when-detected.html">T</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt; </span><a href="when-detected.html"><span class="token function">whenDetected</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cls<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="when-detected.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jspecify.annotations/Nullable///PointingToDeclaration/"><span class="token annotation builtin">Nullable</span></span> </span>callback<span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jspecify.annotations/Nullable///PointingToDeclaration/"><span class="token annotation builtin">Nullable</span></span> </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Consumer.html">Consumer</a><span class="token operator">&lt;</span><a href="when-detected.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Configures a callback to be called when corresponding environment type is <a href="../-environment-type/enabled.html">detected</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright 2025, TeamDev</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

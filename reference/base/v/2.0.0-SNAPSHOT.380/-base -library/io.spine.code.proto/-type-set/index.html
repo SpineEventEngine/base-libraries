@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TypeSet</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Base Library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2.0.0-SNAPSHOT.380        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":base/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":base/main"
+                                       data-filter=":base/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Base Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Base Library::io.spine.code.proto/TypeSet///PointingToDeclaration//256907473">
+  <div class="breadcrumbs"><a href="../../../index.html">Base Library</a><span class="delimiter">/</span><a href="../index.html">io.spine.code.proto</a><span class="delimiter">/</span><span class="current">TypeSet</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Type</span><wbr></wbr><span><span>Set</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.errorprone.annotations/Immutable///PointingToDeclaration/"><span class="token annotation builtin">Immutable</span></span></div></div><span class="token keyword">class </span><a href="index.html">TypeSet</a></div><p class="paragraph">A set of Protobuf types.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="865053489%2FClasslikes%2F256907473" anchor-label="Builder" id="865053489%2FClasslikes%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865053489%2FClasslikes%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-builder/index.html">Builder</a></div><div class="brief ">A builder for the <code class="lang-kotlin">TypeSet</code> instances.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="469763785%2FFunctions%2F256907473" anchor-label="allTypes" id="469763785%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="--all-types--.html"><span>all</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="469763785%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="--all-types--.html"><span class="token function">allTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableSet///PointingToDeclaration/">ImmutableSet</span><span class="token operator">&lt;</span><span data-unresolved-link="io.spine.type/Type///PointingToDeclaration/">Type</span><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief ">Obtains all the types contained in this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="915246652%2FFunctions%2F256907473" anchor-label="contains" id="915246652%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contains.html"><span><span>contains</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="915246652%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">typeName<span class="token operator">: </span><a href="../../io.spine.type/-type-name/index.html">TypeName</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Checks if a type with the given name is present in this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="392097761%2FFunctions%2F256907473" anchor-label="enumTypes" id="392097761%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enum-types.html"><span>enum</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="392097761%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="enum-types.html"><span class="token function">enumTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableSet///PointingToDeclaration/">ImmutableSet</span><span class="token operator">&lt;</span><span data-unresolved-link="io.spine.type/EnumType///PointingToDeclaration/">EnumType</span><span class="token operator">&gt;</span></div><div class="brief ">Obtains enum types from this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-758268849%2FFunctions%2F256907473" anchor-label="equals" id="-758268849%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equals.html"><span><span>equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-758268849%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="equals.html"><span class="token function">equals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">o<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1008574110%2FFunctions%2F256907473" anchor-label="find" id="-1008574110%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find.html"><span><span>find</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1008574110%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="find.html"><span class="token function">find</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="../../io.spine.type/-type-name/index.html">TypeName</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><span data-unresolved-link="io.spine.type/Type///PointingToDeclaration/">Type</span><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief ">Obtains a type by its name.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1977390188%2FFunctions%2F256907473" anchor-label="from" id="-1977390188%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from.html"><span><span>from</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1977390188%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="from.html"><span class="token function">from</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">file<span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Descriptors.FileDescriptor///PointingToDeclaration/">Descriptors.FileDescriptor</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">TypeSet</a></div><div class="brief ">Obtains message and enum types declared in the given file.</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="from.html"><span class="token function">from</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fileSet<span class="token operator">: </span><a href="../-file-set/index.html">FileSet</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">TypeSet</a></div><div class="brief ">Obtains message and enum types declared in the files represented by the given set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1473214310%2FFunctions%2F256907473" anchor-label="hashCode" id="1473214310%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash-code.html"><span>hash</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1473214310%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="hash-code.html"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="979516150%2FFunctions%2F256907473" anchor-label="isEmpty" id="979516150%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty.html"><span>is</span><wbr></wbr><span><span>Empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="979516150%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-empty.html"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Verifies if the set is empty.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1273054106%2FFunctions%2F256907473" anchor-label="messagesAndEnums" id="1273054106%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="messages-and-enums.html"><span>messages</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Enums</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1273054106%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="messages-and-enums.html"><span class="token function">messagesAndEnums</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="io.spine.type/Type///PointingToDeclaration/">Type</span><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief ">Obtains message and enum types contained in this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-643398481%2FFunctions%2F256907473" anchor-label="messageTypes" id="-643398481%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="message-types.html"><span>message</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-643398481%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="message-types.html"><span class="token function">messageTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableSet///PointingToDeclaration/">ImmutableSet</span><span class="token operator">&lt;</span><a href="../../io.spine.type/-message-type/index.html">MessageType</a><span class="token operator">&gt;</span></div><div class="brief ">Obtains message types from this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1311897434%2FFunctions%2F256907473" anchor-label="newBuilder" id="-1311897434%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-builder.html"><span>new</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1311897434%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="new-builder.html"><span class="token function">newBuilder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-builder/index.html">TypeSet.Builder</a></div><div class="brief ">Creates a new builder for the instances of this type.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1221848492%2FFunctions%2F256907473" anchor-label="onlyMessages" id="-1221848492%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="only-messages.html"><span>only</span><wbr></wbr><span><span>Messages</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1221848492%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="only-messages.html"><span class="token function">onlyMessages</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">file<span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Descriptors.FileDescriptor///PointingToDeclaration/">Descriptors.FileDescriptor</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableCollection///PointingToDeclaration/">ImmutableCollection</span><span class="token operator">&lt;</span><a href="../../io.spine.type/-message-type/index.html">MessageType</a><span class="token operator">&gt;</span></div><div class="brief ">Obtains message types declared in the given file descriptor.</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="only-messages.html"><span class="token function">onlyMessages</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fileSet<span class="token operator">: </span><a href="../-file-set/index.html">FileSet</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableCollection///PointingToDeclaration/">ImmutableCollection</span><span class="token operator">&lt;</span><a href="../../io.spine.type/-message-type/index.html">MessageType</a><span class="token operator">&gt;</span></div><div class="brief ">Obtains message types declared in the given file set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1847125725%2FFunctions%2F256907473" anchor-label="serviceTypes" id="1847125725%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="service-types.html"><span>service</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1847125725%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="service-types.html"><span class="token function">serviceTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.common.collect/ImmutableSet///PointingToDeclaration/">ImmutableSet</span><span class="token operator">&lt;</span><span data-unresolved-link="io.spine.type/ServiceType///PointingToDeclaration/">ServiceType</span><span class="token operator">&gt;</span></div><div class="brief ">Obtains service types from this set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="809804864%2FFunctions%2F256907473" anchor-label="size" id="809804864%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="size.html"><span><span>size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="809804864%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="size.html"><span class="token function">size</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief ">Obtains the size of the set.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1295048245%2FFunctions%2F256907473" anchor-label="toString" id="1295048245%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295048245%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="577447087%2FFunctions%2F256907473" anchor-label="toTypeRegistry" id="577447087%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-type-registry.html"><span>to</span><wbr></wbr><span>Type</span><wbr></wbr><span><span>Registry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="577447087%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="to-type-registry.html"><span class="token function">toTypeRegistry</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/TypeRegistry///PointingToDeclaration/">TypeRegistry</span></div><div class="brief ">Writes all the types in this set into a <span data-unresolved-link="com.google.protobuf/TypeRegistry///PointingToDeclaration/">TypeRegistry</span>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1077124484%2FFunctions%2F256907473" anchor-label="union" id="1077124484%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union.html"><span><span>union</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1077124484%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="union.html"><span class="token function">union</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">another<span class="token operator">: </span><a href="index.html">TypeSet</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">TypeSet</a></div><div class="brief ">Creates a new set which is a union of this and the passed one.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright 2025, TeamDev</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Identifier</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Base Library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2.0.0-SNAPSHOT.380        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":base/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":base/main"
+                                       data-filter=":base/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Base Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Base Library::io.spine.base/Identifier///PointingToDeclaration//256907473">
+  <div class="breadcrumbs"><a href="../../../index.html">Base Library</a><span class="delimiter">/</span><a href="../index.html">io.spine.base</a><span class="delimiter">/</span><span class="current">Identifier</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Identifier</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Identifier</a><span class="token operator">&lt;</span><a href="index.html">I</a><span class="token operator">&gt;</span></div><p class="paragraph">Wrapper of an identifier value. </p><h2 class="">Supported types of identifiers</h2><p class="paragraph">The following types of IDs are supported: </p><ul><li><code class="lang-kotlin">String</code></li><li><code class="lang-kotlin">Long</code></li><li><code class="lang-kotlin">Integer</code></li><li>A class implementing <span data-unresolved-link="com.google.protobuf/Message///PointingToDeclaration/">Message</span>. </li></ul><p class="paragraph">Consider using <code class="lang-kotlin">Message</code>-based IDs if you want to have typed IDs in your code, and/or if you need to have IDs with some structure inside. </p><p class="paragraph">Here are the examples of such structural IDs: </p><ul><li>EAN value used in bar codes </li><li>ISBN </li><li>Phone number. </li></ul><h2 class="">&quot;The first field&quot; convention for IDs</h2><p class="paragraph">Most data in Spine-based applications come in the form of Protobuf messages. If the data has an identity, we use the convention of the first message field. </p><p class="paragraph">The &quot;first&quot; field is determined by the order in which fields are declared in the Protobuf message definition (reading order from top to bottom), not by the field number. For example, in the following message: </p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">message Example {
+    string name = 2;
+    string id = 1;
+}
+</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div> the <code class="lang-kotlin">name</code> field is considered &quot;first&quot; because it appears first in the declaration, even though its field number (2) is greater than <code class="lang-kotlin">id</code>'s field number (1). <p class="paragraph">This approach provides several benefits: </p><ul><li>Easier to read and understand — developers do not need to mentally sort fields by their numbers. </li><li>Supports field deprecation scenarios — if an ID field needs to be replaced (e.g., upgrading from <code class="lang-kotlin">int32</code> to <code class="lang-kotlin">int64</code>), the new field can be added at the top while the old field is deprecated in place. </li></ul><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>&lt;I&gt;</span></span></u></div></span></div><div><div class="title"><p class="paragraph">type of the ID</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-939858299%2FProperties%2F256907473" anchor-label="NULL_ID" id="-939858299%2FProperties%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-u-l-l_-i-d.html"><span>NULL_</span><wbr></wbr><span>ID</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939858299%2FProperties%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-u-l-l_-i-d.html">NULL_ID</a><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a><span class="token operator"> = </span><span class="token string">&quot;NULL&quot;</span></div><div class="brief ">A <code class="lang-kotlin">null</code> ID string representation.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="425064655%2FFunctions%2F256907473" anchor-label="checkSupported" id="425064655%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="check-supported.html"><span>check</span><wbr></wbr><span><span>Supported</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="425064655%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="check-supported.html">I</a><span class="token operator">&gt; </span><a href="check-supported.html"><span class="token function">checkSupported</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idClass<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="check-supported.html">I</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief ">Ensures that the passed class of identifiers is <a href="index.html">supported</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1665291429%2FFunctions%2F256907473" anchor-label="defaultValue" id="1665291429%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="default-value.html"><span>default</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1665291429%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="default-value.html">I</a><span class="token operator">&gt; </span><a href="default-value.html"><span class="token function">defaultValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idClass<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="default-value.html">I</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="default-value.html">I</a></div><div class="brief ">Obtains a default value for an identifier of the passed class.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1355895777%2FFunctions%2F256907473" anchor-label="findField" id="1355895777%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-field.html"><span>find</span><wbr></wbr><span><span>Field</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1355895777%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="com.google.errorprone.annotations/InlineMe///PointingToDeclaration/"><span class="token annotation builtin">InlineMe</span></span><span class="token punctuation">(</span><span>replacement<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;Field.findIdField(idClass, message)&quot;</span></span><span class="token punctuation">, </span></span><wbr></wbr><span>imports<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;io.spine.base.Field&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="find-field.html">I</a><span class="token operator">&gt; </span><a href="find-field.html"><span class="token function"><strike>findField</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idClass<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="find-field.html">I</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Descriptors.Descriptor///PointingToDeclaration/">Descriptors.Descriptor</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html">Optional</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.protobuf/Descriptors.FieldDescriptor///PointingToDeclaration/">Descriptors.FieldDescriptor</span><span class="token operator">&gt;</span></div><div class="brief ">Finds the first ID field of the specified type in the given message type.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="461008164%2FFunctions%2F256907473" anchor-label="isEmpty" id="461008164%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty.html"><span>is</span><wbr></wbr><span><span>Empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461008164%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-empty.html">I</a><span class="token operator">&gt; </span><a href="is-empty.html"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="is-empty.html">I</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief ">Verifies if the passed value of the identifier is empty.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-995991331%2FFunctions%2F256907473" anchor-label="newUuid" id="-995991331%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-uuid.html"><span>new</span><wbr></wbr><span><span>Uuid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-995991331%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="new-uuid.html"><span class="token function">newUuid</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></div><div class="brief ">Generates a new random UUID.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1857338032%2FFunctions%2F256907473" anchor-label="pack" id="-1857338032%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pack.html"><span><span>pack</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1857338032%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="pack.html">I</a><span class="token operator">&gt; </span><a href="pack.html"><span class="token function">pack</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="pack.html">I</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Any///PointingToDeclaration/">Any</span></div><div class="brief ">Wraps the passed ID value into an instance of <span data-unresolved-link="com.google.protobuf/Any///PointingToDeclaration/">Any</span>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="945772601%2FFunctions%2F256907473" anchor-label="toString" id="945772601%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr></wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="945772601%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></div><br><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-string.html">I</a><span class="token operator">&gt; </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jspecify.annotations/Nullable///PointingToDeclaration/"><span class="token annotation builtin">Nullable</span></span> </span>id<span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jspecify.annotations/Nullable///PointingToDeclaration/"><span class="token annotation builtin">Nullable</span></span> </span><a href="to-string.html">I</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></div><div class="brief ">Converts the passed ID value into the string representation.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1551140700%2FFunctions%2F256907473" anchor-label="unpack" id="1551140700%2FFunctions%2F256907473" data-filterable-set=":base/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":base/main" data-filterable-set=":base/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unpack.html"><span><span>unpack</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1551140700%2FFunctions%2F256907473"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":base/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unpack.html"><span class="token function">unpack</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">any<span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Any///PointingToDeclaration/">Any</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></div><div class="brief ">Extracts an ID value from the passed <code class="lang-kotlin">Any</code> instance.</div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="unpack.html">I</a><span class="token operator">&gt; </span><a href="unpack.html"><span class="token function">unpack</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">any<span class="token operator">: </span><span data-unresolved-link="com.google.protobuf/Any///PointingToDeclaration/">Any</span><span class="token punctuation">, </span></span><span class="parameter ">idClass<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="unpack.html">I</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="unpack.html">I</a></div><div class="brief ">Does the same as <a href="unpack.html">unpack</a> and additionally casts the ID to the specified class.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright 2025, TeamDev</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
