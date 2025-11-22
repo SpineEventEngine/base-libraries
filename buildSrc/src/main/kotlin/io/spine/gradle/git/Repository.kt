@@ -71,7 +71,8 @@ class Repository private constructor(
      * Executes a command in the [location].
      */
     private fun repoExecute(vararg command: String): String {
-        System.err.println("[Repository] executing ${command.toList().joinToString(" ")}.")
+        System.err.println("[Repository] Executing command: " +
+                "`${command.toList().joinToString(" ")}`.")
         return Cli(location.toFile()).execute(*command)
     }
 
