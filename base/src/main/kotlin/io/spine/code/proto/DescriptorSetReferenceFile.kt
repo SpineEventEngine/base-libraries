@@ -33,7 +33,6 @@ import java.io.File
 import java.io.IOException
 import java.net.URL
 import java.nio.charset.StandardCharsets
-import java.nio.file.Path
 
 /**
  * A descriptor set reference file ([desc.ref][NAME]) contains one or more references
@@ -44,7 +43,7 @@ import java.nio.file.Path
  * The [desc.ref][NAME] file is needed to avoid walking through the whole classpath for
  * finding descriptor set files.
  *
- * A module which contains proto files gets descriptor set file and the file with the reference
+ * A module which contains proto files gets a descriptor set file and the file with the reference
  * to it when the Spine's Descriptor Set File Gradle Plugin is applied to the project.
  *
  * The plugin can be applied either directly or indirectly e.g.,
@@ -55,7 +54,9 @@ public object DescriptorSetReferenceFile {
     /**
      * The class loader used to load resources.
      */
-    private val classLoader: ClassLoader = this::class.java.classLoader
+    private val classLoader: ClassLoader by lazy {
+        Thread.currentThread().contextClassLoader
+    }
 
     /**
      * A name of the file that contains references to a number of Protobuf descriptor set files.

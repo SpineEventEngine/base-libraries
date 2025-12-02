@@ -159,8 +159,7 @@ fun Module.setTaskDependencies(generatedDir: String) {
 }
 
 fun Module.configureGitHubPages() {
-    val docletVersion = project.version.toString()
-    updateGitHubPages(docletVersion) {
+    updateGitHubPages {
         rootFolder.set(rootDir)
     }
 }
