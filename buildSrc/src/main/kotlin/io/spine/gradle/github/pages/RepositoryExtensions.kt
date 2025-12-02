@@ -30,6 +30,7 @@ import io.spine.gradle.git.Branch
 import io.spine.gradle.git.Repository
 import io.spine.gradle.git.UserInfo
 import io.spine.gradle.repo.RepoSlug
+import org.gradle.api.logging.Logger
 
 /**
  * Clones the current project repository with the branch dedicated to publishing
@@ -46,7 +47,7 @@ import io.spine.gradle.repo.RepoSlug
  * @throws org.gradle.api.GradleException if any of the environment variables described above
  *         is not set.
  */
-internal fun Repository.Factory.forPublishingDocumentation(version: String): Repository {
+internal fun Repository.Factory.forPublishingDocumentation(logger: Logger): Repository {
     val host = RepoSlug.fromVar().gitHost()
 
     val username = "UpdateGitHubPages Plugin"
@@ -55,5 +56,5 @@ internal fun Repository.Factory.forPublishingDocumentation(version: String): Rep
 
     val branch = Branch.documentation
 
-    return clone(host, user, branch)
+    return clone(host, user, branch, logger)
 }

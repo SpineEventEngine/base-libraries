@@ -29,30 +29,43 @@ package io.spine.gradle.github.pages
 import io.spine.gradle.Cli
 import java.io.File
 import org.gradle.api.GradleException
+import org.gradle.api.logging.Logger
 
 /**
- * Registers SSH key for further operations with GitHub Pages.
+ * Registers the SSH key for further operations with GitHub Pages.
+ *
+ * @property rootProjectFolder The folder of the project for which we build the documentation.
+ * @property logger The logger for placing diagnostic messages of this class.
  */
-internal class SshKey(private val rootProjectFolder: File) {
+internal class SshKey(
+    private val rootProjectFolder: File,
+    private val logger: Logger
+) {
+
+    private fun log(message: () -> String) {
+        if (logger.isInfoEnabled) {
+            logger.info("[SshKey] " + message())
+        }
+    }
+
     /**
      * Creates an SSH key with the credentials and registers it by invoking the
      * `register-ssh-key.sh` script.
      */
     fun register() {
-        System.err.println("[SshKey] Registering using ${rootProjectFolder.absolutePath}.")
+        log { "Registering using ${rootProjectFolder.absolutePath}." }
         val gitHubAccessKey = gitHubKey()
-        System.err.println("[SshKey] Obtained the key file at ${gitHubAccessKey.absolutePath}.")
+        log { "Obtained the key file at ${gitHubAccessKey.absolutePath}." }
         val sshConfigFile = sshConfigFile()
-        System.err.println("[SshKey] Located the SSH key file at ${sshConfigFile.absolutePath}.")
+        log { "Located the SSH key file at ${sshConfigFile.absolutePath}." }
         sshConfigFile.appendPublisher(gitHubAccessKey)
-        System.err.println("[SshKey] SSH config file appended.")
-        System.err.println("[SshKey] Contents: ${sshConfigFile.readText()}.")
+        log { "SSH config file appended." }
 
         execute(
             "${rootProjectFolder.absolutePath}/config/scripts/register-ssh-key.sh",
             gitHubAccessKey.absolutePath
         )
-        System.err.println("[SshKey] The SSH key registered.")
+        log { "The SSH key registered." }
     }
 
     /**

@@ -41,9 +41,9 @@ import org.gradle.api.logging.Logger
 fun Task.updateGhPages(project: Project) {
     val plugin = project.plugins.getPlugin(UpdateGitHubPages::class.java)
 
-    SshKey(plugin.rootFolder).register()
+    SshKey(plugin.rootFolder, logger).register()
 
-    val repository = Repository.forPublishingDocumentation(project.version.toString())
+    val repository = Repository.forPublishingDocumentation(logger)
 
     val updateJavadocFormat =
         UpdateJavadocFormat(project, plugin.javadocOutputFolder, repository, logger)
@@ -86,7 +86,7 @@ private abstract class UpdateDocumentation(
         File("${repository.location}/${docsDestinationFolder}/${project.name}")
     }
 
-    private fun logDebug(message: () -> String) {
+    private fun log(message: () -> String) {
         if (logger.isDebugEnabled) {
             logger.debug(message())
         }
@@ -94,9 +94,7 @@ private abstract class UpdateDocumentation(
 
     fun run() {
         val module = project.name
-        logDebug {
-            "Update of the `$formatName` documentation for the module `$module` started."
-        }
+        log { "Update of the `$formatName` documentation for the module `$module` started." }
 
         val documentation = replaceMostRecentDocs()
         copyIntoVersionDir(documentation)
@@ -107,17 +105,13 @@ private abstract class UpdateDocumentation(
                     " `$module` with the version `$version`."
         repository.commitAllChanges(updateMessage)
 
-        logDebug {
-            "Update of the `$formatName` documentation for `$module` successfully finished."
-        }
+        log { "Update of the `$formatName` documentation for `$module` successfully finished." }
     }
 
     private fun replaceMostRecentDocs(): ConfigurableFileCollection {
         val generatedDocs = project.files(docsSourceFolder)
 
-        logDebug {
-            "Replacing the most recent `$formatName` documentation in `$mostRecentFolder`."
-        }
+        log { "Replacing the most recent `$formatName` documentation in `$mostRecentFolder`." }
         copyDocs(generatedDocs, mostRecentFolder)
 
         return generatedDocs
@@ -134,9 +128,7 @@ private abstract class UpdateDocumentation(
     private fun copyIntoVersionDir(generatedDocs: ConfigurableFileCollection) {
         val versionedDocDir = File("$mostRecentFolder/v/${project.version}")
 
-        logDebug {
-            "Storing the new version of `$formatName` documentation in `${versionedDocDir}`."
-        }
+        log { "Storing the new version of `$formatName` documentation in `${versionedDocDir}`." }
         copyDocs(generatedDocs, versionedDocDir)
     }
 }

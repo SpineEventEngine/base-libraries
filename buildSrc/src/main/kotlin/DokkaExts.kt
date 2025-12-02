@@ -201,7 +201,7 @@ fun TaskContainer.dokkaJavadocTask(): Task? = this.findByName("dokkaGeneratePubl
  *
  * The output of this task is a `jar` archive. The archive contains the Dokka output, generated upon
  * Kotlin sources from `main` source set. Requires Dokka to be configured in the target project by
- * applying `dokka-for-kotlin` plugin.
+ * applying `dokka-setup` plugin.
  */
 fun Project.htmlDocsJar(): TaskProvider<Jar> = tasks.getOrCreate("htmlDocsJar") {
     archiveClassifier.set("html-docs")
@@ -219,7 +219,7 @@ fun Project.htmlDocsJar(): TaskProvider<Jar> = tasks.getOrCreate("htmlDocsJar") 
  * This predicate could be useful for disabling publishing tasks
  * when doing, e.g., `publishToMavenLocal` for the purpose of the
  * integration tests that (of course) do not test the documentation
- * generation proces and its resuults.
+ * generation process and its results.
  */
 fun Task.isInPublishingGraph(): Boolean =
     project.gradle.taskGraph.allTasks.any {
