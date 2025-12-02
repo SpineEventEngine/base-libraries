@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2025, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -56,7 +56,7 @@ abstract class ResourceObject {
     }
 
     private @Nullable URL findUrl() {
-        @Nullable URL url = classLoader.getResource(path);
+        var url = classLoader.getResource(path);
         return url;
     }
 
@@ -66,20 +66,19 @@ abstract class ResourceObject {
      * @return {@code true} if the resource is present, {@code false} otherwise
      */
     public boolean exists() {
-        @Nullable URL resource = findUrl();
+        var resource = findUrl();
         return resource != null;
     }
 
     /**
      * Obtains a {@link URL} of the resolved resource.
      *
-     * <p>If the resource cannot be resolved (i.e., the file does not exist), throws
-     * an {@code IllegalStateException}.
-     *
      * @return the resource URL
+     * @throws IllegalStateException if the resource cannot be resolved
+     *         (i.e., the file does not exist)
      */
     public URL locate() {
-        @Nullable URL url = findUrl();
+        var url = findUrl();
         if (url == null) {
             throw cannotFind();
         }
@@ -92,7 +91,7 @@ abstract class ResourceObject {
     }
 
     /**
-     * Crate an exception stating that the resource cannot be found.
+     * Creates an exception stating that the resource cannot be found.
      */
     final IllegalStateException cannotFind() {
         return newIllegalStateException("Unable to find %s.", this);
@@ -111,14 +110,14 @@ abstract class ResourceObject {
     }
 
     @Override
+    @SuppressWarnings("PMD.SimplifyBooleanReturns")
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ResourceObject)) {
+        if (!(o instanceof ResourceObject other)) {
             return false;
         }
-        var other = (ResourceObject) o;
         return path.equals(other.path);
     }
 
