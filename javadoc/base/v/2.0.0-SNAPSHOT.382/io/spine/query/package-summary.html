@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<!-- NewPage -->
+<html lang="en"><head>
+    <title>Package io.spine.query </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="dc.created" content="2020-03-25">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../dokka-javadoc-stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../jquery/jquery-ui.css" title="Style">
+    <script type="text/javascript" src="../../../jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-migrate-3.4.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../../../search.js"></script>
+    <script async type="text/javascript" src="../../../module-search-index.js"></script>
+    <script async type="text/javascript" src="../../../package-search-index.js"></script>
+    <script async type="text/javascript" src="../../../type-search-index.js"></script>
+    <script async type="text/javascript" src="../../../member-search-index.js"></script>
+    <script async type="text/javascript" src="../../../tag-search-index.js"></script>
+</head><body>
+<script type="text/javascript">
+var pathtoroot = "../../../";
+</script>
+<noscript>
+    <div>JavaScript is disabled on your browser.</div>
+</noscript><header role="banner">
+    <nav role="navigation">
+        <div class="fixedNav">
+            <!-- ========= START OF TOP NAVBAR ======= -->
+            <div class="topNav"><a id="navbar.top">
+                <!--   -->
+            </a>
+                <div class="skipNav"><a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
+                </div>
+                <a id="navbar.top.firstrow">
+                    <!--   -->
+                </a>
+                <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+            <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+
+<ul class="navListSearch">
+<li><label for="search">SEARCH:</label>
+<input type="text" id="search" value="search" class="ui-autocomplete-input" autocomplete="off" placeholder="Search">
+<input type="reset" id="reset" value="reset">
+</li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ========= END OF TOP NAVBAR ========= -->
+        </div>
+        <div class="navPadding">&nbsp;</div>
+        <script type="text/javascript"><!--
+        $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
+        //-->
+        </script>
+    </nav>
+</header>
+<main role="main">
+    <div class="header">
+        <h1 title="Package" class="title">Package io.spine.query </h1>
+    </div>
+        <div class="header">
+            <div class="subtitle">
+                <div class="block"><p>This package defines the query DSL for the stored Protobuf messages. </p><p>A significant part of the Protobuf messages emitted in the Spine-powered applications are written and read from a persistent storage at some point in their lifecycle. At the same time, Spine apps follow the hexagonal architecture. Instead of writing a database-specific code, developers deal with an abstraction over a database port. Under these circumstances, a convenient language is required to describe the how the message data is saved and retrieved. </p><p>Proto messages may have complex structure which hardly maps to a flat structure of most relational databases and even some NoSQL storages. Therefore, when a Protobuf message is persisted, it is typically transformed to a byte array through the native Protobuf serialization mechanism. The resulting record is stored along with its identifier. It's worth mentioning that the Protobuf binary format makes the records compact in size and resilient to any future changes made to the declaration of a stored <code>Message</code>. There are more information available on the Protobuf serialization performance <a href=https://dzone.com/articles/protobuf-performance-comparison-and-points-to-make.html>over the web</a>. </p><p>While storing a <code>Message</code> as a BLOB simplifies writing, it makes searching and filtering of the stored records difficult. Except for IDs, no attributes of persisted messages are exposed to the search engine of a DBMS by default. Therefore, the framework allows defining additional attributes of a message to enable querying. In terms of storage language, each declared attribute is persisted as a &quot;column&quot;. Please note that on this level of abstraction a developer does not define the structure of an underlying database; it's still a responsibility of a particular storage port. </p><p>This package provides an API on building the queries for the stored records, rather than configuring the storage port. Other libraries of the framework, such as <code>spine-server</code> and <code>spine-datastore</code> concentrate on setting up the underlying database and interacting with it. </p><p>In scope of this document, a &quot;record&quot; means a Protobuf message persisted into a storage. Each record has an identifier, a serialized <code>Message</code> content as BLOB, and potentially declares one or more record columns. A column is typically a part of a stored message (e.g. a field, or a value of a function of several fields) which is stored in the same DB object or a table row. </p><p>The stored records may be queried in one of three ways: </p><ul><li>by the value of the record identifiers;</li><li>by the values of the stored columns;</li><li>all records, without any criteria or restrictions.</li></ul><p>Let's think of some example <code>Message</code>: </p><pre><code>// Describes a car manufacturer as a company.
+message Manufacturer {
+
+    ManufacturerId id = 1 [(required) = true, (validate) = true];
+
+    // When the company was founded.
+    google.protobuf.Timestamp when_founded = 2 [(required) = true];
+
+    // How many employees work in the company.
+    int32 number_of_employees = 3 [(min).value = &quot;1&quot;];
+
+    // The type of the company as a legal entity.
+    LegalEntityType type = 4;
+
+    // If traded, which stock symbols the company uses.
+    repeated TradeStockSymbol stock_symbol = 5;
+}
+</code></pre><p>A developer may want to choose a couple of values to be stored as distinct columns: </p><pre><code> public static final class ManufacturerColumns {
+
+  public static final RecordColumn&lt;Manufacturer, Timestamp&gt; whenFounded =new RecordColumn&lt;&gt;(&quot;when_founded&quot;,
+                              Timestamp.class,
+                              Manufacturer::getWhenFounded);
+
+  public static final RecordColumn&lt;Manufacturer, Boolean&gt; isTraded =new RecordColumn&lt;&gt;(&quot;is_traded&quot;,
+                              Boolean.class,
+  (r) -&gt; !r.getStockSymbolList()
+                                       .isEmpty());
+
+   private ManufacturerColumns() {
+   }
+}
+</code></pre><p>In this case, <code>Manufacturer.when_founded</code> field of the message is stored as-is, while the <code>is_traded</code> column is declared to contain the value computed from the passed <code>r</code>, being the instance of <code>Manufacturer</code> message. </p><p>Once the columns are declared, they may be used in a query. The framework provides a <a href=RecordQueryBuilder.html>RecordQueryBuilder</a> for this purpose: </p><pre><code>RecordQuery&lt;ManufacturerId, Manufacturer&gt; query =
+       RecordQuery.newBuilder(ManufacturerId.class, Manufacturer.class)
+                  .where(whenFounded).isLessOrEqualTo(THURSDAY)
+                  .where(isTraded).is(true)
+                  .build();
+</code></pre><p>Where <code>whenFounded</code> and <code>isTraded</code> are the statically imported definitions from the <code>ManufacturerColumns</code> class defined above. The types of the values passed to the <a href=RecordCriterion.html#isLessOrEqualTo(V)>isLessOrEqualTo(..)</a> and <a href=RecordCriterion.html#is(V)>is(..)</a> methods strictly correspond to the types of the declared columns. That is, <code>whenFounded</code> column would only accept <code>Timestamp</code> values for comparison, and <code>isTraded</code> only accepts <code>Boolean</code>s. </p><p>It is also possible to build a query with a disjunction (OR) operator: </p><pre><code>RecordQuery&lt;ManufacturerId, Manufacturer&gt; query =
+                manufacturerBuilder()
+    .either((b) -&gt; b.where(whenFounded).isLessThan(firstJanuary1990),(b) -&gt; b.where(isTraded).is(true))
+                            .build();
+</code></pre><p>Where <code>b</code> is the instance of the same <code>RecordQueryBuilder</code>, for proper chaining. This query selects all the records which have either <code>whenFounded</code> value less than January, 1, 1990, or the <code>isTraded</code> value equal to <code>true</code>. </p><p>Please note that <code>ManufacturerId</code> is used as a type of the record identifier when creating a builder. It is the first field in this message — in the order of reading (top to bottom), which matches its field number (1) in this case. Its values may also be used in a query builder: </p><pre><code>RecordQuery&lt;ManufacturerId, Manufacturer&gt; query =
+       RecordQuery.newBuilder(ManufacturerId.class, Manufacturer.class)
+                  .id().is(someManufacturer)
+                  .build();
+</code></pre><p>Where <code>someManufacturer</code> must a value of <code>ManufacturerId</code> type. In addition to <a href=IdCriterion.html#is(I)>is(value)</a>, the framework also provides <a href=IdCriterion.html#in(kotlin.Array)>in(...values)</a> and <a href=IdCriterion.html#in(java.lang.Iterable)>in(Iterable values)</a> overloads. They select the records by several ID values. </p>Sorting and limit<p>The query builder API also allows specifying the sorting order and the record limit for the queries: </p><pre><code>RecordQuery&lt;ManufacturerId, Manufacturer&gt; query =RecordQuery.newBuilder(ManufacturerId.class, Manufacturer.class)
+                   .sortAscendingBy(whenFounded)
+                   .sortDescendingBy(isTraded)
+                   .limit(10)
+                   .build();
+</code></pre><p>This query selects all records of <code>Manufacturer</code> type, but tells to sort them by the values of <code>whenFounded</code> column ascending, then by <code>isTraded</code> column values descending. Finally, the query result is limited to the top ten records. </p><p>Please note, that <a href=RecordQueryBuilder.html#limit(int)>limit(..)</a> method may only be used in queries which sort their results. Otherwise, a runtime exception is thrown upon building the query. </p>Field masks<p>Sometimes end-users are interested in obtaining only a part of the fields of stored messages. In this case, they may specify a FieldMask to be applied to each of the resulting records. The functionality of the field masks is supported fully, as per the <a href=https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/FieldMask.html>original contract</a>. </p><p>Let's see it in action: </p><pre><code>     FieldMask mask = fieldMaskWith(isTraded);   // Only keep the `is_traded` field in results.
+    RecordQuery&lt;ManufacturerId, Manufacturer&gt; query =RecordQuery.newBuilder(ManufacturerId.class, Manufacturer.class)
+                   .withMask(mask)
+                   .build();
+</code></pre><p>The query above selects all records of <code>Manufacturer</code> type, but applies the field mask to each of the resulting records. Depending on the implementation of an underlying storage, the field mask value may be used to optimize the call to the native storage, and fetch only the required values, for instance, if they are stored separately as columns. </p><p>Among all the stored Protobuf messages, there is a special case. If a message is declared as an Entity state, it triggers an additional processing on a build-time. The framework automatically extends the Java types generated for Entity states with more Entity-specific API. </p><p>Let's consider a message: </p><pre><code>message ProjectView {
+   option (entity).kind = PROJECTION;
+
+   // The identifier of the project.
+   ProjectId project = 1;
+
+   ProjectName project_name = 2 [(column) = true];
+
+   Project.Status status = 3 [(column) = true];
+
+   UserView assignee = 4;
+
+   int32 days_since_started = 5 [(column) = true];
+
+   bool was_reassigned = 6 [(column) = true];
+
+   repeated string tag = 7;
+}
+</code></pre><p>The <code>ProjectView</code> message is declared as a state of a future Projection. As it is a part of a Ubiquitous Language, its Protobuf definition serves as a contract for everyone wishing to interact with it. In particular, this message marks some of its fields with the <code>(column)</code> option. It tells everyone, that the instances of this Projection will be available for querying by the values of these fields. </p><p>In terms of the code generation, the framework automatically appends the corresponding Java type with the nested <code>Query</code> and <code>QueryBuilder</code> types. They are composed at build-time and contain the definitions of the columns for the respective storage record, and the query DSL. </p><p>Notice the difference with the <a href=RecordQueryBuilder.html>RecordQueryBuilder</a> API, as the developer no longer needs to declare any types by hand. </p><p>Here is an example: </p><pre><code>    ProjectView.Query query = ProjectView.query()
+       .status().isNot(Status.CREATED)
+       .daysSinceStarted().isGreaterThan(5)
+       .build();
+</code></pre><p>It produces a query for all the <code>ProjectView</code> records which status is not <code>CREATED</code> and which were started more than five days ago. </p><p>Disjunction (or OR statements) are also supported: </p><pre><code>Either&lt;ProjectView.QueryBuilder&gt; startedMoreThanMonthAgo =project -&gt; project.daysSinceStarted().isGreaterThan(30);Either&lt;ProjectView.QueryBuilder&gt; isDone =project -&gt; project.status().is(Status.DONE);
+
+ProjectView.Query query =
+       ProjectView.query()
+                  .either(startedMoreThanMonthAgo, isDone)
+                  .build();
+</code></pre><p>This piece produces a query targeting the projects which are either done or started more than thirty days ago. </p><p>The first field of the <code>Message</code> is treated as an <a href=../base/Identifier.html>identifier</a>. The Spine framework treats the field declared first in the order of reading (top to bottom in the message definition), not the one with the least index value. For example: </p><pre><code>message UserView {
+   option (entity).kind = PROJECTION;
+
+   UserName name = 2;  // This is the ID field (first in reading order)
+   UserId id = 1;       // Not the ID field (second in reading order)
+}
+</code></pre><p>In this example, <code>name</code> is treated as the identifier because it appears first in the declaration, even though its field number is 2. </p><p>The name of the ID field is preserved and is exposed for querying: </p><pre><code>    ProjectView.Query query = ProjectView.query()
+                                         .project().is(expectedId)
+                                         .build();
+</code></pre>Custom Columns<p>In addition to the columns declared in the Entity state, the query API allows declaring the custom columns. They are intended to handle the cases in which some computed on-the-fly data should be stored along with the record. It may the time of entity creation, the role of the user created the record, whether the entity is deleted or archived etc. That is, something which isn't included into the definition of the original <code>Message</code> type of the record. </p><pre><code>// The column presumably defined as a custom column for querying.
+class ArchivedColumn extendsCustomColumn&lt;EntityWithLifecycle, Boolean&gt; {
+
+  @Override
+   public ColumnName name() {
+       return ColumnName.of(&quot;archived&quot;);
+   }
+
+  @Overridepublic Class&lt;Boolean&gt; type() {
+       return Boolean.class;
+   }
+
+  @Override
+   public Boolean valueIn(EntityWithLifecycle source) {
+       return source.isArchived();
+   }
+}
+</code></pre><p>Where <code>EntityWithLifecycle</code> is a sample interface serving as a source of the lifecycle values for the Entity types. </p><pre><code>// Custom columns that define Entity lifecycle.
+public enum Lifecycle {
+
+   ARCHIVED(new ArchivedColumn()),
+
+   DELETED(new DeletedColumn());
+
+  private final CustomColumn&lt;?, Boolean&gt; column;
+
+  Lifecycle(CustomColumn&lt;?, Boolean&gt; column) {
+       this.column = column;
+   }
+
+   // Returns the column declaration.
+  public CustomColumn&lt;?, Boolean&gt; column() {
+       return column;
+   }
+}
+</code></pre><p>Such an approach allows defining the singleton instances of the columns and using them in querying: </p><pre><code>    ProjectView.Query queryForDeleted =
+       ProjectView.query()
+                  .where(DELETED.column(), true)
+                  .build();
+</code></pre>Sorting and limit<p>Similar to the plain record query API, it is possible to set the same sorting parameters when querying the Entity state records: </p><pre><code>    ProjectView.Query query = ProjectView.query()
+       .sortAscendingBy(daysSinceStarted())
+       .sortAscendingBy(projectName())
+       .sortDescendingBy(wasReassigned())
+       .limit(10)
+       .build();
+</code></pre><p>Here <code>daysSinceStarted()</code>, <code>projectName()</code> and <code>wasReassigned()</code> are three static methods generated in <code>ProjectView.Column</code> class. Each of them returns the declaration of the Entity column corresponding to the Message field with the <code>(column)</code> option. </p>Field masks<p>It is also possible to set the mask for each resulting Protobuf message: </p><pre><code>    FieldMask mask = fieldMaskWith(status());
+    ProjectView.Query query = ProjectView.query()
+                                         .withMask(mask)
+                                         .build();
+</code></pre>Entity states with no columns<p>If a Proto message declares an Entity state with no columns, the framework still requires at least one field declared. As described above, it is treated as an Entity identifier. Therefore, both <code>QueryBuilder</code> and <code>Query</code> are generated for this case, allowing to query the Entity state records by their identifiers. </p><p>To see the Query API in action, please feel free to navigate to the corresponding test classes residing in the same package of the <code>test</code> source root.</p></div>
+            </div>
+            <p>See: <a href="#overview_description">Description</a></p>
+        </div>
+    <div class="contentContainer">
+        
+            <ul class="blockList">
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=QueryBuilder.html>QueryBuilder</a></th><td class="colLast">A builder for instance of <a href=Query.html>Query</a>.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Either.html>Either</a></th><td class="colLast">A lambda serving to fill the current predicate <a href=QueryBuilder.html>query builders</a> with the parameters joined in <a href=LogicalOperator.html#OR>disjunction</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Query.html>Query</a></th><td class="colLast">An query to fetch the records defined as Protobuf messages.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RecordPredicates.html>RecordPredicates</a></th><td class="colLast">A lambda expression which groups additional query predicates to join to some existing <a href=RecordQuery.html>RecordQuery</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Column.Getter.html>Getter</a></th><td class="colLast">A method object serving to obtain the value of the column for some particular record of the matching type.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Column.html>Column</a></th><td class="colLast">A column of a record residing in a storage.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityStateField.html>EntityStateField</a></th><td class="colLast">A subscribable field of an <a href=../base/EntityState.html>entity state</a>.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ColumnName.html>ColumnName</a></th><td class="colLast">The name of the column of the record.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityQuery.html>EntityQuery</a></th><td class="colLast">A query for the records being the stored Protobuf messages, each declared as a state of an Entity.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EntityCriterion.html>EntityCriterion</a></th><td class="colLast">An expression which sets the value to compare for the <a href=EntityColumn.html>EntityColumn</a> in scope of a <a href=EntityQueryBuilder.html>EntityQueryBuilder</a> when building an <a href=EntityQuery.html>EntityQuery</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=SortBy.html>SortBy</a></th><td class="colLast">Defines the sorting order of the <a href=Query.html>query</a> results by the sorting order of values in a particular <a href=RecordColumn.html>column</a>.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=Subject.html>Subject</a></th><td class="colLast">Set of criteria for the records obtained via querying.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityQueryBuilder.html>EntityQueryBuilder</a></th><td class="colLast">Base type for builders of queries which are aimed to fetch the records of entity states.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IdCriterion.html>IdCriterion</a></th><td class="colLast">An expression which sets the values of record identifiers to be used in a <a href=Query.html>query</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=SubjectParameter.html>SubjectParameter</a></th><td class="colLast">A parameter which defines the expected value for the <a href=RecordColumn.html>record column</a> in scope of a particular <a href=Query.html>query</a>.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CustomColumn.html>CustomColumn</a></th><td class="colLast">A column storing the data which is not directly declared as a field in the <code>Message</code> of an <a href=../base/EntityState.html>EntityState</a> or a plain record.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityColumn.html>EntityColumn</a></th><td class="colLast">A queryable column of an entity which can be passed to the query filters.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RecordQueryBuilder.html>RecordQueryBuilder</a></th><td class="colLast">A builder for <a href=RecordQuery.html>RecordQuery</a>.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Columns.html>Columns</a></th><td class="colLast">A list of <a href=RecordColumn.html>RecordColumn</a>s.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RecordCriterion.html>RecordCriterion</a></th><td class="colLast">Sets a condition for a record column to be compared to some value.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RecordQuery.html>RecordQuery</a></th><td class="colLast">A query for the records each being a stored Protobuf message.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CustomSubjectParameter.html>CustomSubjectParameter</a></th><td class="colLast">A query parameter, which defines a condition for a computed value stored along with the queried record.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IdParameter.html>IdParameter</a></th><td class="colLast">Sets the identifiers of objects which a <a href=Query.html>Query</a> targets.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RecordColumn.html>RecordColumn</a></th><td class="colLast">A piece of data stored as a column along with some stored record.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=QueryPredicate.html>QueryPredicate</a></th><td class="colLast">Joins the <a href=SubjectParameter.html>query parameters</a> with a <a href=LogicalOperator.html>logical operator</a> when querying the records.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RecordSubjectParameter.html>RecordSubjectParameter</a></th><td class="colLast">A parameter of a <a href=RecordQuery.html>RecordQuery</a>.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Enum Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Enum</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=LogicalOperator.html>LogicalOperator</a></th><td class="colLast">Logical operators used in querying.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ComparisonOperator.html>ComparisonOperator</a></th><td class="colLast">Defines how the queried records are compared against the desired parameter values.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=Direction.html>Direction</a></th><td class="colLast">The direction of sorting for the set of records by some field value.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Annotation Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Annotation</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RecordColumns.html>RecordColumns</a></th><td class="colLast">Annotates the types which define the columns of the Protobuf messages stored as records in a storage.</td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+            </ul>
+        
+    </div>
+</main>
+<footer role="contentinfo">
+    <nav role="navigation">
+        <!-- ======= START OF BOTTOM NAVBAR ====== -->
+        <div class="bottomNav"><a id="navbar.bottom">
+            <!--   -->
+        </a>
+            <div class="skipNav"><a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
+            </div>
+            <a id="navbar.bottom.firstrow">
+                <!--   -->
+            </a>
+            <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+        <a id="skip.navbar.bottom">
+            <!--   -->
+        </a>
+        <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ======== END OF BOTTOM NAVBAR ======= -->
+    </nav>
+</footer><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0"
+    style="display: none;"></ul>
+<span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span>
+</body>
+</html>

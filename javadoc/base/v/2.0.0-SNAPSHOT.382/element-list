@@ -1,0 +1,83 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:io.spine.base/Error.Builder///PointingToDeclaration/io/spine/base/Error.Builder.html
+$dokka.location:io.spine.base/ErrorKt.Dsl.AttributesProxy///PointingToDeclaration/io/spine/base/ErrorKt.Dsl.AttributesProxy.html
+$dokka.location:io.spine.base/ErrorKt.Dsl///PointingToDeclaration/io/spine/base/ErrorKt.Dsl.html
+$dokka.location:io.spine.base/FieldFilter.Builder///PointingToDeclaration/io/spine/base/FieldFilter.Builder.html
+$dokka.location:io.spine.base/FieldFilterKt.Dsl.ValueProxy///PointingToDeclaration/io/spine/base/FieldFilterKt.Dsl.ValueProxy.html
+$dokka.location:io.spine.base/FieldFilterKt.Dsl///PointingToDeclaration/io/spine/base/FieldFilterKt.Dsl.html
+$dokka.location:io.spine.base/FieldPath.Builder///PointingToDeclaration/io/spine/base/FieldPath.Builder.html
+$dokka.location:io.spine.base/FieldPathKt.Dsl.FieldNameProxy///PointingToDeclaration/io/spine/base/FieldPathKt.Dsl.FieldNameProxy.html
+$dokka.location:io.spine.base/FieldPathKt.Dsl///PointingToDeclaration/io/spine/base/FieldPathKt.Dsl.html
+$dokka.location:io.spine.base/ListOfAnys.Builder///PointingToDeclaration/io/spine/base/ListOfAnys.Builder.html
+$dokka.location:io.spine.base/ListOfAnysKt.Dsl.ValueProxy///PointingToDeclaration/io/spine/base/ListOfAnysKt.Dsl.ValueProxy.html
+$dokka.location:io.spine.base/ListOfAnysKt.Dsl///PointingToDeclaration/io/spine/base/ListOfAnysKt.Dsl.html
+$dokka.location:io.spine.base/MapOfAnys.Builder///PointingToDeclaration/io/spine/base/MapOfAnys.Builder.html
+$dokka.location:io.spine.base/MapOfAnys.Entry.Builder///PointingToDeclaration/io/spine/base/MapOfAnys.Entry.Builder.html
+$dokka.location:io.spine.base/MapOfAnys.Entry///PointingToDeclaration/io/spine/base/MapOfAnys.Entry.html
+$dokka.location:io.spine.base/MapOfAnys.EntryOrBuilder///PointingToDeclaration/io/spine/base/MapOfAnys.EntryOrBuilder.html
+$dokka.location:io.spine.base/MapOfAnysKt.Dsl.EntryProxy///PointingToDeclaration/io/spine/base/MapOfAnysKt.Dsl.EntryProxy.html
+$dokka.location:io.spine.base/MapOfAnysKt.Dsl///PointingToDeclaration/io/spine/base/MapOfAnysKt.Dsl.html
+$dokka.location:io.spine.base/MapOfAnysKt.EntryKt.Dsl///PointingToDeclaration/io/spine/base/MapOfAnysKt.EntryKt.Dsl.html
+$dokka.location:io.spine.base/MapOfAnysKt.EntryKt///PointingToDeclaration/io/spine/base/MapOfAnysKt.EntryKt.html
+$dokka.location:io.spine.code.proto/TypeSet.Builder///PointingToDeclaration/io/spine/code/proto/TypeSet.Builder.html
+$dokka.location:io.spine.option/ChoiceOption.Builder///PointingToDeclaration/io/spine/option/ChoiceOption.Builder.html
+$dokka.location:io.spine.option/ChoiceOptionKt.Dsl///PointingToDeclaration/io/spine/option/ChoiceOptionKt.Dsl.html
+$dokka.location:io.spine.option/CompareByOption.Builder///PointingToDeclaration/io/spine/option/CompareByOption.Builder.html
+$dokka.location:io.spine.option/CompareByOptionKt.Dsl.FieldProxy///PointingToDeclaration/io/spine/option/CompareByOptionKt.Dsl.FieldProxy.html
+$dokka.location:io.spine.option/CompareByOptionKt.Dsl///PointingToDeclaration/io/spine/option/CompareByOptionKt.Dsl.html
+$dokka.location:io.spine.option/EntityOption.Builder///PointingToDeclaration/io/spine/option/EntityOption.Builder.html
+$dokka.location:io.spine.option/EntityOption.Kind///PointingToDeclaration/io/spine/option/EntityOption.Kind.html
+$dokka.location:io.spine.option/EntityOption.Visibility///PointingToDeclaration/io/spine/option/EntityOption.Visibility.html
+$dokka.location:io.spine.option/EntityOptionKt.Dsl///PointingToDeclaration/io/spine/option/EntityOptionKt.Dsl.html
+$dokka.location:io.spine.option/EveryIsOption.Builder///PointingToDeclaration/io/spine/option/EveryIsOption.Builder.html
+$dokka.location:io.spine.option/EveryIsOptionKt.Dsl///PointingToDeclaration/io/spine/option/EveryIsOptionKt.Dsl.html
+$dokka.location:io.spine.option/GoesOption.Builder///PointingToDeclaration/io/spine/option/GoesOption.Builder.html
+$dokka.location:io.spine.option/GoesOptionKt.Dsl///PointingToDeclaration/io/spine/option/GoesOptionKt.Dsl.html
+$dokka.location:io.spine.option/IfHasDuplicatesOption.Builder///PointingToDeclaration/io/spine/option/IfHasDuplicatesOption.Builder.html
+$dokka.location:io.spine.option/IfHasDuplicatesOptionKt.Dsl///PointingToDeclaration/io/spine/option/IfHasDuplicatesOptionKt.Dsl.html
+$dokka.location:io.spine.option/IfInvalidOption.Builder///PointingToDeclaration/io/spine/option/IfInvalidOption.Builder.html
+$dokka.location:io.spine.option/IfInvalidOptionKt.Dsl///PointingToDeclaration/io/spine/option/IfInvalidOptionKt.Dsl.html
+$dokka.location:io.spine.option/IfMissingOption.Builder///PointingToDeclaration/io/spine/option/IfMissingOption.Builder.html
+$dokka.location:io.spine.option/IfMissingOptionKt.Dsl///PointingToDeclaration/io/spine/option/IfMissingOptionKt.Dsl.html
+$dokka.location:io.spine.option/IfSetAgainOption.Builder///PointingToDeclaration/io/spine/option/IfSetAgainOption.Builder.html
+$dokka.location:io.spine.option/IfSetAgainOptionKt.Dsl///PointingToDeclaration/io/spine/option/IfSetAgainOptionKt.Dsl.html
+$dokka.location:io.spine.option/IsOption.Builder///PointingToDeclaration/io/spine/option/IsOption.Builder.html
+$dokka.location:io.spine.option/IsOptionKt.Dsl///PointingToDeclaration/io/spine/option/IsOptionKt.Dsl.html
+$dokka.location:io.spine.option/MaxOption.Builder///PointingToDeclaration/io/spine/option/MaxOption.Builder.html
+$dokka.location:io.spine.option/MaxOptionKt.Dsl///PointingToDeclaration/io/spine/option/MaxOptionKt.Dsl.html
+$dokka.location:io.spine.option/MinOption.Builder///PointingToDeclaration/io/spine/option/MinOption.Builder.html
+$dokka.location:io.spine.option/MinOptionKt.Dsl///PointingToDeclaration/io/spine/option/MinOptionKt.Dsl.html
+$dokka.location:io.spine.option/PatternOption.Builder///PointingToDeclaration/io/spine/option/PatternOption.Builder.html
+$dokka.location:io.spine.option/PatternOption.Modifier.Builder///PointingToDeclaration/io/spine/option/PatternOption.Modifier.Builder.html
+$dokka.location:io.spine.option/PatternOption.Modifier///PointingToDeclaration/io/spine/option/PatternOption.Modifier.html
+$dokka.location:io.spine.option/PatternOption.ModifierOrBuilder///PointingToDeclaration/io/spine/option/PatternOption.ModifierOrBuilder.html
+$dokka.location:io.spine.option/PatternOptionKt.Dsl///PointingToDeclaration/io/spine/option/PatternOptionKt.Dsl.html
+$dokka.location:io.spine.option/PatternOptionKt.ModifierKt.Dsl///PointingToDeclaration/io/spine/option/PatternOptionKt.ModifierKt.Dsl.html
+$dokka.location:io.spine.option/PatternOptionKt.ModifierKt///PointingToDeclaration/io/spine/option/PatternOptionKt.ModifierKt.html
+$dokka.location:io.spine.option/RangeOption.Builder///PointingToDeclaration/io/spine/option/RangeOption.Builder.html
+$dokka.location:io.spine.option/RangeOptionKt.Dsl///PointingToDeclaration/io/spine/option/RangeOptionKt.Dsl.html
+$dokka.location:io.spine.option/RequireOption.Builder///PointingToDeclaration/io/spine/option/RequireOption.Builder.html
+$dokka.location:io.spine.option/RequireOptionKt.Dsl///PointingToDeclaration/io/spine/option/RequireOptionKt.Dsl.html
+$dokka.location:io.spine.query/Column.Getter///PointingToDeclaration/io/spine/query/Column.Getter.html
+$dokka.location:io.spine.string/Indent.Companion///PointingToDeclaration/io/spine/string/Indent.Companion.html
+$dokka.location:io.spine.string/Separator.Companion///PointingToDeclaration/io/spine/string/Separator.Companion.html
+$dokka.location:io.spine.type/TypeUrl.Prefix///PointingToDeclaration/io/spine/type/TypeUrl.Prefix.html
+io.spine.base
+io.spine.code
+io.spine.code.fs
+io.spine.code.java
+io.spine.code.proto
+io.spine.collect
+io.spine.compare
+io.spine.environment
+io.spine.io
+io.spine.json
+io.spine.option
+io.spine.protobuf
+io.spine.query
+io.spine.security
+io.spine.string
+io.spine.type
+io.spine.util
+io.spine.value
