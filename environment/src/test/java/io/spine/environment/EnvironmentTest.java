@@ -26,7 +26,6 @@
 
 package io.spine.environment;
 
-import com.google.common.truth.Truth;
 import io.spine.environment.given.AppEngine;
 import io.spine.environment.given.AppEngineStandard;
 import io.spine.environment.given.IntegrationTests;
@@ -235,7 +234,7 @@ class EnvironmentTest {
         assertThat(environment.is(Staging.class)).isTrue();
 
         Staging.reset();
-        Truth.assertThat(new Staging().enabled()).isFalse();
+        assertThat(new Staging().enabled()).isFalse();
         assertThat(environment.is(Staging.class)).isTrue();
     }
 
