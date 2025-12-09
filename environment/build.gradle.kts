@@ -38,3 +38,8 @@ dependencies {
     implementation(Reflect.lib)
     implementation(project(":base"))
 }
+
+dokka {
+    moduleName.set("Environment Library")
+}
+
