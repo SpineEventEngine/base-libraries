@@ -313,7 +313,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-build-tools-impl</artifactId>
-    <version>null</version>
+    <version>2.2.21</version>
   </dependency>
   <dependency>
     <groupId>org.jetbrains.kotlin</groupId>
