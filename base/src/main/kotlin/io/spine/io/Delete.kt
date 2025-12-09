@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2025, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -24,52 +24,43 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.io;
+@file:JvmName("Delete")
 
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import kotlin.io.FilesKt;
+package io.spine.io
 
-import java.nio.file.Path;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.errorprone.annotations.CanIgnoreReturnValue
+import java.nio.file.Path
 
 /**
- * Utilities for delete operations on a file system.
+ * Requests removal of the passed directory when the system shuts down.
+ *
+ * ### Implementation Note
+ *
+ * This method creates a new `Thread` for deleting the passed directory.
+ * That's why calling it should not be taken lightly. If your application creates
+ * several directories that need to be removed when JVM is terminated, consider
+ * gathering them under a common root passed to this method.
+ *
+ * @see Runtime.addShutdownHook
  */
-public final class Delete {
+public fun deleteRecursivelyOnShutdownHook(directory: Path) {
+    val runtime = Runtime.getRuntime()
+    runtime.addShutdownHook(Thread {
+        deleteRecursively(directory) }
+    )
+}
 
-    /** Prevents instantiation of this utility class. */
-    private Delete() {
-    }
-
-    /**
-     * Requests removal of the passed directory when the system shuts down.
-     *
-     * @implNote This method creates a new {@code Thread} for deleting the passed directory.
-     *         That's why calling it should not be taken lightly. If your application creates
-     *         several directories that need to be removed when JVM is terminated, consider
-     *         gathering them under a common root passed to this method.
-     * @see Runtime#addShutdownHook(Thread)
-     */
-    public static void deleteRecursivelyOnShutdownHook(Path directory) {
-        checkNotNull(directory);
-        var runtime = Runtime.getRuntime();
-        runtime.addShutdownHook(new Thread(() -> deleteRecursively(directory)));
-    }
-
-    /**
-     * Deletes the passed directory.
-     *
-     * <p>If the operation fails, the method returns {@code false}. In such a case,
-     * the content of the directory may be partially deleted.
-     *
-     * @param directory
-     *          the directory to delete
-     * @return {@code true} if the directory was successfully deleted, {@code false} otherwise
-     */
-    @CanIgnoreReturnValue
-    public static boolean deleteRecursively(Path directory) {
-        var success = FilesKt.deleteRecursively(directory.toFile());
-        return success;
-    }
+/**
+ * Deletes the passed directory.
+ *
+ * If the operation fails, the method returns `false`. In such a case,
+ * the content of the directory may be partially deleted.
+ *
+ * @param directory The directory to delete.
+ * @return `true` if the directory was successfully deleted, `false` otherwise
+ */
+@CanIgnoreReturnValue
+public fun deleteRecursively(directory: Path): Boolean {
+    val success = directory.toFile().deleteRecursively()
+    return success
 }
