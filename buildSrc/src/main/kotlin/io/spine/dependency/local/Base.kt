@@ -33,8 +33,8 @@ package io.spine.dependency.local
  */
 @Suppress("ConstPropertyName", "unused")
 object Base {
-    const val version = "2.0.0-SNAPSHOT.380"
-    const val versionForBuildScript = "2.0.0-SNAPSHOT.380"
+    const val version = "2.0.0-SNAPSHOT.382"
+    const val versionForBuildScript = "2.0.0-SNAPSHOT.382"
     const val group = Spine.group
     const val artifact = "spine-base"
     const val lib = "$group:$artifact:$version"

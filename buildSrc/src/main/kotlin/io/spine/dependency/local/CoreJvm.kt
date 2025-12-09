@@ -31,14 +31,14 @@ package io.spine.dependency.local
 typealias CoreJava = CoreJvm
 
 /**
- * Dependencies on `core-java` modules.
+ * Dependencies on `core-jvm` modules.
  *
- * See [`SpineEventEngine/core-java`](https://github.com/SpineEventEngine/core-jvm/).
+ * See [`SpineEventEngine/core-jvm`](https://github.com/SpineEventEngine/core-jvm/).
  */
 @Suppress("ConstPropertyName", "unused")
 object CoreJvm {
     const val group = Spine.group
-    const val version = "2.0.0-SNAPSHOT.346"
+    const val version = "2.0.0-SNAPSHOT.356"
 
     const val coreArtifact = "spine-core"
     const val clientArtifact = "spine-client"
