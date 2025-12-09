@@ -32,7 +32,6 @@ import com.google.protobuf.Descriptors.FileDescriptor;
 import io.spine.base.RejectionType;
 import io.spine.code.fs.AbstractSourceFile;
 import io.spine.code.java.SimpleClassName;
-import io.spine.logging.WithLogging;
 import io.spine.type.MessageType;
 
 import java.nio.file.Path;
@@ -43,12 +42,11 @@ import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static java.lang.String.format;
 
 /**
  * A Protobuf file which also gives access to its {@link FileDescriptor descriptor}.
  */
-public class SourceFile extends AbstractSourceFile implements WithLogging {
+public class SourceFile extends AbstractSourceFile {
 
     private final FileDescriptor descriptor;
 
@@ -130,8 +128,6 @@ public class SourceFile extends AbstractSourceFile implements WithLogging {
         ImmutableList.Builder<MessageType> result = ImmutableList.builder();
         for (var messageType : descriptor.getMessageTypes()) {
             var declaration = new MessageType(messageType);
-            logger().atDebug().log(() -> format(
-                "Testing `%s` to match `%s`.", declaration, predicate));
             if (predicate.test(messageType.toProto())) {
                 result.add(declaration);
             }
