@@ -27,21 +27,16 @@
 package io.spine.io;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import io.spine.logging.Logger;
-import io.spine.logging.LoggingFactory;
 import kotlin.io.FilesKt;
 
 import java.nio.file.Path;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static java.lang.String.format;
 
 /**
  * Utilities for delete operations on a file system.
  */
 public final class Delete {
-
-    private static final Logger logger = LoggingFactory.forEnclosingClass();
 
     /** Prevents instantiation of this utility class. */
     private Delete() {
@@ -75,10 +70,6 @@ public final class Delete {
     @CanIgnoreReturnValue
     public static boolean deleteRecursively(Path directory) {
         var success = FilesKt.deleteRecursively(directory.toFile());
-        if (!success) {
-            logger.atWarning()
-                  .log(() -> format("Unable to delete the directory `%s`.", directory));
-        }
         return success;
     }
 }

@@ -40,7 +40,6 @@ import io.spine.code.proto.FieldName;
 import io.spine.code.proto.FileDescriptors;
 import io.spine.code.proto.LocationPath;
 import io.spine.code.proto.TypeSet;
-import io.spine.logging.WithLogging;
 import io.spine.option.OptionsProto;
 
 import java.util.Deque;
@@ -58,14 +57,13 @@ import static io.spine.code.proto.FileDescriptors.sameFiles;
 import static io.spine.option.EntityOption.Kind.KIND_UNKNOWN;
 import static io.spine.option.EntityOption.Kind.UNRECOGNIZED;
 import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
-import static java.lang.String.format;
 
 /**
  * A message type as declared in a proto file.
  */
 @Immutable
 @SuppressWarnings("ClassWithTooManyMethods")
-public class MessageType extends Type<Descriptor, DescriptorProto> implements WithLogging {
+public class MessageType extends Type<Descriptor, DescriptorProto> {
 
     private final ImmutableList<FieldDeclaration> fields;
 
@@ -380,8 +378,10 @@ public class MessageType extends Type<Descriptor, DescriptorProto> implements Wi
                      .toProto();
     }
 
+    @SuppressWarnings("UseOfSystemOutOrSystemErr") /* We want to avoid dependency on logging
+        in this part of code which is going to be deprecated eventually. */
     private void warnNoSourceCodeInfoIn(FileDescriptorProto file) {
-        logger().atWarning().log(() -> format(
+        System.err.printf(
                 "Unable to obtain proto source code info for the message type `%s`" +
                         " declared in the file `%s`.%n" +
                         "Please configure the Gradle Protobuf plugin as follows:" +
@@ -390,10 +390,9 @@ public class MessageType extends Type<Descriptor, DescriptorProto> implements Wi
                         "    generateProtoTasks.all().configureEach {%n" +
                         "        descriptorSetOptions.includeSourceInfo = true %n" +
                         "    }%n" +
-                        '}',
+                        "}%n",
                 name(),
-                file.getName())
-        );
+                file.getName());
     }
 
     /**

@@ -57,7 +57,6 @@ dependencies {
     Protobuf.libs.forEach { api(it) }
     api(Guava.lib)
 
-    implementation(Logging.lib)
     implementation(Reflect.lib)
     implementation(Kotlin.reflect)
 

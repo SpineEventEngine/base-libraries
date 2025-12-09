@@ -37,8 +37,6 @@ import io.spine.annotation.VisibleForTesting;
 import io.spine.code.java.ClassName;
 import io.spine.code.proto.FileSet;
 import io.spine.code.proto.TypeSet;
-import io.spine.logging.Logger;
-import io.spine.logging.LoggingFactory;
 import io.spine.security.InvocationGuard;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
@@ -312,8 +310,6 @@ public class KnownTypes implements Serializable {
     @Internal
     public static final class Holder {
 
-        private static final Logger logger = LoggingFactory.forEnclosingClass();
-
         /** The lock to synchronize the write access to the {@code KnownTypes} instance. */
         private static final Lock lock = new ReentrantLock(false);
 
@@ -341,7 +337,6 @@ public class KnownTypes implements Serializable {
         @Internal /* exposed only to `io.spine.tools.type.MoreKnownTypes`. */
         public static void extendWith(TypeSet moreKnownTypes) {
             InvocationGuard.allowOnly("io.spine.tools.type.MoreKnownTypes");
-            logger.atDebug().log(() -> format("Adding types `%s` to known types.", moreKnownTypes));
             lock.lock();
             try {
                 var extended = instance.extendWith(moreKnownTypes);

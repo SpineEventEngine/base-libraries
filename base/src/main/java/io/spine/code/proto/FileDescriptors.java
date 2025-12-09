@@ -29,8 +29,6 @@ import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import com.google.protobuf.DescriptorProtos.FileDescriptorSet;
 import com.google.protobuf.Descriptors.FileDescriptor;
 import io.spine.io.Resource;
-import io.spine.logging.Logger;
-import io.spine.logging.LoggingFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +42,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.io.IoPreconditions.checkExists;
 import static io.spine.util.Exceptions.newIllegalStateException;
 import static io.spine.util.Predicates2.distinctBy;
-import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
@@ -52,8 +49,6 @@ import static java.util.stream.Collectors.toSet;
  * A utility class which allows to obtain Protobuf file descriptors.
  */
 public final class FileDescriptors {
-
-    private static final Logger logger = LoggingFactory.forEnclosingClass();
 
     /**
      * Extension of the descriptor set files.
@@ -99,10 +94,6 @@ public final class FileDescriptors {
     private static List<FileDescriptorProto>
     parseAndFilter(File descriptorSet, Predicate<FileDescriptorProto> filter) {
         checkExists(descriptorSet);
-        logger.atDebug().log(() -> format(
-                "Looking up for the proto files matching predicate `%s` under `%s`.",
-                filter, descriptorSet));
-
         List<FileDescriptorProto> files;
         try (var fis = new FileInputStream(descriptorSet)) {
             var fileSet = FileDescriptorSetReader.parse(fis);
@@ -114,7 +105,6 @@ public final class FileDescriptors {
                     e, "Cannot get proto file descriptors. Path: `%s`.", descriptorSet
             );
         }
-        logger.atDebug().log(() -> format("Found %d files.", files.size()));
         return files;
     }
 
