@@ -70,9 +70,7 @@ io.spine.code.java
 io.spine.code.proto
 io.spine.collect
 io.spine.compare
-io.spine.environment
 io.spine.io
-io.spine.json
 io.spine.option
 io.spine.protobuf
 io.spine.query
