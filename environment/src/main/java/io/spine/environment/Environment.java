@@ -45,7 +45,7 @@ import static java.lang.String.format;
 /**
  * Provides information about the environment (current platform used, etc.).
  *
- * <h3>Detecting the type of the environment</h3>
+ * <h2>Detecting the type of the environment</h2>
  *
  * <p>It is possible to {@linkplain #type() obtain the type} of the current
  * environment, or to check whether current environment type {@linkplain #is(Class) matches
@@ -57,7 +57,7 @@ import static java.lang.String.format;
  *     private final EmailSender sender;
  *
  *     private Application() {
- *         Environment environment = Environment.instance();
+ *         var environment = Environment.instance();
  *         if (environment.is(Tests.class)) {
  *             // Do not send out emails if in tests.
  *             this.sender = new MockEmailSender();
@@ -100,7 +100,7 @@ import static java.lang.String.format;
  * </ul>
  * <pre>
  *
- *     Environment environment = Environment.instance();
+ *     var environment = Environment.instance();
  *     environment.register(AwsLambda.class);
  *     assertThat(environment.is(AwsLambda.class)).isTrue();
  *

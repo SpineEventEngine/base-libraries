@@ -24,38 +24,43 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@file:JvmName("CodeGeneratorRequests")
+@file:JvmName("Delete")
 
-package io.spine.code.proto
+package io.spine.io
 
-import com.google.protobuf.compiler.PluginProtos.CodeGeneratorRequest
-import io.spine.type.parse
-import java.io.InputStream
-import kotlin.reflect.KClass
+import com.google.errorprone.annotations.CanIgnoreReturnValue
+import java.nio.file.Path
 
 /**
- * Redirects to [io.spine.type.parse].
+ * Requests removal of the passed directory when the system shuts down.
+ *
+ * ### Implementation Note
+ *
+ * This method creates a new `Thread` for deleting the passed directory.
+ * That's why calling it should not be taken lightly. If your application creates
+ * several directories that need to be removed when JVM is terminated, consider
+ * gathering them under a common root passed to this method.
+ *
+ * @see Runtime.addShutdownHook
  */
-@Deprecated(
-    message = "Please use `io.spine.type.parse()`",
-    replaceWith = ReplaceWith(
-        "this.parse(input)",
-        imports = ["io.spine.type.parse"]
-    ),
-)
-public fun KClass<CodeGeneratorRequest>.parse(input: InputStream): CodeGeneratorRequest {
-    return parse(input)
+public fun deleteRecursivelyOnShutdownHook(directory: Path) {
+    val runtime = Runtime.getRuntime()
+    runtime.addShutdownHook(Thread {
+        deleteRecursively(directory) }
+    )
 }
 
 /**
- * Redirects to [io.spine.type.parse].
+ * Deletes the passed directory.
+ *
+ * If the operation fails, the method returns `false`. In such a case,
+ * the content of the directory may be partially deleted.
+ *
+ * @param directory The directory to delete.
+ * @return `true` if the directory was successfully deleted, `false` otherwise
  */
-@Deprecated(
-    message = "Please use `io.spine.type.parse()`",
-    replaceWith = ReplaceWith(
-        "CodeGeneratorRequest::class.parse(input)",
-        imports = ["io.spine.type.parse"]
-    )
-)
-public fun parseCodeGeneratorRequest(input: InputStream): CodeGeneratorRequest =
-    CodeGeneratorRequest::class.parse(input)
+@CanIgnoreReturnValue
+public fun deleteRecursively(directory: Path): Boolean {
+    val success = directory.toFile().deleteRecursively()
+    return success
+}

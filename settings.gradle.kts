@@ -36,5 +36,6 @@ pluginManagement {
 include(
     "annotations",
     "base",
+    "environment",
     "format"
 )

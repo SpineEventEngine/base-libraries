@@ -33,9 +33,6 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.protobuf.DescriptorProtos.DescriptorProto;
 import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import com.google.protobuf.Descriptors.FileDescriptor;
-import io.spine.logging.Level;
-import io.spine.logging.Logger;
-import io.spine.logging.LoggingFactory;
 import io.spine.type.KnownTypes;
 import io.spine.type.MessageType;
 import io.spine.type.Type;
@@ -54,7 +51,6 @@ import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Maps.newHashMapWithExpectedSize;
 import static io.spine.code.proto.Linker.link;
 import static io.spine.io.IoPreconditions.checkExists;
-import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -64,8 +60,6 @@ import static java.util.stream.Collectors.toSet;
  * A set of proto files represented by their {@linkplain FileDescriptor descriptors}.
  */
 public final class FileSet {
-
-    private static final Logger logger = LoggingFactory.forEnclosingClass();
 
     private static final FileDescriptor[] EMPTY = {};
 
@@ -132,28 +126,24 @@ public final class FileSet {
         return result;
     }
 
+    @SuppressWarnings("UseOfSystemOutOrSystemErr") /* Avoid dependency on Logging. */
     private static void onUnknownFiles(Set<FileName> knownFiles,
                                        Set<FileName> requestedFiles,
                                        File descriptorSetFile) {
-        var detailLevel = Level.DEBUG;
-        logger.atWarning().log(() -> format(
+        System.err.printf(
                 "Some files are unknown. " +
                 "%s files are present in classpath but %s files are discovered in `%s`.%n" +
-                "This means that they may be empty or that they are missing from the classpath. " +
-                "Enable `%s` logs for more info.",
+                "This means that they may be empty or that they are missing from the classpath.",
                 knownFiles.size(),
                 requestedFiles.size(),
-                descriptorSetFile,
-                detailLevel
-        ));
-        logger.at(detailLevel)
-              .log(() -> {
-                  var files = requestedFiles.stream()
-                          .filter(fileName -> !knownFiles.contains(fileName))
-                          .map(FileName::toString)
-                          .collect(joining(", "));
-                  return format("Could not find files: %s.", files);
-              });
+                descriptorSetFile
+        );
+        var files = requestedFiles.stream()
+                .filter(fileName -> !knownFiles.contains(fileName))
+                .map(FileName::toString)
+                .collect(joining(", "));
+
+        System.err.printf("Could not find files: %s.", files);
     }
 
     /**
@@ -165,7 +155,7 @@ public final class FileSet {
     }
 
     /**
-     * Loads main file set from resources.
+     * Loads the main file set from resources.
      */
     public static FileSet load() {
         Collection<FileDescriptorProto> files = FileDescriptors.load();
