@@ -1,0 +1,688 @@
+<!DOCTYPE HTML>
+<!-- NewPage -->
+<html lang="en"><head>
+    <title>Package io.spine.option </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="dc.created" content="2020-03-25">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../dokka-javadoc-stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../jquery/jquery-ui.css" title="Style">
+    <script type="text/javascript" src="../../../jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-migrate-3.4.0.min.js"></script>
+    <script type="text/javascript" src="../../../jquery/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../../../search.js"></script>
+    <script async type="text/javascript" src="../../../module-search-index.js"></script>
+    <script async type="text/javascript" src="../../../package-search-index.js"></script>
+    <script async type="text/javascript" src="../../../type-search-index.js"></script>
+    <script async type="text/javascript" src="../../../member-search-index.js"></script>
+    <script async type="text/javascript" src="../../../tag-search-index.js"></script>
+</head><body>
+<script type="text/javascript">
+var pathtoroot = "../../../";
+</script>
+<noscript>
+    <div>JavaScript is disabled on your browser.</div>
+</noscript><header role="banner">
+    <nav role="navigation">
+        <div class="fixedNav">
+            <!-- ========= START OF TOP NAVBAR ======= -->
+            <div class="topNav"><a id="navbar.top">
+                <!--   -->
+            </a>
+                <div class="skipNav"><a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
+                </div>
+                <a id="navbar.top.firstrow">
+                    <!--   -->
+                </a>
+                <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+            <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+
+<ul class="navListSearch">
+<li><label for="search">SEARCH:</label>
+<input type="text" id="search" value="search" class="ui-autocomplete-input" autocomplete="off" placeholder="Search">
+<input type="reset" id="reset" value="reset">
+</li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ========= END OF TOP NAVBAR ========= -->
+        </div>
+        <div class="navPadding">&nbsp;</div>
+        <script type="text/javascript"><!--
+        $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
+        //-->
+        </script>
+    </nav>
+</header>
+<main role="main">
+    <div class="header">
+        <h1 title="Package" class="title">Package io.spine.option </h1>
+    </div>
+        <div class="header">
+            <div class="subtitle">
+                <div class="block"><p>This package provides the code generated from <code>spine/options.proto</code>, the API for registering custom options (via the <a href=OptionsProvider.html>OptionsProvider</a> interface), and implementation of the <code>OptionsProvider</code> interface for registering base options types.</p></div>
+            </div>
+            <p>See: <a href="#overview_description">Description</a></p>
+        </div>
+    <div class="contentContainer">
+        
+            <ul class="blockList">
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=BaseOptionsProvider.html>BaseOptionsProvider</a></th><td class="colLast">Register options generated for the <code>spine/options.proto</code> file.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfMissingOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines the error message used if a `required` field is not set.
+
+Applies only to the fields marked as `required`.
+</code></pre> Protobuf type <code>IfMissingOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfMissingOption.html>IfMissingOption</a></th><td class="colLast"><pre><code>Defines the error message used if a `required` field is not set.
+
+Applies only to the fields marked as `required`.
+</code></pre> Protobuf type <code>IfMissingOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EveryIsOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines a common type for message types declared in the same proto file.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface common
+to all message classes generated for the proto file having this option.
+
+The option triggers creation of the common type if the `generate` property is set to true.
+Otherwise, it is expected that the user provides the reference to an existing type.
+</code></pre> Protobuf type <code>EveryIsOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EveryIsOption.html>EveryIsOption</a></th><td class="colLast"><pre><code>Defines a common type for message types declared in the same proto file.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface common
+to all message classes generated for the proto file having this option.
+
+The option triggers creation of the common type if the `generate` property is set to true.
+Otherwise, it is expected that the user provides the reference to an existing type.
+</code></pre> Protobuf type <code>EveryIsOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EntityOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines options of a message representing a state of an entity.
+</code></pre> Protobuf type <code>EntityOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityOption.html>EntityOption</a></th><td class="colLast"><pre><code>Defines options of a message representing a state of an entity.
+</code></pre> Protobuf type <code>EntityOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOption.Modifier.Builder.html>Builder</a></th><td class="colLast"><pre><code>Regular expression modifiers.
+
+These modifiers are specifically selected to be supported in many implementation platforms.
+</code></pre> Protobuf type <code>PatternOption.Modifier</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=PatternOption.Modifier.html>Modifier</a></th><td class="colLast"><pre><code>Regular expression modifiers.
+
+These modifiers are specifically selected to be supported in many implementation platforms.
+</code></pre> Protobuf type <code>PatternOption.Modifier</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>A string field value must match the given regular expression.
+
+This option is applicable only to string fields,
+including those that are repeated.
+
+Example: using the `(pattern)` option.
+
+message CreateAccount {
+string id = 1 [(pattern).regex = &quot;^[A-Za-z0-9+]+$&quot;,
+(pattern).error_msg = &quot;ID must be alphanumerical in `${parent.type}`. Provided: `${field.value}`.&quot;];
+}
+</code></pre> Protobuf type <code>PatternOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=PatternOption.html>PatternOption</a></th><td class="colLast"><pre><code>A string field value must match the given regular expression.
+
+This option is applicable only to string fields,
+including those that are repeated.
+
+Example: using the `(pattern)` option.
+
+message CreateAccount {
+string id = 1 [(pattern).regex = &quot;^[A-Za-z0-9+]+$&quot;,
+(pattern).error_msg = &quot;ID must be alphanumerical in `${parent.type}`. Provided: `${field.value}`.&quot;];
+}
+</code></pre> Protobuf type <code>PatternOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MaxOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be less than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>MaxOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MaxOption.html>MaxOption</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be less than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>MaxOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfInvalidOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Specifies the message to show if a validated field happens to be invalid.
+
+It is applicable only to fields marked with `(validate)`.
+</code></pre> Protobuf type <code>IfInvalidOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfInvalidOption.html>IfInvalidOption</a></th><td class="colLast"><pre><code>Specifies the message to show if a validated field happens to be invalid.
+
+It is applicable only to fields marked with `(validate)`.
+</code></pre> Protobuf type <code>IfInvalidOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CompareByOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines the way to compare two messages of the same type to one another.
+
+Comparisons can be used to sort values.
+
+See the `(compare_by)` option.
+</code></pre> Protobuf type <code>CompareByOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=CompareByOption.html>CompareByOption</a></th><td class="colLast"><pre><code>Defines the way to compare two messages of the same type to one another.
+
+Comparisons can be used to sort values.
+
+See the `(compare_by)` option.
+</code></pre> Protobuf type <code>CompareByOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=ChoiceOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Controls whether a `oneof` group must always have one of its fields set.
+
+Note that unlike the `(required)` constraint, this option supports any field types
+within the group cases.
+</code></pre> Protobuf type <code>ChoiceOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ChoiceOption.html>ChoiceOption</a></th><td class="colLast"><pre><code>Controls whether a `oneof` group must always have one of its fields set.
+
+Note that unlike the `(required)` constraint, this option supports any field types
+within the group cases.
+</code></pre> Protobuf type <code>ChoiceOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=OptionsProto.html>OptionsProto</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfSetAgainOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines the error message used if a `set_once` field is set again.
+
+Applies only to the fields marked as `set_once`.
+</code></pre> Protobuf type <code>IfSetAgainOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfSetAgainOption.html>IfSetAgainOption</a></th><td class="colLast"><pre><code>Defines the error message used if a `set_once` field is set again.
+
+Applies only to the fields marked as `set_once`.
+</code></pre> Protobuf type <code>IfSetAgainOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MinOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be greater than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>MinOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MinOption.html>MinOption</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be greater than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>MinOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IsOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines additional type for a message type in which this option is declared.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface which
+the generated message class will implement.
+</code></pre> Protobuf type <code>IsOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IsOption.html>IsOption</a></th><td class="colLast"><pre><code>Defines additional type for a message type in which this option is declared.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface which
+the generated message class will implement.
+</code></pre> Protobuf type <code>IsOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RequireOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Declares the field groups, at least one of which must have all of its fields set.
+
+Unlike the `(required)` field constraint, which requires the presence of
+a specific field, this option allows to specify alternative field groups.
+</code></pre> Protobuf type <code>RequireOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RequireOption.html>RequireOption</a></th><td class="colLast"><pre><code>Declares the field groups, at least one of which must have all of its fields set.
+
+Unlike the `(required)` field constraint, which requires the presence of
+a specific field, this option allows to specify alternative field groups.
+</code></pre> Protobuf type <code>RequireOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=GoesOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Specifies that another field must be present if the option's target field is present.
+
+Unlike the `required_field` that handles combination of required fields, this option is useful
+when it is needed to say that an optional field makes sense only when another optional field
+is present.
+
+This option can be applied to the same field types as `(required)`, including both the
+target field and its companion. Supported field types are:
+
+- Messages and enums.
+- Repeated fields and maps.
+- `string` and `bytes`.
+
+Example: requiring mutual presence of optional fields.
+
+message ScheduledItem {
+...
+spine.time.LocalDate date = 4;
+spine.time.LocalTime time = 5 [(goes).with = &quot;date&quot;];
+}
+</code></pre> Protobuf type <code>GoesOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=GoesOption.html>GoesOption</a></th><td class="colLast"><pre><code>Specifies that another field must be present if the option's target field is present.
+
+Unlike the `required_field` that handles combination of required fields, this option is useful
+when it is needed to say that an optional field makes sense only when another optional field
+is present.
+
+This option can be applied to the same field types as `(required)`, including both the
+target field and its companion. Supported field types are:
+
+- Messages and enums.
+- Repeated fields and maps.
+- `string` and `bytes`.
+
+Example: requiring mutual presence of optional fields.
+
+message ScheduledItem {
+...
+spine.time.LocalDate date = 4;
+spine.time.LocalTime time = 5 [(goes).with = &quot;date&quot;];
+}
+</code></pre> Protobuf type <code>GoesOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Defines the error message used if a `distinct` field has duplicates.
+
+Applies only to the `repeated` and `map` fields marked with the `(distinct)` option.
+</code></pre> Protobuf type <code>IfHasDuplicatesOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOption.html>IfHasDuplicatesOption</a></th><td class="colLast"><pre><code>Defines the error message used if a `distinct` field has duplicates.
+
+Applies only to the `repeated` and `map` fields marked with the `(distinct)` option.
+</code></pre> Protobuf type <code>IfHasDuplicatesOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RangeOption.Builder.html>Builder</a></th><td class="colLast"><pre><code>Indicate that the numeric field must belong to the specified bounded range.
+
+For unbounded ranges, please use `(min)` and `(max) options.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>RangeOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RangeOption.html>RangeOption</a></th><td class="colLast"><pre><code>Indicate that the numeric field must belong to the specified bounded range.
+
+For unbounded ranges, please use `(min)` and `(max) options.
+
+The option supports all singular and repeated numeric fields.
+</code></pre> Protobuf type <code>RangeOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ChoiceOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CompareByOptionKt.Dsl.FieldProxy.html>FieldProxy</a></th><td class="colLast">An uninstantiable, behaviorless type to represent the field in generics.</td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=CompareByOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EntityOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EveryIsOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=GoesOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfInvalidOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfMissingOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfSetAgainOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IsOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MaxOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MinOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=PatternOptionKt.ModifierKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RangeOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RequireOptionKt.Dsl.html>Dsl</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOptionKtKt.html>PatternOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ChoiceOptionKtKt.html>ChoiceOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CompareByOptionKtKt.html>CompareByOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityOptionKtKt.html>EntityOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EveryIsOptionKtKt.html>EveryIsOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=GoesOptionKtKt.html>GoesOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOptionKtKt.html>IfHasDuplicatesOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfInvalidOptionKtKt.html>IfInvalidOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfMissingOptionKtKt.html>IfMissingOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfSetAgainOptionKtKt.html>IfSetAgainOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IsOptionKtKt.html>IsOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MaxOptionKtKt.html>MaxOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MinOptionKtKt.html>MinOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RangeOptionKtKt.html>RangeOptionKtKt</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RequireOptionKtKt.html>RequireOptionKtKt</a></th><td class="colLast"></td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=OptionsProvider.html>OptionsProvider</a></th><td class="colLast">A service provider interface for custom Protobuf options.</td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CompareByOptionOrBuilder.html>CompareByOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=PatternOption.ModifierOrBuilder.html>ModifierOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MinOptionOrBuilder.html>MinOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RequireOptionOrBuilder.html>RequireOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EveryIsOptionOrBuilder.html>EveryIsOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfSetAgainOptionOrBuilder.html>IfSetAgainOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfMissingOptionOrBuilder.html>IfMissingOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfInvalidOptionOrBuilder.html>IfInvalidOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=GoesOptionOrBuilder.html>GoesOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ChoiceOptionOrBuilder.html>ChoiceOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOptionOrBuilder.html>PatternOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOptionOrBuilder.html>IfHasDuplicatesOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RangeOptionOrBuilder.html>RangeOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MaxOptionOrBuilder.html>MaxOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IsOptionOrBuilder.html>IsOptionOrBuilder</a></th><td class="colLast"></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityOptionOrBuilder.html>EntityOptionOrBuilder</a></th><td class="colLast"></td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Enum Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Enum</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityOption.Kind.html>Kind</a></th><td class="colLast"><pre><code>A type of an entity for state of which the message is defined.
+</code></pre> Protobuf enum <code>EntityOption.Kind</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EntityOption.Visibility.html>Visibility</a></th><td class="colLast"><pre><code>The level of visibility of the entity to queries.
+</code></pre> Protobuf enum <code>EntityOption.Visibility</code></td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+                <li class="blockList">
+                    
+                    
+                    
+                    
+                    
+    <div class="typeSummary">
+
+<table>
+<caption><span>Object Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Object</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=ChoiceOptionKt.html>ChoiceOptionKt</a></th><td class="colLast"><pre><code>Controls whether a `oneof` group must always have one of its fields set.
+
+Note that unlike the `(required)` constraint, this option supports any field types
+within the group cases.</code></pre>Protobuf type <code>ChoiceOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=CompareByOptionKt.html>CompareByOptionKt</a></th><td class="colLast"><pre><code>Defines the way to compare two messages of the same type to one another.
+
+Comparisons can be used to sort values.
+
+See the `(compare_by)` option.</code></pre>Protobuf type <code>CompareByOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=EntityOptionKt.html>EntityOptionKt</a></th><td class="colLast"><pre><code>Defines options of a message representing a state of an entity.</code></pre>Protobuf type <code>EntityOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=EveryIsOptionKt.html>EveryIsOptionKt</a></th><td class="colLast"><pre><code>Defines a common type for message types declared in the same proto file.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface common
+to all message classes generated for the proto file having this option.
+
+The option triggers creation of the common type if the `generate` property is set to true.
+Otherwise, it is expected that the user provides the reference to an existing type.</code></pre>Protobuf type <code>EveryIsOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=GoesOptionKt.html>GoesOptionKt</a></th><td class="colLast"><pre><code>Specifies that another field must be present if the option's target field is present.
+
+Unlike the `required_field` that handles combination of required fields, this option is useful
+when it is needed to say that an optional field makes sense only when another optional field
+is present.
+
+This option can be applied to the same field types as `(required)`, including both the
+target field and its companion. Supported field types are:
+
+- Messages and enums.
+- Repeated fields and maps.
+- `string` and `bytes`.
+
+Example: requiring mutual presence of optional fields.
+
+message ScheduledItem {
+...
+spine.time.LocalDate date = 4;
+spine.time.LocalTime time = 5 [(goes).with = &quot;date&quot;];
+}</code></pre>Protobuf type <code>GoesOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfHasDuplicatesOptionKt.html>IfHasDuplicatesOptionKt</a></th><td class="colLast"><pre><code>Defines the error message used if a `distinct` field has duplicates.
+
+Applies only to the `repeated` and `map` fields marked with the `(distinct)` option.</code></pre>Protobuf type <code>IfHasDuplicatesOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfInvalidOptionKt.html>IfInvalidOptionKt</a></th><td class="colLast"><pre><code>Specifies the message to show if a validated field happens to be invalid.
+
+It is applicable only to fields marked with `(validate)`.</code></pre>Protobuf type <code>IfInvalidOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IfMissingOptionKt.html>IfMissingOptionKt</a></th><td class="colLast"><pre><code>Defines the error message used if a `required` field is not set.
+
+Applies only to the fields marked as `required`.</code></pre>Protobuf type <code>IfMissingOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=IfSetAgainOptionKt.html>IfSetAgainOptionKt</a></th><td class="colLast"><pre><code>Defines the error message used if a `set_once` field is set again.
+
+Applies only to the fields marked as `set_once`.</code></pre>Protobuf type <code>IfSetAgainOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=IsOptionKt.html>IsOptionKt</a></th><td class="colLast"><pre><code>Defines additional type for a message type in which this option is declared.
+
+The nature of the type depends on the target programming language.
+For example, the `java_type` property defines a name of the Java interface which
+the generated message class will implement.</code></pre>Protobuf type <code>IsOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=MaxOptionKt.html>MaxOptionKt</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be less than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.</code></pre>Protobuf type <code>MaxOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=MinOptionKt.html>MinOptionKt</a></th><td class="colLast"><pre><code>Indicates that the numeric field must be greater than or equal to the specified value.
+
+The option supports all singular and repeated numeric fields.</code></pre>Protobuf type <code>MinOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=PatternOptionKt.ModifierKt.html>ModifierKt</a></th><td class="colLast"><pre><code>Regular expression modifiers.
+
+These modifiers are specifically selected to be supported in many implementation platforms.</code></pre>Protobuf type <code>PatternOption.Modifier</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=PatternOptionKt.html>PatternOptionKt</a></th><td class="colLast"><pre><code>A string field value must match the given regular expression.
+
+This option is applicable only to string fields,
+including those that are repeated.
+
+Example: using the `(pattern)` option.
+
+message CreateAccount {
+string id = 1 [(pattern).regex = &quot;^[A-Za-z0-9+]+$&quot;,
+(pattern).error_msg = &quot;ID must be alphanumerical in `${parent.type}`. Provided: `${field.value}`.&quot;];
+}</code></pre>Protobuf type <code>PatternOption</code></td></tr>
+
+    <tr class="altColor"><th class="colFirst" scope="row"><a href=RangeOptionKt.html>RangeOptionKt</a></th><td class="colLast"><pre><code>Indicate that the numeric field must belong to the specified bounded range.
+
+For unbounded ranges, please use `(min)` and `(max) options.
+
+The option supports all singular and repeated numeric fields.</code></pre>Protobuf type <code>RangeOption</code></td></tr>
+
+    <tr class="rowColor"><th class="colFirst" scope="row"><a href=RequireOptionKt.html>RequireOptionKt</a></th><td class="colLast"><pre><code>Declares the field groups, at least one of which must have all of its fields set.
+
+Unlike the `(required)` field constraint, which requires the presence of
+a specific field, this option allows to specify alternative field groups.</code></pre>Protobuf type <code>RequireOption</code></td></tr>
+</tbody>
+</table>
+
+    </div>
+
+                </li>
+                
+            </ul>
+        
+    </div>
+</main>
+<footer role="contentinfo">
+    <nav role="navigation">
+        <!-- ======= START OF BOTTOM NAVBAR ====== -->
+        <div class="bottomNav"><a id="navbar.bottom">
+            <!--   -->
+        </a>
+            <div class="skipNav"><a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
+            </div>
+            <a id="navbar.bottom.firstrow">
+                <!--   -->
+            </a>
+            <ul class="navList" title="Navigation">
+    <li><a href="../../../index.html">Overview</a></li>
+    
+    <li class="navBarCell1Rev">Package</li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+        <a id="skip.navbar.bottom">
+            <!--   -->
+        </a>
+        <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ======== END OF BOTTOM NAVBAR ======= -->
+    </nav>
+</footer><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0"
+    style="display: none;"></ul>
+<span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span>
+</body>
+</html>
