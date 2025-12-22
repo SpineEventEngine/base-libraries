@@ -29,11 +29,10 @@ package io.spine.dependency.local
 import io.spine.dependency.local.CoreJvmCompiler.dogfoodingVersion
 import io.spine.dependency.local.CoreJvmCompiler.version
 
-
 /**
  * Dependencies on the CoreJvm Compiler artifacts.
  *
- * See [mc-java](https://github.com/SpineEventEngine/core-jvm-compiler).
+ * See [CoreJvm Compiler](https://github.com/SpineEventEngine/core-jvm-compiler).
  */
 @Suppress(
     "MemberVisibilityCanBePrivate" /* `pluginLib()` is used by subprojects. */,
