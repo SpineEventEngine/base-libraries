@@ -26,6 +26,10 @@
 
 package io.spine.dependency.local
 
+import io.spine.dependency.local.CoreJvmCompiler.dogfoodingVersion
+import io.spine.dependency.local.CoreJvmCompiler.version
+
+
 /**
  * Dependencies on the CoreJvm Compiler artifacts.
  *
@@ -46,12 +50,12 @@ object CoreJvmCompiler {
     /**
      * The version used to in the build classpath.
      */
-    const val dogfoodingVersion = "2.0.0-SNAPSHOT.035"
+    const val dogfoodingVersion = "2.0.0-SNAPSHOT.042"
 
     /**
      * The version to be used for integration tests.
      */
-    const val version = "2.0.0-SNAPSHOT.035"
+    const val version = "2.0.0-SNAPSHOT.042"
 
     /**
      * The ID of the Gradle plugin.

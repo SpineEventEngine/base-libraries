@@ -30,7 +30,7 @@ import com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly
 import io.spine.gradle.Cli
 import io.spine.gradle.fs.LazyTempPath
 import java.util.concurrent.TimeUnit.MILLISECONDS
-import org.gradle.api.logging.Logger
+import org.gradle.api.Project
 
 /**
  * Interacts with a real Git repository.
@@ -47,16 +47,17 @@ import org.gradle.api.logging.Logger
  * release of resources please use the provided functionality inside a `use` block or
  * call the `close` method manually.
  *
+ * @property project The Gradle project in which context the repo operations are held.
  * @property sshUrl The GitHub SSH URL to the underlying repository.
  * @property user Current user configuration.
  *   This configuration determines what ends up in the `author` and `committer` fields of a commit.
  * @property currentBranch The currently checked-out branch.
  */
 class Repository private constructor(
+    private val project: Project,
     private val sshUrl: String,
     private var user: UserInfo,
     private var currentBranch: String,
-    private val logger: Logger
 ) : AutoCloseable {
 
     /**
@@ -75,10 +76,9 @@ class Repository private constructor(
      * Executes a command in the [location].
      */
     private fun repoExecute(vararg command: String): String {
-        if (logger.isErrorEnabled) {
-            val msg = "[Repository] Executing command: `${command.toList().joinToString(" ")}`."
-            logger.error(msg)
-        }
+        val cmd = command.toList().joinToString(" ")
+        val msg = "[Repo (${project.path})] Executing command: `$cmd`."
+        System.err.println(msg)
         return Cli(location.toFile()).execute(*command)
     }
 
@@ -159,14 +159,14 @@ class Repository private constructor(
          * @throws IllegalArgumentException if SSH URL is an empty string.
          */
         fun clone(
+            project: Project,
             sshUrl: String,
             user: UserInfo,
             branch: String = Branch.master,
-            logger: Logger
         ): Repository {
             require(sshUrl.isNotBlank()) { "SSH URL cannot be an empty string." }
 
-            val repo = Repository(sshUrl, user, branch, logger)
+            val repo = Repository(project, sshUrl, user, branch)
             repo.clone()
             repo.configureUser(user)
 
@@ -199,9 +199,9 @@ class Repository private constructor(
  */
 @Suppress("TooGenericExceptionCaught", "LongParameterList")
 private fun <T> withRetries(
-    times: Int = 3,
-    initialDelay: Long = 100,      // ms
-    maxDelay: Long = 2000,         // ms
+    times: Int = 5,
+    initialDelay: Long = 2000,      // ms
+    maxDelay: Long = 20000,         // ms
     factor: Double = 2.0,
     description: String = "",
     block: () -> T
