@@ -86,8 +86,9 @@ internal abstract class ProtoConverter<M : Message, T : Any> : Converter<M, T>()
                 converter = BytesConverter()
             } else if (isProtoEnum(type)) {
                 @Suppress("UNCHECKED_CAST")
-                val enumType = asProtoEnum(type) as Class<out Enum<out ProtocolMessageEnum>>
-                converter = EnumConverter(enumType)
+                val enumType = type as Class<out ProtocolMessageEnum>
+                @Suppress("UNCHECKED_CAST")
+                converter = EnumConverter(enumType as Class<Nothing>)
             } else if (List::class.java.isAssignableFrom(type)) {
                 converter = ListConverter()
             } else if (Map::class.java.isAssignableFrom(type)) {
@@ -107,13 +108,6 @@ internal abstract class ProtoConverter<M : Message, T : Any> : Converter<M, T>()
         private fun <T : Any> isProtoEnum(type: Class<T>): Boolean {
             return Enum::class.java.isAssignableFrom(type)
                     && ProtocolMessageEnum::class.java.isAssignableFrom(type)
-        }
-
-        @Suppress("UNCHECKED_CAST") // Checked at runtime.
-        private fun <T : Any> asProtoEnum(
-            type: Class<T>
-        ): Class<out Enum<*>> {
-            return type as Class<out Enum<*>>
         }
     }
 }
