@@ -10,7 +10,7 @@ all modules and does not describe the project structure per-subproject.
  -->
 <groupId>io.spine</groupId>
 <artifactId>base-libraries</artifactId>
-<version>2.0.0-SNAPSHOT.384</version>
+<version>2.0.0-SNAPSHOT.385</version>
 
 <inceptionYear>2015</inceptionYear>
 
@@ -68,19 +68,19 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.google.protobuf</groupId>
     <artifactId>protobuf-java</artifactId>
-    <version>4.33.2</version>
+    <version>4.34.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.google.protobuf</groupId>
     <artifactId>protobuf-java-util</artifactId>
-    <version>4.33.2</version>
+    <version>4.34.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.google.protobuf</groupId>
     <artifactId>protobuf-kotlin</artifactId>
-    <version>4.33.2</version>
+    <version>4.34.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
@@ -227,7 +227,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.google.protobuf</groupId>
     <artifactId>protoc</artifactId>
-    <version>4.33.2</version>
+    <version>4.34.0</version>
   </dependency>
   <dependency>
     <groupId>com.puppycrawl.tools</groupId>
