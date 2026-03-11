@@ -117,7 +117,7 @@ private fun CharSequence.doReplace(replacementFn: (s: Separator) -> String): Str
             if (prevEntry == null) {
                 append(s.substring(0, range.first))
             } else {
-                append(s.substring(prevEntry!!.key.last + 1, range.first))
+                append(s.substring(prevEntry.key.last + 1, range.first))
             }
             val replacement = replacementFn.invoke(separator)
             append(replacement)
