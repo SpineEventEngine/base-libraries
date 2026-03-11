@@ -1,0 +1,10 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:io.spine.format/Format.Json///PointingToDeclaration/io/spine/format/Format.Json.html
+$dokka.location:io.spine.format/Format.ProtoBinary///PointingToDeclaration/io/spine/format/Format.ProtoBinary.html
+$dokka.location:io.spine.format/Format.ProtoJson///PointingToDeclaration/io/spine/format/Format.ProtoJson.html
+$dokka.location:io.spine.format/Format.Yaml///PointingToDeclaration/io/spine/format/Format.Yaml.html
+$dokka.location:io.spine.format/JacksonSupport.Companion///PointingToDeclaration/io/spine/format/JacksonSupport.Companion.html
+io.spine.format
+io.spine.format.parse
+io.spine.format.write
