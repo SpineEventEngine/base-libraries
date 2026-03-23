@@ -61,7 +61,6 @@ fun KotlinCommonCompilerOptions.setFreeCompilerArgs() {
     freeCompilerArgs.addAll(
         listOf(
             "-Xskip-prerelease-check",
-            "-Xinline-classes",
             "-Xexpect-actual-classes",
             "-Xcontext-parameters",
             "-opt-in=" +
