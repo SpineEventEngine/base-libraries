@@ -13,4 +13,4 @@
 11. [Advanced safety rules](advanced-safety-rules.md)
 12. [Refactoring guidelines](refactoring-guidelines.md)
 13. [Common tasks](common-tasks.md)
-14. [Java to Kotlin conversion](java-kotlin-conversion.md)
+14. [Java to Kotlin conversion](skills/java-to-kotlin/SKILL.md)

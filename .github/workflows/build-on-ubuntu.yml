@@ -1,10 +1,10 @@
-name: Build under Ubuntu
+name: Ubuntu CI
 
 on: push
 
 jobs:
   build:
-    name: Build under Ubuntu
+    name: Build on Ubuntu
     runs-on: ubuntu-latest
 
     steps:

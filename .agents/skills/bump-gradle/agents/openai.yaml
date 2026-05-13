@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bump Gradle"
+  short_description: "Update the Gradle wrapper safely"
+  default_prompt: "Use $bump-gradle to update this repository to the latest Gradle wrapper version from the official release notes, build, and split Gradle/report commits."

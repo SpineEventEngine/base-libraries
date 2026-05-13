@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ object Validation {
     /**
      * The version of the Validation library artifacts.
      */
-    const val version = "2.0.0-SNAPSHOT.408"
+    const val version = "2.0.0-SNAPSHOT.415"
 
     /**
      * The last version of Validation compatible with ProtoData.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.build
+package io.spine.dependency.lib
 
-// https://github.com/jk1/Gradle-License-Report
-@Suppress("unused")
-object LicenseReport {
-    private const val version = "3.0.1"
-    const val lib = "com.github.jk1:gradle-license-report:$version"
-
-    object GradlePlugin {
-        const val version = LicenseReport.version
-        const val id = "com.github.jk1.dependency-license-report"
-        const val lib = LicenseReport.lib
-    }
+/**
+ * Annotations library from JetBrains.
+ *
+ * https://github.com/JetBrains/java-annotations
+ */
+object JetBrainsAnnotations {
+    /**
+     * The version of the library transitively used.
+     */
+    const val version = "23.0.0"
+    const val groupId = "org.jetbrains"
+    const val artifactId = "annotations"
+    const val lib = "$groupId:$artifactId:$version"
 }

@@ -25,6 +25,8 @@
  */
 
 import io.spine.dependency.boms.BomsPlugin
+import io.spine.dependency.lib.Jackson
+import io.spine.dependency.lib.Kotlin
 import io.spine.dependency.local.Reflect
 import io.spine.dependency.local.TestLib
 import io.spine.dependency.test.JUnit
@@ -82,7 +84,12 @@ fun Project.forceConfigurations() {
         forceVersions()
         all {
             resolutionStrategy {
+                val cfg = this@all
+                val rs = this@resolutionStrategy
+                Jackson.forceArtifacts(project, cfg, rs)
+                Jackson.DataFormat.forceArtifacts(project, cfg, rs)
                 force(
+                    Kotlin.bom,
                     Reflect.lib
                 )
             }
@@ -123,7 +130,6 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
                 implementation(Kotest.assertions)
                 implementation(Kotest.frameworkEngine)
-                implementation(Kotest.datatest)
             }
         }
         val jvmTest by getting {

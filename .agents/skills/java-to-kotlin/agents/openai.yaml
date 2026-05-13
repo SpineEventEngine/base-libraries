@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java to Kotlin"
+  short_description: "Convert Java code to idiomatic Kotlin"
+  default_prompt: "Use $java-to-kotlin to convert Java code to Kotlin while preserving behavior, nullability, and API documentation wording."

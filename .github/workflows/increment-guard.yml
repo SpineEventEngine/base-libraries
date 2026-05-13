@@ -1,7 +1,7 @@
 # Ensures that the current lib version is not yet published but executing the Gradle
 # `checkVersionIncrement` task.
 
-name: Check version increment
+name: Version Guard
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  check:
     name: Check version increment
     runs-on: ubuntu-latest
 

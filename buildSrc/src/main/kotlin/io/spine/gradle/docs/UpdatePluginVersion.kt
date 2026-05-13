@@ -93,8 +93,9 @@ abstract class UpdatePluginVersion : DefaultTask() {
     @Suppress("MemberNameEqualsClassName")
     private fun updatePluginVersion(file: File, id: String, version: String) {
         val content = file.readText()
-        // Regex to match: id("plugin-id") version "version-number"
-        val regex = """id\("$id"\)\s+version\s+"([^"]+)"""".toRegex()
+        val pluginId = Regex.escape(id)
+        // Regex to match: id("pluginId") version "version-number"
+        val regex = """id\("$pluginId"\)\s+version\s+"([^"]+)"""".toRegex()
 
         if (regex.containsMatchIn(content)) {
             val updatedContent = regex.replace(content) {
