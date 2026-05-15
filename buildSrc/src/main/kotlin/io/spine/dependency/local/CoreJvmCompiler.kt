@@ -39,7 +39,7 @@ package io.spine.dependency.local
 object CoreJvmCompiler {
 
     /**
-     * The Compiler belongs to the `tools` group.
+     * The Compiler belongs the `tools` group.
      */
     const val group = Spine.toolsGroup
 
