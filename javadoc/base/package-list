@@ -61,7 +61,11 @@ $dokka.location:io.spine.option/RequireOption.Builder///PointingToDeclaration/i
 $dokka.location:io.spine.option/RequireOptionKt.Dsl///PointingToDeclaration/io/spine/option/RequireOptionKt.Dsl.html
 $dokka.location:io.spine.query/Column.Getter///PointingToDeclaration/io/spine/query/Column.Getter.html
 $dokka.location:io.spine.string/Indent.Companion///PointingToDeclaration/io/spine/string/Indent.Companion.html
+$dokka.location:io.spine.string/Placeholder.Companion///PointingToDeclaration/io/spine/string/Placeholder.Companion.html
 $dokka.location:io.spine.string/Separator.Companion///PointingToDeclaration/io/spine/string/Separator.Companion.html
+$dokka.location:io.spine.string/TemplateString.Builder///PointingToDeclaration/io/spine/string/TemplateString.Builder.html
+$dokka.location:io.spine.string/TemplateStringKt.Dsl.PlaceholderValueProxy///PointingToDeclaration/io/spine/string/TemplateStringKt.Dsl.PlaceholderValueProxy.html
+$dokka.location:io.spine.string/TemplateStringKt.Dsl///PointingToDeclaration/io/spine/string/TemplateStringKt.Dsl.html
 $dokka.location:io.spine.type/TypeUrl.Prefix///PointingToDeclaration/io/spine/type/TypeUrl.Prefix.html
 io.spine.base
 io.spine.code
