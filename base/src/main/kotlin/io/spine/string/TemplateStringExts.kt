@@ -54,7 +54,7 @@ package io.spine.string
 public fun TemplateString.format(): String {
     checkPlaceholdersHasValue(withPlaceholders, placeholderValueMap) {
         "Cannot format the given `TemplateString`: `$withPlaceholders`. " +
-                "Missing value for the following placeholders: ${it.joinBackticked()}."
+                "Missing value for the following placeholders: ${it.joinQuoted()}."
     }
     return resolveTemplate(withPlaceholders, placeholderValueMap, strict = true)
 }
@@ -101,40 +101,41 @@ private fun resolveTemplate(
     values: Map<String, String>,
     strict: Boolean
 ): String = PLACEHOLDERS.replace(template) { match ->
-    resolvePlaceholder(match.groupValues[1], values, strict, linkedSetOf())
+    resolvePlaceholder(Placeholder(match.groupValues[1]), values, strict, linkedSetOf())
 }
 
 private fun resolvePlaceholder(
-    key: String,
+    placeholder: Placeholder,
     values: Map<String, String>,
     strict: Boolean,
-    visiting: LinkedHashSet<String>
+    visiting: LinkedHashSet<Placeholder>
 ): String {
-    if (!values.containsKey(key)) {
+    if (!values.containsKey(placeholder.name)) {
         if (strict) {
             throw IllegalArgumentException(
-                "No value for placeholder `$key` referenced from a placeholder value."
+                "No value for placeholder ${placeholder.quoted} " +
+                        "referenced from a placeholder value."
             )
         }
-        return "\${$key}"
+        return placeholder.placed
     }
-    if (!visiting.add(key)) {
+    if (!visiting.add(placeholder)) {
         if (strict) {
-            val chain = (visiting.dropWhile { it != key } + key)
-                .joinToString(" -> ") { "`$it`" }
+            val chain = (visiting.dropWhile { it != placeholder } + placeholder)
+                .joinToString(" -> ") { it.quoted }
             throw IllegalArgumentException(
                 "Cyclic placeholder references detected: $chain."
             )
         }
-        return "\${$key}"
+        return placeholder.placed
     }
     try {
-        val value = values.getValue(key)
+        val value = values.getValue(placeholder.name)
         return PLACEHOLDERS.replace(value) { match ->
-            resolvePlaceholder(match.groupValues[1], values, strict, visiting)
+            resolvePlaceholder(Placeholder(match.groupValues[1]), values, strict, visiting)
         }
     } finally {
-        visiting.remove(key)
+        visiting.remove(placeholder)
     }
 }
 
@@ -149,13 +150,13 @@ private fun resolvePlaceholder(
 public fun checkPlaceholdersHasValue(
     template: String,
     placeholders: Set<String>,
-    lazyMessage: (List<String>) -> String =
-        { "Missing value for the following template placeholders: ${it.joinBackticked()}." }
+    lazyMessage: (List<Placeholder>) -> String =
+        { "Missing value for the following template placeholders: ${it.joinQuoted()}." }
 ) {
     val neededPlaceholders = extractPlaceholders(template)
-    val missing = mutableListOf<String>()
+    val missing = mutableListOf<Placeholder>()
     for (placeholder in neededPlaceholders) {
-        if (!placeholders.contains(placeholder)) {
+        if (!placeholders.contains(placeholder.name)) {
             missing.add(placeholder)
         }
     }
@@ -176,16 +177,19 @@ public fun checkPlaceholdersHasValue(
 public fun checkPlaceholdersHasValue(
     template: String,
     placeholders: Map<String, Any>,
-    lazyMessage: (List<String>) -> String =
-        { "Missing value for the following template placeholders: ${it.joinBackticked()}." }
+    lazyMessage: (List<Placeholder>) -> String =
+        { "Missing value for the following template placeholders: ${it.joinQuoted()}." }
 ): Unit = checkPlaceholdersHasValue(template, placeholders.keys, lazyMessage)
 
 /**
  * Extracts all placeholders used within this [template] string.
  */
-public fun extractPlaceholders(template: String): Set<String> =
+public fun extractPlaceholders(template: String): Set<Placeholder> =
     PLACEHOLDERS.findAll(template)
-        .map { it.groupValues[1] }
+        .map { Placeholder(it.groupValues[1]) }
         .toSet()
+
+private fun Iterable<Placeholder>.joinQuoted(): String =
+    joinToString { it.quoted }
 
 private val PLACEHOLDERS = Regex("\\$\\{([^}]+)}")

@@ -107,7 +107,7 @@ internal class TemplateStringExtsSpec {
     @Nested inner class
     `validate the template against placeholders` {
 
-        private val message = { missingPlaceholders: List<String> -> "$missingPlaceholders" }
+        private val message = { missingPlaceholders: List<Placeholder> -> "$missingPlaceholders" }
         private val template = "\${val1}, \${val2}, \${val3}, \${val4}, \${val5}"
         private val fooPlaceholders = mapOf("val1" to "Foo", "val2" to "Foo", "val3" to "Foo")
         private val barPlaceholders = mapOf("val4" to "Bar", "val5" to "Bar")
@@ -117,7 +117,7 @@ internal class TemplateStringExtsSpec {
             val exception = assertThrows<IllegalArgumentException> {
                 checkPlaceholdersHasValue(template, fooPlaceholders, message)
             }
-            exception.message shouldBe message(listOf("val4", "val5"))
+            exception.message shouldBe message(listOf(Placeholder("val4"), Placeholder("val5")))
         }
 
         @Test
@@ -142,7 +142,8 @@ internal class TemplateStringExtsSpec {
         @Test
         fun `returning all unique placeholders`() {
             val template = "\${a} and \${b} and \${a}"
-            extractPlaceholders(template) shouldContainExactlyInAnyOrder setOf("a", "b")
+            extractPlaceholders(template) shouldContainExactlyInAnyOrder
+                setOf(Placeholder("a"), Placeholder("b"))
         }
 
         @Test
@@ -154,7 +155,7 @@ internal class TemplateStringExtsSpec {
         fun `supporting dotted, underscored, and mixed identifiers`() {
             val template = "\${my.key}-\${my_key}-\${myKey}"
             extractPlaceholders(template) shouldContainExactlyInAnyOrder
-                setOf("my.key", "my_key", "myKey")
+                setOf(Placeholder("my.key"), Placeholder("my_key"), Placeholder("myKey"))
         }
     }
 

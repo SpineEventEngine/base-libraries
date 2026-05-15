@@ -26,25 +26,27 @@
 
 package io.spine.string
 
-/**
- * A named placeholder that can appear in a [TemplateString].
- *
- * @property name The placeholder name as it appears in a template string (e.g., `field.path`).
- */
-public data class Placeholder(public val name: String) {
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-    /**
-     * How this placeholder appears in the "code" of a template string,
-     * surrounded by a dollar sign and curly braces (e.g., `${field.path}`).
-     */
-    public val placed: String
-        get() = "\${$name}"
+@DisplayName("`Placeholder` should")
+internal class PlaceholderSpec {
 
-    /**
-     * The placeholder [name] wrapped in backticks for use in diagnostic messages.
-     */
-    public val quoted: String
-        get() = "`$name`"
+    private val placeholder = Placeholder("dog.name")
 
-    override fun toString(): String = name
+    @Test
+    fun `expose its 'placed' form as it appears in a template string`() {
+        placeholder.placed shouldBe "\${dog.name}"
+    }
+
+    @Test
+    fun `expose its 'quoted' form for diagnostic messages`() {
+        placeholder.quoted shouldBe "`dog.name`"
+    }
+
+    @Test
+    fun `return its name from 'toString()'`() {
+        placeholder.toString() shouldBe "dog.name"
+    }
 }
