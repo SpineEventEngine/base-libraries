@@ -161,7 +161,7 @@ public fun TemplateString.requireComplete(
 
 /**
  * Joins all placeholders in this iterable into a single string,
- * separating them with commas and wrapping each placeholder name in quotes.
+ * separating them with commas and wrapping each placeholder name in backtics.
  *
  * This is a convenience method for formatting lists of placeholders
  * in error messages and diagnostic output.
