@@ -167,8 +167,10 @@ public fun TemplateString.requireComplete(
  * in error messages and diagnostic output.
  *
  * For example, given placeholders with names `"foo"`, `"bar"`, and `"baz"`,
- * this method returns "`foo`, `bar`, `baz`".
- *
+ * this method returns:
+ * ```
+ * `foo`, `bar`, `baz`.
+ * ```
  * @return A comma-separated string of quoted placeholder names.
  */
 public fun Iterable<Placeholder>.joinQuoted(): String =
