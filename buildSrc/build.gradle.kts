@@ -153,7 +153,7 @@ val junitVersion = "6.0.3"
  *
  * @see [io.spine.dependency.test.Kotest]
  */
-val kotestVersion = "6.1.10"
+val kotestVersion = "6.1.11"
 
 configurations.all {
     resolutionStrategy {
