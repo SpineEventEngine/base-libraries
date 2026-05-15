@@ -39,7 +39,7 @@ package io.spine.dependency.local
 object CoreJvmCompiler {
 
     /**
-     * The Compiler belongs the `tools` group.
+     * The Compiler belongs to the `tools` group.
      */
     const val group = Spine.toolsGroup
 
@@ -51,7 +51,7 @@ object CoreJvmCompiler {
     /**
      * The version to be used for integration tests.
      */
-    const val version = "2.0.0-SNAPSHOT.062"
+    const val version = "2.0.0-SNAPSHOT.063"
 
     /**
      * The ID of the Gradle plugin.
