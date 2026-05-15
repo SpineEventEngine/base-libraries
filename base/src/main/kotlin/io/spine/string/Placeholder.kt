@@ -47,4 +47,27 @@ public data class Placeholder(public val name: String) {
         get() = "`$name`"
 
     override fun toString(): String = name
+
+    public companion object {
+
+        /**
+         * Matches a template placeholder of the form `${name}`.
+         *
+         * Group 1 captures the placeholder name — one or more characters
+         * between `${` and the next `}`. Any character except `}` is allowed
+         * in the name, which permits dotted and underscored identifiers such
+         * as `${my.key}` or `${my_key}`.
+         */
+        internal val regex: Regex = Regex("\\$\\{([^}]+)}")
+
+        /**
+         * Extracts all placeholders used within the given [template] string
+         * in the order they appear, keeping every occurrence (so a placeholder
+         * referenced more than once is returned multiple times).
+         */
+        public fun extractPlaceholders(template: String): List<Placeholder> =
+            regex.findAll(template)
+                .map { Placeholder(it.groupValues[1]) }
+                .toList()
+    }
 }

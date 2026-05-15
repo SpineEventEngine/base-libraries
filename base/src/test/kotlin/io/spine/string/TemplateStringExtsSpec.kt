@@ -26,7 +26,6 @@
 
 package io.spine.string
 
-import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.DisplayName
@@ -108,30 +107,37 @@ internal class TemplateStringExtsSpec {
     `validate the template against placeholders` {
 
         private val message = { missingPlaceholders: List<Placeholder> -> "$missingPlaceholders" }
-        private val template = "\${val1}, \${val2}, \${val3}, \${val4}, \${val5}"
+        private val templateText = "\${val1}, \${val2}, \${val3}, \${val4}, \${val5}"
         private val fooPlaceholders = mapOf("val1" to "Foo", "val2" to "Foo", "val3" to "Foo")
         private val barPlaceholders = mapOf("val4" to "Bar", "val5" to "Bar")
 
         @Test
         fun `failing if the template has non-presentable placeholder`() {
+            val template = templateString {
+                withPlaceholders = templateText
+                placeholderValue.putAll(fooPlaceholders)
+            }
             val exception = assertThrows<IllegalArgumentException> {
-                checkPlaceholdersHasValue(template, fooPlaceholders, message)
+                template.requireComplete(message)
             }
             exception.message shouldBe message(listOf(Placeholder("val4"), Placeholder("val5")))
         }
 
         @Test
         fun `bypassing the template if all placeholders are present`() {
-            val placeholders = fooPlaceholders + barPlaceholders
+            val template = templateString {
+                withPlaceholders = templateText
+                placeholderValue.putAll(fooPlaceholders + barPlaceholders)
+            }
             assertDoesNotThrow {
-                checkPlaceholdersHasValue(template, placeholders, message)
+                template.requireComplete(message)
             }
         }
 
         @Test
         fun `accepting an empty template`() {
             assertDoesNotThrow {
-                checkPlaceholdersHasValue("", emptySet())
+                TemplateString.getDefaultInstance().requireComplete()
             }
         }
     }
@@ -140,22 +146,35 @@ internal class TemplateStringExtsSpec {
     `extract placeholders from the template` {
 
         @Test
-        fun `returning all unique placeholders`() {
+        fun `returning every occurrence in the order they appear`() {
             val template = "\${a} and \${b} and \${a}"
-            extractPlaceholders(template) shouldContainExactlyInAnyOrder
-                setOf(Placeholder("a"), Placeholder("b"))
+            Placeholder.extractPlaceholders(template) shouldBe
+                listOf(Placeholder("a"), Placeholder("b"), Placeholder("a"))
         }
 
         @Test
-        fun `returning an empty set for a plain string`() {
-            extractPlaceholders("no placeholders here") shouldBe emptySet()
+        fun `preserving the order of repeated placeholders across the template`() {
+            val template = "\${b}-\${a}-\${b}-\${c}-\${a}-\${b}"
+            Placeholder.extractPlaceholders(template) shouldBe listOf(
+                Placeholder("b"),
+                Placeholder("a"),
+                Placeholder("b"),
+                Placeholder("c"),
+                Placeholder("a"),
+                Placeholder("b"),
+            )
+        }
+
+        @Test
+        fun `returning an empty list for a plain string`() {
+            Placeholder.extractPlaceholders("no placeholders here") shouldBe emptyList()
         }
 
         @Test
         fun `supporting dotted, underscored, and mixed identifiers`() {
             val template = "\${my.key}-\${my_key}-\${myKey}"
-            extractPlaceholders(template) shouldContainExactlyInAnyOrder
-                setOf(Placeholder("my.key"), Placeholder("my_key"), Placeholder("myKey"))
+            Placeholder.extractPlaceholders(template) shouldBe
+                listOf(Placeholder("my.key"), Placeholder("my_key"), Placeholder("myKey"))
         }
     }
 

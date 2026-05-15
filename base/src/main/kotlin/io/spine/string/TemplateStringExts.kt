@@ -28,6 +28,8 @@
 
 package io.spine.string
 
+import io.spine.string.Placeholder.Companion.extractPlaceholders
+
 /**
  * Returns a template string with all placeholders substituted with
  * their actual values.
@@ -52,11 +54,11 @@ package io.spine.string
  *  in the placeholder map, or if placeholder references form a cycle.
  */
 public fun TemplateString.format(): String {
-    checkPlaceholdersHasValue(withPlaceholders, placeholderValueMap) {
+    requireComplete {
         "Cannot format the given `TemplateString`: `$withPlaceholders`. " +
                 "Missing value for the following placeholders: ${it.joinQuoted()}."
     }
-    return resolveTemplate(withPlaceholders, placeholderValueMap, strict = true)
+    return resolve(strict = true)
 }
 
 /**
@@ -83,34 +85,31 @@ public fun TemplateString.format(): String {
  * This method will return "My dog's name is Fido and its breed is ${dog.breed}.".
  */
 public fun TemplateString.formatUnsafe(): String =
-    resolveTemplate(withPlaceholders, placeholderValueMap, strict = false)
+    resolve(strict = false)
 
 /**
- * Substitutes placeholders in [template] using [values], resolving nested references.
+ * Substitutes placeholders in this template's [TemplateString.withPlaceholders]
+ * using [TemplateString.placeholderValueMap], resolving nested references.
  *
- * Resolution is recursive and driven by the placeholders that actually appear in the
- * template (and, transitively, in values), so the result does not depend on the
- * iteration order of [values].
+ * Resolution is recursive and driven by the placeholders that actually appear in
+ * the template (and, transitively, in values), so the result does not depend on
+ * the iteration order of the underlying value map.
  *
  * @param strict When `true`, missing transitive references and reference cycles
  *  raise [IllegalArgumentException]. When `false`, both are left as literal
  *  `${key}` text in the output.
  */
-private fun resolveTemplate(
-    template: String,
-    values: Map<String, String>,
-    strict: Boolean
-): String = PLACEHOLDERS.replace(template) { match ->
-    resolvePlaceholder(Placeholder(match.groupValues[1]), values, strict, linkedSetOf())
-}
+private fun TemplateString.resolve(strict: Boolean): String =
+    replaceIn(withPlaceholders) { placeholder ->
+        resolvePlaceholder(placeholder, strict, linkedSetOf())
+    }
 
-private fun resolvePlaceholder(
+private fun TemplateString.resolvePlaceholder(
     placeholder: Placeholder,
-    values: Map<String, String>,
     strict: Boolean,
     visiting: LinkedHashSet<Placeholder>
 ): String {
-    if (!values.containsKey(placeholder.name)) {
+    if (!placeholderValueMap.containsKey(placeholder.name)) {
         if (strict) {
             throw IllegalArgumentException(
                 "No value for placeholder ${placeholder.quoted} " +
@@ -130,9 +129,9 @@ private fun resolvePlaceholder(
         return placeholder.placed
     }
     try {
-        val value = values.getValue(placeholder.name)
-        return PLACEHOLDERS.replace(value) { match ->
-            resolvePlaceholder(Placeholder(match.groupValues[1]), values, strict, visiting)
+        val value = placeholderValueMap.getValue(placeholder.name)
+        return replaceIn(value) { p ->
+            resolvePlaceholder(p, strict, visiting)
         }
     } finally {
         visiting.remove(placeholder)
@@ -140,56 +139,31 @@ private fun resolvePlaceholder(
 }
 
 /**
- * Makes sure that each placeholder within the [template] string is present
- * in the [placeholders] set.
+ * Makes sure that each placeholder used in this template's
+ * [TemplateString.withPlaceholders] has a corresponding entry in
+ * [TemplateString.placeholderValueMap].
  *
- * @param template The template with placeholders like `${something}`.
- * @param placeholders The set with placeholder names.
  * @param lazyMessage The message to use in [IllegalArgumentException] if the check fails.
+ * @throws IllegalArgumentException If any placeholder lacks a value.
  */
-public fun checkPlaceholdersHasValue(
-    template: String,
-    placeholders: Set<String>,
+public fun TemplateString.requireComplete(
     lazyMessage: (List<Placeholder>) -> String =
         { "Missing value for the following template placeholders: ${it.joinQuoted()}." }
 ) {
-    val neededPlaceholders = extractPlaceholders(template)
-    val missing = mutableListOf<Placeholder>()
-    for (placeholder in neededPlaceholders) {
-        if (!placeholders.contains(placeholder.name)) {
-            missing.add(placeholder)
-        }
-    }
+    val missing = extractPlaceholders(withPlaceholders)
+        .filter { it.name !in placeholderValueMap }
+        .distinct()
     if (missing.isNotEmpty()) {
         throw IllegalArgumentException(lazyMessage(missing))
     }
 }
 
-/**
- * Makes sure that each placeholder within the [template] string has a value
- * in [placeholders] map.
- *
- * @param template The template with placeholders like `${something}`.
- * @param placeholders The map containing placeholders (without curly braces and the dollar sign)
- *  and their values.
- * @param lazyMessage The message to use in [IllegalArgumentException] if the check fails.
- */
-public fun checkPlaceholdersHasValue(
-    template: String,
-    placeholders: Map<String, Any>,
-    lazyMessage: (List<Placeholder>) -> String =
-        { "Missing value for the following template placeholders: ${it.joinQuoted()}." }
-): Unit = checkPlaceholdersHasValue(template, placeholders.keys, lazyMessage)
-
-/**
- * Extracts all placeholders used within this [template] string.
- */
-public fun extractPlaceholders(template: String): Set<Placeholder> =
-    PLACEHOLDERS.findAll(template)
-        .map { Placeholder(it.groupValues[1]) }
-        .toSet()
-
 private fun Iterable<Placeholder>.joinQuoted(): String =
     joinToString { it.quoted }
 
-private val PLACEHOLDERS = Regex("\\$\\{([^}]+)}")
+/**
+ * Replaces every placeholder occurrence in [template] with the string
+ * produced by [transform], returning the resulting string.
+ */
+private fun replaceIn(template: String, transform: (Placeholder) -> String): String =
+    Placeholder.regex.replace(template) { match -> transform(Placeholder(match.groupValues[1])) }
