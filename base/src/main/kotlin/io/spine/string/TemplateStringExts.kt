@@ -28,11 +28,15 @@
 
 package io.spine.string
 
-import kotlin.collections.iterator
-
 /**
  * Returns a template string with all placeholders substituted with
  * their actual values.
+ *
+ * Placeholder values may themselves reference other placeholders using
+ * the same `${key}` syntax, and such references are resolved transitively.
+ * For example, given `withPlaceholders = "${greeting}"` and
+ * `placeholderValue = { "greeting": "Hello, ${name}!", "name": "World" }`,
+ * the result is `"Hello, World!"`.
  *
  * For example, for a template string with the following values:
  *
@@ -42,13 +46,17 @@ import kotlin.collections.iterator
  * ```
  *
  * This method will return "My dog's name is Fido."
+ *
+ * @throws IllegalArgumentException If a placeholder used in the template
+ *  (directly or via another placeholder's value) has no corresponding entry
+ *  in the placeholder map, or if placeholder references form a cycle.
  */
 public fun TemplateString.format(): String {
     checkPlaceholdersHasValue(withPlaceholders, placeholderValueMap) {
         "Cannot format the given `TemplateString`: `$withPlaceholders`. " +
-                "Missing value for the following placeholders: `$it`."
+                "Missing value for the following placeholders: ${it.joinBackticked()}."
     }
-    return formatUnsafe()
+    return resolveTemplate(withPlaceholders, placeholderValueMap, strict = true)
 }
 
 /**
@@ -60,6 +68,11 @@ public fun TemplateString.format(): String {
  * in the placeholder map. Any placeholders without a corresponding value will remain
  * unchanged in the resulting string.
  *
+ * Placeholder values may reference other placeholders using the same `${key}` syntax;
+ * such references are resolved transitively in a deterministic, key-driven order
+ * (independent of the underlying map's iteration order). If a chain of references
+ * forms a cycle, the offending placeholder is left unresolved as literal `${key}` text.
+ *
  * For example, for a template string with the following values:
  *
  * ```
@@ -69,12 +82,60 @@ public fun TemplateString.format(): String {
  *
  * This method will return "My dog's name is Fido and its breed is ${dog.breed}.".
  */
-public fun TemplateString.formatUnsafe(): String {
-    var result = withPlaceholders
-    for ((key, value) in placeholderValueMap) {
-        result = result.replace("\${$key}", value)
+public fun TemplateString.formatUnsafe(): String =
+    resolveTemplate(withPlaceholders, placeholderValueMap, strict = false)
+
+/**
+ * Substitutes placeholders in [template] using [values], resolving nested references.
+ *
+ * Resolution is recursive and driven by the placeholders that actually appear in the
+ * template (and, transitively, in values), so the result does not depend on the
+ * iteration order of [values].
+ *
+ * @param strict When `true`, missing transitive references and reference cycles
+ *  raise [IllegalArgumentException]. When `false`, both are left as literal
+ *  `${key}` text in the output.
+ */
+private fun resolveTemplate(
+    template: String,
+    values: Map<String, String>,
+    strict: Boolean
+): String = PLACEHOLDERS.replace(template) { match ->
+    resolvePlaceholder(match.groupValues[1], values, strict, linkedSetOf())
+}
+
+private fun resolvePlaceholder(
+    key: String,
+    values: Map<String, String>,
+    strict: Boolean,
+    visiting: LinkedHashSet<String>
+): String {
+    if (!values.containsKey(key)) {
+        if (strict) {
+            throw IllegalArgumentException(
+                "No value for placeholder `$key` referenced from a placeholder value."
+            )
+        }
+        return "\${$key}"
     }
-    return result
+    if (!visiting.add(key)) {
+        if (strict) {
+            val chain = (visiting.dropWhile { it != key } + key)
+                .joinToString(" -> ") { "`$it`" }
+            throw IllegalArgumentException(
+                "Cyclic placeholder references detected: $chain."
+            )
+        }
+        return "\${$key}"
+    }
+    try {
+        val value = values.getValue(key)
+        return PLACEHOLDERS.replace(value) { match ->
+            resolvePlaceholder(match.groupValues[1], values, strict, visiting)
+        }
+    } finally {
+        visiting.remove(key)
+    }
 }
 
 /**
@@ -89,7 +150,7 @@ public fun checkPlaceholdersHasValue(
     template: String,
     placeholders: Set<String>,
     lazyMessage: (List<String>) -> String =
-        { "Missing value for the following template placeholders: `$it`." }
+        { "Missing value for the following template placeholders: ${it.joinBackticked()}." }
 ) {
     val neededPlaceholders = extractPlaceholders(template)
     val missing = mutableListOf<String>()
@@ -116,7 +177,7 @@ public fun checkPlaceholdersHasValue(
     template: String,
     placeholders: Map<String, Any>,
     lazyMessage: (List<String>) -> String =
-        { "Missing value for the following template placeholders: `$it`." }
+        { "Missing value for the following template placeholders: ${it.joinBackticked()}." }
 ): Unit = checkPlaceholdersHasValue(template, placeholders.keys, lazyMessage)
 
 /**

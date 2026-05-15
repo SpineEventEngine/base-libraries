@@ -28,6 +28,7 @@ package io.spine.string
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -164,5 +165,93 @@ internal class TemplateStringExtsSpec {
             placeholderValue["dog.name"] = "Fido"
         }
         template.formatUnsafe() shouldBe "My dog's name is Fido and its breed is \${dog.breed}."
+    }
+
+    @Nested inner class
+    `resolve placeholders referenced from other placeholder values` {
+
+        @Test
+        fun `via 'format', resolving a transitive chain`() {
+            val template = templateString {
+                withPlaceholders = "\${greeting}"
+                placeholderValue["greeting"] = "Hello, \${name}!"
+                placeholderValue["name"] = "World"
+            }
+            template.format() shouldBe "Hello, World!"
+        }
+
+        @Test
+        fun `via 'format', not depending on map iteration order`() {
+            // A value containing placeholder-looking text must not be re-substituted
+            // based on the order keys happen to be iterated.
+            val template = templateString {
+                withPlaceholders = "\${a} then \${b}"
+                placeholderValue["a"] = "\${b}"
+                placeholderValue["b"] = "literal-b"
+            }
+            template.format() shouldBe "literal-b then literal-b"
+        }
+
+        @Test
+        fun `via 'format', throwing on a reference cycle`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "\${b}"
+                placeholderValue["b"] = "\${a}"
+            }
+            val exception = assertThrows<IllegalArgumentException> { template.format() }
+            exception.message shouldContain "Cyclic"
+            exception.message shouldContain "`a`"
+            exception.message shouldContain "`b`"
+        }
+
+        @Test
+        fun `via 'format', throwing on a self-reference cycle`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "x-\${a}-x"
+            }
+            assertThrows<IllegalArgumentException> { template.format() }
+        }
+
+        @Test
+        fun `via 'format', throwing on a transitively missing reference`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "see \${b}"
+            }
+            val exception = assertThrows<IllegalArgumentException> { template.format() }
+            exception.message shouldContain "`b`"
+        }
+
+        @Test
+        fun `via 'formatUnsafe', resolving a transitive chain`() {
+            val template = templateString {
+                withPlaceholders = "\${greeting}"
+                placeholderValue["greeting"] = "Hello, \${name}!"
+                placeholderValue["name"] = "World"
+            }
+            template.formatUnsafe() shouldBe "Hello, World!"
+        }
+
+        @Test
+        fun `via 'formatUnsafe', leaving a reference cycle unresolved`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "\${b}"
+                placeholderValue["b"] = "\${a}"
+            }
+            // The cycle is broken by leaving the repeated key as literal text.
+            template.formatUnsafe() shouldBe "\${a}"
+        }
+
+        @Test
+        fun `via 'formatUnsafe', leaving a transitively missing reference as-is`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "see \${b}"
+            }
+            template.formatUnsafe() shouldBe "see \${b}"
+        }
     }
 }
