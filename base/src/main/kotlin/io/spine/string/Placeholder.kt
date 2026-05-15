@@ -38,5 +38,5 @@ public interface Placeholder {
     /**
      * The placeholder name as it appears in a template string (e.g., `field.path`).
      */
-    public val value: String
+    public val name: String
 }
