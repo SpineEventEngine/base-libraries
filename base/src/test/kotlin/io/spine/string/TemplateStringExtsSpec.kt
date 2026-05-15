@@ -206,6 +206,29 @@ internal class TemplateStringExtsSpec {
         }
 
         @Test
+        fun `via 'format', throwing on a three-step reference cycle`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "\${b}"
+                placeholderValue["b"] = "\${c}"
+                placeholderValue["c"] = "\${a}"
+            }
+            val exception = assertThrows<IllegalArgumentException> { template.format() }
+            exception.message shouldContain "`a` -> `b` -> `c` -> `a`"
+        }
+
+        @Test
+        fun `via 'formatUnsafe', leaving a three-step reference cycle unresolved`() {
+            val template = templateString {
+                withPlaceholders = "\${a}"
+                placeholderValue["a"] = "\${b}"
+                placeholderValue["b"] = "\${c}"
+                placeholderValue["c"] = "\${a}"
+            }
+            template.formatUnsafe() shouldBe "\${a}"
+        }
+
+        @Test
         fun `via 'format', throwing on a self-reference cycle`() {
             val template = templateString {
                 withPlaceholders = "\${a}"
