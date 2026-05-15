@@ -104,6 +104,7 @@ private fun TemplateString.resolve(strict: Boolean): String =
         resolvePlaceholder(placeholder, strict, linkedSetOf())
     }
 
+@Suppress("ReturnCount")
 private fun TemplateString.resolvePlaceholder(
     placeholder: Placeholder,
     strict: Boolean,
