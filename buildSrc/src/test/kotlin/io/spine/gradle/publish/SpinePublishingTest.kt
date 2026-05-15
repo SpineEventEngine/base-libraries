@@ -156,10 +156,9 @@ class SpinePublishingTest {
             // Let's use it instead of creating a second one with a different name.
             extension.modules = setOf("sub")
 
-            // Subproject's extension must be named 'SpinePublishing' 
-            // to be found by SpinePublishing::class.java.simpleName
-            val extensionName = SpinePublishing::class.java.simpleName
-            val subExtension = subproject.extensions.create<SpinePublishing>(extensionName, subproject)
+            val extensionName = SpinePublishing.extensionName
+            val subExtension =
+                subproject.extensions.create<SpinePublishing>(extensionName, subproject)
 
             val exception = shouldThrow<IllegalStateException> {
                 subExtension.configured()

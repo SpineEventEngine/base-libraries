@@ -1,11 +1,11 @@
-name: Build under Windows
+name: Windows CI
 
 on: pull_request
 
 jobs:
   build:
-    name: Build under Windows
     runs-on: windows-latest
+    name: Build on Windows
 
     steps:
       - uses: actions/checkout@v4

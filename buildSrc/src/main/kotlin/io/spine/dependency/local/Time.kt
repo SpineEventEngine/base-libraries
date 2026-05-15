@@ -40,11 +40,12 @@ import io.spine.dependency.Dependency
 )
 object Time : Dependency() {
     override val group = Spine.group
-    override val version = "2.0.0-SNAPSHOT.234"
+    override val version = "2.0.0-SNAPSHOT.238"
     private const val infix = "spine-time"
 
     fun lib(version: String): String = "$group:$infix:$version"
     val lib get() = lib(version)
+    const val libArtifact: String = infix
 
     fun javaExtensions(version: String): String = "$group:$infix-java:$version"
     val javaExtensions get() = javaExtensions(version)
@@ -54,6 +55,12 @@ object Time : Dependency() {
 
     fun testLib(version: String): String = "${Spine.toolsGroup}:time-testlib:$version"
     val testLib get() = testLib(version)
+
+    fun validation(version: String): String = "${Spine.toolsGroup}:time-validation:$version"
+    val validation get() = validation(version)
+
+    fun gradlePlugin(version: String): String = "${Spine.toolsGroup}:time-gradle-plugin:$version"
+    val gradlePlugin get() = gradlePlugin(version)
 
     override val modules: List<String>
         get() = listOf(

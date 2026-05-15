@@ -1,0 +1,70 @@
+/*
+ * Copyright 2026, TeamDev. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Redistribution and use in source and/or binary forms, with or without
+ * modification, must retain the above copyright notice and the following
+ * disclaimer.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+syntax = "proto3";
+
+package spine.string;
+
+import "spine/options.proto";
+
+option (type_url_prefix) = "type.spine.io";
+option java_multiple_files = true;
+option java_outer_classname = "TemplateStringProto";
+option java_package = "io.spine.string";
+
+// Represents a template string with placeholders and a map for further substituting
+// those placeholders with the actual values.
+//
+// Placeholders are specified using the format `${key}`, where `key` is the identifier
+// for the value to be substituted from the `placeholder_value` map. There are no
+// expectations about the identifier format. It can be `myKey`, `my.key`, `my_key`, etc.
+//
+// Example usage:
+//     template_string = "My dog's name is ${dog.name}."
+//     placeholder_values = { "dog.name": "Fido" }
+//
+// After substitution, the final output would be:
+//     "My dog's name is Fido."
+//
+// Each placeholder `key` referenced in the template string must have a corresponding entry
+// in the `placeholder_value` map. However, the `placeholder_value` map is not restricted to
+// containing only the placeholders used in the template. Additional entries in the map
+// that do not correspond to placeholders in the template string are permitted.
+//
+message TemplateString {
+
+    // The template string that may contain one or more placeholders.
+    string with_placeholders = 1;
+
+    // A map that provides values for placeholders referenced in `with_placeholders`.
+    //
+    // The keys in this map should match the placeholder keys inside `with_placeholders`
+    // excluding the `${}` placeholder markers.
+    //
+    // All placeholders present in `with_placeholders` must have corresponding entries
+    // in this map. Otherwise, the template is considered invalid.
+    //
+    map<string, string> placeholder_value = 2;
+}

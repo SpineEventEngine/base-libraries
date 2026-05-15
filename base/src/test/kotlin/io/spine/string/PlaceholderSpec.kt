@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,29 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.build
+package io.spine.string
 
-// https://github.com/jk1/Gradle-License-Report
-@Suppress("unused")
-object LicenseReport {
-    private const val version = "3.0.1"
-    const val lib = "com.github.jk1:gradle-license-report:$version"
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-    object GradlePlugin {
-        const val version = LicenseReport.version
-        const val id = "com.github.jk1.dependency-license-report"
-        const val lib = LicenseReport.lib
+@DisplayName("`Placeholder` should")
+internal class PlaceholderSpec {
+
+    private val placeholder = Placeholder("dog.name")
+
+    @Test
+    fun `expose its 'placed' form as it appears in a template string`() {
+        placeholder.placed shouldBe "\${dog.name}"
+    }
+
+    @Test
+    fun `expose its 'quoted' form for diagnostic messages`() {
+        placeholder.quoted shouldBe "`dog.name`"
+    }
+
+    @Test
+    fun `return its name from 'toString()'`() {
+        placeholder.toString() shouldBe "dog.name"
     }
 }

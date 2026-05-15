@@ -28,6 +28,7 @@
 
 package io.spine.gradle.publish
 
+import io.spine.dependency.local.Spine
 import io.spine.gradle.repo.Repository
 import java.util.Locale
 import org.gradle.api.Project
@@ -148,10 +149,8 @@ import org.gradle.kotlin.dsl.findByType
  */
 fun Project.spinePublishing(block: SpinePublishing.() -> Unit): SpinePublishing {
     apply<MavenPublishPlugin>()
-    val name = SpinePublishing::class.java.simpleName
-        .replaceFirstChar { it.lowercase(Locale.getDefault()) }
     val extension = with(extensions) {
-        findByType<SpinePublishing>() ?: create(name, project)
+        findByType<SpinePublishing>() ?: create(SpinePublishing.extensionName, project)
     }
     extension.run {
         block()
@@ -191,6 +190,12 @@ open class SpinePublishing(private val project: Project) {
          * to a tool module's artifact ID.
          */
         const val NONE_PREFIX = "NONE"
+
+        /**
+         * The name of the extension registered in a Gradle project.
+         */
+        public val extensionName: String = SpinePublishing::class.java.simpleName
+            .replaceFirstChar { it.lowercase(Locale.ROOT) }
     }
 
     private val testJar = TestJar()
@@ -345,13 +350,14 @@ open class SpinePublishing(private val project: Project) {
      *
      * @see modules
      */
-    private fun projectsToPublish(): Collection<Project> {
+    fun projectsToPublish(): Set<Project> {
         if (project.subprojects.isEmpty()) {
             return setOf(project)
         }
         return modules.union(modulesWithCustomPublishing)
             .map { name -> project.project(name) }
             .ifEmpty { setOf(project) }
+            .toSet()
     }
 
     /**
@@ -415,22 +421,27 @@ open class SpinePublishing(private val project: Project) {
      * @see toolArtifactPrefix
      */
     fun artifactId(project: Project): String {
-        if (project.isTool) {
+        val result = if (project.isTool) {
             check(!toolArtifactPrefix.isEmpty()) {
                 "Artifact prefix cannot be empty for tool modules. " +
                         "Please set the `toolArtifactPrefix` property in `spinePublishing`. " +
                         "Use `\"NONE\"` to have an empty prefix for tool modules."
             }
             val prefix =
-                if (toolArtifactPrefix == NONE_PREFIX) { "" }
-                else { toolArtifactPrefix }
-            return "$prefix${project.name}"
+                if (toolArtifactPrefix == NONE_PREFIX) {
+                    ""
+                } else {
+                    toolArtifactPrefix
+                }
+            "$prefix${project.name}"
+        } else {
+            "$artifactPrefix${project.name}"
         }
-        return "$artifactPrefix${project.name}"
+        return result
     }
 
     private val Project.isTool: Boolean
-        get() = group == "io.spine.tools"
+        get() = group == Spine.toolsGroup
 
     /**
      * Ensures that all modules, marked as included into [testJar] publishing,

@@ -26,6 +26,8 @@
 
 package io.spine.dependency.build
 
+import io.spine.dependency.local.Spine
+
 // https://github.com/Kotlin/dokka
 @Suppress("unused", "ConstPropertyName")
 object Dokka {
@@ -35,7 +37,7 @@ object Dokka {
      * When changing the version, also change the version used in the
      * `buildSrc/build.gradle.kts`.
      */
-    const val version = "2.1.0"
+    const val version = "2.2.0"
 
     object GradlePlugin {
         const val id = "org.jetbrains.dokka"
@@ -76,7 +78,7 @@ object Dokka {
      *     Custom Dokka Plugins</a>
      */
     object SpineExtensions {
-        private const val group = "io.spine.tools"
+        private const val group = Spine.toolsGroup
 
         const val version = "2.0.0-SNAPSHOT.7"
         const val lib = "$group:spine-dokka-extensions:$version"

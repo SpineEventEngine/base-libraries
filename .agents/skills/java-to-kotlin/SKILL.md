@@ -1,3 +1,11 @@
+---
+name: java-to-kotlin
+description: >
+  Convert Java code to Kotlin, including Java API comments from Javadoc to KDoc.
+  Use when asked to migrate Java files, classes, methods, nullability semantics,
+  or common Java patterns into idiomatic Kotlin while preserving behavior.
+---
+
 # 🪄 Converting Java code to Kotlin
 
 * Java code API comments are Javadoc format.

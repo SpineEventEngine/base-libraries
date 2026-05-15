@@ -26,14 +26,15 @@
 
 package io.spine.gradle.docs
 
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import java.io.File
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
+@DisplayName("`UpdatePluginVersion` should")
 class UpdatePluginVersionTest {
 
     @TempDir

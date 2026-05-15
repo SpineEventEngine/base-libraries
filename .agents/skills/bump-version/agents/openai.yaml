@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bump Version"
+  short_description: "Bump Spine project versions safely"
+  default_prompt: "Use $bump-version to bump the project version in version.gradle.kts, commit the version change, rebuild dependency reports, and verify the branch."

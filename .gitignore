@@ -39,6 +39,7 @@
 
 # Internal tool directories.
 .fleet/
+.junie/memory/
 
 # Kotlin temp directories.
 **/.kotlin/
@@ -130,3 +131,7 @@ pubspec.lock
 /tmp
 
 .gradle-test-kit/
+
+# Python cache
+__pycache__/
+*.pyc

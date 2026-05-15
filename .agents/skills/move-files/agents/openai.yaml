@@ -1,0 +1,4 @@
+interface:
+  display_name: "Move Files"
+  short_description: "Move files safely across a repo"
+  default_prompt: "Use $move-files to relocate files or directories in this repository while preserving history, updating references, and verifying the result."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Copyright Update"
+  short_description: "Refresh source copyright headers"
+  default_prompt: "Use $update-copyright to refresh source file copyright headers from the IntelliJ IDEA copyright profile in this repository."
