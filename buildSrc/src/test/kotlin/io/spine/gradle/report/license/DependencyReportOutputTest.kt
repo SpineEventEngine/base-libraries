@@ -57,8 +57,6 @@ class DependencyReportOutputTest {
 
     @Test
     fun `write the generated POM under docs-dependencies`() {
-        projectDir.resolve("pom.xml").writeText("legacy POM")
-
         PomGenerator.applyTo(project)
 
         project.tasks.named("generatePom").get()
@@ -70,8 +68,6 @@ class DependencyReportOutputTest {
 
     @Test
     fun `merge license reports under docs-dependencies`() {
-        projectDir.resolve("dependencies.md").writeText("legacy report")
-
         project.pluginManager.apply(BasePlugin::class.java)
         val subproject = subproject("sub")
         LicenseReporter.generateReportIn(subproject)

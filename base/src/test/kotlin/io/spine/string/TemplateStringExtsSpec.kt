@@ -178,6 +178,36 @@ internal class TemplateStringExtsSpec {
         }
     }
 
+    @Nested inner class
+    `join placeholders into a quoted, comma-separated string` {
+
+        @Test
+        fun `wrapping each name in backticks and separating with a comma and a space`() {
+            val placeholders = listOf(Placeholder("foo"), Placeholder("bar"), Placeholder("baz"))
+            placeholders.joinQuoted() shouldBe "`foo`, `bar`, `baz`"
+        }
+
+        @Test
+        fun `producing a single backticked name for one element`() {
+            listOf(Placeholder("only")).joinQuoted() shouldBe "`only`"
+        }
+
+        @Test
+        fun `producing an empty string for an empty iterable`() {
+            emptyList<Placeholder>().joinQuoted() shouldBe ""
+        }
+
+        @Test
+        fun `preserving the order of elements and supporting dotted or underscored names`() {
+            val placeholders = listOf(
+                Placeholder("my.key"),
+                Placeholder("my_key"),
+                Placeholder("myKey"),
+            )
+            placeholders.joinQuoted() shouldBe "`my.key`, `my_key`, `myKey`"
+        }
+    }
+
     @Test
     fun `format with missing placeholders`() {
         val template = templateString {

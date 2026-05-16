@@ -159,7 +159,21 @@ public fun TemplateString.requireComplete(
     }
 }
 
-private fun Iterable<Placeholder>.joinQuoted(): String =
+/**
+ * Joins all placeholders in this iterable into a single string,
+ * separating them with commas and wrapping each placeholder name in backticks.
+ *
+ * This is a convenience method for formatting lists of placeholders
+ * in error messages and diagnostic output.
+ *
+ * For example, given placeholders with names `"foo"`, `"bar"`, and `"baz"`,
+ * this method returns:
+ * ```
+ * `foo`, `bar`, `baz`.
+ * ```
+ * @return A comma-separated string of quoted placeholder names.
+ */
+public fun Iterable<Placeholder>.joinQuoted(): String =
     joinToString { it.quoted }
 
 /**
