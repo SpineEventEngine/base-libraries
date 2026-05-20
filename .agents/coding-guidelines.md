@@ -33,7 +33,7 @@
 - Reflection unless specifically requested
 
 ## Text formatting
- - ✅ Remove double empty lines in the code.
+ - ✅ Replace double empty lines with a single empty line in the code.
  - ✅ Remove trailing space characters in the code.
 
 [spine-docs]: https://github.com/SpineEventEngine/documentation/wiki

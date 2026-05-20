@@ -25,7 +25,8 @@ description: >
      changes.
 
 3. Move safely.
-   - Prefer `git mv` for tracked files in the repo.
+   - Always use `git mv` for tracked files in the repo. If sandboxing blocks
+     it, request approval; do not use delete/create as a fallback.
    - Use filesystem moves only for untracked/generated/out-of-git files.
    - Create parent directories first.
    - For case-only renames, move through a temporary name.
@@ -39,6 +40,13 @@ description: >
    - Re-run targeted searches for old tokens.
    - Run `git status --short` and confirm the delta matches the move.
    - Run focused validation for moved files, or state what could not run.
+
+6. Ensure the version is bumped.
+   Invoke `/version-bumped` so the branch carries a strictly greater
+   `version.gradle.kts` than the base ref before any `./gradlew build`
+   (which can transitively `publishToMavenLocal` and overwrite
+   consumer-facing snapshots). The skill is a no-op if a bump already
+   happened earlier on the branch.
 
 ## Repo Notes
 
