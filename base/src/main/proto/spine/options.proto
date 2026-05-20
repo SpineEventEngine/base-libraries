@@ -103,6 +103,9 @@ extend google.protobuf.FieldOptions {
     //
     //    - `string` elements/values: an empty string is treated as missing — analogously
     //      to how an empty string is rejected for a singular `(required) string` field.
+    //    - `bytes` elements/values: an empty byte sequence is treated as missing —
+    //      analogously to how an empty payload is rejected for a singular
+    //      `(required) bytes` field.
     //    - message elements/values: the default instance is treated as missing —
     //      analogously to a singular `(required)` message field.
     //    - enum elements/values: a constant whose numeric value is zero is treated as
@@ -110,10 +113,6 @@ extend google.protobuf.FieldOptions {
     //    - Numeric and `bool` elements/values: no per-element check is performed; only
     //      the presence of at least one element is required. The notion of "missing" is
     //      not meaningful for these types in a collection context.
-    //    - `bytes` elements/values: no per-element check is performed. Unlike singular
-    //      `(required) bytes`, which targets unset/empty payload, an empty byte sequence
-    //      inside a collection is treated as a valid payload (a deliberate, non-empty
-    //      element of the collection), so empty `bytes` entries are allowed.
     //
     //    For `map` fields, only values are inspected; keys are not checked. Keys
     //    identify entries and are structurally present whenever an entry exists, so
