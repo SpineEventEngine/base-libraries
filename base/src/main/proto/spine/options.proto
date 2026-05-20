@@ -94,9 +94,9 @@ extend google.protobuf.FieldOptions {
     // 1. For message or enum fields, the field must be set to a non-default instance.
     // 2. For `string` and `bytes` fields, the value must be set to a non-empty string or an array.
     // 3. For repeated fields and maps, at least one element must be present.
-    // 4. For maps with `string` keys, an entry with an empty-string key is treated as missing,
-    //    by analogy with rule (2). Such an entry does not satisfy `(required)`, and any
-    //    `(required) map<string, V>` that contains such an entry is invalid.
+    // 4. For maps with non-primitive values, the constraint also applies to these values.
+    // 5. If a map has primitive values, the constraint only applies to the presence to at
+    //    least one key/value pair, but not to the values themselves.
     //
     // Other field types are not supported by the option.
     //
