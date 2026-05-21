@@ -91,9 +91,34 @@ extend google.protobuf.FieldOptions {
     //
     // When this option is set:
     //
-    // 1. For message or enum fields, the field must be set to a non-default instance.
-    // 2. For `string` and `bytes` fields, the value must be set to a non-empty string or an array.
-    // 3. For repeated fields and maps, at least one element must be present.
+    // 1. For message fields, the field must not be set to the default instance
+    //    (a message with all fields unset).
+    // 2. For enum fields, the field must not be set to the constant whose numeric
+    //    value is zero — the first constant declared, as required by proto3.
+    // 3. For `string` and `bytes` fields, the value must be a non-empty string or
+    //    a non-empty byte sequence, respectively.
+    // 4. For `repeated` and `map` fields, the field is considered missing when it is
+    //    empty, or when any of its elements (for `map`, any of its values) is itself
+    //    "missing". A per-element "missing" check is applied as follows:
+    //
+    //    - `string` elements/values: an empty string is treated as missing — analogously
+    //      to how an empty string is rejected for a singular `(required) string` field.
+    //    - `bytes` elements/values: an empty byte sequence is treated as missing —
+    //      analogously to how an empty payload is rejected for a singular
+    //      `(required) bytes` field.
+    //    - message elements/values: the default instance is treated as missing —
+    //      analogously to a singular `(required)` message field.
+    //    - enum elements/values: a constant whose numeric value is zero is treated as
+    //      missing — analogously to a singular `(required)` enum field.
+    //    - Numeric and `bool` elements/values: no per-element check is performed; only
+    //      the presence of at least one element is required. The notion of "missing" is
+    //      not meaningful for these types in a collection context.
+    //
+    //    For `map` fields, only values are inspected; keys are not checked. Keys
+    //    identify entries and are structurally present whenever an entry exists, so
+    //    `(required)` — which constrains field *content* — applies only to the value
+    //    side of each entry. Consequently, an empty-string key is allowed as long as
+    //    its associated value is not missing.
     //
     // Other field types are not supported by the option.
     //

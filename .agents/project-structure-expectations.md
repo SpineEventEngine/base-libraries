@@ -17,5 +17,5 @@ build.gradle.kts # Kotlin-based build configuration
 settings.gradle.kts # Project structure and settings
 README.md # Project overview
 AGENTS.md # Entry point for LLM agent instructions
-version.gradle.kts # Declares the project version. 
+version.gradle.kts # Declares the project version in versioned Gradle Build Tools repos.
 ```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Update"
+  short_description: "Refresh dependency versions, allowing snapshots only for local Spine SDK artifacts"
+  default_prompt: "Use $dependency-update to walk every dependency object under buildSrc/src/main/kotlin/io/spine/dependency/, find the latest accepted version for each, and update the version constants in place. External scopes use released non-snapshot versions only; dependency/local/ may use snapshots and pre-releases from sibling Spine repos. Use the URL referenced in each file as the source of truth; fall back to Maven metadata and back-fill missing hints when useful."
