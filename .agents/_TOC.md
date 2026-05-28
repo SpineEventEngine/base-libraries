@@ -1,7 +1,7 @@
 # Table of Contents
 
 1. [Quick Reference Card](quick-reference-card.md)
-2. [Project overview](project-overview.md)
+2. [JVM project requirements](jvm-project.md) — language, build, and review checklist shared by all JVM repos
 3. [Coding guidelines](coding-guidelines.md)
 4. [Documentation & comments](documentation-guidelines.md)
 5. [Documentation tasks](documentation-tasks.md)

@@ -1,104 +1,45 @@
-# GitHub Copilot Instructions for spine-base
+# GitHub Copilot Instructions
 
-This repository contains common data types and utilities used by Spine SDK subprojects.
+## Repository context
 
-## Project Overview
+This repository is part of the Spine SDK organisation (~40 repos).
 
-- **Languages**: Kotlin (primary), Java (secondary)
-- **Build Tool**: Gradle with Kotlin DSL
-- **Static Analysis**: detekt, ErrorProne, Checkstyle, PMD
-- **Testing**: JUnit 5, Kotest Assertions, Codecov
-- **Architecture**: CQRS architecture patterns
+Universal agent instructions are in [`AGENTS.md`](../AGENTS.md) at the
+repository root — read it first.
 
-## Quick Start
+If `.agents/project.md` exists, read it before reviewing. It provides the
+language, architecture, role, and code review checklist for this specific repo.
 
-### Building the Project
-```bash
-./gradlew build
-```
+Additional guidelines are in `.agents/` — see `.agents/_TOC.md` for the index
+(if present; Hugo repos do not include this file).
 
-### After Modifying Protobuf Files
-```bash
-./gradlew clean build
-```
+## Do not review
 
-### Documentation Changes Only
-```bash
-./gradlew dokka
-```
+Never review `gradlew` or `gradlew.bat` in any repository, including `config`.
+These files are provided by Gradle and are not edited manually.
 
-## Coding Guidelines
+If the current repository is `config`, review its files normally unless noted
+above: they are authoritative there. In other repositories, the following files are managed by
+the `config` submodule and must be reviewed in the `config` repository, not
+here. In those consumer repositories, skip them without comment:
 
-### Kotlin Best Practices
+- `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`
+- `.agents/**` (except `.agents/project.md`)
+- `.claude/**`, `.idea/**`, `.junie/**`
+- `.github/copilot-instructions.md`
+- `buildSrc/**` (except `buildSrc/src/main/kotlin/module.gradle.kts`)
+- `gradle/`, `gradlew`, `gradlew.bat`
+- `.codecov.yml`, `.gitignore`, `gradle.properties`, `lychee.toml`
+- `.github/workflows/` — unless the workflow was introduced by this repo
 
-**Prefer:**
-- Kotlin idioms over Java-style approaches:
-  - Extension functions
-  - `when` expressions
-  - Smart casts
-  - Data classes and sealed classes
-  - Immutable data structures
-- Simple nouns over composite nouns (`user` > `userAccount`)
-- Generic parameters over explicit variable types
-- Kotlin DSL for Gradle files
+## Universal rules
 
-**Avoid:**
-- Mutable data structures
-- Java-style verbosity (builders with setters)
-- Redundant null checks (`?.let` misuse)
-- Using `!!` unless clearly justified
-- Type names in variable names (`userObject`, `itemList`)
-- String duplication (use constants in companion objects)
-- Mixing Groovy and Kotlin DSLs in build logic
-- Reflection unless specifically requested
-
-### Code Formatting
-- Remove double empty lines
-- Remove trailing space characters
-- Follow [Spine Event Engine Documentation](https://github.com/SpineEventEngine/documentation/wiki) coding style
-
-## Testing
-
-- Do not use mocks, use stubs
-- Prefer [Kotest assertions](https://kotest.io/docs/assertions/assertions.html) over JUnit or Google Truth
-- Generate unit tests for APIs (handle edge cases/scenarios)
-- Include automated tests for any code change that alters functionality
-
-## Safety Rules
-
-- ✅ All code must compile and pass static analysis
-- ✅ Do not auto-update external dependencies
-- ❌ Never use reflection or unsafe code without explicit approval
-- ❌ No analytics or telemetry code
-- ❌ No blocking calls inside coroutines
-
-## Version Policy
-
-We use [Semantic Versioning 2.0.0](https://semver.org/).
-
-**When creating a new branch:**
-1. Increment the patch version in `version.gradle.kts`
-   - Retain zero-padding: `"2.0.0-SNAPSHOT.009"` → `"2.0.0-SNAPSHOT.010"`
-2. Commit separately with message: `Bump version → $newVersion`
-3. Rebuild: `./gradlew clean build`
-4. Update `pom.xml`, `dependencies.md` and commit with: `Update dependency reports`
-
-**Note:** PRs without version bumps will fail CI.
-
-## Documentation
-
-- Use KDoc style for public and internal APIs
-- Avoid inline comments in production code unless necessary
-- Inline comments are helpful in tests
-- File and directory names should be formatted as code
-- Follow [TODO comment format](https://github.com/SpineEventEngine/documentation/wiki/TODO-comments)
-
-## Common Tasks
-
-- **Adding a dependency**: Update relevant files in `buildSrc` directory
-- **Creating a module**: Follow existing module structure patterns
-- **Documentation changes**: Documentation-only changes do not require running tests
-
-## Additional Resources
-
-For comprehensive agent guidelines, see: [.agents/_TOC.md](../.agents/_TOC.md)
+**Do not suggest:**
+- Any git history operation — `git commit`, `git push`, `git tag`,
+  `git rebase`, `git merge`, `git cherry-pick`, `gh pr merge`, or any other
+  command that writes to history — leave these to the developer.
+- Auto-updating dependency versions outside a dedicated update task.
+- Feature flags, backwards-compatibility shims, or fallbacks for scenarios
+  that cannot occur in the current codebase.
+- Analytics, telemetry, or tracking code.
+- Reflection or unsafe code without explicit approval.

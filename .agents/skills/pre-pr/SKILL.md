@@ -2,10 +2,12 @@
 name: pre-pr
 description: >
   Run the pre-PR checklist for this repo: apply the version gate only when
-  the repository has a root `version.gradle.kts`, run the configured
-  build/check command per `.agents/running-builds.md`, and invoke the
-  configured reviewers (`kotlin-review`, `review-docs`, `dependency-audit`)
-  against the branch diff. On success, write a sentinel file at
+  the repository has a root `version.gradle.kts`, run a scope-dependent
+  build/check command per `.agents/running-builds.md` (docs-only → `dokka`;
+  code/deps → `build`; proto → `clean build`; no documented command → skipped),
+  and invoke the relevant reviewers (`kotlin-review`, `review-docs`,
+  `dependency-audit`,
+  `check-links`) against the branch diff. On success, write a sentinel file at
   `.git/pre-pr.ok` so the `gh pr create` hook can verify the checklist ran
   for the current HEAD. Use before opening a PR, or when CI rejected a
   branch and you want a fast local repro.
@@ -18,62 +20,60 @@ reviewers and the documented repository rules into a single pass that must
 succeed before a pull request is opened.
 
 This skill supports both versioned Gradle Build Tools projects and repositories
-that intentionally do not have `version.gradle.kts` (for example, shared
-configuration repositories). Do not create `version.gradle.kts` just to satisfy
-this checklist. When the file is absent from the project root, the version-bump
-check is **not applicable**.
+that intentionally do not have `version.gradle.kts`. Do not create
+`version.gradle.kts` just to satisfy this checklist. When the file is absent
+from the project root, the version-bump check is **not applicable**.
 
 The authoritative standards live in `.agents/`:
 
 - `.agents/version-policy.md` — applies only when the repository has a root
   `version.gradle.kts`.
-- `.agents/running-builds.md` — which build/check command to run based on what
-  changed. It may be Gradle or another repository-specific command.
+- `.agents/running-builds.md` — which build/check command to run.
 - `.agents/safety-rules.md` and `.agents/advanced-safety-rules.md` — hard
   constraints checked by the reviewers.
-- The reviewer skills/agents themselves: `kotlin-review` (Claude agent),
-  `review-docs` (skill + Claude agent), `dependency-audit` (Claude agent).
 
 ## Procedure
 
-Execute the steps in order. If a step fails, stop, write a `FAIL` sentinel
-(see step 6), and report the failure — do not run the remaining steps.
+Run steps 1–4 fully before aggregating. Collect all findings; do not stop at
+the first failure.
 
 ### 1. Determine scope and repository capabilities
 
 - Base ref: `master` unless the user provides a different one.
-- Diff command: `git diff <base>...HEAD --name-only` for the file list,
-  `git diff <base>...HEAD --stat` for the summary.
-- Repository root: `git rev-parse --show-toplevel`.
-- Version gate:
-  - Check only the repository-root `version.gradle.kts`.
-  - If `version.gradle.kts` is absent at both `<base>` and `HEAD`, record the
-    version check as `N/A` and continue. Do not ask the user to run
-    `/bump-version`.
-  - If `version.gradle.kts` exists at `HEAD`, enforce the version check in
-    step 2.
-  - If `version.gradle.kts` exists at `<base>` but is missing at `HEAD`, fail
-    unless the user explicitly asked to migrate the repository away from
-    Gradle Build Tools versioning.
-- Classify the changes:
-  - **proto** — any `*.proto` file changed.
-  - **code** — any `*.kt`, `*.kts`, or `*.java` file changed.
-  - **docs** — any `*.md` file or doc-only edits inside sources changed.
-  - **deps** — any file under `buildSrc/src/main/kotlin/io/spine/dependency/`
-    changed.
+- Changed files: `git diff <base>...HEAD --name-only`
+  Remove any path matching the config-distributed list in
+  `AGENTS.md § Code review`. A PR that contains *only* config-distributed
+  files needs no build, no reviewers, and should PASS immediately — skip
+  to step 6 with `build=skipped`, `build_status=skipped`,
+  `reviewers=none`, `version=not-applicable`.
+- Repository root: `git rev-parse --show-toplevel`
+- Version gate: check only the repository-root `version.gradle.kts`.
+  - Absent at both sides → `not-applicable`, continue.
+  - Present at `HEAD` → enforce in step 2.
+  - Present at `<base>` but missing at `HEAD` → fail unless the user
+    explicitly asked to migrate away from Gradle Build Tools versioning.
+- Classify changes:
+  - **proto** — any `*.proto` changed
+  - **code** — any `*.kt`, `*.kts`, or `*.java` changed
+  - **docs** — any `*.md` or doc-only source edits changed
+  - **deps** — any file under `buildSrc/src/main/kotlin/io/spine/dependency/` changed
+  - **site** — any file under `docs/**` or `lychee.toml` (triggers Hugo link
+    check; pure `README.md` or KDoc-only changes do *not* count)
 
 ### 2. Version-bump check
 
-- If the version gate is `N/A`, skip this step with note:
-  "`version.gradle.kts` is absent; this repository is not a versioned Gradle
-  Build Tools project."
-- Otherwise, read `version.gradle.kts` at `HEAD` and, when present, at
-  `<base>`.
-- Confirm the version string is strictly greater (semver + Spine snapshot
-  rules — see `.agents/version-policy.md`) when both sides have the file.
-- If the file is newly introduced at `HEAD`, report the introduced version and
-  continue.
-- If unchanged or decreased, stop with a Must-fix: "Run `/bump-version`."
+- Skip when version gate is `not-applicable`.
+- Read `version.gradle.kts` at `HEAD`. Read `<base>` only if the file exists
+  there; if it does not, the file is newly introduced — record the introduced
+  version and continue.
+- When both sides have the file: if the version is not strictly greater (semver
+  + Spine snapshot rules in `.agents/version-policy.md`): if
+  `.agents/skills/bump-version/` exists, **auto-fix immediately** by invoking
+  `/bump-version` without asking; otherwise record a Must-fix and continue.
+  Re-read the file after the fix. If the version is still not strictly greater,
+  record a Must-fix and continue. If the auto-fix succeeded, recompute the
+  changed-file list (`git diff <base>...HEAD --name-only`) before proceeding to
+  Step 3 — the bump commit adds `version.gradle.kts` to the diff.
 
 ### 3. Build or check
 
@@ -81,93 +81,108 @@ Pick the target per `.agents/running-builds.md`:
 
 - **proto** changed → `./gradlew clean build`
 - Else **code** changed → `./gradlew build`
-- Else **docs**-only → `./gradlew dokka` (tests not required)
+- Else **docs**-only → `./gradlew dokka`
 
-If the repository does not have `./gradlew`, do not fail solely because Gradle
-is unavailable. Read `.agents/running-builds.md` for the repository-specific
-non-Gradle command that matches the change type, and run that instead. If no
-build/check command is documented for the change type, record `build=skipped`
-with the reason and continue.
+If `./gradlew` is absent, read `.agents/running-builds.md` for the
+repository-specific command. If that file is also absent, or if none is
+documented for the change type, record `build_status=skipped` with the
+reason and continue.
 
-Run the chosen command. Surface the first failing module/task/check. On
-failure, stop and write a `FAIL` sentinel.
+Run the chosen command. On failure, record the first failing task and
+continue to step 4 — do not abort. Pass `build_status=FAIL` in the context
+given to reviewers so they can discount false positives from non-compiling
+code.
 
 ### 4. Reviewers (run in parallel)
 
-Dispatch the relevant reviewers concurrently and collect their verdicts:
+Dispatch relevant reviewers concurrently; collect all verdicts before
+aggregating. Before dispatching, check that the skill directory exists under
+`.agents/skills/`; if a skill is absent, skip it with a note "not applicable
+for this repo" rather than failing.
 
-- Always: `kotlin-review` (if **code** changed) and `review-docs` (if
-  **docs** or KDoc changed).
-- If **deps** changed: `dependency-audit`.
+- **code** changed → `kotlin-review`
+- **docs** or KDoc changed → `review-docs`
+- **deps** changed → `dependency-audit`
+- **site** changed → `check-links` (unless the sentinel short-circuit below
+  applies)
 
-Pass each reviewer the base ref, changed-file list, build/check result, and
-version-check result. When the version check is `N/A`, say explicitly:
-"This repository has no root `version.gradle.kts`; a version bump is not
-applicable and must not be reported as missing."
+**`check-links` sentinel short-circuit.** Read `.git/check-links.ok` (if
+present). If `head=` equals the current **full** HEAD SHA and `status=PASS`, skip
+dispatch and record `APPROVE` with note "cached from `.git/check-links.ok`"
+(caching its ~30 s rebuild+serve cycle; the result is deterministic for a given
+HEAD). Otherwise dispatch normally.
 
-Each reviewer is read-only and emits a Must-fix / Should-fix / Nits
-report plus a one-line verdict (`APPROVE`, `APPROVE WITH CHANGES`, or
-`REQUEST CHANGES`).
+Pass each reviewer: base ref, changed-file list, build result, version result.
+When the version check is `not-applicable`, say so explicitly so reviewers don't flag a
+missing version bump.
+
+**Auto-fix policy for reviewer findings:**
+
+- Findings from `kotlin-review`, `review-docs`, or `dependency-audit` → record
+  as Must-fix or Should-fix; do **not** auto-apply. Surface them and wait for
+  user action.
+- If a reviewer reports a missing version bump after Step 2 already ran, the
+  auto-fix did not take — record a Must-fix and do not silently re-apply.
+- `dependency-audit` reports a **version rollback** → do **not** auto-fix.
+  Surface it as a Must-fix and wait for user confirmation, because a rollback
+  can be intentional.
 
 ### 5. Aggregate
 
-- Overall **PASS** when:
-  - Version check passed or was `N/A`,
-  - Build succeeded,
-  - Every dispatched reviewer returned `APPROVE` or `APPROVE WITH CHANGES`
-    *and* no Must-fix items remain unaddressed in this session.
-- Otherwise **FAIL**.
+- **PASS**: version check passed or `not-applicable`, build succeeded or
+  `build_status=skipped` (no documented command for the change type), every
+  reviewer returned `APPROVE` or `APPROVE WITH CHANGES`, and no unaddressed
+  Must-fix items remain.
+- **FAIL**: anything else.
 
 ### 6. Sentinel
 
-Write `.git/pre-pr.ok` at the repo root (NOT under `.claude/` — the
-sentinel must travel with the local clone, not be checked in). Format:
+Write `.git/pre-pr.ok` at the repo root (never under `.claude/`). The `gh pr
+create` hook (`.agents/scripts/pre-pr-gate.sh`) checks `head=` and `status=`;
+field names in this block are part of that contract.
 
 ```
 head=<full HEAD SHA>
 branch=<current branch>
 status=PASS|FAIL
 timestamp=<ISO-8601 UTC>
-build=<the build/check command that was run, or "skipped">
-reviewers=<comma-separated reviewer names that were invoked>
+build=<command run, or "skipped">
+build_status=PASS|FAIL|skipped
+reviewers=<comma-separated names invoked>
 version=<old->new, introduced:<new>, or "not-applicable">
 ```
 
-The `gh pr create` hook (`.agents/scripts/pre-pr-gate.sh`) checks this
-file's `head=` and `status=` fields. Extra fields are allowed. The sentinel is
-invalidated automatically when HEAD advances — the hook compares the recorded
-`head=` against the current HEAD SHA.
-
 ## Output format
 
-Report in this shape:
+**On PASS** — single line:
 
 ```
-## Pre-PR checklist (<branch> vs <base>)
-
-| Check         | Status | Notes                                  |
-|---------------|--------|----------------------------------------|
-| Version check | …      | <old> → <new>, introduced, or N/A      |
-| Build/check   | …      | <command>                              |
-| kotlin-review | …      | <verdict + count of Must/Should>       |
-| review-docs   | …      | <verdict + count of Must/Should>       |
-| dep audit     | …      | <verdict + count of Must/Should>       |
-
-**Overall: PASS|FAIL**
-Sentinel: .git/pre-pr.ok (status=PASS|FAIL, head=<SHA>)
+Pre-PR: PASS (<branch> vs <base>) — ready to `gh pr create`.
 ```
 
-On `PASS`, end with: "You can now run `gh pr create`."
-On `FAIL`, end with the specific blocker and the next action.
+**On FAIL** — header line, then only the items that need attention, each
+prefixed with the source reviewer or check:
+
+```
+Pre-PR: FAIL (<branch> vs <base>)
+
+Must fix:
+- [kotlin-review] <item>
+- [review-docs] <item>
+
+Should fix:
+- [dependency-audit] <item>
+```
+
+Report nothing about checks that passed. If auto-fixes were applied, list
+them in one line before the verdict: `Auto-fixed: <comma-separated list>.`
 
 ## Notes
 
-- This skill must NOT create the PR itself. It only gates whether the
-  workspace is ready.
-- This skill must NOT create `version.gradle.kts`. Repositories without a root
-  `version.gradle.kts` are valid; their version check is `N/A`.
-- The sentinel lives under `.git/` (untracked by definition) so it is
-  per-clone and never committed.
-- Each reviewer remains the source of truth for its own checks; this
-  skill does not duplicate their rules — it only orchestrates and
-  aggregates.
+- This skill must NOT create the PR itself.
+- This skill must NOT create `version.gradle.kts`.
+- The sentinel lives under `.git/` — per-clone, never committed.
+- Each reviewer is the source of truth for its own checks; this skill only
+  orchestrates and aggregates.
+- This skill may auto-fix a missing version bump by invoking `/bump-version`;
+  all other fixes require explicit user confirmation.

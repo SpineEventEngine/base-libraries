@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+#
+# Refresh a Spine sibling repo on disk so api-discovery returns sources
+# matching the most recent published version.
+#
+# Safe by design:
+#   - Pulls only when the sibling is on its default branch (master or
+#     main) with a clean working tree and a tracked upstream.
+#   - On any other branch, treats the local state as intentional (the
+#     user is "advancing multiple subprojects at the same time") and
+#     exits 0 without touching anything.
+#   - Refuses on detached HEAD, uncommitted changes, or missing upstream.
+#   - Never switches branches, never `--rebase`, never `--force`, never
+#     fetches a branch the user does not already track. The strictest
+#     action it performs is `git pull --ff-only`.
+#
+# This script is intended to be invoked by the api-discovery skill
+# after the agent has surfaced a STALE warning to the user AND received
+# explicit consent.
+#
+# Usage:
+#   update-sibling <sibling-name>           # resolved under <workspace-root>
+#   update-sibling <absolute-path>          # acts on that path directly
+#
+# Output:
+#   stdout: exactly one stable token on success (`pulled`, `up-to-date`,
+#           or `skipped-branch` — see Exit codes). Empty on any failure
+#           path so callers cannot misread an error as a result.
+#   stderr: human-facing diagnostics, including git's own pull output.
+#
+# Exit codes:
+#   0  — succeeded; stdout token names the outcome:
+#         `pulled`         — HEAD advanced to upstream tip.
+#         `up-to-date`     — already at upstream tip; nothing to do.
+#         `skipped-branch` — on a non-default branch; left untouched.
+#   1  — sibling not on disk.
+#   2  — not a git repository.
+#   3  — detached HEAD; refused.
+#   4  — uncommitted tracked changes; refused.
+#   5  — default branch has no upstream tracking; refused.
+#   6  — `git pull --ff-only` failed (divergence, conflict, network, etc.).
+#   64 — usage error (no/too many args).
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SPINE_API_DISCOVERY_DIR="$SCRIPT_DIR"
+export SPINE_API_DISCOVERY_DIR
+# shellcheck source=lib/common.sh
+. "$SCRIPT_DIR/lib/common.sh"
+
+# Layered on top of the shared EX_OK / EX_FAIL / EX_NO_CACHE in common.sh.
+readonly EX_NOT_GIT=2
+readonly EX_DETACHED=3
+readonly EX_DIRTY=4
+readonly EX_NO_UPSTREAM=5
+readonly EX_PULL_FAILED=6
+readonly EX_USAGE=64           # BSD sysexits(3) convention.
+
+usage() {
+    cat >&2 <<'EOF'
+Usage: update-sibling <sibling-name-or-path>
+
+Examples:
+  update-sibling base-libraries
+  update-sibling /Users/me/Projects/Spine/validation
+
+Pulls only when the sibling is on its default branch (master|main)
+with a clean working tree and a tracked upstream. Otherwise it leaves
+the sibling alone.
+
+On success, prints one of: pulled | up-to-date | skipped-branch.
+EOF
+    exit "$EX_USAGE"
+}
+
+[ "$#" -eq 1 ] || usage
+arg="$1"
+
+# Resolve to an absolute sibling path. Accept either a bare repo name
+# (looked up under <workspace-root>) or an absolute path.
+case "$arg" in
+    /*) sibling="$arg" ;;
+    *)
+        ws="$(workspace_root)" || {
+            log_warn "cannot resolve workspace root"
+            exit "$EX_FAIL"
+        }
+        sibling="$ws/$arg"
+        ;;
+esac
+
+if [ ! -d "$sibling" ]; then
+    log_warn "sibling not on disk: $sibling"
+    exit "$EX_FAIL"          # distinct from EX_USAGE so callers can tell
+                             # "you passed me a bad path" apart from
+                             # "you didn't pass me anything".
+fi
+
+# `.git` may be a directory (normal clone) or a file (worktree pointer).
+if [ ! -e "$sibling/.git" ]; then
+    log_warn "not a git repository: $sibling"
+    exit "$EX_NOT_GIT"
+fi
+
+branch="$(git -C "$sibling" rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+if [ -z "$branch" ]; then
+    log_warn "failed to read current branch in $sibling"
+    exit "$EX_FAIL"
+fi
+if [ "$branch" = "HEAD" ]; then
+    log_warn "$sibling is in detached HEAD; not pulling"
+    exit "$EX_DETACHED"
+fi
+
+# Non-default branch: the user is intentionally on a feature branch.
+# Use the current code as-is.
+case "$branch" in
+    master|main)
+        ;;
+    *)
+        log_warn "$sibling is on '$branch' (not master/main); using local code as-is"
+        printf 'skipped-branch\n'
+        exit "$EX_OK"
+        ;;
+esac
+
+# Dirty-tree guard: refuse on TRACKED modifications, since a fast-forward
+# could conflict with them. Untracked files are tolerated: they don't
+# conflict with HEAD movement on their own, and any genuine overwrite
+# conflict (upstream adds a file whose path already exists untracked
+# locally) still surfaces below as EX_PULL_FAILED via git's own check.
+if [ -n "$(git -C "$sibling" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+    log_warn "$sibling has uncommitted tracked changes on '$branch'; not pulling"
+    exit "$EX_DIRTY"
+fi
+
+# Upstream guard: --ff-only against an undefined upstream is meaningless.
+if ! git -C "$sibling" rev-parse --abbrev-ref --symbolic-full-name '@{u}' \
+        >/dev/null 2>&1; then
+    log_warn "$sibling/$branch has no upstream tracking; not pulling"
+    exit "$EX_NO_UPSTREAM"
+fi
+
+# Capture HEAD before/after so we can report what changed.
+before="$(git -C "$sibling" rev-parse HEAD)"
+if ! git -C "$sibling" pull --ff-only >&2; then
+    log_warn "git pull --ff-only failed in $sibling"
+    exit "$EX_PULL_FAILED"
+fi
+after="$(git -C "$sibling" rev-parse HEAD)"
+
+if [ "$before" = "$after" ]; then
+    log_warn "$sibling already up-to-date on '$branch' ($after)"
+    printf 'up-to-date\n'
+else
+    log_warn "$sibling pulled '$branch': $before -> $after"
+    printf 'pulled\n'
+fi
+exit "$EX_OK"

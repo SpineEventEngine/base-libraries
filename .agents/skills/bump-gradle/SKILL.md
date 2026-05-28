@@ -16,6 +16,29 @@ https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 
 Always check that page at task time. Do not rely on remembered Gradle versions.
 
+## Commit authorization
+
+This skill is authorized to run `git commit` **up to two times** per
+invocation, under these constraints:
+
+1. **Gradle wrapper commit.** Stage only the Gradle wrapper files
+   (`gradle/wrapper/gradle-wrapper.properties`,
+   `gradle/wrapper/gradle-wrapper.jar`, `gradlew`, `gradlew.bat`, plus
+   files directly required by the wrapper update). Subject:
+   `` Bump Gradle -> `GRADLE_VERSION` `` with the actual version
+   substituted. Skip if no wrapper-owned file changed.
+
+2. **Dependency-report commit** (separate from the wrapper commit). Stage
+   only generated dependency-report files (`docs/dependencies/pom.xml`,
+   `docs/dependencies/dependencies.md`). Subject:
+   `Update dependency reports`. Skip if the build did not regenerate
+   those files.
+
+No `git push`, `git tag`, `git rebase`, `git commit --amend`, or any other
+history-writing operation. Those require a separate authorization
+(`.agents/safety-rules.md` → *Commits and history-writing*). Do not create
+empty commits, and do not bundle unrelated changes into either commit.
+
 ## Checklist
 
 1. Work from the target repository root.

@@ -11,6 +11,8 @@
 #
 set -eu
 
+command -v jq >/dev/null 2>&1 || exit 0
+
 input=$(cat)
 file=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty')
 command=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')

@@ -18,8 +18,28 @@
 # Inputs (env, all optional):
 #   VERSION_BUMPED_BASE   Base ref to compare against. Default: master,
 #                         then main if master is absent.
+#   VERSION_BUMPED_KEY    Name of the `extra` property holding the
+#                         publishing version (e.g. `versionToPublish`,
+#                         `validationVersion`, `bootstrapVersion`). When
+#                         set, bypasses auto-discovery. Useful for repos
+#                         that don't follow the `version = extra["…"]`
+#                         pattern in `build.gradle.kts`.
 #   VERSION_BUMPED_QUIET  When `1`, suppress the "OK" line on stdout.
 #                         The publish-version-gate hook sets this.
+#
+# Publishing-key discovery:
+#   The publishing version's variable name varies across Spine repos
+#   (`versionToPublish`, `validationVersion`, `compilerVersion`, …).
+#   `version.gradle.kts` may also declare other `val xxxVersion by extra(...)` entries
+#   that are *dependency* versions of other Spine modules — not this
+#   project's own publishing version — so the key cannot be picked by
+#   inspecting `version.gradle.kts` alone.
+#
+#   The canonical source is `build.gradle.kts`, which assigns
+#   `version = extra["KEY"]!!`. This script scans for that pattern,
+#   picks the unique key, and parses its value from `version.gradle.kts`.
+#   If `build.gradle.kts` does not contain such a line, the script falls
+#   back to `versionToPublish`. Set `VERSION_BUMPED_KEY` to override.
 #
 # Notes:
 #   * Companion to the Gradle task `checkVersionIncrement` (see
@@ -87,32 +107,120 @@ if [ -z "$committed" ] && [ -z "$worktree" ] && [ -z "$untracked" ]; then
   exit 0
 fi
 
-# --- Parse versionToPublish from a Gradle file content -------------------
-# Handles two shapes (per .agents/skills/bump-version/SKILL.md step 2):
-#   1. val versionToPublish: String by extra("X")
-#   2. val sourceVar: String by extra("X")
-#      val versionToPublish by extra(sourceVar)
+# --- Discover the publishing-version key ---------------------------------
+# Source of truth is `build.gradle.kts` (or `build.gradle`). Two shapes are
+# recognised, in order:
+#
+#   a) version = extra["KEY"]
+#   b) version = IDENTIFIER         (with `val IDENTIFIER ... by extra` nearby)
+#
+# Single or double quotes are accepted in shape (a). If multiple distinct
+# keys appear across shapes, the script refuses to guess and asks the user
+# to set VERSION_BUMPED_KEY.
+#
+# Return codes:
+#   0 — printed a unique key on stdout
+#   1 — no candidates found (caller should fall back)
+#   2 — ambiguous; diagnostic already on stderr
+discover_key() {
+  local files keys_a keys_b keys count
+  files=""
+  [ -f build.gradle.kts ] && files="build.gradle.kts"
+  [ -f build.gradle ] && files="$files build.gradle"
+  [ -z "$files" ] && return 1
+  # Shape (a): version = extra["KEY"]
+  # Anchored to start-of-line (modulo leading whitespace) so that comments
+  # like `// version = extra["x"]` and identifiers like `fooversion = ...`
+  # don't produce false matches.
+  # shellcheck disable=SC2086
+  keys_a=$(grep -hE '^[[:space:]]*version[[:space:]]*=[[:space:]]*extra[[:space:]]*\[[[:space:]]*["'"'"'][^"'"'"']+["'"'"']' $files 2>/dev/null \
+      | sed -nE 's/.*extra[[:space:]]*\[[[:space:]]*["'"'"']([^"'"'"']+)["'"'"'].*/\1/p')
+  # Shape (b): version = IDENTIFIER (bare Kotlin identifier, no '[' or '"').
+  # Only accept the identifier if the same file also declares
+  # `val IDENTIFIER[: String]? by extra` — otherwise it's a plain local
+  # variable (common in Groovy `build.gradle`), not an `extra` property we
+  # can resolve in `version.gradle.kts`.
+  local candidates_b cand
+  # shellcheck disable=SC2086
+  candidates_b=$(grep -hE '^[[:space:]]*version[[:space:]]*=[[:space:]]*[A-Za-z_][A-Za-z0-9_]*[[:space:]]*$' $files 2>/dev/null \
+      | sed -nE 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*$/\1/p')
+  keys_b=""
+  for cand in $candidates_b; do
+    # shellcheck disable=SC2086
+    if grep -hE "^[[:space:]]*val[[:space:]]+${cand}([[:space:]]*:[[:space:]]*String)?[[:space:]]+by[[:space:]]+extra([^A-Za-z0-9_]|\$)" $files >/dev/null 2>&1; then
+      keys_b="${keys_b}${cand}
+"
+    fi
+  done
+  keys=$(printf '%s\n%s' "$keys_a" "$keys_b" | sed '/^$/d' | sort -u)
+  [ -z "$keys" ] && return 1
+  count=$(printf '%s\n' "$keys" | wc -l | tr -d ' ')
+  if [ "$count" -gt 1 ]; then
+    {
+      echo "version-bumped: ambiguous publishing key in build scripts:"
+      while IFS= read -r k; do printf '  %s\n' "$k"; done <<< "$keys"
+      echo "  Set VERSION_BUMPED_KEY to disambiguate."
+    } >&2
+    return 2
+  fi
+  printf '%s' "$keys"
+}
+
+key="${VERSION_BUMPED_KEY:-}"
+if [ -z "$key" ]; then
+  set +e
+  key=$(discover_key)
+  rc=$?
+  set -e
+  if [ "$rc" = "2" ]; then
+    exit 2
+  fi
+  if [ "$rc" != "0" ] || [ -z "$key" ]; then
+    key="versionToPublish"
+  fi
+fi
+
+# --- Parse a `val KEY by extra(...)` from a Gradle file content ----------
+# Handles three shapes (per .agents/skills/bump-version/SKILL.md step 2):
+#   1. val KEY[: String]? by extra("X")           — literal extra
+#   2. val SRC[: String]? by extra("X")           — alias chain via extra
+#      val KEY[: String]? by extra(SRC)
+#   3. val SRC[: String]? = "X"                   — alias chain via plain val
+#      val KEY[: String]? by extra(SRC)
+# The key name is parameterized so that any project-specific name works
+# (versionToPublish, validationVersion, bootstrapVersion, botVersion, …).
 parse_version() {
-  local content="$1"
-  local v
+  local content="$1" name="$2"
+  local v varName
+  # Shape 1: literal.
   v=$(printf '%s' "$content" \
-      | grep -E 'val[[:space:]]+versionToPublish[^=]*by[[:space:]]+extra\("' \
+      | grep -E "val[[:space:]]+${name}([[:space:]]*:[[:space:]]*String)?[[:space:]]+by[[:space:]]+extra\(\"" \
       | head -n1 \
       | sed -nE 's/.*extra\("([^"]+)".*/\1/p')
   if [ -n "$v" ]; then
     printf '%s' "$v"
     return 0
   fi
-  local varName
+  # Shapes 2 & 3: extract the alias source identifier.
   varName=$(printf '%s' "$content" \
-      | grep -E 'val[[:space:]]+versionToPublish[^=]*by[[:space:]]+extra\(' \
+      | grep -E "val[[:space:]]+${name}([[:space:]]*:[[:space:]]*String)?[[:space:]]+by[[:space:]]+extra\(" \
       | head -n1 \
       | sed -nE 's/.*extra\(([A-Za-z_][A-Za-z0-9_]*)\).*/\1/p')
   if [ -n "$varName" ]; then
+    # Shape 2: source is `val SRC ... by extra("X")`.
     v=$(printf '%s' "$content" \
-        | grep -E "val[[:space:]]+${varName}[^=]*by[[:space:]]+extra\(\"" \
+        | grep -E "val[[:space:]]+${varName}([[:space:]]*:[[:space:]]*String)?[[:space:]]+by[[:space:]]+extra\(\"" \
         | head -n1 \
         | sed -nE 's/.*extra\("([^"]+)".*/\1/p')
+    if [ -n "$v" ]; then
+      printf '%s' "$v"
+      return 0
+    fi
+    # Shape 3: source is `val SRC[: String]? = "X"`.
+    v=$(printf '%s' "$content" \
+        | grep -E "val[[:space:]]+${varName}([[:space:]]*:[[:space:]]*String)?[[:space:]]*=[[:space:]]*\"" \
+        | head -n1 \
+        | sed -nE 's/.*=[[:space:]]*"([^"]+)".*/\1/p')
     if [ -n "$v" ]; then
       printf '%s' "$v"
       return 0
@@ -122,9 +230,9 @@ parse_version() {
 }
 
 head_content=$(cat "$version_file" 2>/dev/null || true)
-head_version=$(parse_version "$head_content" || true)
+head_version=$(parse_version "$head_content" "$key" || true)
 if [ -z "$head_version" ]; then
-  echo "version-bumped: cannot parse versionToPublish from working-tree $version_file" >&2
+  echo "version-bumped: cannot parse '$key' from working-tree $version_file" >&2
   exit 2
 fi
 
@@ -135,9 +243,9 @@ if [ -z "$base_content" ]; then
   exit 0
 fi
 
-base_version=$(parse_version "$base_content" || true)
+base_version=$(parse_version "$base_content" "$key" || true)
 if [ -z "$base_version" ]; then
-  echo "version-bumped: cannot parse versionToPublish from $base:$version_file" >&2
+  echo "version-bumped: cannot parse '$key' from $base:$version_file" >&2
   exit 2
 fi
 
@@ -151,13 +259,13 @@ else
 fi
 
 if [ "$cmp" = "greater" ]; then
-  [ "${VERSION_BUMPED_QUIET:-0}" = "1" ] || echo "version-bumped: OK ($base_version -> $head_version)"
+  [ "${VERSION_BUMPED_QUIET:-0}" = "1" ] || echo "version-bumped: OK ($key: $base_version -> $head_version)"
   exit 0
 fi
 
 cat >&2 <<EOF
 version-bumped: BLOCK — branch differs from $base
-  but $version_file is $cmp ($base_version vs $head_version).
+  but $version_file '$key' is $cmp ($base_version vs $head_version).
 
   Publishing now would overwrite the Maven Local artifact at
   $base_version, which integration tests in consumer repos may rely on.
