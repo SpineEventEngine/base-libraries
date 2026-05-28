@@ -273,7 +273,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>org.jacoco</groupId>
     <artifactId>org.jacoco.report</artifactId>
-    <version>0.8.13</version>
+    <version>0.8.14</version>
   </dependency>
   <dependency>
     <groupId>org.jetbrains.dokka</groupId>
