@@ -17,6 +17,8 @@
 #
 set -eu
 
+command -v jq >/dev/null 2>&1 || exit 0
+
 input=$(cat)
 tool=$(printf '%s' "$input" | jq -r '.tool_name // empty')
 [ "$tool" != "Bash" ] && exit 0

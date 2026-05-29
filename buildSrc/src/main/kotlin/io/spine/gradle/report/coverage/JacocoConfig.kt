@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,12 +38,14 @@ import java.io.File
 import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.plugins.BasePlugin
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.SourceSetOutput
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.the
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
@@ -91,14 +93,16 @@ class JacocoConfig(
          */
         fun applyTo(project: Project) {
             project.applyPlugin(BasePlugin::class.java)
-            val javaProjects: Iterable<Project> = eligibleProjects(project)
-            val reportsDir = project.rootProject.layout
-                .buildDirectory.dir(reportsDirSuffix).get().asFile
-            JacocoConfig(
-                project.rootProject,
-                reportsDir,
-                javaProjects
-            ).configure()
+            project.gradle.projectsEvaluated {
+                val javaProjects: Iterable<Project> = eligibleProjects(project)
+                val reportsDir = project.rootProject.layout
+                    .buildDirectory.dir(reportsDirSuffix).get().asFile
+                JacocoConfig(
+                    project.rootProject,
+                    reportsDir,
+                    javaProjects
+                ).configure()
+            }
         }
 
         /**
@@ -147,13 +151,13 @@ class JacocoConfig(
         copyReports: TaskProvider<Copy>
     ): TaskProvider<JacocoReport> {
         val allSourceSets = Projects(projects).sourceSets()
-        val mainJavaSrcDirs = allSourceSets.mainJavaSrcDirs()
+        val mainSrcDirs = allSourceSets.mainSrcDirs()
         val humanProducedSourceFolders =
-            FileFilter.producedByHuman(mainJavaSrcDirs)
+            FileFilter.producedByHuman(mainSrcDirs)
 
         val filter = CodebaseFilter(
             rootProject,
-            mainJavaSrcDirs,
+            mainSrcDirs,
             allSourceSets.mainOutputs()
         )
         val humanProducedCompiledFiles = filter.humanProducedCompiledFiles()
@@ -182,6 +186,7 @@ class JacocoConfig(
         val everyExecData = mutableListOf<ConfigurableFileCollection>()
         projects.forEach { project ->
             val jacocoTestReport = project.getTask<JacocoReport>(jacocoTestReport.name)
+            jacocoTestReport.dependsOn(project.tasks.withType(Test::class.java))
             val executionData = jacocoTestReport.executionData
             everyExecData.add(executionData)
         }
@@ -224,12 +229,26 @@ private class SourceSets(
 ) {
 
     /**
-     * Returns all Java source folders corresponding to the `main` source set type.
+     * Returns the union of Java and Kotlin source folders corresponding to the `main`
+     * source set across all underlying [SourceSetContainer]s.
+     *
+     * Kotlin source directories are registered as a separate [SourceDirectorySet]
+     * extension on the source set, not exposed via [allJava][org.gradle.api.tasks.SourceSet.getAllJava].
+     * They are surfaced explicitly here so that generated Kotlin code (for example,
+     * the output of `protoc-gen-kotlin`) is visible to the coverage filter alongside
+     * the Java sources.
      */
-    fun mainJavaSrcDirs(): Set<File> {
+    fun mainSrcDirs(): Set<File> {
         return sourceSets
             .asSequence()
-            .flatMap { it["main"].allJava.srcDirs }
+            .flatMap { container ->
+                val main = container["main"]
+                val javaDirs = main.allJava.srcDirs
+                val kotlinDirs = (main.extensions.findByName("kotlin") as? SourceDirectorySet)
+                    ?.srcDirs
+                    ?: emptySet()
+                javaDirs + kotlinDirs
+            }
             .toSet()
     }
 

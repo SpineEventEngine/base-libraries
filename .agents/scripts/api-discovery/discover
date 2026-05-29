@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+#
+# Resolve the on-disk location of source code for a Maven artifact, so
+# agents can `Grep`/`Read` it directly instead of repeatedly `unzip`ing
+# sources JARs out of the Gradle cache.
+#
+# Strategy:
+#   1. Spine artifacts (group = io.spine / io.spine.tools / etc.) are
+#      served from a sibling clone under `<workspace-root>/<repo>/`. The
+#      sibling is identified from the `github.com/SpineEventEngine/<repo>`
+#      URL inside the matching `buildSrc/.../dependency/local/<X>.kt`
+#      file. Submodule paths are resolved by trying canonical name
+#      transformations (see `resolve_submodule_path`).
+#   2. Anything else (and Spine fallbacks when no sibling is on disk)
+#      is served from the per-workstation extraction cache populated by
+#      `extract-sources`.
+#
+# Usage:
+#   discover <group>:<artifact>:<version>
+#   discover <group>:<artifact>
+#   discover <artifact>
+#
+# Output:
+#   stdout: absolute path to a directory containing the source tree.
+#   stderr: freshness warnings and explanatory diagnostics. Always
+#           inspect stderr before relying on the resolved path.
+#
+# Exit codes (see lib/common.sh):
+#   0  — path resolved (path on stdout).
+#   1  — unresolvable (sibling missing AND extraction failed).
+#   10 — workstation cache directory not initialized AND the query
+#        requires the cache (i.e. sibling-first did not succeed).
+#        Spine-sibling resolution never triggers EX_NO_CACHE — the
+#        skill's "Non-cached" mode keeps working without bootstrap.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SPINE_API_DISCOVERY_DIR="$SCRIPT_DIR"
+export SPINE_API_DISCOVERY_DIR
+# shellcheck source=lib/common.sh
+. "$SCRIPT_DIR/lib/common.sh"
+
+usage() {
+    cat >&2 <<'EOF'
+Usage: discover <query>
+
+Where <query> is one of:
+  group:artifact:version    e.g. io.spine:spine-base:2.0.0-SNAPSHOT.390
+  group:artifact            e.g. io.spine:spine-base
+  artifact                  e.g. spine-base
+
+Spine artifacts resolve to the local sibling clone; non-Spine
+artifacts resolve to the extracted-sources cache.
+EOF
+    exit "$EX_FAIL"
+}
+
+[ "$#" -eq 1 ] || usage
+
+parse_query "$1"
+group="$Q_GROUP"
+artifact="$Q_ARTIFACT"
+version="$Q_VERSION"
+
+if [ -z "$artifact" ]; then
+    log_warn "empty artifact in query: $1"
+    exit "$EX_FAIL"
+fi
+
+# NOTE: We intentionally do NOT check `cache_initialized` here. The
+# Spine-sibling path doesn't need the cache, and the skill's
+# "Non-cached" bootstrap option must keep that path working without
+# bootstrap. If we end up falling through to `extract-sources`, that
+# script enforces the cache check on its own and raises EX_NO_CACHE.
+
+# Try the sibling path for Spine artifacts. If the group is empty we
+# still attempt the local-deps lookup; a hit means it's a Spine artifact.
+try_sibling() {
+    local dep_file
+    dep_file="$(find_local_dep_file_for_artifact "$artifact")"
+    [ -n "$dep_file" ] || return 1
+
+    local sibling_name workspace sibling_path
+    sibling_name="$(sibling_name_from_dep_file "$dep_file")"
+    workspace="$(workspace_root)" || return 1
+    sibling_path="$workspace/$sibling_name"
+
+    if [ ! -d "$sibling_path" ]; then
+        log_warn "sibling not on disk: $sibling_path (declared in $dep_file)"
+        return 1
+    fi
+
+    local module_path
+    module_path="$(resolve_submodule_path "$sibling_path" "$artifact")"
+
+    if [ ! -d "$module_path" ]; then
+        log_warn "resolved submodule path missing: $module_path"
+        return 1
+    fi
+
+    # Freshness check: declared version vs sibling's published version.
+    local declared sibling_v
+    declared="${version:-$(read_declared_version "$dep_file" || true)}"
+    sibling_v="$(read_sibling_version "$sibling_path" 2>/dev/null || true)"
+
+    if [ -n "$declared" ] && [ -n "$sibling_v" ] && \
+       [ "$declared" != "$sibling_v" ]; then
+        log_warn "STALE: $artifact declared $declared in $(basename -- "$dep_file") but sibling publishes $sibling_v"
+        log_warn "sources at $module_path may differ from the published artifact"
+    fi
+
+    printf '%s\n' "$module_path"
+    return 0
+}
+
+# Try sibling first when it could plausibly be a Spine artifact.
+if [ -z "$group" ] || is_spine_group "$group"; then
+    if try_sibling; then
+        exit "$EX_OK"
+    fi
+fi
+
+# Fall back to the extraction cache. This needs a full coordinate.
+if [ -z "$group" ] || [ -z "$artifact" ] || [ -z "$version" ]; then
+    # Try to fill in the missing pieces from a local dep file.
+    if [ -z "$version" ]; then
+        dep_file="$(find_local_dep_file_for_artifact "$artifact" || true)"
+        if [ -n "$dep_file" ]; then
+            version="$(read_declared_version "$dep_file" || true)"
+        fi
+    fi
+    if [ -z "$group" ]; then
+        # The local Spine objects all use Spine.group / Spine.toolsGroup.
+        # Without a sibling hit we can't disambiguate; require explicit group.
+        log_warn "cannot resolve $artifact without a Maven group"
+        log_warn "retry with <group>:<artifact>[:<version>]"
+        exit "$EX_FAIL"
+    fi
+    if [ -z "$version" ]; then
+        log_warn "cannot resolve $group:$artifact without a version"
+        log_warn "retry with <group>:<artifact>:<version>"
+        exit "$EX_FAIL"
+    fi
+fi
+
+# Delegate to extract-sources. It handles "already cached" by returning
+# the path immediately, so this path is fast on repeat queries.
+# The `|| exit $?` idiom propagates extract-sources' exit code under
+# `set -e`; do NOT split into `target=...; status=$?` — `set -e` may
+# terminate the script before the status check runs.
+target="$("$SCRIPT_DIR/extract-sources" "$group:$artifact:$version")" || exit $?
+
+printf '%s\n' "$target"

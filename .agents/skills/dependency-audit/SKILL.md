@@ -39,12 +39,13 @@ Each file declares a Kotlin `object` extending `Dependency` or `DependencyWithBo
 
 ## How to run an audit
 
-1. **Fetch the full diff once.** Run
-   `git diff <base>...HEAD -- 'buildSrc/src/main/kotlin/io/spine/dependency/**'`
-   (or `--staged` if the user is mid-commit). The unified diff already
-   contains the old and new lines you need for version-sanity and BOM
-   checks — do not call `--stat` first and then re-read each file. If the
-   diff is empty, ask the user which files to audit.
+1. **Fetch the full diff once.** Default base is `origin/master`:
+   `git diff origin/master...HEAD -- 'buildSrc/src/main/kotlin/io/spine/dependency/**'`
+   (use `--staged` if the user is mid-commit, or a different base only if
+   the user names one). The unified diff already contains the old and new
+   lines you need for version-sanity and BOM checks — do not call `--stat`
+   first and then re-read each file. If the diff is empty, ask the user
+   which files to audit.
 
 2. **Lean on the diff; `Read` on demand.** Version, BOM, copyright, and
    deprecation deltas are all visible in the unified diff. Only `Read` a
@@ -66,8 +67,17 @@ Each file declares a Kotlin `object` extending `Dependency` or `DependencyWithBo
      removed `const val`.
    - `rg -L 'Copyright \(c\) 2026' <changed-files>` to flag every stale
      header in one call.
-   - `rg -n '<lib>:<oldVersion>' --type kt --type gradle` once per
-     library to check for hardcoded pins.
+   - `rg -L '@Suppress\("unused", "ConstPropertyName"\)' <changed-files>`
+     to flag missing object-level suppression in one call.
+   - `rg -n '(lib1:oldv1|lib2:oldv2)' --type kt --type gradle` — one
+     alternation across libraries, not one command per library.
+
+5. **Fast path for pure version bumps.** If every hunk only modifies an
+   existing `version` (or `bom`) string literal — no added/removed
+   `const val`, no new files, no renames — run only Checks A and D.
+   Skip B, C, and E entirely. This is the dominant `/dependency-update`
+   shape; do not waste tool calls re-validating naming or deprecation
+   discipline when nothing structural changed.
 
 ## Checks
 
@@ -77,7 +87,9 @@ Each file declares a Kotlin `object` extending `Dependency` or `DependencyWithBo
   `.182`) is a Must-fix unless the commit message explicitly justifies it.
 - **Snapshot vs. release consistency.** If `version` switches from a release
   (`2.0.0`) to a snapshot (`2.0.1-SNAPSHOT.001`), confirm the consuming code
-  isn't pinned to the release elsewhere via `grep -r '<libName>:<oldVersion>'`.
+  isn't pinned to the release elsewhere. Use the batched ripgrep recipe
+  in step 4 — one alternation across all switched libraries, not one
+  command per library.
 - **BOM ↔ component agreement.** For objects extending `DependencyWithBom`,
   check that `bom` references the same version as `version` (e.g. Kotlin's
   `kotlin-bom:$runtimeVersion`).
@@ -96,9 +108,10 @@ When an artifact is **renamed or removed**:
 - The old `const val` must stay with `@Deprecated("…", ReplaceWith("…"))`
   or `@Deprecated("…")` (see `Kotest.frameworkApi` and `Kotest.datatest` for
   the established style).
-- If the diff deletes a `const val` outright, grep the repo with
-  `git grep '<oldName>'` to confirm no caller is left behind. If callers exist,
-  this is a Must-fix.
+- If the diff deletes one or more `const val`s outright, confirm no caller
+  is left behind. Use the batched ripgrep recipe in step 4 — one
+  alternation over all removed symbol names, not one `git grep` per
+  name. If any caller survives, this is a Must-fix.
 
 ### D. Convention drift
 - **Copyright header year.** Every changed file should have a current-year

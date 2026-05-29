@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+#
+# Prune the workstation api-discovery extraction cache.
+#
+# Usage:
+#   clean-cache --dry-run              # list what would be removed (no deletes)
+#   clean-cache --older-than 30d       # remove entries older than 30 days
+#   clean-cache --older-than 7d --dry-run
+#   clean-cache --all                  # wipe the whole sources cache
+#   clean-cache --all --dry-run
+#
+# The cache is at
+# `<workspace-root>/.agents/caches/api-discovery/sources/<group>/<artifact>/<version>/`.
+# "Age" is the directory's mtime (recorded at extraction time).
+#
+# Exit codes (see lib/common.sh):
+#   0  — succeeded (with or without removals).
+#   1  — bad arguments or filesystem error.
+#   10 — cache not initialized (nothing to clean).
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SPINE_API_DISCOVERY_DIR="$SCRIPT_DIR"
+export SPINE_API_DISCOVERY_DIR
+# shellcheck source=lib/common.sh
+. "$SCRIPT_DIR/lib/common.sh"
+
+usage() {
+    cat >&2 <<'EOF'
+Usage:
+  clean-cache --dry-run
+  clean-cache --older-than <DURATION> [--dry-run]
+  clean-cache --all [--dry-run]
+
+DURATION is a `find -mtime`-style suffix: `7d`, `30d`, `90d` (days only).
+EOF
+    exit "$EX_FAIL"
+}
+
+mode=""
+days=""
+dry_run=0
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --dry-run)
+            dry_run=1
+            shift
+            ;;
+        --all)
+            mode="all"
+            shift
+            ;;
+        --older-than)
+            mode="older-than"
+            shift
+            [ "$#" -gt 0 ] || usage
+            case "$1" in
+                *d) days="${1%d}" ;;
+                *)  log_warn "duration must end in 'd' (days), got: $1"; usage ;;
+            esac
+            case "$days" in
+                ''|*[!0-9]*) log_warn "duration days must be numeric, got: $1"; usage ;;
+            esac
+            shift
+            ;;
+        -h|--help)
+            usage
+            ;;
+        *)
+            log_warn "unknown argument: $1"
+            usage
+            ;;
+    esac
+done
+
+# Default to a no-op listing if no mode was given.
+[ -n "$mode" ] || mode="older-than-default"
+
+if ! cache_initialized; then
+    log_warn "cache not initialized: $(cache_root)"
+    exit "$EX_NO_CACHE"
+fi
+
+sources="$(sources_root)"
+
+# Collect targets into a temp list so we can preview and act consistently.
+list_file="$(mktemp -t api-discovery-clean.XXXXXX)"
+trap 'rm -f -- "$list_file"' EXIT
+
+case "$mode" in
+    all)
+        find "$sources" -mindepth 3 -maxdepth 3 -type d -print > "$list_file" 2>/dev/null || true
+        ;;
+    older-than)
+        find "$sources" -mindepth 3 -maxdepth 3 -type d -mtime "+$days" -print \
+            > "$list_file" 2>/dev/null || true
+        ;;
+    older-than-default)
+        log_warn "no mode specified; use --all or --older-than <N>d"
+        usage
+        ;;
+esac
+
+count="$(wc -l < "$list_file" | tr -d '[:space:]')"
+
+# Prune now-empty `<group>/` and `<group>/<artifact>/` parents so the cache
+# layout stays tidy. Two passes (artifact dirs first, then group dirs) so
+# that emptying a group's last artifact also reclaims the group dir.
+# Skipped under --dry-run so the command stays read-only.
+prune_empty_parents() {
+    find "$sources" -mindepth 2 -maxdepth 2 -type d -empty -exec rmdir -- {} + \
+        2>/dev/null || true
+    find "$sources" -mindepth 1 -maxdepth 1 -type d -empty -exec rmdir -- {} + \
+        2>/dev/null || true
+}
+
+if [ "$count" -eq 0 ]; then
+    log_warn "no entries match; cache untouched"
+    [ "$dry_run" -eq 0 ] && prune_empty_parents
+    exit "$EX_OK"
+fi
+
+if [ "$dry_run" -eq 1 ]; then
+    log_warn "would remove $count entr$( [ "$count" -eq 1 ] && printf 'y' || printf 'ies' ):"
+    cat -- "$list_file"
+    exit "$EX_OK"
+fi
+
+removed=0
+while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    if rm -rf -- "$path"; then
+        removed=$((removed + 1))
+    else
+        log_warn "failed to remove: $path"
+    fi
+done < "$list_file"
+
+prune_empty_parents
+
+log_warn "removed $removed entr$( [ "$removed" -eq 1 ] && printf 'y' || printf 'ies' )"
+exit "$EX_OK"

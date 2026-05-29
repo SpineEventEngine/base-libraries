@@ -21,10 +21,12 @@
 - **Generic parameters** over explicit variable types (`val list = mutableList<Dependency>()`)  
 - **Java interop annotations** only when needed (`@file:JvmName`, `@JvmStatic`)
 - **Kotlin DSL** for Gradle files
+- **Kotlin Protobuf DSL** (`myMessage { field = value }`) over Java builder chains
 
 ### ❌ Avoid
 - Mutable data structures
 - Java-style verbosity (builders with setters)
+- Java Protobuf builders in Kotlin code (`newBuilder()`, `toBuilder()`) unless interop requires them
 - Redundant null checks (`?.let` misuse)
 - Using `!!` unless clearly justified
 - Type names in variable names (`userObject`, `itemList`)

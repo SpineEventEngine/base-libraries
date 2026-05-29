@@ -16,6 +16,25 @@ skill's target repository, CI runs the `Version Guard` workflow, which invokes
 project version already exists in the Maven repository. It does not compare git
 branches or inspect commit subjects; the checks below are agent-side guardrails.
 
+## Commit authorization
+
+This skill is authorized to run `git commit` **exactly once** per invocation,
+under these constraints:
+
+- Stage only `version.gradle.kts`. Any other modified files are out of scope
+  for this skill's commit and must remain unstaged.
+- Use the exact subject `` Bump version -> `<new>` `` (see step 4 of the
+  Checklist) with the actual new version value substituted. Keep the
+  backticks around the version literal (for example, ``... -> `2.0.0``` ) and
+  do not escape them as ``\````.
+- No `git push`, `git tag`, `git rebase`, `git commit --amend`, or any other
+  history-writing operation. Those require a separate authorization
+  (`.agents/safety-rules.md` → *Commits and history-writing*).
+
+If the bump cannot be performed cleanly (no diff to commit, conflicting
+staged files, build failures preceding the commit), report and stop — do not
+create the commit.
+
 ## Checklist
 
 1. Work from the target repository root.
@@ -62,6 +81,12 @@ branches or inspect commit subjects; the checks below are agent-side guardrails.
 
    ```text
    Bump version -> `2.0.0-SNAPSHOT.183`
+   ```
+
+   Shell-safe example (no escaped backticks in the commit subject):
+
+   ```bash
+   git commit -m 'Bump version -> `2.0.0-SNAPSHOT.183`' -- version.gradle.kts
    ```
 
    Use the actual new version in the subject. Do not include unrelated files in

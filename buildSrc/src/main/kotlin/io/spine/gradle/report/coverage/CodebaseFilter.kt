@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ import org.gradle.api.file.FileTree
 import org.gradle.api.tasks.SourceSetOutput
 
 /**
- * Serves to distinguish the `.java` and `.class` files built on top of the Protobuf definitions
- * from the human-created production code.
+ * Serves to distinguish the generated `.java` and `.kt` files (and the `.class` files
+ * compiled from them) from the human-created production code.
  *
  * Works on top of the passed [source][srcDirs] and [output][outputDirs] directories, by analyzing
  * the source file names and finding the corresponding compiler output.
@@ -70,26 +70,15 @@ internal class CodebaseFilter(
         return humanProducedTree
     }
 
-    private fun generatedClassNames(): List<String> {
-        val generatedSourceFiles = generatedOnly(srcDirs)
-        val generatedNames = mutableListOf<String>()
-        generatedSourceFiles
+    private fun generatedClassNames(): List<String> =
+        generatedOnly(srcDirs)
             .filter { it.exists() && it.isDirectory }
-            .forEach { folder ->
-                folder.walk()
+            .flatMap { root ->
+                root.walk()
                     .filter { !it.isDirectory }
-                    .forEach { file ->
-                        file.parseName(
-                            File::asJavaClassName,
-                            File::asGrpcClassName,
-                            File::asSpineClassName
-                        )?.let { clsName ->
-                            generatedNames.add(clsName)
-                        }
-                    }
+                    .flatMap { it.classNamesIn(root) }
+                    .toList()
             }
-        return generatedNames
-    }
 
     private fun log(message: String) {
         project.logger.info(message)

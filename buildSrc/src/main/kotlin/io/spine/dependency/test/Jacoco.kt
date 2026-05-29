@@ -33,5 +33,5 @@ package io.spine.dependency.test
  */
 @Suppress("ConstPropertyName")
 object Jacoco {
-    const val version = "0.8.13"
+    const val version = "0.8.14"
 }

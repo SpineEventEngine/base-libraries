@@ -25,10 +25,14 @@ live in `.agents/`:
 
 1. Read the diff. Use `git diff --staged` or `git diff <base>...HEAD` depending on
    what the user describes. Do NOT review the full repo — only what changed.
+   Filter out config-distributed files (see `AGENTS.md § Code review` for the
+   exact list) before proceeding. If nothing remains after filtering, return
+   `APPROVE — all changes are config-distributed files.` and stop.
 2. Read each affected file fully, not just the diff hunks. Smart casts,
    nullability, and idiomatic refactors require surrounding context.
 3. Check against `.agents/coding-guidelines.md`:
    - Kotlin idioms (extension functions, `when`, smart casts, data/sealed classes).
+   - Kotlin Protobuf DSL (`message { ... }`) preferred over Java builders (`newBuilder()`, `toBuilder()`) in Kotlin.
    - Immutability by default.
    - No `!!` without justification.
    - No type names in variable names.
