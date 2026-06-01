@@ -6,8 +6,10 @@ description: >
   the rendered HTML using the repo's `lychee.toml`, and reports any broken URLs
   grouped by source Markdown page. Use locally before pushing changes that
   touch `docs/**` or `site/**`, when CI's `Check Links` job fails, or whenever
-  the user asks to "check doc links". Read-only with respect to the project
-  sources. Does **not** cover Javadoc/KDoc (out of scope for this skill).
+  the user asks to "check doc links". If no Hugo site exists under `docs/` or
+  `site/`, report the check as not applicable instead of failing. Read-only
+  with respect to the project sources. Does **not** cover Javadoc/KDoc (out of
+  scope for this skill).
 ---
 
 # Check links in the Hugo docs (repo-specific)
@@ -48,10 +50,14 @@ both the skill and CI).
   `embed-code` blocks, sidenav YAML files, content under `<SITE_DIR>/content/`).
 - A change touches `lychee.toml` itself.
 - CI reported broken links and you want a fast local repro.
-- The user asks to "check the doc links" or invokes `/check-links`.
+- The user asks to "check the doc links" or invokes the `check-links` skill.
 
 If none of the above is true, decline with a one-line note rather than
 running the (~30 s) build+check.
+
+If the repository has no Hugo config under `docs/` or `site/`, return
+`APPROVE — no Hugo documentation site found under docs/ or site/.` and stop.
+Do not write a `FAIL` sentinel for this not-applicable case.
 
 ## Tooling
 
@@ -96,8 +102,8 @@ for dir in docs site; do
   done
 done
 if [ -z "$SITE_DIR" ]; then
-  echo "ERROR: No Hugo config found under docs/ or site/." >&2
-  exit 1
+  echo "APPROVE — no Hugo documentation site found under docs/ or site/."
+  exit 0
 fi
 
 if [ -f "${SITE_DIR}/_preview/package-lock.json" ]; then
@@ -194,7 +200,7 @@ lock-step with CI.)
 
 ### 5. Start the Hugo server in the background
 
-The server must survive across multiple `Bash` tool calls (steps 5 → 6 → 8
+The server must survive across multiple shell/tool calls (steps 5 → 6 → 8
 typically run in separate shells), so we rely on `nohup` alone — a `trap …
 EXIT` would fire when *this* shell exits and kill the server before Lychee
 can query it. Teardown happens explicitly in step 8.

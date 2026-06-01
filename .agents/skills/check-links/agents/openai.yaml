@@ -1,0 +1,4 @@
+interface:
+  display_name: "Check Links"
+  short_description: "Validate rendered Hugo documentation links"
+  default_prompt: "Use $check-links to build the Hugo docs site, run Lychee against the rendered HTML, and report broken links."

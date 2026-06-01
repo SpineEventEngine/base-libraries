@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 
 package io.spine.gradle.publish
 
+import io.spine.gradle.SpineTaskGroup
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -56,6 +57,8 @@ class IncrementGuard : Plugin<Project> {
     override fun apply(target: Project) {
         val tasks = target.tasks
         tasks.register(taskName, CheckVersionIncrement::class.java) {
+            group = SpineTaskGroup.name
+            description = "Verifies that the project version was incremented before publishing"
             repository = CloudArtifactRegistry.repository
             tasks.getByName("check").dependsOn(this)
 

@@ -41,24 +41,35 @@ the first failure.
 
 - Base ref: `master` unless the user provides a different one.
 - Changed files: `git diff <base>...HEAD --name-only`
-  Remove any path matching the config-distributed list in
-  `AGENTS.md § Code review`. A PR that contains *only* config-distributed
-  files needs no build, no reviewers, and should PASS immediately — skip
-  to step 6 with `build=skipped`, `build_status=skipped`,
-  `reviewers=none`, `version=not-applicable`.
 - Repository root: `git rev-parse --show-toplevel`
+- Repository kind: detect the `config` repository by scanning `git remote -v`
+  for any URL matching `[:/]SpineEventEngine/config(\.git)?$`.
+- Filter changed files using `AGENTS.md § Code review`:
+  - In **`config` itself**, skip only `gradlew` and `gradlew.bat`; every other
+    config-distributed path is owned by this repo and stays in scope.
+  - In any **consumer repo**, remove the full config-distributed skip list. A
+    PR that contains *only* config-distributed files needs no build, no
+    reviewers, and should PASS immediately — skip to step 6 with
+    `build=skipped`, `build_status=skipped`, `reviewers=none`,
+    `version=not-applicable`.
 - Version gate: check only the repository-root `version.gradle.kts`.
   - Absent at both sides → `not-applicable`, continue.
   - Present at `HEAD` → enforce in step 2.
   - Present at `<base>` but missing at `HEAD` → fail unless the user
     explicitly asked to migrate away from Gradle Build Tools versioning.
+- Hugo site: detect a site only when `docs/` or `site/` contains one of
+  `hugo.toml`, `hugo.yaml`, `config/hugo.toml`, `config/hugo.yaml`,
+  `config/_default/hugo.toml`, or `config/_default/hugo.yaml`.
 - Classify changes:
   - **proto** — any `*.proto` changed
   - **code** — any `*.kt`, `*.kts`, or `*.java` changed
   - **docs** — any `*.md` or doc-only source edits changed
   - **deps** — any file under `buildSrc/src/main/kotlin/io/spine/dependency/` changed
-  - **site** — any file under `docs/**` or `lychee.toml` (triggers Hugo link
-    check; pure `README.md` or KDoc-only changes do *not* count)
+  - **site** — a Hugo site exists and any file under `docs/**` or `lychee.toml`
+    changed (triggers Hugo link check; pure `README.md` or KDoc-only changes do
+    *not* count). If `lychee.toml` changes but no Hugo site exists, keep
+    `site=false` and note that `check-links` is not applicable if the skipped
+    reviewer needs explanation.
 
 ### 2. Version-bump check
 
@@ -68,8 +79,8 @@ the first failure.
   version and continue.
 - When both sides have the file: if the version is not strictly greater (semver
   + Spine snapshot rules in `.agents/version-policy.md`): if
-  `.agents/skills/bump-version/` exists, **auto-fix immediately** by invoking
-  `/bump-version` without asking; otherwise record a Must-fix and continue.
+  `.agents/skills/bump-version/` exists, **auto-fix immediately** by running
+  the `bump-version` skill without asking; otherwise record a Must-fix and continue.
   Re-read the file after the fix. If the version is still not strictly greater,
   record a Must-fix and continue. If the auto-fix succeeded, recompute the
   changed-file list (`git diff <base>...HEAD --name-only`) before proceeding to
@@ -93,10 +104,14 @@ continue to step 4 — do not abort. Pass `build_status=FAIL` in the context
 given to reviewers so they can discount false positives from non-compiling
 code.
 
-### 4. Reviewers (run in parallel)
+### 4. Reviewers
 
-Dispatch relevant reviewers concurrently; collect all verdicts before
-aggregating. Before dispatching, check that the skill directory exists under
+Run every relevant reviewer and collect all verdicts before aggregating. In a
+single Codex session, run the reviewer skills one by one and batch independent
+search/read commands inside each reviewer. If multi-agent tools are available,
+parallel reviewer dispatch is optional but not required.
+
+Before running a reviewer, check that the skill directory exists under
 `.agents/skills/`; if a skill is absent, skip it with a note "not applicable
 for this repo" rather than failing.
 
@@ -108,9 +123,9 @@ for this repo" rather than failing.
 
 **`check-links` sentinel short-circuit.** Read `.git/check-links.ok` (if
 present). If `head=` equals the current **full** HEAD SHA and `status=PASS`, skip
-dispatch and record `APPROVE` with note "cached from `.git/check-links.ok`"
+the link check and record `APPROVE` with note "cached from `.git/check-links.ok`"
 (caching its ~30 s rebuild+serve cycle; the result is deterministic for a given
-HEAD). Otherwise dispatch normally.
+HEAD). Otherwise run `check-links` normally.
 
 Pass each reviewer: base ref, changed-file list, build result, version result.
 When the version check is `not-applicable`, say so explicitly so reviewers don't flag a
@@ -184,5 +199,5 @@ them in one line before the verdict: `Auto-fixed: <comma-separated list>.`
 - The sentinel lives under `.git/` — per-clone, never committed.
 - Each reviewer is the source of truth for its own checks; this skill only
   orchestrates and aggregates.
-- This skill may auto-fix a missing version bump by invoking `/bump-version`;
+- This skill may auto-fix a missing version bump by running the `bump-version` skill;
   all other fixes require explicit user confirmation.

@@ -52,7 +52,7 @@ description: >
 
 ## Final step: ensure the version is bumped
 
-After the conversion is verified, invoke `/version-bumped` so the branch
+After the conversion is verified, run the `version-bumped` skill so the branch
 carries a strictly greater `version.gradle.kts` than the base ref before
 any `./gradlew build` (which may transitively `publishToMavenLocal` and
 overwrite the previously published snapshot consumer repos depend on).

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gradle Review"
+  short_description: "Review Gradle build logic changes"
+  default_prompt: "Use $gradle-review to review Gradle build logic and plugin changes against Spine conventions and ingested Gradle best practices."

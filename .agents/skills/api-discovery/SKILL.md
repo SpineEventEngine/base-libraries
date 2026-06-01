@@ -2,9 +2,9 @@
 name: api-discovery
 description: >
   Resolve the on-disk location of a Maven artifact's source code,
-  so you can `Grep`/`Read` it directly instead of running `unzip`
-  against JARs in the Gradle cache. Use this whenever you need to
-  inspect a library's API or implementation — definitions of public
+  so you can inspect it directly instead of running `unzip` against JARs
+  in the Gradle cache. Use this whenever you need to inspect a library's
+  API or implementation — definitions of public
   types, method signatures, KDoc, internal helpers, etc.
 ---
 
@@ -12,7 +12,8 @@ description: >
 
 Before reading library source code, run the `discover` script in
 `.agents/scripts/api-discovery/`. It returns a path you can hand
-straight to `Grep`, `Read`, or `Glob`.
+straight to normal search and file-reading tools such as `rg`, `sed`,
+or the active agent's file viewer.
 
 Do **not** run `find ~/.gradle/caches` or `unzip` against cache JARs.
 Each `unzip` decompresses the archive afresh — slow and token-heavy.
@@ -42,7 +43,7 @@ the user should know about.
 
 | Code | Meaning | What you do |
 |---|---|---|
-| `0` | Path on stdout is usable. | Pass it to `Grep`/`Read`/`Glob`. If stderr is non-empty, surface the warning to the user before relying on the path. |
+| `0` | Path on stdout is usable. | Search or read files under that path directly. If stderr is non-empty, surface the warning to the user before relying on the path. |
 | `1` | Unresolvable (no sibling AND no JAR). | Report the failure. **Do not** fall back to `unzip ~/.gradle/caches/...`. |
 | `10` | Cache directory not initialized. | Run the **bootstrap flow** below. |
 
@@ -86,7 +87,7 @@ paths entirely.
 ## Workflow
 
 1. **Always** call `discover` before reading library source.
-2. Use the returned path with `Grep`/`Read`/`Glob` directly. Do **not**
+2. Use the returned path with search or file-reading tools directly. Do **not**
    `cd` into the directory — that adds path-prefix noise to tool calls
    and makes line citations harder to read.
 3. If stderr contains `STALE: ...`, the sibling on disk does not match
@@ -197,11 +198,10 @@ $ echo $?
 0
 ```
 
-Tool calls then look like:
+Follow-up searches then look like:
 
-- `Glob` pattern `**/*.kt`, path
-  `/Users/<you>/Projects/Spine/base-libraries/base`.
-- `Grep` pattern `class Identifier`, path the same.
+- `rg --files /Users/<you>/Projects/Spine/base-libraries/base`.
+- `rg -n 'class Identifier' /Users/<you>/Projects/Spine/base-libraries/base`.
 
 **Spine artifact, stale sibling:**
 

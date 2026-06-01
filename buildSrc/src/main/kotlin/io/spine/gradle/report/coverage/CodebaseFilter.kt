@@ -41,6 +41,14 @@ import org.gradle.api.tasks.SourceSetOutput
  * Works on top of the passed [source][srcDirs] and [output][outputDirs] directories, by analyzing
  * the source file names and finding the corresponding compiler output.
  */
+@Deprecated(
+    message = "Used only by the deprecated `JacocoConfig` pipeline. " +
+            "Generated-code filtering moved to `KoverConfig.applyTo(rootProject)`, " +
+            "which derives the exclusion list at configuration time and pushes " +
+            "it into both per-module and root Kover reports. " +
+            "Removed when `JacocoConfig` is.",
+    level = DeprecationLevel.WARNING
+)
 internal class CodebaseFilter(
     private val project: Project,
     private val srcDirs: Set<File>,

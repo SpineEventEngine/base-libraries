@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,14 @@ import java.io.File
 /**
  * Utilities for filtering the groups of `File`s.
  */
+@Deprecated(
+    message = "Used only by the deprecated `JacocoConfig` pipeline. " +
+            "Generated-code filtering moved to `KoverConfig.applyTo(rootProject)`, " +
+            "which derives the exclusion list at configuration time and pushes " +
+            "it into both per-module and root Kover reports. " +
+            "Removed when `JacocoConfig` is.",
+    level = DeprecationLevel.WARNING
+)
 internal object FileFilter {
 
     /**

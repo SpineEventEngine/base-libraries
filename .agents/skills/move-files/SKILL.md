@@ -42,7 +42,7 @@ description: >
    - Run focused validation for moved files, or state what could not run.
 
 6. Ensure the version is bumped.
-   Invoke `/version-bumped` so the branch carries a strictly greater
+   Run the `version-bumped` skill so the branch carries a strictly greater
    `version.gradle.kts` than the base ref before any `./gradlew build`
    (which can transitively `publishToMavenLocal` and overwrite
    consumer-facing snapshots). The skill is a no-op if a bump already

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,15 @@ package io.spine.gradle.report.coverage
 /**
  * The names of Gradle tasks involved in the JaCoCo reporting.
  */
+@Deprecated(
+    message = "Internal task-name catalog for the deprecated `JacocoConfig` pipeline. " +
+            "Kover uses its built-in task names (`koverXmlReport`, etc.). " +
+            "Removed when `JacocoConfig` is. " +
+            "See `KoverConfig` for the Kover-based successor and " +
+            "`.agents/skills/raise-coverage/references/migrate-to-kover.md` " +
+            "for the migration recipe.",
+    level = DeprecationLevel.WARNING
+)
 @Suppress("EnumEntryName", "EnumNaming") /* Dubbing the actual values in Gradle. */
 internal enum class TaskName {
     jacocoRootReport,

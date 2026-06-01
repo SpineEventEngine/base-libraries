@@ -55,6 +55,17 @@ See `.agents/memory/README.md` for layout and write protocol.
 Review `.agents/memory/MEMORY.md` at the start of every session.
 Ruthlessly iterate until mistakes stop repeating.
 
+## Asking questions
+
+- Ask at most one question per message. If a decision has a small set of
+  options, include those options as part of that one question.
+- Do not bundle unrelated clarification questions. Ask the next question only
+  after the user answers the previous one.
+- Apply this rule both when the agent needs clarification and when the user's
+  prompt means "ask questions".
+- Prefer a reasonable assumption over another question when the answer would not
+  materially change the next step.
+
 ## Verification & Quality
 
 - Never mark a task done without proof (tests, logs, diff vs main).

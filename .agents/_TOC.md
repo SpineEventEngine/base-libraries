@@ -21,3 +21,5 @@
 19. [Pre-PR checklist](skills/pre-pr/SKILL.md)
 20. [Kotlin code review](skills/kotlin-review/SKILL.md)
 21. [Dependency audit](skills/dependency-audit/SKILL.md)
+22. [Gradle review](skills/gradle-review/SKILL.md)
+23. [Raise test coverage](skills/raise-coverage/SKILL.md)

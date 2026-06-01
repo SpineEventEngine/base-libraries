@@ -27,6 +27,7 @@
 package io.spine.gradle.report.coverage
 
 import io.spine.dependency.test.Jacoco
+import io.spine.gradle.SpineTaskGroup
 import io.spine.gradle.applyPlugin
 import io.spine.gradle.getTask
 import io.spine.gradle.report.coverage.TaskName.check
@@ -62,10 +63,19 @@ import org.gradle.testing.jacoco.tasks.JacocoReport
  * In a single-module Gradle project, this utility is NOT needed. Just a plain `jacoco` plugin
  * applied to the project is sufficient.
  *
- * Therefore, tn case this utility is applied to a single-module Gradle project,
+ * Therefore, in case this utility is applied to a single-module Gradle project,
  * an `IllegalStateException` is thrown.
  */
-@Suppress("unused")
+@Deprecated(
+    message = "Use `KoverConfig.applyTo(rootProject)`, the Kover-based " +
+            "successor that aggregates per-subproject coverage into the " +
+            "root `koverXmlReport` and excludes classes compiled from " +
+            "`generated/` source directories. " +
+            "The `raise-coverage` skill performs this migration automatically. " +
+            "See .agents/skills/raise-coverage/references/migrate-to-kover.md.",
+    level = DeprecationLevel.WARNING
+)
+@Suppress("unused", "DEPRECATION")
 class JacocoConfig(
     private val rootProject: Project,
     private val reportsDir: File,
@@ -163,6 +173,8 @@ class JacocoConfig(
         val humanProducedCompiledFiles = filter.humanProducedCompiledFiles()
 
         val rootReport = tasks.register(jacocoRootReport.name, JacocoReport::class.java) {
+            group = SpineTaskGroup.name
+            description = "Aggregates JaCoCo coverage data from subprojects into a single report"
             dependsOn(copyReports)
 
             additionalSourceDirs.from(humanProducedSourceFolders)
@@ -194,6 +206,8 @@ class JacocoConfig(
         val originalLocation = rootProject.files(everyExecData)
 
         val copyReports = tasks.register(copyReports.name, Copy::class.java) {
+            group = SpineTaskGroup.name
+            description = "Copies JaCoCo `.exec` files from subprojects into root reports folder"
             from(originalLocation)
             into(reportsDir)
             rename {

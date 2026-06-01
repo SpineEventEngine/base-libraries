@@ -1,0 +1,4 @@
+interface:
+  display_name: "Version Bumped"
+  short_description: "Ensure branch version was bumped"
+  default_prompt: "Use $version-bumped to verify the branch has advanced version.gradle.kts versus the base ref, auto-recovering through $bump-version when applicable."

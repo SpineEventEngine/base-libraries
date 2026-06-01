@@ -26,6 +26,7 @@
 
 package io.spine.gradle.report.pom
 
+import io.spine.gradle.SpineTaskGroup
 import io.spine.gradle.report.license.Paths
 import org.gradle.api.Project
 import org.gradle.api.plugins.BasePlugin
@@ -83,6 +84,8 @@ object PomGenerator {
         }
 
         val task = project.tasks.register("generatePom") {
+            group = SpineTaskGroup.name
+            description = "Generates a `pom.xml` file describing project dependencies"
             doLast {
                 val pomFile = Paths.outputFile(project.rootDir, pomFilename)
                 pomFile.parentFile.mkdirs()

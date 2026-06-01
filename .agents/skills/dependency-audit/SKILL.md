@@ -47,12 +47,12 @@ Each file declares a Kotlin `object` extending `Dependency` or `DependencyWithBo
    first and then re-read each file. If the diff is empty, ask the user
    which files to audit.
 
-2. **Lean on the diff; `Read` on demand.** Version, BOM, copyright, and
-   deprecation deltas are all visible in the unified diff. Only `Read` a
+2. **Lean on the diff; read files on demand.** Version, BOM, copyright, and
+   deprecation deltas are all visible in the unified diff. Only read a
    file when (a) it is newly added, or (b) a hunk references a
    `version`/`group` constant defined outside the hunk and you need
    surrounding context. **Budget:** if more than 5 files changed, do not
-   `Read` individual files — work from the diff and use targeted `Grep`
+   read individual files — work from the diff and use targeted `rg`
    for cross-cutting questions.
 
 3. **Batch independent work into one turn.** Issue the version-sanity (A),
@@ -75,7 +75,7 @@ Each file declares a Kotlin `object` extending `Dependency` or `DependencyWithBo
 5. **Fast path for pure version bumps.** If every hunk only modifies an
    existing `version` (or `bom`) string literal — no added/removed
    `const val`, no new files, no renames — run only Checks A and D.
-   Skip B, C, and E entirely. This is the dominant `/dependency-update`
+   Skip B, C, and E entirely. This is the dominant `dependency-update`
    shape; do not waste tool calls re-validating naming or deprecation
    discipline when nothing structural changed.
 
@@ -116,7 +116,7 @@ When an artifact is **renamed or removed**:
 ### D. Convention drift
 - **Copyright header year.** Every changed file should have a current-year
   copyright line. If a file was edited but its copyright says `2024`, flag it
-  (the user can run `/update-copyright` to fix).
+  (the user can run the `update-copyright` skill to fix).
 - **GitHub URL comment.** New `lib/` and `kotlinx/` files conventionally
   start with `// https://github.com/<owner>/<repo>` above the object.
   Recommend it if missing.

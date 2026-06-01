@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Audit"
+  short_description: "Review dependency declaration diffs"
+  default_prompt: "Use $dependency-audit to review dependency declaration changes for version sanity, BOM consistency, deprecations, and convention drift."

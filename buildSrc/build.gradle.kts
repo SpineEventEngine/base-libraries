@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,7 +132,7 @@ val kotestJvmPluginVersion = "0.4.10"
 /**
  * @see [io.spine.dependency.test.Kover]
  */
-val koverVersion = "0.9.1"
+val koverVersion = "0.9.8"
 
 /**
  * The version of the Shadow Plugin.

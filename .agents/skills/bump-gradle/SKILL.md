@@ -143,6 +143,6 @@ empty commits, and do not bundle unrelated changes into either commit.
 
    Before this branch can be built or published locally, the project
    version must be strictly greater than the version on the base ref.
-   Invoke `/version-bumped` — it is a no-op if a bump has already
-   happened earlier on the branch, and otherwise calls `/bump-version`
-   to perform the increment.
+   Run the `version-bumped` skill — it is a no-op if a bump has already
+   happened earlier on the branch, and otherwise uses the `bump-version`
+   skill to perform the increment.
