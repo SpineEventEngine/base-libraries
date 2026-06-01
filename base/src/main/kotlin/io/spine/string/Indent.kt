@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -52,15 +52,6 @@ public data class Indent(
     override fun toString(): String = value
 
     public companion object {
-
-        /**
-         * The default indentation, which is primarily used in the generated Java code.
-         */
-        @Deprecated(
-            message = "Please use `DEFAULT_JAVA_INDENT_SIZE`.",
-            replaceWith = ReplaceWith("DEFAULT_JAVA_INDENT_SIZE")
-        )
-        public const val DEFAULT_SIZE: Int = 4
 
         /**
          * The default size of indentation used in the Java code.

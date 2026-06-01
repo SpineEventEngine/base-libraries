@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -26,7 +26,6 @@
 
 package io.spine.code.fs;
 
-import com.google.errorprone.annotations.InlineMe;
 import org.jspecify.annotations.Nullable;
 
 import java.nio.file.Files;
@@ -51,17 +50,6 @@ public abstract class FsObject {
      */
     public final Path path() {
         return path;
-    }
-
-    /**
-     * Obtains the directory to which this object belongs.
-     *
-     * @deprecated please use {@link #parent()}.
-     */
-    @Deprecated
-    @InlineMe(replacement = "this.parent()")
-    public final @Nullable Path directory() {
-        return this.parent();
     }
 
     /**
@@ -92,10 +80,9 @@ public abstract class FsObject {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof FsObject)) {
+        if (!(obj instanceof FsObject other)) {
             return false;
         }
-        var other = (FsObject) obj;
         return Objects.equals(this.path, other.path);
     }
 }

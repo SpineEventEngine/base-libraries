@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -29,9 +29,7 @@ package io.spine.code.proto;
 import com.google.common.collect.ImmutableList;
 import com.google.protobuf.DescriptorProtos.DescriptorProto;
 import com.google.protobuf.Descriptors.FileDescriptor;
-import io.spine.base.RejectionType;
 import io.spine.code.fs.AbstractSourceFile;
-import io.spine.code.java.SimpleClassName;
 import io.spine.type.MessageType;
 
 import java.nio.file.Path;
@@ -65,40 +63,6 @@ public class SourceFile extends AbstractSourceFile {
     private static Path toPath(FileDescriptor file) {
         checkNotNull(file);
         var result = Paths.get(file.getName());
-        return result;
-    }
-
-    /**
-     * Returns {@code true} if the source file matches conventions for rejection files.
-     *
-     * <p>A valid rejections file must:
-     * <ul>
-     *     <li>be named ending on {@link io.spine.base.MessageFile#REJECTIONS "rejections.proto"};
-     *     <li>have the {@code java_multiple_files} option set to {@code false};
-     *     <li>either have a {@code java_outer_classname} value which ends with
-     *         {@linkplain RejectionType#isValidOuterClassName(SimpleClassName)} “Rejections”},
-     *         or not have the {@code java_outer_classname} option set at all.
-     * </ul>
-     *
-     * @deprecated Source file must not know if it matches a convention for specific types, such as
-     * rejections. Use {@code RejectionsFile} instead.
-     */
-    @Deprecated
-    public boolean isRejections() {
-        // By convention, rejections are generated into one file.
-        if (descriptor.getOptions()
-                      .getJavaMultipleFiles()) {
-            return false;
-        }
-        var outerClass = SimpleClassName.declaredOuterClassName(descriptor);
-
-        if (outerClass.isEmpty()) {
-            // There's no outer class name given in options.
-            // Assuming the file name ends with `rejections.proto`, it's a good rejections file.
-            return true;
-        }
-
-        var result = RejectionType.isValidOuterClassName(outerClass.get());
         return result;
     }
 

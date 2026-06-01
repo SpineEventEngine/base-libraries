@@ -35,7 +35,7 @@ gaps closed without weakening Codecov settings.
 - [x] Generate and parse the `:base` Kover XML report.
 - [x] Read target sources and existing tests for selected gaps.
 - [x] Document proposed concrete test cases for approval.
-- [ ] Remove deprecated API in the `:base` module.
+- [x] Remove deprecated API in the `:base` module.
 - [ ] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
 - [ ] Deprecate `io.spine.code.fs` types that are not used.
 - [ ] Finalize test cases for the remaining non-deprecated API and wait for
@@ -87,7 +87,9 @@ Selected actionable gaps before the updated API cleanup:
 - `base/src/main/java/io/spine/code/fs/AbstractDirectory.java` — constructor
   lines `40-41`, covered by instantiating a concrete test subclass.
 - `base/src/main/kotlin/io/spine/io/Files.kt` — lines `57-61`, `70-73`;
-  branches in `File.toUnix()` and `File.toUnixPath()`.
+  branches in `File.toUnix()` and `File.toUnixPath()`. The deprecated
+  `File.toUnix()` API was removed, so only `File.toUnixPath()` remains for
+  future coverage.
 - `base/src/main/kotlin/io/spine/io/Paths.kt` — lines `66-70`; branches in
   `Path.toUnix()`.
 
@@ -97,6 +99,35 @@ Non-actionable note:
   where the helper throws internally. They may remain as JaCoCo gaps even when
   the surrounding `IOException` paths are exercised; this is documented in the
   `raise-coverage` coverage-signals reference.
+
+## Deprecated API Removal
+
+Removed from production sources:
+
+- `io.spine.util.MoreCollections` deprecated aliases for
+  `Iterable.theOnly()` and `Iterable.interlaced(...)`.
+- `Indent.DEFAULT_SIZE`; `DEFAULT_JAVA_INDENT_SIZE` remains.
+- `File.toUnix()`; `File.toUnixPath()` remains.
+- `Any.unpackGuessingType()`; `Any.unpackKnownType()` remains.
+- `Identifier.findField(...)`; `Field.findIdField(...)` remains.
+- `Durations2.ZERO`, `Durations2.isPositive(...)`, and
+  `Durations2.isNegative(...)`; Protobuf `Durations` replacements remain.
+- `FsObject.directory()`; `FsObject.parent()` remains.
+- `TypeUrl.toTypeName()`; `TypeUrl.typeName()` remains.
+- `SourceFile.isRejections()`.
+- Deprecated `CollectionsConverter` and its dedicated tests.
+- Deprecated `Text` and its dedicated tests.
+
+For `Columns`, the mutator overrides are required by `List`, so they were not
+removed. Their local deprecation markers and `@deprecated` Javadocs were
+removed; the methods still throw `UnsupportedOperationException` and remain
+annotated with `@DoNotCall`.
+
+Verification after removal:
+
+- `rg -n "@Deprecated|Deprecated\\(|@deprecated" base/src/main base/src/test`
+  returned no matches.
+- `./gradlew :base:build --quiet` passed.
 
 ## Proposed Cases
 
@@ -141,10 +172,6 @@ Add `base/src/test/kotlin/io/spine/code/fs/FsObjectSpec.kt`:
 
 Extend `base/src/test/kotlin/io/spine/io/FilesSpec.kt`:
 
-- `File.toUnix()` converts Windows-style separators and returns the same
-  instance for Unix-style paths.
-  Closes: `Files.kt` lines `57-61`.
-
 - `File.toUnixPath()` converts Windows-style separators and returns the
   original path string otherwise.
   Closes: `Files.kt` lines `70-73`.
@@ -173,3 +200,7 @@ deprecated API.
 - 2026-06-01 12:34 WEST — updated scope per user request: remove deprecated
   `:base` API, analyze `io.spine.code.fs` usage across SpineEventEngine
   projects, deprecate unused types, and cover only the non-deprecated API.
+- 2026-06-01 12:58 WEST — removed deprecated `:base` APIs, deleted dedicated
+  tests for removed deprecated types, refreshed copyright headers on modified
+  source files, confirmed no deprecated markers remain under `base/src`, and
+  passed `./gradlew :base:build --quiet`.

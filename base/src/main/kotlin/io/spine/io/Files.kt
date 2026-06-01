@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,22 +43,6 @@ public fun File.replaceExtension(newExtension: String): File {
     val newExt = newExtension.ensureDotPrefix()
     return resolveSibling(nameWithoutExtension + newExt)
 }
-
-/**
- * Has no effect under Windows because file paths are always normalized.
- *
- * Please use [File.toUnixPath] instead.
- */
-@Deprecated(
-    message = "Please use `toUnixPath()` instead.",
-    replaceWith = ReplaceWith("toUnixPath()")
-)
-public fun File.toUnix(): File =
-    if (path.contains(Separator.Windows)) {
-        File(path.toUnix())
-    } else {
-        this
-    }
 
 /**
  * Obtains the path with [Unix][Separator.Unix] separators.
