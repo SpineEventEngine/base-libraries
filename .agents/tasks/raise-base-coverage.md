@@ -9,19 +9,24 @@ related-memories: []
 
 ## Goal
 
-Raise test coverage for the `:base` module using the `raise-coverage`
-workflow. Success means Kover report gaps are localized, concrete test cases
-are approved before implementation when actionable gaps exist, tests are added
-in Kotlin with Kotest assertions and no mocks, and the follow-up Kover report
-confirms targeted gaps closed without weakening Codecov settings.
+Raise test coverage for the `:base` module while cleaning up stale public API.
+Success means deprecated `:base` API is removed, `io.spine.code.fs` usage is
+checked across SpineEventEngine projects, unused `io.spine.code.fs` types are
+deprecated, the remaining non-deprecated API is covered with Kotlin tests using
+Kotest assertions and no mocks, and the follow-up Kover report confirms targeted
+gaps closed without weakening Codecov settings.
 
 ## Context
 
 - Target module: `:base`.
 - Coverage source: `base/build/reports/kover/report.xml`.
 - Kover is applied via the shared `module` plugin and root `KoverConfig`.
-- Tests-only changes do not require a version bump.
+- The original coverage-only plan would not require a version bump, but the
+  updated scope includes production API removal/deprecation and therefore must
+  be treated as a production-code change.
 - The skill requires an approval pause after proposing test cases.
+- `io.spine.code.fs` test coverage depends on the organization-wide usage
+  analysis: only API that remains non-deprecated should be covered.
 
 ## Plan
 
@@ -30,9 +35,30 @@ confirms targeted gaps closed without weakening Codecov settings.
 - [x] Generate and parse the `:base` Kover XML report.
 - [x] Read target sources and existing tests for selected gaps.
 - [x] Document proposed concrete test cases for approval.
-- [ ] Wait for approval to write tests.
+- [ ] Remove deprecated API in the `:base` module.
+- [ ] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
+- [ ] Deprecate `io.spine.code.fs` types that are not used.
+- [ ] Finalize test cases for the remaining non-deprecated API and wait for
+  approval to write tests.
 - [ ] Add approved Kotlin `*Spec` tests using stubs, not mocks.
 - [ ] Re-run `:base:koverXmlReport` and confirm targeted gaps closed.
+
+## Updated Scope
+
+The plan now includes API cleanup before test generation:
+
+- Remove deprecated API from `:base`. The first known target from the selected
+  gaps is `FsObject.directory()`, which is deprecated in favor of `parent()`.
+  The implementation pass must scan the whole `:base` module for other
+  deprecated public API before editing.
+- Analyze whether `io.spine.code.fs` is used by SpineEventEngine projects.
+  Check the current repository first, then sibling/local checkouts and GitHub
+  organization usage if local evidence is incomplete.
+- Deprecate `io.spine.code.fs` types that have no organization usage. Do not
+  add coverage for API newly marked as deprecated.
+- Cover only the `io.spine.code.fs` API that remains non-deprecated after the
+  usage analysis, plus the selected non-deprecated `File`/`Path` Unix
+  conversion extension branches.
 
 ## Findings
 
@@ -48,10 +74,12 @@ Generated report:
 - Module totals: 3265/4212 lines covered (77.52%) and 750/1087 branches
   covered (69.00%).
 
-Selected actionable gaps:
+Selected actionable gaps before the updated API cleanup:
 
 - `base/src/main/java/io/spine/code/fs/FsObject.java` — lines `53`, `64`,
-  `71`, `77`, `82`, `87`, `92-99`; branches in `equals()`.
+  `71`, `77`, `82`, `87`, `92-99`; branches in `equals()`. Line `64`
+  belongs to the deprecated `directory()` method and should be removed instead
+  of covered.
 - `base/src/main/java/io/spine/code/fs/AbstractSourceFile.java` — lines
   `63-71`, `78-84`, `92-100`; branches in `lines()`.
 - `base/src/main/java/io/spine/code/fs/SourceCodeDirectory.java` — lines
@@ -72,15 +100,17 @@ Non-actionable note:
 
 ## Proposed Cases
 
+These cases are provisional until the `io.spine.code.fs` usage analysis is
+complete. Cases for API that becomes deprecated must be dropped; cases for API
+that remains supported should be implemented.
+
 Add `base/src/test/kotlin/io/spine/code/fs/FsObjectSpec.kt`:
 
-- `FsObject` exposes path, parent, deprecated `directory()`, existence, and
-  `toString()`.
+- `FsObject` exposes path, parent, existence, and `toString()`.
   Input: a temp file and a missing sibling path.
-  Expected: path and parent match, `directory()` delegates to `parent()`,
-  the real file exists, the missing file does not, and `toString()` returns
-  the path string.
-  Closes: `FsObject.java` lines `53`, `64`, `71`, `77`, and `82`.
+  Expected: path and parent match, the real file exists, the missing file does
+  not, and `toString()` returns the path string.
+  Closes: `FsObject.java` lines `53`, `71`, `77`, and `82`.
 
 - `FsObject` equality and hash code are path-based.
   Input: two simple concrete subclasses with the same path, and another
@@ -126,7 +156,8 @@ Extend `base/src/test/kotlin/io/spine/io/PathsSpec.kt`:
   Closes: `Paths.kt` lines `66-70`.
 
 All proposed tests are Kotlin `*Spec` tests, use Kotest assertions, and rely on
-small hand-written subclasses rather than mocks.
+small hand-written subclasses rather than mocks. Do not test removed or newly
+deprecated API.
 
 ## Log
 
@@ -139,3 +170,6 @@ small hand-written subclasses rather than mocks.
   extension branches for the approval proposal.
 - 2026-06-01 12:32 WEST — recorded the findings and proposed test cases in
   this plan document. Awaiting approval before writing tests.
+- 2026-06-01 12:34 WEST — updated scope per user request: remove deprecated
+  `:base` API, analyze `io.spine.code.fs` usage across SpineEventEngine
+  projects, deprecate unused types, and cover only the non-deprecated API.
