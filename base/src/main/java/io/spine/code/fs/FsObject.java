@@ -80,7 +80,9 @@ public abstract class FsObject {
         if (this == obj) {
             return true;
         }
-        return (obj instanceof FsObject other) &&
-                Objects.equals(this.path, other.path);
-    }
+        if (!(obj instanceof FsObject)) {
+            return false;
+        }
+        var other = (FsObject) obj;
+        return Objects.equals(this.path, other.path);    }
 }
