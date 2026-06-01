@@ -197,9 +197,7 @@ On success, **resume** at Workflow step 1.
      with `.testEquals()`. A single call exercises reflexivity, symmetry,
      transitivity within a group, the `null` branch, type mismatch (against
      `Object`), and `hashCode` consistency, which closes the typical
-     `equals`/`hashCode` gaps in one assertion. Use Kotest matchers only for
-     properties `EqualsTester` does not cover (e.g. a custom `toString()`
-     contract).
+     `equals`/`hashCode` gaps in one assertion.
    - **Class names use the `Spec` suffix** — e.g. `AbstractSourceFileSpec`,
      not `AbstractSourceFileTest`. This matches the house convention in
      existing `*Spec.kt` files (`base-libraries`, etc.) and applies even when
