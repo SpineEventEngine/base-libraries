@@ -37,7 +37,9 @@ gaps closed without weakening Codecov settings.
 - [x] Document proposed concrete test cases for approval.
 - [x] Remove deprecated API in the `:base` module.
 - [ ] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
+- [ ] Mark `io.spine.code.fs` types that are not used by any project as deprecated.
 - [ ] Deprecate `io.spine.code.fs` types that are not used.
+- [ ] Analyse whether `RejectionType` is used in Spine SDK projects and deprecate if not.
 - [ ] Finalize test cases for the remaining non-deprecated API and wait for
   approval to write tests.
 - [ ] Add approved Kotlin `*Spec` tests using stubs, not mocks.
