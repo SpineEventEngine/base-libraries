@@ -87,12 +87,12 @@ internal class EntityQuerySpec {
         val builder1 = TestEntityQueryBuilder()
         val query1a = builder1.build()
         val query1b = builder1.build()
-        
+
         val builder2 = TestEntityQueryBuilder()
         builder2.limit(10)
         builder2.sortAscendingBy(secondsColumn)
         val query2 = builder2.build()
-        
+
         EqualsTester()
             .addEqualityGroup(query1a, query1b)
             .addEqualityGroup(query2)
