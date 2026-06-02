@@ -1,0 +1,106 @@
+/*
+ * Copyright 2026, TeamDev. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Redistribution and use in source and/or binary forms, with or without
+ * modification, must retain the above copyright notice and the following
+ * disclaimer.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+package io.spine.code.fs
+
+import com.google.common.testing.EqualsTester
+import io.kotest.matchers.shouldBe
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+
+@DisplayName("`FsObject` should")
+class FsObjectSpec {
+
+    private class StubFsObject(path: Path) : FsObject(path)
+    private class StubDir(path: Path) : AbstractDirectory(path)
+    private class StubSourceCodeDir(path: Path) : SourceCodeDirectory(path)
+    private class StubSourceFile(path: Path) : AbstractSourceFile(path)
+
+    @Test
+    fun `expose path`(@TempDir tempDir: Path) {
+        val path = tempDir.resolve("some-file")
+        val obj = StubFsObject(path)
+        obj.path() shouldBe path
+    }
+
+    @Test
+    fun `expose parent`(@TempDir tempDir: Path) {
+        val path = tempDir.resolve("parent/child")
+        val obj = StubFsObject(path)
+        obj.parent() shouldBe path.parent
+    }
+
+    @Test
+    fun `tell if exists`(@TempDir tempDir: Path) {
+        val path = tempDir.resolve("real-file")
+        Files.createFile(path)
+        val obj = StubFsObject(path)
+        obj.exists() shouldBe true
+
+        val missing = tempDir.resolve("missing-file")
+        StubFsObject(missing).exists() shouldBe false
+    }
+
+    @Test
+    fun `provide 'toString'`() {
+        val path = Paths.get("some", "path")
+        val obj = StubFsObject(path)
+        obj.toString() shouldBe path.toString()
+    }
+
+    @Test
+    fun `support equality`() {
+        val path1 = Paths.get("p1")
+        val path2 = Paths.get("p2")
+        EqualsTester()
+            .addEqualityGroup(StubFsObject(path1), StubFsObject(path1))
+            .addEqualityGroup(StubFsObject(path2))
+            .testEquals()
+    }
+
+    @Nested internal inner class
+    `Source code directory` {
+
+        @Test
+        fun `resolve child directory`() {
+            val root = StubSourceCodeDir(Paths.get("root"))
+            val child = StubSourceCodeDir(Paths.get("child"))
+            root.resolve(child) shouldBe Paths.get("root", "child")
+        }
+
+        @Test
+        fun `resolve source file`() {
+            val root = StubSourceCodeDir(Paths.get("root"))
+            val file = StubSourceFile(Paths.get("File.java"))
+            root.resolve(file) shouldBe Paths.get("root", "File.java")
+        }
+    }
+}

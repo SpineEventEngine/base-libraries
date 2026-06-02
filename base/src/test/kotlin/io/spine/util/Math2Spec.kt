@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,31 +24,45 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.io
+package io.spine.util
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
-import java.io.File
-import kotlin.io.path.Path
+import io.spine.testing.UtilityClassTest
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Extensions for `File` should")
-internal class FilesSpec {
+@DisplayName("`Math2` should")
+class Math2Spec : UtilityClassTest<Math2>(Math2::class.java) {
 
     @Test
-    fun `replace file extension`() {
-        File("my/path/file.bin").replaceExtension(".txt") shouldBe File("my/path/file.txt")
-        File("file").replaceExtension(".txt") shouldBe File("file.txt")
-        File("file").replaceExtension("txt") shouldBe File("file.txt")
-        File("file.txt").replaceExtension("") shouldBe File("file")
-        File("file.").replaceExtension("") shouldBe File("file")
+    fun `multiply long by int`() {
+        Math2.safeMultiply(10L, 2) shouldBe 20L
+        Math2.safeMultiply(10L, 0) shouldBe 0L
+        Math2.safeMultiply(10L, 1) shouldBe 10L
+        Math2.safeMultiply(10L, -1) shouldBe -10L
+        Math2.safeMultiply(Long.MAX_VALUE, 1) shouldBe Long.MAX_VALUE
     }
 
     @Test
-    fun `convert to Unix-style path`() {
-        File("my\\windows\\path").toUnixPath() shouldBe "my/windows/path"
-        File("my/unix/path").toUnixPath() shouldBe "my/unix/path"
+    fun `fail to multiply on overflow`() {
+        shouldThrow<ArithmeticException> {
+            Math2.safeMultiply(Long.MAX_VALUE, 2)
+        }
+        shouldThrow<ArithmeticException> {
+            Math2.safeMultiply(Long.MIN_VALUE, -1)
+        }
+    }
+
+    @Test
+    fun `perform floor division`() {
+        Math2.floorDiv(0, 4) shouldBe 0L
+        Math2.floorDiv(-1, 4) shouldBe -1L
+        Math2.floorDiv(-2, 4) shouldBe -1L
+        Math2.floorDiv(-3, 4) shouldBe -1L
+        Math2.floorDiv(-4, 4) shouldBe -1L
+        Math2.floorDiv(-5, 4) shouldBe -2L
+        Math2.floorDiv(4, 4) shouldBe 1L
+        Math2.floorDiv(5, 4) shouldBe 1L
     }
 }

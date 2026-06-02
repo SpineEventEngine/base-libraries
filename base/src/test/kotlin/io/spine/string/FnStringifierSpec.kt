@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,31 +24,26 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.io
+package io.spine.string
 
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
-import java.io.File
-import kotlin.io.path.Path
+import io.spine.util.SerializableFunction
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Extensions for `File` should")
-internal class FilesSpec {
+@DisplayName("`FnStringifier` should")
+class FnStringifierSpec {
+
+    private class StubStringifier : FnStringifier<Int>(
+        "stub",
+        SerializableFunction { it.toString() },
+        SerializableFunction { it.toInt() }
+    )
 
     @Test
-    fun `replace file extension`() {
-        File("my/path/file.bin").replaceExtension(".txt") shouldBe File("my/path/file.txt")
-        File("file").replaceExtension(".txt") shouldBe File("file.txt")
-        File("file").replaceExtension("txt") shouldBe File("file.txt")
-        File("file.txt").replaceExtension("") shouldBe File("file")
-        File("file.").replaceExtension("") shouldBe File("file")
-    }
-
-    @Test
-    fun `convert to Unix-style path`() {
-        File("my\\windows\\path").toUnixPath() shouldBe "my/windows/path"
-        File("my/unix/path").toUnixPath() shouldBe "my/unix/path"
+    fun `convert using functions`() {
+        val stringifier = StubStringifier()
+        stringifier.convert(10) shouldBe "10"
+        stringifier.reverse().convert("20") shouldBe 20
     }
 }

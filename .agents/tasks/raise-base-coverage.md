@@ -36,14 +36,14 @@ gaps closed without weakening Codecov settings.
 - [x] Read target sources and existing tests for selected gaps.
 - [x] Document proposed concrete test cases for approval.
 - [x] Remove deprecated API in the `:base` module.
-- [ ] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
-- [ ] Mark `io.spine.code.fs` types that are not used by any project as deprecated.
-- [ ] Deprecate `io.spine.code.fs` types that are not used.
-- [ ] Analyse whether `RejectionType` is used in Spine SDK projects and deprecate if not.
-- [ ] Finalize test cases for the remaining non-deprecated API and wait for
+- [x] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
+- [x] Mark `io.spine.code.fs` types that are not used by any project as deprecated.
+- [x] Deprecate `io.spine.code.fs` types that are not used.
+- [x] Analyse whether `RejectionType` is used in Spine SDK projects and deprecate if not.
+- [x] Finalize test cases for the remaining non-deprecated API and wait for
   approval to write tests.
-- [ ] Add approved Kotlin `*Spec` tests using stubs, not mocks.
-- [ ] Re-run `:base:koverXmlReport` and confirm targeted gaps closed.
+- [x] Add approved Kotlin `*Spec` tests using stubs, not mocks.
+- [x] Re-run `:base:koverXmlReport` and confirm targeted gaps closed.
 
 ## Updated Scope
 

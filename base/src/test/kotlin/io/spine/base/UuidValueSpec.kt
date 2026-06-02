@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,25 +26,37 @@
 
 package io.spine.base
 
-import java.util.UUID
+import io.kotest.assertions.throwables.shouldThrow
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
+import java.util.UUID
 
 @DisplayName("`UuidValue` should")
-internal class UuidValueSpec {
+class UuidValueSpec {
 
     @Test
-    fun `provide validation method for a string value`() {
-        assertThrows<IllegalArgumentException> {
+    fun `validate UUID string`() {
+        UuidValue.checkValid(UUID.randomUUID().toString())
+    }
+
+    @Test
+    fun `fail on empty string`() {
+        shouldThrow<IllegalArgumentException> {
             UuidValue.checkValid("")
         }
-        assertThrows<IllegalArgumentException> {
-            UuidValue.checkValid("1-2-3")
+    }
+
+    @Test
+    fun `fail on blank string`() {
+        shouldThrow<IllegalArgumentException> {
+            UuidValue.checkValid("  ")
         }
-        assertDoesNotThrow {
-            UuidValue.checkValid(UUID.randomUUID().toString())
+    }
+
+    @Test
+    fun `fail on invalid UUID string`() {
+        shouldThrow<IllegalArgumentException> {
+            UuidValue.checkValid("not-a-uuid")
         }
     }
 }
