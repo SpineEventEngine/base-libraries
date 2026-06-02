@@ -26,8 +26,10 @@
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.spine.io.Copy.copyContent
 import io.spine.io.Copy.copyDir
+import io.spine.testing.UtilityClassTest
 import java.nio.file.Files.createDirectory
 import java.nio.file.Files.exists
 import java.nio.file.Files.write
@@ -36,10 +38,12 @@ import java.nio.file.StandardOpenOption.CREATE
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
-class `Copy utilities should` {
+@DisplayName("`Copy` utilities should")
+internal class CopySpec : UtilityClassTest<Copy>(Copy::class.java) {
 
     companion object {
         const val sourceDirectory = "to-copy"

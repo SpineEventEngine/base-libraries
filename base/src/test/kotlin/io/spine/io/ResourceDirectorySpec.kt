@@ -34,10 +34,12 @@ import java.util.function.Predicate
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
-class `'ResourceDirectory' should` {
+@DisplayName("`ResourceDirectory` should")
+internal class ResourceDirectorySpec {
 
     private lateinit var directory: ResourceDirectory
     private lateinit var target: Path
