@@ -52,6 +52,7 @@ import org.junit.jupiter.api.Test
 @Suppress("TooManyFunctions")
 @DisplayName("`FieldDeclaration` should")
 internal class FieldDeclarationSpec {
+
     @Test
     fun `not accept 'null's on construction`() {
         val descriptor = Any.getDescriptor()
