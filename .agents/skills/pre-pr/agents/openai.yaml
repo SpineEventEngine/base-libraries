@@ -1,4 +1,0 @@
-interface:
-  display_name: "Pre-PR"
-  short_description: "Run the repo pre-PR verification gate"
-  default_prompt: "Use $pre-pr to run the repository pre-PR checklist, including the version gate, build or doc check, and relevant reviewers."

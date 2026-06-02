@@ -1,4 +1,0 @@
-interface:
-  display_name: "Kotlin Review"
-  short_description: "Review Kotlin and Java code changes"
-  default_prompt: "Use $kotlin-review to review Kotlin and Java changes against Spine coding guidelines, safety rules, and testing policy."

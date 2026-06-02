@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review Docs"
-  short_description: "Review KDoc and Markdown changes"
-  default_prompt: "Use $review-docs to review KDoc, Javadoc, Protobuf comments, and Markdown changes against Spine documentation conventions."

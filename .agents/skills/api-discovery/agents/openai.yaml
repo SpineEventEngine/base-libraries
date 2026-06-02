@@ -1,4 +1,0 @@
-interface:
-  display_name: "API Discovery"
-  short_description: "Resolve Maven artifact source paths"
-  default_prompt: "Use $api-discovery to resolve a Maven artifact's source path before inspecting library APIs or implementations."
