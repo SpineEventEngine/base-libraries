@@ -52,7 +52,8 @@ internal class CartesianProductsSpec {
                 override fun type(): Class<String> = String::class.java
                 override fun valueIn(source: Manufacturer): String = "value"
             }
-            val customParam = CustomSubjectParameter(customColumn, "value", ComparisonOperator.EQUALS)
+            val customParam =
+                CustomSubjectParameter(customColumn, "value", ComparisonOperator.EQUALS)
 
             val orExpression = OrExpression.newBuilder<Manufacturer>()
                 .addParam(RecordSubjectParameter(stock_count, ComparisonOperator.EQUALS, 10))
@@ -86,7 +87,8 @@ internal class CartesianProductsSpec {
                 override fun type(): Class<String> = String::class.java
                 override fun valueIn(source: Manufacturer): String = "value"
             }
-            val customParam = CustomSubjectParameter(customColumn, "value", ComparisonOperator.EQUALS)
+            val customParam =
+                CustomSubjectParameter(customColumn, "value", ComparisonOperator.EQUALS)
 
             val orExpression = OrExpression.newBuilder<Manufacturer>()
                 .addParam(RecordSubjectParameter(stock_count, ComparisonOperator.EQUALS, 10))
