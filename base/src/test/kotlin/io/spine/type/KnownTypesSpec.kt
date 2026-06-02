@@ -106,9 +106,8 @@ internal class KnownTypesSpec {
         found.isEmpty() shouldBe false
     }
 
-    @Nested
-    @DisplayName("contain types")
-    internal inner class ContainTypes {
+    @Nested internal inner class
+    `contain types` {
 
         @Test
         fun `defined by Spine framework`() {
@@ -181,8 +180,7 @@ internal class KnownTypesSpec {
     }
 
     @Test
-    @DisplayName("throw UnknownTypeException for requesting info on an unknown type")
-    fun throwOnUnknownType() {
+    fun `throw 'UnknownTypeException' for requesting info on an unknown type`() {
         val unexpectedUrl = TypeUrl.parse("prefix/unexpected.type")
         assertUnknownType { knownTypes.classNameOf(unexpectedUrl) }
     }

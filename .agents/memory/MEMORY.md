@@ -6,6 +6,7 @@ See [README.md](README.md) for the format and routing rules.
 ## Feedback (validated patterns & corrections)
 
 - [copilot-review-request](feedback/copilot-review-request.md) — GraphQL `requestReviews` with `botIds: ["BOT_kgDOCnlnWA"]`; REST endpoint silently no-ops on re-requests.
+- [kotlin-test-formatting](feedback/kotlin-test-formatting.md) — `@Nested` should be on the same line as `inner class`, and backticked name on the next line.
 
 ## Project (durable context & rationale)
 

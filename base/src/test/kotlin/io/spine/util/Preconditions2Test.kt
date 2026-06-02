@@ -86,8 +86,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         }
     }
 
-    @Nested
-    internal inner class `check that a 'String' is` :
+    @Nested internal inner class
+    `check that a 'String' is` :
         TestSuite<String>(Preconditions2::checkNotEmptyOrBlank, { arg, fmt, params ->
             checkNotEmptyOrBlank(arg, fmt, params)
         }) {
@@ -129,8 +129,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
     }
 
 
-    @Nested
-    internal inner class `check that a value is positive` :
+    @Nested internal inner class
+    `check that a value is positive` :
         TestSuite<Long>(Preconditions2::checkPositive,{ arg, fmt, params ->
             checkPositive(arg, fmt, params)
         }) {
@@ -154,8 +154,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         }
     }
 
-    @Nested
-    internal inner class `check that a value is positive or zero` :
+    @Nested internal inner class
+    `check that a value is positive or zero` :
         TestSuite<Long>(Preconditions2::checkNonNegative, { arg, fmt, params ->
             checkNonNegative(arg, fmt, params)
         }) {
@@ -183,9 +183,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         assertIllegalArgument { checkBounds(10, "checked value", -5, 9) }
     }
 
-    @Nested
-    @DisplayName("check that a message is not in the default state")
-    internal inner class NotDefaultMessage {
+    @Nested internal inner class
+    `check that a message is not in the default state` {
         private val defaultValue: Message = StringValue.getDefaultInstance()
         private var customErrorMessage: String? = null
 

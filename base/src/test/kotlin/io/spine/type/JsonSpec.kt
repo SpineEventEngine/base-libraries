@@ -31,6 +31,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.spine.base.Identifier
 import io.spine.json.given.Node
+import io.spine.json.given.node
 import io.spine.json.given.WrappedString
 import io.spine.testing.Assertions.assertNpe
 import io.spine.testing.TestValues
@@ -55,10 +56,10 @@ internal class JsonSpec {
     @Test
     fun `print to compact JSON`() {
         val idValue = Identifier.newUuid()
-        val node = Node.newBuilder()
-            .setName(idValue)
-            .setRight(Node.getDefaultInstance())
-            .build()
+        val node = node {
+            name = idValue
+            right = Node.getDefaultInstance()
+        }
         val result = node.toCompactJson()
 
         result shouldNotBe ""

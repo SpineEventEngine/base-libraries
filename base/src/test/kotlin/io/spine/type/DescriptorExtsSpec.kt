@@ -46,9 +46,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("`Descriptor` extensions from `io.spine.type` should")
 internal class DescriptorExtsSpec {
 
-    @Nested
-    @DisplayName("tell that a message type is marked as")
-    inner class ExplicitOption {
+    @Nested inner class
+    `tell that a message type is marked as` {
 
         @Test
         fun beta() {

@@ -49,9 +49,8 @@ internal class Files2Spec : UtilityClassTest<Files2>(Files2::class.java) {
         testFolder = testFolderPath.toFile()
     }
 
-    @Nested
-    @DisplayName("verify that an existing file is not empty")
-    internal inner class NonEmptyFile {
+    @Nested internal inner class
+    `verify that an existing file is not empty` {
 
         @Test
         fun `returning 'false' when existing file is empty`() {

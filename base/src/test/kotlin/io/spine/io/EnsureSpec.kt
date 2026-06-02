@@ -44,9 +44,8 @@ import org.junit.jupiter.api.io.TempDir
 @DisplayName("`Ensure` utilities class should")
 internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
 
-    @Nested
-    @DisplayName("handle files via")
-    internal inner class OnFiles {
+    @Nested internal inner class
+    `handle files via` {
 
         private lateinit var file: File
 
@@ -74,9 +73,8 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
         }
     }
 
-    @Nested
-    @DisplayName("handle a directory creation")
-    internal inner class OnDirectories {
+    @Nested internal inner class
+    `handle a directory creation` {
 
         private lateinit var tempDir: Path
 
@@ -102,8 +100,7 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
         }
 
         @Test
-        @DisplayName("if it exists")
-        fun existing() {
+        fun `if it exists`() {
             val existingDir = tempDir.resolve(TestValues.randomString())
             ensureDirectory(existingDir)
 

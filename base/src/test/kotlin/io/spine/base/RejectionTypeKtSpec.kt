@@ -24,53 +24,30 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.security
+package io.spine.base
 
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Assertions.fail
+import io.kotest.matchers.shouldBe
+import io.spine.code.java.SimpleClassName
+import io.spine.test.base.rejections.TestRejections.FlyingObjectUnidentified
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
 
-@DisplayName("`InvocationGuard` should")
-internal class InvocationGuardTest {
+@DisplayName("`RejectionType` should")
+class RejectionTypeKtSpec {
 
-    @Nested internal inner class
-    `throw 'SecurityException'` {
+    @Test
+    fun `recognize a rejection type`() {
+        val descriptor = FlyingObjectUnidentified.getDescriptor()
+        RejectionType.test(descriptor) shouldBe true
 
-        @Test
-        fun `if no classes are allowed`() {
-            assertThrowsOn { InvocationGuard.allowOnly("") }
-        }
-
-        @Test
-        fun `if a calling class is not that allowed`() {
-            assertThrowsOn { InvocationGuard.allowOnly("java.lang.Boolean") }
-        }
-
-        @Test
-        fun `if a calling class is not among allowed`() {
-            assertThrowsOn {
-                InvocationGuard.allowOnly(
-                    "java.lang.String",
-                    "org.junit.jupiter.api.Test"
-                )
-            }
-        }
+        val type = RejectionType(descriptor)
+        type.throwableClass().value() shouldBe
+                "io.spine.test.base.rejections.FlyingObjectUnidentified"
     }
 
     @Test
-    fun `do not throw on allowed class`() {
-        val callingClass = CallerProvider.callerClass().getName()
-        try {
-            InvocationGuard.allowOnly(callingClass)
-        } catch (e: Exception) {
-            fail<Any>(e)
-        }
-    }
-
-    private fun assertThrowsOn(executable: Executable) {
-        assertThrows(SecurityException::class.java, executable)
+    fun `verify outer class name`() {
+        RejectionType.isValidOuterClassName(SimpleClassName.create("MyRejections")) shouldBe true
+        RejectionType.isValidOuterClassName(SimpleClassName.create("MyEvents")) shouldBe false
     }
 }

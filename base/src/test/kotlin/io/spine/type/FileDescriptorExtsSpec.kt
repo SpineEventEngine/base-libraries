@@ -46,9 +46,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("`FileDescriptor` extensions from `io.spine.type` should")
 internal class FileDescriptorExtsSpec {
 
-    @Nested
-    @DisplayName("tell if all types in a file are")
-    inner class AllTypesAre {
+    @Nested inner class
+    `tell if all types in a file are` {
 
         @Test
         fun beta() {

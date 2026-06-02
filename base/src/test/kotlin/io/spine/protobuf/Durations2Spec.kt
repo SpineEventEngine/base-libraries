@@ -86,9 +86,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         toJavaTime(original) shouldBe backward.convert(original)
     }
 
-    @Nested
-    @DisplayName("provide DSL methods for")
-    internal inner class Dsl {
+    @Nested internal inner class
+    `provide DSL methods for` {
 
         private var value: Long = 0
 
@@ -129,9 +128,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("convert a number of hours")
-    internal inner class HourConversion {
+    @Nested internal inner class
+    `convert a number of hours` {
 
         private fun test(hours: Long) {
             val expected = seconds(hoursToSeconds(hours))
@@ -156,9 +154,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("fail if")
-    internal inner class MathError {
+    @Nested internal inner class
+    `fail if` {
 
         @Test
         fun `hours value is too big`() {
@@ -175,19 +172,16 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("add")
-    internal inner class Add {
+    @Nested internal inner class
+    `add` {
 
         @Test
-        @DisplayName("two `null`s -> `ZERO`")
-        fun nullPlusNull() {
+        fun `two 'null's to 'ZERO'`() {
             add(null, null) shouldBe Durations.ZERO
         }
 
         @Test
-        @DisplayName("`null` returning same instance")
-        fun sameWithNull() {
+        fun `'null' returning same instance`() {
             val duration = seconds(525)
 
             add(duration, null) shouldBeSameInstanceAs duration
@@ -221,9 +215,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("Obtain from `Duration`")
-    internal inner class Obtain {
+    @Nested internal inner class
+    `Obtain from 'Duration'` {
 
         @Test
         fun `amount of hours`() {
@@ -233,9 +226,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("verify if `Duration` is")
-    internal inner class Verify {
+    @Nested internal inner class
+    `verify if 'Duration' is` {
 
         @Test
         fun `positive or zero`() {
@@ -252,9 +244,8 @@ internal class Durations2Spec : UtilityClassTest<Durations2>(Durations2::class.j
         }
     }
 
-    @Nested
-    @DisplayName("tell if `Duration` is")
-    internal inner class Compare {
+    @Nested internal inner class
+    `tell if 'Duration' is` {
 
         @Test
         fun greater() {

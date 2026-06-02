@@ -42,8 +42,8 @@ import org.junit.jupiter.api.Test
 
 internal class `Extensions for 'Throwable' should` {
 
-    @Nested
-    inner class `tell if it was caused by a rejection` {
+    @Nested inner class
+    `tell if it was caused by a rejection` {
 
         private var throwable: Throwable = RuntimeException()
 

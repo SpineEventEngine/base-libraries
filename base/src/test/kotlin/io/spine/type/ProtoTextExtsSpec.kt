@@ -48,9 +48,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("Kotlin extensions for proto text output should")
 internal class ProtoTextExtsSpec {
 
-    @Nested
-    @DisplayName("print short debug string of")
-    inner class DebugStrOutput {
+    @Nested inner class
+    `print short debug string of` {
 
         private lateinit var msg: Timestamp
         private lateinit var debugStr: String
@@ -88,9 +87,8 @@ internal class ProtoTextExtsSpec {
         }
     }
 
-    @Nested
-    @DisplayName("print proto text output with name which")
-    inner class TextOutput {
+    @Nested inner class
+    `print proto text output with name which` {
 
         private lateinit var msg: MapOfAnys
         private lateinit var textOut: String

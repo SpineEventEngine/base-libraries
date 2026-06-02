@@ -24,53 +24,39 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.security
+package io.spine.code.proto
 
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Assertions.fail
+import io.kotest.matchers.shouldBe
+import io.spine.test.base.rejections.TestRejections.FlyingObjectUnidentified
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
 
-@DisplayName("`InvocationGuard` should")
-internal class InvocationGuardTest {
+@DisplayName("`TypeSet` should")
+class TypeSetKtSpec {
 
-    @Nested internal inner class
-    `throw 'SecurityException'` {
-
-        @Test
-        fun `if no classes are allowed`() {
-            assertThrowsOn { InvocationGuard.allowOnly("") }
-        }
-
-        @Test
-        fun `if a calling class is not that allowed`() {
-            assertThrowsOn { InvocationGuard.allowOnly("java.lang.Boolean") }
-        }
-
-        @Test
-        fun `if a calling class is not among allowed`() {
-            assertThrowsOn {
-                InvocationGuard.allowOnly(
-                    "java.lang.String",
-                    "org.junit.jupiter.api.Test"
-                )
-            }
-        }
+    @Test
+    fun `create an empty set`() {
+        val set = TypeSet.newBuilder().build()
+        set.isEmpty() shouldBe true
+        set.size() shouldBe 0
     }
 
     @Test
-    fun `do not throw on allowed class`() {
-        val callingClass = CallerProvider.callerClass().getName()
-        try {
-            InvocationGuard.allowOnly(callingClass)
-        } catch (e: Exception) {
-            fail<Any>(e)
-        }
+    fun `create from a file descriptor`() {
+        val descriptor = FlyingObjectUnidentified.getDescriptor().file
+        val set = TypeSet.from(descriptor)
+
+        set.isEmpty() shouldBe false
+        set.messageTypes().size shouldBe 1
     }
 
-    private fun assertThrowsOn(executable: Executable) {
-        assertThrows(SecurityException::class.java, executable)
+    @Test
+    fun `unite sets`() {
+        val descriptor = FlyingObjectUnidentified.getDescriptor().file
+        val set1 = TypeSet.from(descriptor)
+        val set2 = TypeSet.newBuilder().build()
+        val union = set1.union(set2)
+
+        union shouldBe set1
     }
 }

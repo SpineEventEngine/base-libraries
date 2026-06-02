@@ -87,9 +87,8 @@ internal class FieldDeclarationSpec {
             .testEquals()
     }
 
-    @Nested
-    @DisplayName("check default values of type")
-    internal inner class Defaults {
+    @Nested internal inner class
+    `check default values of type` {
 
         @Test
         fun int32() {
@@ -102,8 +101,7 @@ internal class FieldDeclarationSpec {
         }
 
         @Test
-        @DisplayName("`string`")
-        fun aString() {
+        fun `string`() {
             val stringField = StringValue.getDescriptor().fields[0]
             val declaration = FieldDeclaration(stringField)
 
@@ -112,8 +110,7 @@ internal class FieldDeclarationSpec {
         }
 
         @Test
-        @DisplayName("`Message`")
-        fun aMessage() {
+        fun `Message`() {
             val messageField = Uri.getDescriptor().findFieldByName("auth")
             val declaration = FieldDeclaration(messageField)
 
@@ -123,9 +120,8 @@ internal class FieldDeclarationSpec {
         }
     }
 
-    @Nested
-    @DisplayName("obtain Java type name of")
-    internal inner class TypeName {
+    @Nested internal inner class
+    `obtain Java type name of` {
 
         @Test
         fun int64() {
@@ -146,8 +142,7 @@ internal class FieldDeclarationSpec {
         }
 
         @Test
-        @DisplayName("`Message`")
-        fun message() {
+        fun `Message`() {
             val messageField = Uri.getDescriptor().findFieldByName("protocol")
             val declaration = FieldDeclaration(messageField)
             val typeName = declaration.javaTypeName()
@@ -156,8 +151,7 @@ internal class FieldDeclarationSpec {
         }
 
         @Test
-        @DisplayName("`enum`")
-        fun anEnum() {
+        fun `enum`() {
             val enumField = Uri.Protocol.getDescriptor().findFieldByName("schema")
             val declaration = FieldDeclaration(enumField)
             val typeName = declaration.javaTypeName()

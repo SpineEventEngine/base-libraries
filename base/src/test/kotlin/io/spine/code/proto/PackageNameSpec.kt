@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test
 internal class PackageNameSpec {
 
     @Test
-    fun handleNullArgs() {
+    fun `handle 'null' arguments`() {
         NullPointerTester().testAllPublicStaticMethods(PackageName::class.java)
     }
 
@@ -53,9 +53,8 @@ internal class PackageNameSpec {
         PackageName.of(packageName).value() shouldBe packageName
     }
 
-    @Nested
-    @DisplayName("verify if the package is inner to a parent package")
-    internal inner class SubPackage {
+    @Nested internal inner class
+    `verify if the package is inner to a parent package` {
 
         @Test
         fun `if immediately nested`() {

@@ -63,9 +63,8 @@ internal class FileNameSpec {
         FileName.of("many_more_rejections.proto").nameOnlyCamelCase() shouldBe "ManyMoreRejections"
     }
 
-    @Nested
-    @DisplayName("Calculate outer class name")
-    internal inner class OuterClassName {
+    @Nested internal inner class
+    `calculating outer class name` {
 
         @Test
         fun `one word name`() {
@@ -104,8 +103,7 @@ internal class FileNameSpec {
     }
 
     @Test
-    @DisplayName("tell events file kind")
-    fun eventsFile() {
+    fun `tell events file kind`() {
         val eventsFile = FileName.of("project_events.proto")
 
         eventsFile.isEvents shouldBe true
@@ -114,8 +112,7 @@ internal class FileNameSpec {
     }
 
     @Test
-    @DisplayName("tell rejection file kind")
-    fun rejectionsFile() {
+    fun `tell rejection file kind`() {
         val rejectionsFile = FileName.of("rejections.proto")
 
         rejectionsFile.isRejections shouldBe true

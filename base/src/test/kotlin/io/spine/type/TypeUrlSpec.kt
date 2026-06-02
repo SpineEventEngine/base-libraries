@@ -29,6 +29,7 @@ package io.spine.type
 import com.google.common.testing.EqualsTester
 import com.google.common.testing.SerializableTester
 import com.google.protobuf.Any
+import com.google.protobuf.any
 import com.google.protobuf.AnyProto
 import com.google.protobuf.BoolValue
 import com.google.protobuf.Descriptors.Descriptor
@@ -77,7 +78,7 @@ internal class TypeUrlSpec {
     `create an instance by` {
 
         @Test
-        fun message() {
+        fun `a message`() {
             val msg = TypeConverter.toMessage(Identifier.newUuid())
             val typeUrl = TypeUrl.of(msg)
             assertTypeUrl(typeUrl)
@@ -188,8 +189,7 @@ internal class TypeUrlSpec {
         }
 
         @Test
-        @DisplayName("created for a type declared in a file with empty `(type_url_prefix)`")
-        fun inFile() {
+        fun `created for a type declared in a file with empty '(type_url_prefix)'`() {
             noPrefixType = TypeUrl.from(TypeWithoutPrefix.getDescriptor())
             assertEmptyPrefix()
         }
@@ -214,9 +214,9 @@ internal class TypeUrlSpec {
 
         @Test
         fun `invalid URL of a packed message`() {
-            val any = Any.newBuilder()
-                .setTypeUrl("invalid_type_url")
-                .build()
+            val any = any {
+                typeUrl = "invalid_type_url"
+            }
             val exception = assertThrows<RuntimeException> {
                 TypeUrl.ofEnclosed(any)
             }
@@ -319,7 +319,7 @@ internal class TypeUrlSpec {
     }
 
     @Test
-    fun serialize() {
+    fun `be serializable`() {
         SerializableTester.reserializeAndAssert(TypeUrl.of(Timestamp::class.java))
     }
 }

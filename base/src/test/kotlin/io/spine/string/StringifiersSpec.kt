@@ -39,6 +39,8 @@ import io.spine.base.Time
 import io.spine.string.Stringifiers.stringify
 import io.spine.test.string.STask
 import io.spine.test.string.STaskId
+import io.spine.test.string.sTask
+import io.spine.test.string.sTaskId
 import io.spine.test.string.STaskStatus
 import io.spine.testing.UtilityClassTest
 import io.spine.type.toCompactJson
@@ -57,9 +59,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
         private const val SIZE = 5
     }
 
-    @Nested
-    @DisplayName("stringify")
-    internal inner class StringifyKt {
+    @Nested internal inner class
+    `stringify` {
 
         @Test
         fun boolean() = checkStringifies(false, "false")
@@ -97,13 +98,13 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
 
         @Test
         fun `a Protobuf 'Message'`() {
-            val id = STaskId.newBuilder()
-                .setUuid(Identifier.newUuid())
-                .build()
-            val message = STask.newBuilder()
-                .setId(id)
-                .setStatus(STaskStatus.DONE)
-                .build()
+            val id = sTaskId {
+                uuid = Identifier.newUuid()
+            }
+            val message = sTask {
+                this.id = id
+                status = STaskStatus.DONE
+            }
 
             val expected = message.toCompactJson()
             checkStringifies(message, expected)
@@ -114,9 +115,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
         }
     }
 
-    @Nested
-    @DisplayName("create 'Stringifier' with a delimeter for")
-    internal inner class Delimited {
+    @Nested internal inner class
+    `create 'Stringifier' with a delimeter for` {
 
         @Test
         fun List() {
@@ -169,9 +169,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
      * This class covers only cases that are not touched by other tests that
      * involve parsing of string values.
      */
-    @Nested
-    @DisplayName("parse a string into")
-    internal inner class Parsing {
+    @Nested internal inner class
+    `parse a string into` {
 
         @Test
         fun Boolean() {
