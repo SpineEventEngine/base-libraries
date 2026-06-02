@@ -45,6 +45,8 @@ class StringifySpec {
     }
 
     @Test
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "RemoveRedundantQualifierName")
+    // To use `java.lang.Integer` instead of `kotlin.Int` for testing.
     fun `parse from string using 'KClass'`() {
         fromString("123", java.lang.Integer::class) shouldBe 123
     }
@@ -58,6 +60,7 @@ class StringifySpec {
     @Test
     fun `create map stringifier`() {
         mapStringifier<Int, String>().convert(mapOf(1 to "a")) shouldBe "\"1\":\"a\""
-        mapStringifier<Int, String>('#').convert(mapOf(1 to "a", 2 to "b")) shouldBe "\"1\":\"a\"#\"2\":\"b\""
+        mapStringifier<Int, String>('#').convert(mapOf(1 to "a", 2 to "b")) shouldBe
+                "\"1\":\"a\"#\"2\":\"b\""
     }
 }

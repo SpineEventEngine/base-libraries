@@ -40,7 +40,6 @@ import org.junit.jupiter.api.io.TempDir
 class FsObjectSpec {
 
     private class StubFsObject(path: Path) : FsObject(path)
-    private class StubDir(path: Path) : AbstractDirectory(path)
     private class StubSourceCodeDir(path: Path) : SourceCodeDirectory(path)
     private class StubSourceFile(path: Path) : AbstractSourceFile(path)
 
