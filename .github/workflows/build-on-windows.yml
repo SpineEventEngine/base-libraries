@@ -8,9 +8,24 @@ jobs:
     name: Build on Windows
 
     steps:
+      - name: Configure Git for Windows symlink compatibility
+        shell: pwsh
+        run: |
+          # Avoid creating/expecting native symlinks on Windows runners.
+          # This helps when repository paths (like .agents/guidelines) are represented
+          # via links that can trigger EPERM on stat/access.
+          git config --global core.symlinks false
+
       - uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Sync and update submodules (recursive)
+        shell: pwsh
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive
 
       - uses: actions/setup-java@v4
         with:
@@ -33,4 +48,4 @@ jobs:
         if: always() # always run even if the previous step fails
         with:
           report_paths: '**/build/test-results/**/TEST-*.xml'
-          require_tests: true # will fail workflow if test reports not found
+          require_tests: false # don't mask the primary failure if build aborts early
