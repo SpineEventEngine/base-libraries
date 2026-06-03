@@ -21,12 +21,6 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Sync and update submodules (recursive)
-        shell: pwsh
-        run: |
-          git submodule sync --recursive
-          git submodule update --init --recursive
-
       - uses: actions/setup-java@v4
         with:
           java-version: 17
@@ -48,4 +42,4 @@ jobs:
         if: always() # always run even if the previous step fails
         with:
           report_paths: '**/build/test-results/**/TEST-*.xml'
-          require_tests: false # don't mask the primary failure if build aborts early
+          require_tests: true
