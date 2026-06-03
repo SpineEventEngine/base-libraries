@@ -9,7 +9,6 @@ parsing/serialization utilities that the rest of the Spine SDK (notably
 artifacts published from this repo sit at the bottom of the Spine dependency
 graph, so changes here ripple into most other Spine projects.
 
-[core-jvm]: https://github.com/SpineEventEngine/core-java
 ## Architecture
 
 Role: **library** (multi-module Gradle build) publishing the following Maven
