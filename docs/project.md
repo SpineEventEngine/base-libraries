@@ -5,7 +5,7 @@
 `base-libraries` is a foundational JVM repository in the Spine SDK organisation.
 It hosts the common data types, annotations, environment helpers, and
 parsing/serialization utilities that the rest of the Spine SDK (notably
-[`core-jvm`](https://github.com/SpineEventEngine/core-java)) depends on. The
+[`core-jvm`][core-jvm]) depends on. The
 artifacts published from this repo sit at the bottom of the Spine dependency
 graph, so changes here ripple into most other Spine projects.
 
@@ -36,3 +36,5 @@ Key constraints:
 
 Read [`.agents/jvm-project.md`](jvm-project.md) for build stack, coding
 style, tests, and versioning.
+
+[core-jvm]: https://github.com/SpineEventEngine/core-java
