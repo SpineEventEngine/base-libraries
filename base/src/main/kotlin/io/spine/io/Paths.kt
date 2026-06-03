@@ -62,6 +62,11 @@ public fun Path.replaceExtension(newExtension: String): Path {
  * @return `this` if the path is already delimited as required, otherwise creates
  *  a new instance with [Windows][Separator.Windows] file separators replaced.
  */
+@Deprecated(
+    message = "This function is not needed." +
+            " The `Path` API handles separators correctly across platforms.",
+    replaceWith = ReplaceWith("this")
+)
 public fun Path.toUnix(): Path =
     if (pathString.contains(Separator.Windows)) {
         Path(pathString.toUnix())

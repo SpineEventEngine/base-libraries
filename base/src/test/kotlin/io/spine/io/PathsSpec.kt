@@ -72,12 +72,4 @@ internal class PathsSpec {
         val path = "/my/unix/path"
         path.toUnix() shouldBeSameInstanceAs path
     }
-
-    @Test
-    fun `convert 'Path' to Unix separators`() {
-        Path("my\\windows\\path").toUnix().pathString shouldBe "my/windows/path"
-
-        val unixPath = Path("my/unix/path")
-        unixPath.toUnix() shouldBeSameInstanceAs unixPath
-    }
 }
