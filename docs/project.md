@@ -27,8 +27,8 @@ Key constraints:
 - Public API stability matters: downstream Spine repos pin to versions
   published from here, so removals and signature changes are breaking.
 - No analytics, telemetry, reflection, or unsafe code (see
-  `.agents/safety-rules.md`).
-- Versioning follows the Spine SDK policy (`.agents/version-policy.md`);
+  `.agents/guidelines/safety-rules.md`).
+- Versioning follows the Spine SDK policy (`.agents/guidelines/version-policy.md`);
   CI's `Version Guard` rejects branches that reuse a published version.
 - Dependency declarations live under
   `buildSrc/src/main/kotlin/io/spine/dependency/` and are audited by the

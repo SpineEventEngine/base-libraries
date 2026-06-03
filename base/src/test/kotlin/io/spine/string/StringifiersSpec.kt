@@ -116,8 +116,7 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
     }
 
     @Nested internal inner class
-    `create 'Stringifier' with a delimeter for` {
-
+    `create 'Stringifier' with a delimiter for` {
         @Test
         fun List() {
             val stamps: List<Timestamp> = createList()
