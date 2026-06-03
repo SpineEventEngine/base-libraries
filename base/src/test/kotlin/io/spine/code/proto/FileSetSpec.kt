@@ -27,14 +27,10 @@
 package io.spine.code.proto
 
 import com.google.common.testing.EqualsTester
-import com.google.protobuf.DescriptorProtos.FileDescriptorProto
 import com.google.protobuf.Empty
-import io.kotest.matchers.collections.shouldContainExactly
-import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.optional.shouldBePresent
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
