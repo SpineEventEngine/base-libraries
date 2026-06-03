@@ -28,7 +28,6 @@ package io.spine.query
 
 import com.google.common.testing.EqualsTester
 import com.google.protobuf.Descriptors.Descriptor
-import com.google.protobuf.Empty
 import com.google.protobuf.FieldMask
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
