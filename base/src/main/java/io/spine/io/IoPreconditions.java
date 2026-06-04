@@ -40,7 +40,7 @@ import static java.nio.file.Files.isDirectory;
 /**
  * Preconditions for I/O operations.
  */
-public class IoPreconditions {
+public final class IoPreconditions {
 
     private static final String DOES_NOT_EXIST = "The file `%s` does not exist.";
 
