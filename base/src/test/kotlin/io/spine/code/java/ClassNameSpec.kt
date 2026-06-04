@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.code.java
 
 import com.google.protobuf.StringValue
@@ -30,6 +31,8 @@ import com.google.protobuf.Timestamp
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldEndWith
 import io.spine.code.java.SimpleClassName.OR_BUILDER_SUFFIX
+import io.spine.test.base.rejections.TestRejections
+import io.spine.test.type.GreetingServiceProto
 import io.spine.test.type.Uri
 import io.spine.testing.Assertions
 import io.spine.testing.Assertions.assertIllegalArgument
@@ -93,6 +96,40 @@ internal class ClassNameSpec {
     fun `obtain the simple name of the top level class`() {
         Outer.Inner.Deeper::class.java.className.topLevelClass() shouldBe
                 Outer::class.java.simplyNamed
+    }
+
+    @Test
+    fun `obtain the simple name of a top level class as is`() {
+        String::class.java.className.topLevelClass() shouldBe String::class.java.simplyNamed
+    }
+
+    @Test
+    fun `create a name from a service descriptor`() {
+        val service = GreetingServiceProto.getDescriptor().services.first()
+
+        ClassName.from(service) shouldBe ClassName.of("io.spine.test.type.GreetingServiceGrpc")
+    }
+
+    @Test
+    fun `prefix a name with the outer class for a single-file proto`() {
+        val rejection = TestRejections.FlyingObjectUnidentified.getDescriptor()
+
+        ClassName.from(rejection) shouldBe
+                ClassName.of("io.spine.test.base.rejections.TestRejections\$FlyingObjectUnidentified")
+    }
+
+    @Test
+    fun `obtain a nested class name`() {
+        val outer = ClassName.of("io.spine.Example")
+
+        outer.withNested(SimpleClassName.create("Inner")) shouldBe
+                ClassName.of("io.spine.Example\$Inner")
+    }
+
+    @Test
+    fun `convert a nested class name to a simple one`() {
+        Outer.Inner.Deeper::class.java.className.toSimple() shouldBe
+                SimpleClassName.create("Deeper")
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ import com.google.errorprone.annotations.Immutable
  * [I] with an actual type of the first field of the entity state message.
  *
  * @param I The type of entity identifiers.
- *   It could be one of the types described in the [IdType] enum.
+ *   It could be one of the types described in the `IdType` enum.
  */
 @Immutable
 @Suppress("unused" /* The parameter type <I> is meant to be used in the generated code. */)
