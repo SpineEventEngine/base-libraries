@@ -33,6 +33,7 @@ import com.google.protobuf.Descriptors.FileDescriptor;
 import io.spine.base.MessageFile;
 import io.spine.code.fs.AbstractFileName;
 
+import java.io.Serial;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -45,12 +46,13 @@ import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
 @Immutable
 public class FileName extends AbstractFileName<FileName> implements UnderscoredName {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /** The standard file extension. */
     public static final String EXTENSION = ".proto";
 
-    /** The file system separator as defined by Protobuf. Not platform-dependant. */
+    /** The file system separator as defined by Protobuf. Not platform-dependent. */
     private static final char PATH_SEPARATOR = '/';
 
     private FileName(String value) {
@@ -58,7 +60,7 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
     }
 
     /**
-     * Creates new proto file name with the passed value.
+     * Creates a new proto file name with the given value.
      */
     public static FileName of(String value) {
         checkNotEmptyOrBlank(value);
@@ -67,7 +69,7 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
     }
 
     /**
-     * Obtains the file name from the passed descriptor message.
+     * Obtains the file name from the given descriptor message.
      */
     public static FileName from(FileDescriptorProto descriptor) {
         checkNotNull(descriptor);
@@ -83,7 +85,7 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
     }
 
     /**
-     * Obtains immutable list of words used in the name of the file.
+     * Obtains an immutable list of words used in the name of the file.
      */
     @Override
     public List<String> words() {
