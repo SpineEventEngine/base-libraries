@@ -67,7 +67,7 @@ public final class Predicates2 {
     }
 
     /**
-     * The predicate which remembers previously seen values and returns {@code true}
+     * The predicate that remembers previously seen values and returns {@code true}
      * only when a new value is passed.
      *
      * <p>The values ore distinguished by properties obtained by a selection function
