@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,14 @@ package io.spine.query
 import com.google.common.testing.EqualsTester
 import com.google.protobuf.Descriptors.Descriptor
 import com.google.protobuf.FieldMask
+import com.google.protobuf.Timestamp
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.spine.base.EntityState
+import io.spine.base.Field
+import io.spine.base.SubscribableField
 import io.spine.testing.StubMessage
+import java.io.Serial
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -65,6 +69,31 @@ internal class EntityQuerySpec {
         recordQuery shouldNotBe null
         recordQuery.limit() shouldBe 5
         recordQuery.mask() shouldBe FieldMask.newBuilder().addPaths("seconds").build()
+    }
+
+    @Test
+    fun `apply a field mask defined by subscribable fields`() {
+        val builder = TestEntityQueryBuilder()
+        val field = Field.named("seconds")
+        val subscribableField = object : SubscribableField(field) {}
+        builder.withMask(subscribableField)
+
+        val query = builder.build()
+
+        query.mask() shouldBe FieldMask.newBuilder().addPaths(field.toString()).build()
+    }
+
+    @Test
+    fun `expose the sorting direction of its columns`() {
+        val ascending = TestEntityQueryBuilder()
+            .apply { sortAscendingBy(secondsColumn) }
+            .build()
+        ascending.sorting().first().direction() shouldBe Direction.ASC
+
+        val descending = TestEntityQueryBuilder()
+            .apply { sortDescendingBy(secondsColumn) }
+            .build()
+        descending.sorting().first().direction() shouldBe Direction.DESC
     }
 
     @Test
@@ -103,9 +132,11 @@ internal class EntityQuerySpec {
  * A stub entity state for testing purposes.
  */
 internal class StubState : StubMessage(), EntityState<String> {
-    override fun getDescriptorForType(): Descriptor = com.google.protobuf.Timestamp.getDescriptor()
+    override fun getDescriptorForType(): Descriptor = Timestamp.getDescriptor()
     override fun getDefaultInstanceForType(): StubState = INSTANCE
     companion object {
+        @Serial
+        private const val serialVersionUID: Long = 0L
         private val INSTANCE = StubState()
         @JvmStatic
         fun getDefaultInstance(): StubState = INSTANCE
