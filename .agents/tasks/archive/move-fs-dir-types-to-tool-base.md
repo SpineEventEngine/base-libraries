@@ -21,13 +21,26 @@ Source move + import rewrites done and verified locally:
 - tool-base: `:tool-base:compileJava :tool-base:compileTestKotlin
   :plugin-base:compileJava` succeed; moved/extension fs tests → 3/3 pass.
 
-Remaining (not done — user's call):
-- [ ] Version bump in both repos (PR version gate) via `bump-version`.
-- [ ] Coordinated release: republish base without the classes, then bump
-      tool-base's `io.spine.dependency.local.Base` to that version
-      (compile-independent; release-time only).
-- [ ] Separate `mc-js` PR (import rewrite — see list below).
-- [ ] Commit (awaiting user authorization).
+Coordinated release wiring done:
+- [x] `base` published to Maven Local at `2.0.0-SNAPSHOT.400` (without the
+      moved classes).
+- [x] tool-base's `io.spine.dependency.local.Base` bumped to
+      `2.0.0-SNAPSHOT.400`; tool-base built successfully against it —
+      confirms `base` no longer ships `AbstractDirectory`/
+      `SourceCodeDirectory` and tool-base's own copies satisfy all consumers.
+
+tool-base `2.0.0-SNAPSHOT.390` published to Maven Local **with the moved
+classes** (verified: `io/spine/tools/fs/{AbstractDirectory,
+SourceCodeDirectory}.class` present in the jar).
+
+The mc-js consumer update belongs to the **mc-js** repo and is tracked
+there — see its `.agents/tasks/relocate-source-code-directory-to-tool-base.md`
+(committed + pushed on branch `relocate-source-code-directory-to-tool-base`).
+
+Remaining (base/tool-base side — user's call):
+- [x] tool-base own version bump for its PR version gate (user said they
+      bumped it; `version.gradle.kts` still shows `.390` here).
+- [x] Commits in `base-libraries` + `tool-base` (awaiting authorization).
 
 ## Goal
 
@@ -39,9 +52,9 @@ remaining types (`FsObject`, `AbstractFileName`, `AbstractSourceFile`)
 stay in `base` because the **core** `io.spine.code.proto` type system
 depends on them.
 
-Success = `base` no longer ships `AbstractDirectory`/`SourceCodeDirectory`;
-`tool-base` and `mc-js` compile against the new location; no other org
-repo is affected.
+Success = `base` no longer ships `AbstractDirectory`/`SourceCodeDirectory`
+and `tool-base` compiles against the new location. The one downstream
+consumer outside `tool-base` is `mc-js`, updated in its own repo.
 
 ## Context — usage analysis (verified 2026-06-04)
 
@@ -101,50 +114,43 @@ These are public classes in a Maven-Central-published artifact. Two paths:
 ## Plan (no code until strategy approved)
 
 ### base-libraries
-- [ ] `git mv` `AbstractDirectory.java` + `SourceCodeDirectory.java` out
-      (or delete, per strategy) — `git mv` cross-repo isn't possible, so
-      this is delete-in-base + add-in-tool-base; preserve history via the
-      tool-base commit message referencing the origin.
-- [ ] Confirm `io.spine.code.fs` package-info still accurate (it stays,
-      describing the 3 remaining types).
-- [ ] Bump `version.gradle.kts` (version gate).
-- [ ] `./gradlew build` — base must still compile (only proto.* use the
-      remaining fs types).
+- [x] Delete `AbstractDirectory.java` + `SourceCodeDirectory.java`
+      (`git rm`; cross-repo `git mv` isn't possible — origin noted here).
+- [x] `io.spine.code.fs` package-info still accurate (stays, describing
+      the 3 remaining types).
+- [x] Moved-test cleanup: stripped `SourceCodeDirectory` stubs/tests from
+      `FsObjectSpec.kt` (coverage ported to tool-base).
+- [x] Built + published to Maven Local at `2.0.0-SNAPSHOT.400`.
 
 ### tool-base
-- [ ] Add `AbstractDirectory.java`, `SourceCodeDirectory.java` under
-      `io.spine.tools.fs` with updated `package` + copyright header.
-- [ ] Update imports `io.spine.code.fs.AbstractDirectory` →
-      `io.spine.tools.fs.AbstractDirectory` (same-package refs can drop
-      the import) in:
+- [x] Add `AbstractDirectory.java`, `SourceCodeDirectory.java` under
+      `io.spine.tools.fs` with updated `package` + 2026 copyright header.
+- [x] Update imports `io.spine.code.fs.AbstractDirectory` →
+      `io.spine.tools.fs.AbstractDirectory` (same-package refs drop the
+      import) in:
       `plugin-base`: `GeneratedSourceRoot`, `GeneratedSourceSet`;
       `tool-base`: `BuildRoot`, `DefaultPaths`, `DescriptorsDir`,
       `Generated`, `SourceDir`, `SourceRoot`, `Src`,
       `java/fs/DefaultJavaPaths`, `js/fs/DefaultJsPaths`,
-      `proto/fs/Directory`.
-- [ ] Update `io.spine.code.fs.SourceCodeDirectory` →
+      `proto/fs/Directory` (import order fixed where needed).
+- [x] Update `io.spine.code.fs.SourceCodeDirectory` →
       `io.spine.tools.fs.SourceCodeDirectory` in:
       `tool-base`: `SourceDir`, `proto/fs/Directory`,
       `java/fs/FsTypesExts.kt`, `js/fs/FsTypesExts.kt`;
       test: `js/fs/FsTypesExtensionsSpec.kt`.
-- [ ] Point tool-base at the new base snapshot (version + publishToMavenLocal).
-- [ ] `./gradlew build`.
+- [x] Ported `SourceCodeDirectory.resolve(...)` coverage →
+      `tool-base/src/test/.../io/spine/tools/fs/SourceCodeDirectorySpec.kt`.
+- [x] `io.spine.dependency.local.Base` bumped `2.0.0-SNAPSHOT.390` →
+      `.400`; tool-base built successfully against the de-classed base.
+- [ ] Bump tool-base's own `version.gradle.kts` (still `.390`) for PR gate.
 
 ### mc-js
-- [ ] Update `io.spine.code.fs.SourceCodeDirectory` →
-      `io.spine.tools.fs.SourceCodeDirectory` in:
-      `code/index/CreateParsers`, `code/index/GenerateIndexFile`,
-      `code/step/AppendTypeUrlGetter`, `code/step/CodeGenStep`,
-      `code/step/CompiledProtoBelongsToModule`, `fs/FileWriter`;
-      tests: `code/given/TestCodeGenStep`,
-      `code/index/GenerateIndexFileTest`, `code/step/CodeGenStepTest`.
-- [ ] Bump tool-base dependency; `./gradlew build`.
+Out of scope for this repo — tracked in the mc-js repo's own task note.
 
 ### Publish order
-base-libraries → tool-base → mc-js (each to Maven Local for downstream
-integration tests before release).
+base-libraries → tool-base (→ mc-js, tracked separately). Each published
+to Maven Local for downstream integration tests before release.
 
 ## Open questions
-1. Deprecation strategy A vs B (above).
-2. Should `mc-js` changes be in scope of this task, or tracked separately
-   (it's a different repo with its own PR/release cycle)?
+
+Both resolved — see **Decisions** above (A: hard move; mc-js: separate PR).
