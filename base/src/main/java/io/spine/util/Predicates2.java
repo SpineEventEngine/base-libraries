@@ -70,7 +70,7 @@ public final class Predicates2 {
      * The predicate that remembers previously seen values and returns {@code true}
      * only when a new value is passed.
      *
-     * <p>The values ore distinguished by properties obtained by a selection function
+     * <p>The values are distinguished by properties obtained by a selection function
      * passed to the constructor.
      *
      * <p>The predicate is particularly useful for distinguishing types that do not
