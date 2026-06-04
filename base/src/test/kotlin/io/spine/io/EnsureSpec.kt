@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
@@ -61,6 +62,16 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
             ensureFile(file)
             file.exists() shouldBe true
             file.isDirectory shouldBe false
+        }
+
+        @Test
+        fun `returning an existing 'File' as-is`() {
+            ensureFile(file)
+            file.exists() shouldBe true
+
+            // Now that the file exists, `ensureFile` returns it without changes.
+            ensureFile(file) shouldBe file
+            file.exists() shouldBe true
         }
 
         @Test
