@@ -27,10 +27,7 @@
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
-import io.spine.io.Ensure.ensureDirectory
-import io.spine.io.Ensure.ensureFile
 import io.spine.testing.TestValues
-import io.spine.testing.UtilityClassTest
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -42,8 +39,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.io.TempDir
 
-@DisplayName("`Ensure` utilities class should")
-internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
+@DisplayName("`Ensure` functions should")
+internal class EnsureSpec {
 
     @Nested internal inner class
     `handle files via` {
