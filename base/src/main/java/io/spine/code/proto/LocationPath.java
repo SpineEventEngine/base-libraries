@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -32,6 +32,7 @@ import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import com.google.protobuf.DescriptorProtos.SourceCodeInfo;
 import com.google.protobuf.DescriptorProtos.SourceCodeInfo.Location;
 import com.google.protobuf.Descriptors.Descriptor;
+import io.spine.annotation.Internal;
 import io.spine.annotation.VisibleForTesting;
 import io.spine.type.MessageType;
 
@@ -49,6 +50,7 @@ import static io.spine.util.Exceptions.newIllegalStateException;
  * integers} that used to identify a {@linkplain Location location} in a ".proto" file.
  */
 @Immutable
+@Internal
 public final class LocationPath {
 
     private final ImmutableList<Integer> path;
