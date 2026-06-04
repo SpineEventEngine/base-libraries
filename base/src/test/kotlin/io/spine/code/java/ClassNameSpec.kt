@@ -115,7 +115,9 @@ internal class ClassNameSpec {
         val rejection = TestRejections.FlyingObjectUnidentified.getDescriptor()
 
         ClassName.from(rejection) shouldBe
-                ClassName.of("io.spine.test.base.rejections.TestRejections\$FlyingObjectUnidentified")
+                ClassName.of(
+                    "io.spine.test.base.rejections.TestRejections\$FlyingObjectUnidentified"
+                )
     }
 
     @Test
