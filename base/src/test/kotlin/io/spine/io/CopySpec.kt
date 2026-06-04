@@ -26,7 +26,6 @@
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.spine.io.Copy.copyContent
 import io.spine.io.Copy.copyDir
 import io.spine.testing.UtilityClassTest
