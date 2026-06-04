@@ -31,6 +31,7 @@ import io.spine.io.IoPreconditions.checkExists
 import io.spine.io.IoPreconditions.checkIsDirectory
 import io.spine.io.IoPreconditions.checkNotDirectory
 import io.spine.testing.Assertions.assertIllegalArgument
+import io.spine.testing.UtilityClassTest
 import java.nio.file.Files
 import java.nio.file.Path
 import org.junit.jupiter.api.DisplayName
@@ -39,7 +40,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
 @DisplayName("`IoPreconditions` should")
-internal class IoPreconditionsSpec {
+internal class IoPreconditionsSpec :
+    UtilityClassTest<IoPreconditions>(IoPreconditions::class.java) {
 
     @Nested inner class
     `check that a path exists` {
