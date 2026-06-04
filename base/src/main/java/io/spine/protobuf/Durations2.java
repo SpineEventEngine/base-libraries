@@ -221,7 +221,7 @@ public final class Durations2 {
      * this method does not throw a checked exception.
      *
      * @throws IllegalArgumentException
-     *         if the string is not of required format
+     *         if the string is not of the required format
      */
     public static Duration parse(String str) {
         checkNotNull(str);
