@@ -16,7 +16,7 @@ jobs:
           # via links that can trigger EPERM on stat/access.
           git config --global core.symlinks false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 0
