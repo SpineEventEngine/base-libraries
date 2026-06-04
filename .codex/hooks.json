@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.agents/scripts/protect-version-file.sh"
+            "command": "\"$(git rev-parse --show-toplevel)/.agents/scripts/protect-version-file.sh\""
           }
         ]
       },
@@ -15,11 +15,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.agents/scripts/pre-pr-gate.sh"
+            "command": "\"$(git rev-parse --show-toplevel)/.agents/scripts/pre-pr-gate.sh\""
           },
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.agents/scripts/publish-version-gate.sh"
+            "command": "\"$(git rev-parse --show-toplevel)/.agents/scripts/publish-version-gate.sh\""
           }
         ]
       }
@@ -30,11 +30,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.agents/scripts/sanitize-source-code.sh"
+            "command": "\"$(git rev-parse --show-toplevel)/.agents/scripts/sanitize-source-code.sh\""
           },
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.agents/scripts/update-copyright.sh"
+            "command": "\"$(git rev-parse --show-toplevel)/.agents/scripts/update-copyright.sh\""
           }
         ]
       }
