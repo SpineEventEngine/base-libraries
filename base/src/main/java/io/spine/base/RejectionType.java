@@ -43,7 +43,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @deprecated This type is no longer used and will be removed in the future.
  */
-@Deprecated(since = "2.0.0-SNAPSHOT.392", forRemoval = true)
+@Deprecated(since = "2.0.0-SNAPSHOT.400", forRemoval = true)
 public final class RejectionType extends MessageType {
 
     /**
