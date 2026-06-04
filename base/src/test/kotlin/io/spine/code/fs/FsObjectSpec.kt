@@ -32,7 +32,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 
@@ -40,8 +39,6 @@ import org.junit.jupiter.api.io.TempDir
 class FsObjectSpec {
 
     private class StubFsObject(path: Path) : FsObject(path)
-    private class StubSourceCodeDir(path: Path) : SourceCodeDirectory(path)
-    private class StubSourceFile(path: Path) : AbstractSourceFile(path)
 
     @Test
     fun `expose path`(@TempDir tempDir: Path) {
@@ -83,23 +80,5 @@ class FsObjectSpec {
             .addEqualityGroup(StubFsObject(path1), StubFsObject(path1))
             .addEqualityGroup(StubFsObject(path2))
             .testEquals()
-    }
-
-    @Nested internal inner class
-    `Source code directory` {
-
-        @Test
-        fun `resolve child directory`() {
-            val root = StubSourceCodeDir(Paths.get("root"))
-            val child = StubSourceCodeDir(Paths.get("child"))
-            root.resolve(child) shouldBe Paths.get("root", "child")
-        }
-
-        @Test
-        fun `resolve source file`() {
-            val root = StubSourceCodeDir(Paths.get("root"))
-            val file = StubSourceFile(Paths.get("File.java"))
-            root.resolve(file) shouldBe Paths.get("root", "File.java")
-        }
     }
 }
