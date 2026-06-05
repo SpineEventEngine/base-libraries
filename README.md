@@ -5,7 +5,7 @@
 # Welcome to the `base-libraries` repository
 
 This repository contains common data types and utilities used by
-the Spine SDK subprojects (e.g. [core-jvm][core-java]).
+the Spine SDK subprojects (e.g. [core-jvm][core-jvm]).
 
 ## The `annotations` module
 
@@ -14,7 +14,7 @@ Contains annotation types used by the Spine SDK.
 ## The `base` module
 
 This module is not supposed to be used directly in an end-user project because it is 
-exposed as an API dependency by [`core-jvm`][core-java] modules [`spine-client`][spine-client] and
+exposed as an API dependency by [`core-jvm`][core-jvm] modules [`spine-client`][spine-client] and
 [`spine-server`][spine-server].
 But if you need to, here is how you add it to your Gradle project:
 
@@ -50,9 +50,9 @@ dependencies {
 [gh-actions]: https://github.com/SpineEventEngine/base/actions
 [ubuntu-build-badge]: https://github.com/SpineEventEngine/base/actions/workflows/build-on-ubuntu.yml/badge.svg
 [codecov]: https://codecov.io/gh/SpineEventEngine/base
-[codecov-badge]: https://codecov.io/gh/SpineEventEngine/base/branch/master/graph/badge.svg
+[codecov-badge]: https://codecov.io/gh/SpineEventEngine/base-libraries/branch/master/graph/badge.svg
 [license-badge]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 [license]: http://www.apache.org/licenses/LICENSE-2.0
-[core-java]: https://github.com/SpineEventEngine/core-java 
-[spine-client]: https://github.com/SpineEventEngine/core-java/tree/master/client
-[spine-server]: https://github.com/SpineEventEngine/core-java/tree/master/server
+[core-jvm]: https://github.com/SpineEventEngine/core-jvm 
+[spine-client]: https://github.com/SpineEventEngine/core-jvm/tree/master/client
+[spine-server]: https://github.com/SpineEventEngine/core-jvm/tree/master/server
