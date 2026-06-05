@@ -79,6 +79,13 @@ internal class EnsureSpec {
             file.exists() shouldBe true
             returnedValue shouldBe path
         }
+
+        @Test
+        fun `rejecting a directory passed as 'File'`(@TempDir tempDir: Path) {
+            assertThrows<IllegalArgumentException> {
+                ensureFile(tempDir.toFile())
+            }
+        }
     }
 
     @Nested internal inner class
