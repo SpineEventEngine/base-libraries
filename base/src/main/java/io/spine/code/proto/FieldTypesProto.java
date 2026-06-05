@@ -40,12 +40,12 @@ final class FieldTypesProto {
     @SuppressWarnings("DuplicateStringLiteralInspection" /* The same string has different semantics. */)
     private static final String ENTRY_SUFFIX = "Entry";
 
-    /** Prevents instantiation of this utility class . */
+    /** Prevents instantiation of this utility class. */
     private FieldTypesProto() {
     }
 
     /**
-     * Checks the Protobuf field and determines it is repeated field or not.
+     * Checks the Protobuf field and determines it is a repeated field or not.
      *
      * <p>Although {@code map} fields technically count as {@code repeated}, this method will
      * return {@code false} for them.
@@ -61,9 +61,9 @@ final class FieldTypesProto {
     }
 
     /**
-     * Checks the Protobuf field and determines it is map field or not.
+     * Checks the Protobuf field and determines it is a map field or not.
      *
-     * <p>If a field is a map it is repeated message with the specific type.
+     * <p>If a field is a map, it is a repeated message with the specific type.
      *
      * @param field
      *         the descriptor of the field to check
@@ -85,8 +85,8 @@ final class FieldTypesProto {
     /**
      * Constructs the entry name for the map field.
      *
-     * <p>For example, proto field with name 'word_dictionary' has 'wordDictionary' json name.
-     * Every map field has corresponding entry type.
+     * <p>For example, a proto field with the name 'word_dictionary' has 'wordDictionary' JSON name.
+     * Every map field has a corresponding entry type.
      * For 'word_dictionary' it would be 'WordDictionaryEntry'
      *
      * @param mapField
