@@ -72,4 +72,17 @@ internal class PathsSpec {
         val path = "/my/unix/path"
         path.toUnix() shouldBeSameInstanceAs path
     }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun `replace Windows separators in a path`() {
+        Path("C:\\Windows\\path").toUnix() shouldBe Path("C:/Windows/path")
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun `return the same path when no Windows separators present`() {
+        val path = Path("/my/unix/path")
+        path.toUnix() shouldBeSameInstanceAs path
+    }
 }
