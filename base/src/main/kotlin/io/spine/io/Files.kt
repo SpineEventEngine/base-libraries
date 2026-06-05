@@ -57,12 +57,7 @@ public fun File.replaceExtension(newExtension: String): File {
  * @return `path` if the file path is already delimited as required, otherwise creates
  *  a new string with the path with [Windows][Separator.Windows] file separators replaced.
  */
-public fun File.toUnixPath(): String {
-    if (path.contains(Separator.Windows)) {
-        return path.replace(Separator.Windows, Separator.Unix)
-    }
-    return path
-}
+public fun File.toUnixPath(): String = path.toUnix()
 
 /**
  * Ensures that the prefix `.` exists in this string if it is not empty.

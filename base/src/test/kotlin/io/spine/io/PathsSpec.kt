@@ -27,7 +27,6 @@
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.spine.string.decodeBase64
 import io.spine.testing.TestValues.randomString
 import java.io.File
@@ -64,11 +63,8 @@ internal class PathsSpec {
     }
 
     @Test
-    @Suppress("DEPRECATION") // Verifies the deprecated `String.toUnix()` extension.
-    fun `provide extension for replacing Windows file separators`() {
-        "C:\\Windows\\path".toUnix() shouldBe "C:/Windows/path"
-
-        val path = "/my/unix/path"
-        path.toUnix() shouldBeSameInstanceAs path
+    fun `convert 'Path' to a Unix-style string`() {
+        Path("my\\windows\\path").toUnixPath() shouldBe "my/windows/path"
+        Path("my/unix/path").toUnixPath() shouldBe "my/unix/path"
     }
 }
