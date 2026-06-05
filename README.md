@@ -47,9 +47,9 @@ dependencies {
 * `1.x` versions were assembled with Java 8.
 
 
-[gh-actions]: https://github.com/SpineEventEngine/base/actions
-[ubuntu-build-badge]: https://github.com/SpineEventEngine/base/actions/workflows/build-on-ubuntu.yml/badge.svg
-[codecov]: https://codecov.io/gh/SpineEventEngine/base
+[gh-actions]: https://github.com/SpineEventEngine/base-libraries/actions
+[ubuntu-build-badge]: https://github.com/SpineEventEngine/base-libraries/actions/workflows/build-on-ubuntu.yml/badge.svg
+[codecov]: https://codecov.io/gh/SpineEventEngine/base-libraries
 [codecov-badge]: https://codecov.io/gh/SpineEventEngine/base-libraries/branch/master/graph/badge.svg
 [license-badge]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 [license]: http://www.apache.org/licenses/LICENSE-2.0
