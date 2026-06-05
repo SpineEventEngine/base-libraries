@@ -37,4 +37,4 @@ Key constraints:
 Read [`.agents/guidelines/jvm-project.md`](../.agents/guidelines/jvm-project.md) for build stack,
 coding style, tests, and versioning.
 
-[core-jvm]: https://github.com/SpineEventEngine/core-java
+[core-jvm]: https://github.com/SpineEventEngine/core-jvm
