@@ -35,7 +35,7 @@ import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYP
 /**
  * A utility to work with Protobuf {@linkplain FieldDescriptorProto fields}.
  */
-final class FieldTypesProto {
+public final class FieldTypesProto {
 
     @SuppressWarnings("DuplicateStringLiteralInspection" /* The same string has different semantics. */)
     private static final String ENTRY_SUFFIX = "Entry";
