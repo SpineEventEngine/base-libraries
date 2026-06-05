@@ -1,11 +1,11 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -32,8 +32,6 @@ import io.spine.string.toBase64Encoded
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.nameWithoutExtension
-import kotlin.io.path.pathString
-import kotlin.io.path.Path
 
 /**
  * Converts this path to a Base64-encoded string.
@@ -73,14 +71,27 @@ public object Separator {
     public const val Unix: Char = '/'
 
     /**
-     * The separator used in Windows OS family.
+     * The separator used in the Windows OS family.
      */
     public const val Windows: Char = '\\'
 }
 
 /**
  * Replaces Windows path separators (`\\`) with those used in Unix-based systems (`/`).
+ *
+ * @deprecated Please use
+ *   [invariantSeparatorsPathString][kotlin.io.path.invariantSeparatorsPathString]
+ *   from the Kotlin standard library instead.
  */
+@Deprecated(
+    message = "Please use `Path.invariantSeparatorsPathString`" +
+            " from the Kotlin standard library instead.",
+    replaceWith = ReplaceWith(
+        "Path(this).invariantSeparatorsPathString",
+        "kotlin.io.path.Path",
+        "kotlin.io.path.invariantSeparatorsPathString"
+    )
+)
 public fun String.toUnix(): String = if (contains(Separator.Windows)) {
     replace(Separator.Windows, Separator.Unix)
 } else {

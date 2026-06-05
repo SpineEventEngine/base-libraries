@@ -1,11 +1,11 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -34,9 +34,7 @@ import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.Path
 import kotlin.io.path.div
-import kotlin.io.path.pathString
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("Extensions for `Path` should")
@@ -47,7 +45,7 @@ internal class PathsSpec {
         val original = Paths.get(randomString()) / randomString()
         val encoded = original.toBase64Encoded()
         val decoded = Paths.get(encoded.decodeBase64())
-        
+
         decoded shouldBe original
     }
 
@@ -66,6 +64,7 @@ internal class PathsSpec {
     }
 
     @Test
+    @Suppress("DEPRECATION") // Verifies the deprecated `String.toUnix()` extension.
     fun `provide extension for replacing Windows file separators`() {
         "C:\\Windows\\path".toUnix() shouldBe "C:/Windows/path"
 
