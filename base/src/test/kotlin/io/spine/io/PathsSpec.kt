@@ -34,6 +34,7 @@ import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.Path
 import kotlin.io.path.div
+import kotlin.io.path.pathString
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -64,11 +65,10 @@ internal class PathsSpec {
     }
 
     @Test
-    @Suppress("DEPRECATION") // Verifies the deprecated `String.toUnix()` extension.
-    fun `provide extension for replacing Windows file separators`() {
-        "C:\\Windows\\path".toUnix() shouldBe "C:/Windows/path"
+    fun `convert 'Path' to Unix separators`() {
+        Path("my\\windows\\path").toUnix().pathString shouldBe "my/windows/path"
 
-        val path = "/my/unix/path"
-        path.toUnix() shouldBeSameInstanceAs path
+        val unixPath = Path("my/unix/path")
+        unixPath.toUnix() shouldBeSameInstanceAs unixPath
     }
 }
