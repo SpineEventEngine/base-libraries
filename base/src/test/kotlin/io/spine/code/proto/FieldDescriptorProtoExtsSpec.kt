@@ -24,31 +24,53 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.io
+package io.spine.code.proto
 
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
-import java.io.File
-import kotlin.io.path.Path
+import io.spine.code.proto.given.Given.enumField
+import io.spine.code.proto.given.Given.mapField
+import io.spine.code.proto.given.Given.messageField
+import io.spine.code.proto.given.Given.primitiveField
+import io.spine.code.proto.given.Given.repeatedField
+import io.spine.code.proto.given.Given.singularField
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Extensions for `File` should")
-internal class FilesSpec {
+@DisplayName("`FieldDescriptorProto` extensions should")
+internal class FieldDescriptorProtoExtsSpec {
 
-    @Test
-    fun `replace file extension`() {
-        File("my/path/file.bin").replaceExtension(".txt") shouldBe File("my/path/file.txt")
-        File("file").replaceExtension(".txt") shouldBe File("file.txt")
-        File("file").replaceExtension("txt") shouldBe File("file.txt")
-        File("file.txt").replaceExtension("") shouldBe File("file")
-        File("file.").replaceExtension("") shouldBe File("file")
+    @Nested
+    @DisplayName("check if field")
+    inner class CheckIfField {
+
+        @Test
+        @DisplayName("is message")
+        fun isMessage() {
+            messageField().toProto().isMessage() shouldBe true
+            primitiveField().toProto().isMessage() shouldBe false
+            enumField().toProto().isMessage() shouldBe false
+        }
+
+        @Test
+        @DisplayName("is repeated")
+        fun isRepeated() {
+            repeatedField().toProto().isRepeated() shouldBe true
+            mapField().toProto().isRepeated() shouldBe false
+            singularField().toProto().isRepeated() shouldBe false
+        }
+
+        @Test
+        @DisplayName("is map")
+        fun isMap() {
+            mapField().toProto().isMap() shouldBe true
+            singularField().toProto().isMap() shouldBe false
+        }
     }
 
     @Test
-    fun `convert to Unix-style path`() {
-        File("my\\windows\\path").toUnixPath() shouldBe "my/windows/path"
-        File("my/unix/path").toUnixPath() shouldBe "my/unix/path"
+    @DisplayName("obtain a map entry name")
+    fun obtainEntryName() {
+        mapField().toProto().entryName() shouldBe "MapFieldEntry"
     }
 }
