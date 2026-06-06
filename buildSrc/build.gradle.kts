@@ -85,7 +85,7 @@ val kotlinEmbeddedVersion = "2.3.21"
  * Always use the same version as the one specified in [io.spine.dependency.lib.Guava].
  * Otherwise, when testing Gradle plugins, clashes may occur.
  */
-val guavaVersion = "33.5.0-jre"
+val guavaVersion = "33.6.0-jre"
 
 /**
  * The version of ErrorProne Gradle plugin.
@@ -105,7 +105,7 @@ val errorPronePluginVersion = "4.2.0"
  * @see <a href="https://github.com/google/protobuf-gradle-plugin/releases">
  *     Protobuf Gradle Plugins Releases</a>
  */
-val protobufPluginVersion = "0.9.6"
+val protobufPluginVersion = "0.10.0"
 
 /**
  * The version of Dokka Gradle Plugins.
