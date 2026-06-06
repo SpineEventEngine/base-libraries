@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.code.proto
 
 import com.google.common.testing.EqualsTester
@@ -38,6 +39,8 @@ import com.google.protobuf.StringValue
 import io.kotest.matchers.optional.shouldBePresent
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import io.spine.test.code.proto.FieldContainer
+import io.spine.test.code.proto.uuid.MttEntityState
 import io.spine.test.type.Uri
 import io.spine.test.type.Uri.Authorization
 import io.spine.testing.Assertions.assertIllegalState
@@ -227,4 +230,93 @@ internal class FieldDeclarationSpec {
             it shouldContain "Domain name."
         }
     }
+
+    @Test
+    fun `obtain the Protobuf field number`() {
+        val mapField = FieldContainer.getDescriptor().findFieldByName("map_field")
+        FieldDeclaration(mapField).number() shouldBe 3
+    }
+
+    @Nested inner class
+    `tell the field type` {
+
+        @Test
+        fun scalar() {
+            FieldDeclaration(field("primitive_field")).isScalar shouldBe true
+            FieldDeclaration(field("message_field")).isScalar shouldBe false
+        }
+
+        @Test
+        fun `string`() {
+            FieldDeclaration(field("singular_field")).isString shouldBe true
+        }
+
+        @Test
+        fun `enum`() {
+            FieldDeclaration(field("enum_field")).isEnum shouldBe true
+        }
+
+        @Test
+        fun message() {
+            FieldDeclaration(field("message_field")).isMessage shouldBe true
+        }
+
+        @Test
+        fun any() {
+            FieldDeclaration(field("message_field")).isAny shouldBe true
+            FieldDeclaration(Uri.getDescriptor().findFieldByName("auth")).isAny shouldBe false
+        }
+    }
+
+    @Test
+    fun `obtain the Java type name of a map value`() {
+        val mapField = field("map_field")
+        FieldDeclaration(mapField).javaTypeName() shouldBe String::class.java.name
+    }
+
+    @Test
+    fun `obtain the value declaration of a map`() {
+        val mapField = field("map_field")
+        val valueDeclaration = FieldDeclaration(mapField).valueDeclaration()
+        valueDeclaration.isString shouldBe true
+    }
+
+    @Nested inner class
+    `obtain the class name` {
+
+        @Test
+        fun `of a scalar field`() {
+            val className = FieldDeclaration(field("primitive_field")).className()
+            className.value() shouldContain "Integer"
+        }
+
+        @Test
+        fun `of a message field`() {
+            val className = FieldDeclaration(field("message_field")).className()
+            className.value() shouldContain "Any"
+        }
+    }
+
+    @Nested inner class
+    `tell if the field is an entity ID` {
+
+        @Test
+        fun `for the first field of an entity state`() {
+            val idField = MttEntityState.getDescriptor().findFieldByName("uuid")
+            FieldDeclaration(idField).isId shouldBe true
+        }
+
+        @Test
+        fun `not for the first field of a non-entity message`() {
+            FieldDeclaration(field("singular_field")).isId shouldBe false
+        }
+
+        @Test
+        fun `not for a non-first field`() {
+            FieldDeclaration(field("repeated_field")).isId shouldBe false
+        }
+    }
+
+    private fun field(name: String): FieldDescriptor =
+        FieldContainer.getDescriptor().findFieldByName(name)
 }

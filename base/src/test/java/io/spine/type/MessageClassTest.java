@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -89,6 +89,28 @@ class MessageClassTest {
     void interfaces() {
         assertThat(MessageClass.interfacesOf(StubMessage.class))
                 .containsExactly(SubSubMessage.class, SubMessage.class, SuperMessage.class);
+    }
+
+    @Test
+    @DisplayName("obtain the type URL")
+    void typeUrl() {
+        assertThat(new TestMessageClass(MSG_CLASS, MSG_TYPE).typeUrl())
+                .isEqualTo(MSG_TYPE);
+    }
+
+    @Test
+    @DisplayName("not be equal to an instance of a different type")
+    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
+    void notEqualToOtherType() {
+        assertThat(new TestMessageClass(MSG_CLASS).equals("not a message class"))
+                .isFalse();
+    }
+
+    @Test
+    @DisplayName("not be equal to a message class wrapping another Java class")
+    void notEqualToDifferentClassValue() {
+        assertThat(new TestMessageClass(StringValue.class))
+                .isNotEqualTo(new TestMessageClass(Any.class));
     }
 
     /**

@@ -26,50 +26,17 @@
 
 package io.spine.code.proto
 
+import com.google.protobuf.Empty
 import io.kotest.matchers.shouldBe
-import io.spine.code.proto.given.Given.enumField
-import io.spine.code.proto.given.Given.mapField
-import io.spine.code.proto.given.Given.messageField
-import io.spine.code.proto.given.Given.primitiveField
-import io.spine.code.proto.given.Given.repeatedField
-import io.spine.code.proto.given.Given.singularField
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("`FieldDescriptorProto` extensions should")
-internal class FieldDescriptorProtoExtsSpec {
-
-    @Nested inner class
-    `check if field` {
-
-        @Test
-        @DisplayName("is message")
-        fun isMessage() {
-            messageField().toProto().isMessage() shouldBe true
-            primitiveField().toProto().isMessage() shouldBe false
-            enumField().toProto().isMessage() shouldBe false
-        }
-
-        @Test
-        @DisplayName("is repeated")
-        fun isRepeated() {
-            repeatedField().toProto().isRepeated() shouldBe true
-            mapField().toProto().isRepeated() shouldBe false
-            singularField().toProto().isRepeated() shouldBe false
-        }
-
-        @Test
-        @DisplayName("is map")
-        fun isMap() {
-            mapField().toProto().isMap() shouldBe true
-            singularField().toProto().isMap() shouldBe false
-        }
-    }
+@DisplayName("`SourceFile` should")
+internal class SourceFileSpec {
 
     @Test
-    @DisplayName("obtain a map entry name")
-    fun obtainEntryName() {
-        mapField().toProto().entryName() shouldBe "MapFieldEntry"
+    fun `expose the file descriptor it wraps`() {
+        val file = Empty.getDescriptor().file
+        SourceFile.from(file).descriptor() shouldBe file
     }
 }

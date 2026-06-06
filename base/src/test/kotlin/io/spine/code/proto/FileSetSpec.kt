@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,13 @@
 package io.spine.code.proto
 
 import com.google.common.testing.EqualsTester
+import com.google.protobuf.DescriptorProtos.FileDescriptorSet
 import com.google.protobuf.Empty
 import io.kotest.matchers.ints.shouldBeLessThan
 import io.kotest.matchers.optional.shouldBePresent
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import java.io.File
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -92,20 +94,71 @@ internal class FileSetSpec {
         val emptySet = FileSet.newInstance()
         fileSet.union(emptySet) shouldBe fileSet
         emptySet.union(fileSet) shouldBe fileSet
-        
+
         val anotherSet = FileSet.newInstance()
         val file = Empty.getDescriptor().file
         anotherSet.add(file)
-        
+
         val union = emptySet.union(anotherSet)
         union.size() shouldBe 1
         union.contains(FileName.from(file)) shouldBe true
     }
 
     @Test
+    fun `create a union of two non-empty sets`() {
+        val setA = FileSet.newInstance()
+        setA.add(Empty.getDescriptor().file)
+        val setB = FileSet.newInstance()
+        setB.add(com.google.protobuf.Any.getDescriptor().file)
+
+        val union = setA.union(setB)
+
+        union.size() shouldBe 2
+        union.contains(FileName.from(Empty.getDescriptor().file)) shouldBe true
+        union.contains(FileName.from(com.google.protobuf.Any.getDescriptor().file)) shouldBe true
+    }
+
+    @Test
+    fun `construct from file descriptor protos`() {
+        val fileSet = FileSet.of(listOf(Empty.getDescriptor().file.toProto()))
+        fileSet.contains(FileName.from(Empty.getDescriptor().file)) shouldBe true
+    }
+
+    @Test
+    fun `parse a descriptor set file`() {
+        val descriptorSet = FileDescriptorSet.newBuilder()
+            .addFile(Empty.getDescriptor().file.toProto())
+            .build()
+        val file = File.createTempFile("file-set", ".desc")
+        file.deleteOnExit()
+        file.writeBytes(descriptorSet.toByteArray())
+
+        val parsed = FileSet.parse(file)
+
+        parsed.contains(FileName.from(Empty.getDescriptor().file)) shouldBe true
+    }
+
+    @Test
+    fun `parse a descriptor set file resolving files via known types`() {
+        // `descriptor.proto` declares many types, exercising the duplicate-key
+        // merge when grouping known types by their file.
+        val descriptorProtoFile = FileDescriptorSet.getDescriptor().file
+        val descriptorSet = FileDescriptorSet.newBuilder()
+            .addFile(descriptorProtoFile.toProto())
+            .build()
+        val file = File.createTempFile("known-files", ".desc")
+        file.deleteOnExit()
+        file.writeBytes(descriptorSet.toByteArray())
+
+        val parsed = FileSet.parseAsKnownFiles(file)
+
+        parsed.contains(FileName.from(descriptorProtoFile)) shouldBe true
+    }
+
+    @Test
     fun `filter files by predicate`() {
         val filtered = fileSet.filter { it.fullName.contains("empty") }
-        filtered.files().forEach { 
+        filtered.files().forEach {
             it.fullName.contains("empty") shouldBe true
         }
     }
@@ -123,7 +176,7 @@ internal class FileSetSpec {
         set1.add(file)
         val set2 = FileSet.newInstance()
         set2.add(file)
-        
+
         EqualsTester()
             .addEqualityGroup(set1, set2)
             .addEqualityGroup(FileSet.newInstance())
@@ -138,13 +191,13 @@ internal class FileSetSpec {
         val set = FileSet.newInstance()
         set.add(file1)
         set.add(file2)
-        
+
         val str = set.toString()
         str shouldContain "FileSet"
         str shouldContain "files="
         str shouldContain file1.fullName
         str shouldContain file2.fullName
-        
+
         // google/protobuf/any.proto comes before google/protobuf/empty.proto
         str.indexOf(file2.fullName) shouldBeLessThan str.indexOf(file1.fullName)
     }

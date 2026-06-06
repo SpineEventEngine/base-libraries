@@ -24,46 +24,29 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.code.proto
+package io.spine.io
 
-import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import io.spine.io.Resource
-import java.io.File
 import java.nio.file.Files
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("`DescriptorSetReferenceFile` should")
-class DescriptorSetReferenceFileSpec {
-
-    private val classLoader = this::class.java.classLoader
+@DisplayName("`Delete` should")
+internal class DeleteSpec {
 
     @Test
-    fun `load references from provided resources`() {
-        val url = Resource.file("duplicate_entries.ref", classLoader).locate()
-        val resources = DescriptorSetReferenceFile.loadFromResources(listOf(url))
+    fun `recursively delete a directory`() {
+        val directory = Files.createTempDirectory("delete-spec")
+        Files.createFile(directory.resolve("file.txt"))
 
-        // Expect duplicates removed and comments/blank lines filtered out.
-        resources.shouldHaveSize(2)
-
-        val file1 = Resource.file("stub_file_1.desc", classLoader)
-        val file2 = Resource.file("known_types.desc", classLoader)
-        val resourceSet = resources.toSet()
-        resourceSet.contains(file1).shouldBeTrue()
-        resourceSet.contains(file2).shouldBeTrue()
+        deleteRecursively(directory) shouldBe true
+        Files.exists(directory) shouldBe false
     }
 
     @Test
-    fun `create a reference file pointing at the target descriptor set`() {
-        val dir = Files.createTempDirectory("ref-file").toFile()
-        val target = File("some/dir/known_types.desc")
-
-        DescriptorSetReferenceFile.create(dir, target)
-
-        val written = File(dir, DescriptorSetReferenceFile.NAME)
-        written.exists().shouldBeTrue()
-        written.readText() shouldBe target.name
+    fun `register a shutdown hook for recursive deletion`() {
+        val directory = Files.createTempDirectory("delete-on-shutdown")
+        // Registering the hook should not throw. The deletion itself runs at JVM exit.
+        deleteRecursivelyOnShutdownHook(directory)
     }
 }

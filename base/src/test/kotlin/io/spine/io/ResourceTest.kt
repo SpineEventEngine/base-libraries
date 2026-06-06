@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,9 +23,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.io
 
 import com.google.common.io.CharStreams
+import com.google.common.testing.EqualsTester
 import com.google.common.testing.NullPointerTester
 import com.google.common.truth.Truth.assertThat
 import io.kotest.matchers.collections.shouldHaveSize
@@ -92,5 +94,27 @@ class ResourceTest {
             val content = CharStreams.toString(reader)
             assertThat(content).isNotEmpty()
         }
+    }
+
+    @Test
+    fun `read the whole content as a string`() {
+        assertThat(resource.read()).isNotEmpty()
+    }
+
+    @Test
+    fun `throw ISE when locating all instances of a non-existing file`() {
+        val missing = Resource.file(TestValues.randomString(), classLoader)
+        assertIllegalState { missing.locateAll() }
+    }
+
+    @Test
+    fun `support equality based on the path`() {
+        EqualsTester()
+            .addEqualityGroup(
+                Resource.file(resourceFile, classLoader),
+                Resource.file(resourceFile, classLoader)
+            )
+            .addEqualityGroup(Resource.file("another.txt", classLoader))
+            .testEquals()
     }
 }

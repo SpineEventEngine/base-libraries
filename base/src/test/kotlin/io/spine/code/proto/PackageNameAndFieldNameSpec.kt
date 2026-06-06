@@ -26,50 +26,30 @@
 
 package io.spine.code.proto
 
+import com.google.protobuf.Timestamp
 import io.kotest.matchers.shouldBe
-import io.spine.code.proto.given.Given.enumField
-import io.spine.code.proto.given.Given.mapField
-import io.spine.code.proto.given.Given.messageField
-import io.spine.code.proto.given.Given.primitiveField
-import io.spine.code.proto.given.Given.repeatedField
-import io.spine.code.proto.given.Given.singularField
+import io.spine.test.type.Url
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("`FieldDescriptorProto` extensions should")
-internal class FieldDescriptorProtoExtsSpec {
+@DisplayName("`PackageName` and `FieldName` should")
+internal class PackageNameAndFieldNameSpec {
 
-    @Nested inner class
-    `check if field` {
-
-        @Test
-        @DisplayName("is message")
-        fun isMessage() {
-            messageField().toProto().isMessage() shouldBe true
-            primitiveField().toProto().isMessage() shouldBe false
-            enumField().toProto().isMessage() shouldBe false
-        }
-
-        @Test
-        @DisplayName("is repeated")
-        fun isRepeated() {
-            repeatedField().toProto().isRepeated() shouldBe true
-            mapField().toProto().isRepeated() shouldBe false
-            singularField().toProto().isRepeated() shouldBe false
-        }
-
-        @Test
-        @DisplayName("is map")
-        fun isMap() {
-            mapField().toProto().isMap() shouldBe true
-            singularField().toProto().isMap() shouldBe false
-        }
+    @Test
+    fun `obtain a package name from a message descriptor`() {
+        val packageName = PackageName.of(Timestamp.getDescriptor())
+        packageName.value() shouldBe "google.protobuf"
     }
 
     @Test
-    @DisplayName("obtain a map entry name")
-    fun obtainEntryName() {
-        mapField().toProto().entryName() shouldBe "MapFieldEntry"
+    fun `convert a field name to a single-segment path`() {
+        val path = FieldName.of("host").asPath()
+        path.fieldNameList shouldBe listOf("host")
+    }
+
+    @Test
+    fun `obtain a package name of a custom type`() {
+        val packageName = PackageName.of(Url.getDescriptor())
+        packageName.value() shouldBe "spine.test.type"
     }
 }

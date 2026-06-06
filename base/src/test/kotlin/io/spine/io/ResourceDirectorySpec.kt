@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -26,6 +26,7 @@
 
 package io.spine.io
 
+import com.google.common.testing.EqualsTester
 import java.io.File
 import java.nio.file.Files.exists
 import java.nio.file.Path
@@ -114,6 +115,17 @@ internal class ResourceDirectorySpec {
         allFiles
             .filter { name -> reverse.test(name) }
             .forEach { p -> assertNotExists(nestedPath(p)) }
+    }
+
+    @Test
+    fun `support equality based on the path`() {
+        val same = ResourceDirectory.get(resourceName, javaClass.classLoader)
+        val another = ResourceDirectory.get("another-directory", javaClass.classLoader)
+
+        EqualsTester()
+            .addEqualityGroup(directory, same)
+            .addEqualityGroup(another)
+            .testEquals()
     }
 
     private fun nestedPath(p: String) = Paths.get(resourceName, p).toString()
