@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ object Kotlin : DependencyWithBom() {
      *
      * @see <a href="https://github.com/JetBrains/java-annotations">Java Annotations</a>
      */
-    private const val annotationsVersion = "26.0.2"
+    private const val annotationsVersion = "26.1.0"
 
     val scriptRuntime = "$group:kotlin-script-runtime:$runtimeVersion"
 

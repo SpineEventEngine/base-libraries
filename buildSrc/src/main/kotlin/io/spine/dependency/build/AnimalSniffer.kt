@@ -29,6 +29,6 @@ package io.spine.dependency.build
 // https://www.mojohaus.org/animal-sniffer/animal-sniffer-maven-plugin/
 @Suppress("unused", "ConstPropertyName")
 object AnimalSniffer {
-    private const val version = "1.21"
+    private const val version = "1.27"
     const val lib = "org.codehaus.mojo:animal-sniffer-annotations:$version"
 }

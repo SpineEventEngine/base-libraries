@@ -35,7 +35,7 @@ object JetBrainsAnnotations {
     /**
      * The version of the library transitively used.
      */
-    const val version = "23.0.0"
+    const val version = "26.1.0"
     const val groupId = "org.jetbrains"
     const val artifactId = "annotations"
     const val lib = "$groupId:$artifactId:$version"

@@ -35,7 +35,7 @@ import io.spine.dependency.Dependency
  */
 @Suppress("unused")
 object Ksp : Dependency() {
-    override val version = "2.3.6"
+    override val version = "2.3.9"
     val dogfoodingVersion = version
     override val group = "com.google.devtools.ksp"
 

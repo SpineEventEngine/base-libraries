@@ -37,6 +37,6 @@ package io.spine.dependency.build
  */
 @Suppress("ConstPropertyName")
 object PluginPublishPlugin {
-    const val version = "1.3.1"
+    const val version = "2.1.1"
     const val id = "com.gradle.plugin-publish"
 }
