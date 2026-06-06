@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,19 +48,6 @@ public inline fun <reified T : Message> AnyProto.unpack(): T {
     }
     return AnyPacker.unpack(this, cls.java)
 }
-
-/**
- * Unpacks this `Any`.
- *
- * The concrete type of the message is looked up among the known types by
- * the value of the `Any.type_url` field.
- */
-@Deprecated(
-    message = "Please use `unpackKnownType()` instead.",
-    replaceWith = ReplaceWith("unpackKnownType()")
-)
-public fun AnyProto.unpackGuessingType(): Message =
-    unpackKnownType()
 
 /**
  * Unpacks this `Any`.

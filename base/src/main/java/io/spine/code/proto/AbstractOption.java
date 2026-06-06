@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ import com.google.protobuf.GeneratedMessage.GeneratedExtension;
 import java.util.Optional;
 
 /**
- * An abstract base for all types of Protobuf options: {@link FieldOption}, {@link MessageOption},
- * {@link FileOption}, and a Service Option.
+ * An abstract base for types of Protobuf options such as {@link FieldOption} and
+ * {@link MessageOption}.
  *
  * @param <T>
  *         the type of value held by this option

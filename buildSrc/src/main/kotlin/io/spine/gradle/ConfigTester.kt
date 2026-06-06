@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,6 +98,8 @@ class ConfigTester(
         val tasksPerRepo = repos.map { testWithConfig(it) }
 
         tasks.register(taskName) {
+            group = SpineTaskGroup.name
+            description = "Builds every configured downstream repository against this `config`"
             for (repoTaskName in tasksPerRepo) {
                 dependsOn(repoTaskName)
             }
@@ -119,6 +121,8 @@ class ConfigTester(
         runGradleName: String
     ) {
         tasks.register(executeBuildName) {
+            group = SpineTaskGroup.name
+            description = "Checks out `${gitRepo.name}` and overlays local `config` and `buildSrc`"
             doLast {
                 println(" *** Testing `config` and `config/buildSrc` with `${gitRepo.name}`. ***")
                 val ignoredFolder = tempFolder.toPath()
@@ -134,6 +138,8 @@ class ConfigTester(
         gitRepo: GitRepository,
     ) {
         tasks.register(runGradleName, RunBuild::class.java) {
+            group = SpineTaskGroup.name
+            description = "Runs the Gradle build of `${gitRepo.name}` against the local `config`"
             doFirst {
                 println("`${gitRepo.name}`: starting Gradle build...")
             }

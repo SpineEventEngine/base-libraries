@@ -42,9 +42,8 @@ import org.junit.jupiter.api.TestInstance.Lifecycle
 @DisplayName("`Descriptor` extensions from `io.spine.protobuf` should")
 internal class DescriptorExtsSpec {
 
-    @Nested
-    @DisplayName("provide a field descriptor by")
-    inner class FieldDescriptor {
+    @Nested inner class
+    `provide a field descriptor by` {
 
         private val descriptor = Timestamp.getDescriptor()
 

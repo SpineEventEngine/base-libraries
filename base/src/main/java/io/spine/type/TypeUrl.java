@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ package io.spine.type;
 
 import com.google.common.base.Splitter;
 import com.google.errorprone.annotations.Immutable;
-import com.google.errorprone.annotations.InlineMe;
 import com.google.protobuf.Any;
 import com.google.protobuf.AnyOrBuilder;
 import com.google.protobuf.Descriptors.Descriptor;
@@ -271,17 +270,6 @@ public final class TypeUrl implements Serializable {
     @Override
     public String toString() {
         return value();
-    }
-
-    /**
-     * Converts the instance to {@code TypeName}.
-     *
-     * @deprecated Please use {@link #typeName()} and {@code typeName} in Kotlin.
-     */
-    @Deprecated
-    @InlineMe(replacement = "this.typeName()")
-    public TypeName toTypeName() {
-        return typeName();
     }
 
     /**

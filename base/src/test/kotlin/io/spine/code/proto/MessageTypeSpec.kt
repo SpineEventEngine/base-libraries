@@ -60,9 +60,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("`MessageType` should")
 internal class MessageTypeSpec {
 
-    @Nested
-    @DisplayName("tell if a type")
-    internal inner class Tell {
+    @Nested internal inner class
+    `tell if a type` {
 
         /**
          * Tests a certain boolean method of `MessageType` created on the passed descriptor.
@@ -73,8 +72,8 @@ internal class MessageTypeSpec {
             result shouldBe true
         }
 
-        @Nested
-        internal inner class Is {
+        @Nested internal inner class
+        `be` {
 
             @Test
             fun nested() {
@@ -117,9 +116,8 @@ internal class MessageTypeSpec {
              * This test suite takes nested types of corresponding signals to
              * verify that they are not seen as signals of the kind of the enclosing types.
              */
-            @Nested
-            @DisplayName("not")
-            internal inner class NotA {
+            @Nested internal inner class
+            `not` {
 
                 @Test
                 fun `a rejection`() {
@@ -148,9 +146,8 @@ internal class MessageTypeSpec {
                 }
             }
 
-            @Nested
-            @DisplayName("a non-Google or a Spine options type")
-            internal inner class Custom {
+            @Nested internal inner class
+            `a non-Google or a Spine options type` {
 
                 @Test
                 fun `positively for a custom type`() {
@@ -172,9 +169,8 @@ internal class MessageTypeSpec {
         }
     }
 
-    @Nested
-    @DisplayName("obtain a path for")
-    internal inner class Path {
+    @Nested internal inner class
+    `obtain a path for` {
 
         @CanIgnoreReturnValue
         private fun assertPath(descriptor: Descriptor): IterableSubject {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
 
 import io.spine.gradle.ConfigTester
 import io.spine.gradle.SpineRepos
+import io.spine.gradle.SpineTaskGroup
 import io.spine.gradle.cleanFolder
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -51,6 +52,8 @@ ConfigTester(config, tasks, tempFolder)
 
 // Cleans the temp folder used to check out the sources from Git.
 tasks.register("clean") {
+    group = SpineTaskGroup.name
+    description = "Removes the temp folder used by `ConfigTester` to check out external sources"
     doLast {
         cleanFolder(tempFolder)
     }

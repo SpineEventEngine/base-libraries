@@ -1,3 +1,0 @@
-# Per-developer override of <workspace-root> for the api-discovery
-# extraction cache. Contains an absolute path; do not commit.
-.workspace-root

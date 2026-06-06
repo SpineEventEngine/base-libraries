@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -180,10 +180,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public void replaceAll(UnaryOperator<RecordColumn<R, ?>> operator) {
@@ -192,10 +189,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public void sort(Comparator<? super RecordColumn<R, ?>> c) {
@@ -204,10 +198,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean removeIf(Predicate<? super RecordColumn<R, ?>> filter) {
@@ -216,10 +207,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean add(RecordColumn<R, ?> column) {
@@ -228,10 +216,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean addAll(@NonNull Collection<? extends RecordColumn<R, ?>> c) {
@@ -240,10 +225,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean addAll(int index, @NonNull Collection<? extends RecordColumn<R, ?>> c) {
@@ -252,10 +234,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public void add(int index, RecordColumn<R, ?> element) {
@@ -264,10 +243,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public RecordColumn<R, ?> set(int index, RecordColumn<R, ?> element) {
@@ -276,10 +252,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean remove(Object o) {
@@ -288,10 +261,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean removeAll(Collection<?> c) {
@@ -300,10 +270,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public boolean retainAll(Collection<?> c) {
@@ -312,10 +279,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public void clear() {
@@ -324,10 +288,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
 
     /**
      * Always throws an {@link UnsupportedOperationException}.
-     *
-     * @deprecated as does not apply to this immutable type
      */
-    @Deprecated
     @Override
     @DoNotCall("Always throws `UnsupportedOperationException`")
     public RecordColumn<R, ?> remove(int index) {

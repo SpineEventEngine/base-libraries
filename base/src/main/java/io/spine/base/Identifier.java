@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -26,10 +26,7 @@
 
 package io.spine.base;
 
-import com.google.errorprone.annotations.InlineMe;
 import com.google.protobuf.Any;
-import com.google.protobuf.Descriptors.Descriptor;
-import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.Message;
@@ -39,7 +36,6 @@ import io.spine.protobuf.AnyPacker;
 import io.spine.string.StringifierRegistry;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -364,26 +360,6 @@ public final class Identifier<I> {
     private Any pack() {
         var result = type.pack(value);
         return result;
-    }
-
-    /**
-     * Finds the first ID field of the specified type in the given message type.
-     *
-     * @deprecated Use {@link Field#findIdField(Class, Descriptor)} instead.
-     *
-     * @param idClass
-     *          the class of identifiers
-     * @param message
-     *          the descriptor of the message type in which to find a field
-     * @param <I>
-     *          the type of identifiers
-     * @return the descriptor of the matching field or
-     *         empty {@code Optional} if there is no such a field
-     */
-    @Deprecated
-    @InlineMe(replacement = "Field.findIdField(idClass, message)", imports = "io.spine.base.Field")
-    public static <I> Optional<FieldDescriptor> findField(Class<I> idClass, Descriptor message) {
-        return Field.findIdField(idClass, message);
     }
 
     @Override

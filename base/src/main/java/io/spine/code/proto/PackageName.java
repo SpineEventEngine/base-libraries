@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -28,7 +28,10 @@ package io.spine.code.proto;
 
 import com.google.errorprone.annotations.Immutable;
 import com.google.protobuf.Descriptors.Descriptor;
+import io.spine.annotation.Internal;
 import io.spine.value.StringTypeValue;
+
+import java.io.Serial;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,8 +39,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A name of a Protobuf package.
  */
 @Immutable
+@Internal
 public final class PackageName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private static final String DELIMITER = ".";
     private static final String OF_GOOGLE = "google";
@@ -83,7 +88,7 @@ public final class PackageName extends StringTypeValue {
     /**
      * Verifies if the package represented by this package name is
      * <a href="https://developers.google.com/protocol-buffers/docs/proto3#packages-and-name-resolution">
-     * nested</a> in the passed package.
+     * nested</a> in the given package.
      */
     public boolean isInnerOf(PackageName parentCandidate) {
         checkNotNull(parentCandidate);

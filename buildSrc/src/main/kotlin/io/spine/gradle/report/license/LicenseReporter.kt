@@ -30,6 +30,7 @@ import com.github.jk1.license.LicenseReportExtension
 import com.github.jk1.license.LicenseReportExtension.ALL
 import com.github.jk1.license.LicenseReportPlugin
 import io.spine.dependency.local.Spine
+import io.spine.gradle.SpineTaskGroup
 import io.spine.gradle.applyPlugin
 import io.spine.gradle.getTask
 import java.io.File
@@ -109,6 +110,8 @@ object LicenseReporter {
     fun mergeAllReports(project: Project) {
         val rootProject = project.rootProject
         val mergeTask = rootProject.tasks.register(mergeTaskName) {
+            group = SpineTaskGroup.name
+            description = "Merges per-project license reports into a single repository-wide report"
             val consolidationTask = this
             val assembleTask = project.getTask<Task>("assemble")
             val sourceProjects: Iterable<Project> = sourceProjects(rootProject)

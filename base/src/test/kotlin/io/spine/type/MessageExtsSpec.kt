@@ -45,9 +45,8 @@ internal class MessageExtsSpec {
                 "spine.given.type.ExplicitInternalType"
     }
 
-    @Nested
-    @DisplayName("tell if a message is internal")
-    inner class InternalMessage {
+    @Nested inner class
+    `tell if a message is internal` {
 
         @Test
         fun `by class annotation`() {

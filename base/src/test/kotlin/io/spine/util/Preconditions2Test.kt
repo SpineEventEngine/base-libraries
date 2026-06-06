@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.util
 
 import com.google.common.truth.Truth.assertThat
@@ -86,8 +87,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         }
     }
 
-    @Nested
-    internal inner class `check that a 'String' is` :
+    @Nested internal inner class
+    `check that a 'String' is` :
         TestSuite<String>(Preconditions2::checkNotEmptyOrBlank, { arg, fmt, params ->
             checkNotEmptyOrBlank(arg, fmt, params)
         }) {
@@ -128,9 +129,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         }
     }
 
-
-    @Nested
-    internal inner class `check that a value is positive` :
+    @Nested internal inner class
+    `check that a value is positive` :
         TestSuite<Long>(Preconditions2::checkPositive,{ arg, fmt, params ->
             checkPositive(arg, fmt, params)
         }) {
@@ -154,8 +154,8 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
         }
     }
 
-    @Nested
-    internal inner class `check that a value is positive or zero` :
+    @Nested internal inner class
+    `check that a value is positive or zero` :
         TestSuite<Long>(Preconditions2::checkNonNegative, { arg, fmt, params ->
             checkNonNegative(arg, fmt, params)
         }) {
@@ -181,11 +181,11 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
     @Test
     fun `throw if checked value out of bounds`() {
         assertIllegalArgument { checkBounds(10, "checked value", -5, 9) }
+        assertIllegalArgument { checkBounds(-10, "checked value", 0, 9) }
     }
 
-    @Nested
-    @DisplayName("check that a message is not in the default state")
-    internal inner class NotDefaultMessage {
+    @Nested internal inner class
+    `check that a message is not in the default state` {
         private val defaultValue: Message = StringValue.getDefaultInstance()
         private var customErrorMessage: String? = null
 
@@ -221,6 +221,59 @@ internal class Preconditions2Test : UtilityClassTest<Preconditions2>(Preconditio
             checkNotDefaultArg(nonDefault, customErrorMessage) shouldBe nonDefault
             checkNotDefaultState(nonDefault) shouldBe nonDefault
             checkNotDefaultState(nonDefault, customErrorMessage) shouldBe nonDefault
+        }
+    }
+
+    /**
+     * Covers overloads and branches not exercised by the suites above:
+     * the templated `varargs` success paths, the single-argument rejection
+     * paths, the non-`String` `errorMessage` overloads, and the
+     * within-bounds path of [checkBounds].
+     */
+    @Nested internal inner class
+    Also {
+
+        @Test
+        fun `return the string from the templated check`() {
+            val str = randomString()
+            checkNotEmptyOrBlank(str, "Value: %s.", str) shouldBe str
+        }
+
+        @Test
+        fun `reject a non-positive value passed directly`() {
+            assertIllegalArgument { checkPositive(0) }
+            assertIllegalArgument { checkPositive(-1) }
+        }
+
+        @Test
+        fun `reject a negative value passed directly`() {
+            assertIllegalArgument { checkNonNegative(-1) }
+        }
+
+        @Test
+        fun `return the value from the templated non-negative check`() {
+            val value = longRandom(0, 100_000)
+            checkNonNegative(value, "Value: %s.", value) shouldBe value
+        }
+
+        @Test
+        fun `accept a non-'String' error message`() {
+            val nonDefault = newUuidValue()
+            val errorMessage = 42
+
+            checkNotDefaultArg(nonDefault, errorMessage) shouldBe nonDefault
+            checkNotDefaultState(nonDefault, errorMessage) shouldBe nonDefault
+
+            val default: Message = StringValue.getDefaultInstance()
+            assertIllegalArgument { checkNotDefaultArg(default, errorMessage) }
+            assertIllegalState { checkNotDefaultState(default, errorMessage) }
+        }
+
+        @Test
+        fun `accept a value within bounds`() {
+            assertDoesNotThrow { checkBounds(5, "value", 0, 10) }
+            assertDoesNotThrow { checkBounds(0, "value", 0, 10) }
+            assertDoesNotThrow { checkBounds(10, "value", 0, 10) }
         }
     }
 }

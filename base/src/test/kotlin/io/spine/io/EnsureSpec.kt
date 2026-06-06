@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,13 +23,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.io
 
 import io.kotest.matchers.shouldBe
-import io.spine.io.Ensure.ensureDirectory
-import io.spine.io.Ensure.ensureFile
 import io.spine.testing.TestValues
-import io.spine.testing.UtilityClassTest
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -41,12 +39,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.io.TempDir
 
-@DisplayName("`Ensure` utilities class should")
-internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
+@DisplayName("`Ensure` functions should")
+internal class EnsureSpec {
 
-    @Nested
-    @DisplayName("handle files via")
-    internal inner class OnFiles {
+    @Nested internal inner class
+    `handle files via` {
 
         private lateinit var file: File
 
@@ -65,6 +62,16 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
         }
 
         @Test
+        fun `returning an existing 'File' as-is`() {
+            ensureFile(file)
+            file.exists() shouldBe true
+
+            // Now that the file exists, `ensureFile` returns it without changes.
+            ensureFile(file) shouldBe file
+            file.exists() shouldBe true
+        }
+
+        @Test
         fun `'Path' argument`() {
             val path = file.toPath()
             val returnedValue: Any = ensureFile(path)
@@ -72,11 +79,17 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
             file.exists() shouldBe true
             returnedValue shouldBe path
         }
+
+        @Test
+        fun `rejecting a directory passed as 'File'`(@TempDir tempDir: Path) {
+            assertThrows<IllegalArgumentException> {
+                ensureFile(tempDir.toFile())
+            }
+        }
     }
 
-    @Nested
-    @DisplayName("handle a directory creation")
-    internal inner class OnDirectories {
+    @Nested internal inner class
+    `handle a directory creation` {
 
         private lateinit var tempDir: Path
 
@@ -102,8 +115,7 @@ internal class EnsureSpec : UtilityClassTest<Ensure>(Ensure::class.java) {
         }
 
         @Test
-        @DisplayName("if it exists")
-        fun existing() {
+        fun `if it exists`() {
             val existingDir = tempDir.resolve(TestValues.randomString())
             ensureDirectory(existingDir)
 

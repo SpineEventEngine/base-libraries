@@ -36,9 +36,8 @@ import org.junit.jupiter.api.function.Executable
 @DisplayName("`InvocationGuard` should")
 internal class InvocationGuardTest {
 
-    @Nested
-    @DisplayName("throw `SecurityException`")
-    internal inner class Throwing {
+    @Nested internal inner class
+    `throw 'SecurityException'` {
 
         @Test
         fun `if no classes are allowed`() {

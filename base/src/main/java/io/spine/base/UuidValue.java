@@ -69,7 +69,7 @@ public interface UuidValue extends KnownMessage {
         checkNotEmptyOrBlank(uuid);
         try {
             UUID.fromString(uuid);
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             throw newIllegalArgumentException(e, "Invalid UUID string: `%s`.", uuid);
         }
     }

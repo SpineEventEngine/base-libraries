@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -36,8 +36,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @param <T>
  *         type of stringified objects
  */
-@SuppressWarnings({"unused", /* Part of the public API. Exposed for `base-types`. */
-        "AbstractClassNeverImplemented"})
+@SuppressWarnings("AbstractClassNeverImplemented") /* Implemented in `base-types`. */
 public abstract class FnStringifier<T> extends SerializableStringifier<T> {
 
     private static final long serialVersionUID = 0L;
@@ -52,7 +51,6 @@ public abstract class FnStringifier<T> extends SerializableStringifier<T> {
         this.printer = checkNotNull(printer);
         this.parser = checkNotNull(parser);
     }
-
 
     @Override
     protected final String toString(T obj) {

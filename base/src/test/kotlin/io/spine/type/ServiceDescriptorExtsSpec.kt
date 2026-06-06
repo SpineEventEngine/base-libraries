@@ -37,9 +37,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("`ServiceDescriptor` extensions in `io.spine.type` should")
 internal class ServiceDescriptorExtsSpec {
 
-    @Nested
-    @DisplayName("tell if a service is")
-    inner class SpiAnnotations {
+    @Nested inner class
+    `tell if a service is` {
 
         @Test
         fun `explicitly annotated SPI`() {

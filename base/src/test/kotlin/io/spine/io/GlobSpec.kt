@@ -42,8 +42,8 @@ class GlobSpec {
         assertThrows<IllegalArgumentException> { Glob("") }
     }
 
-    @Nested
-    inner class `create instances by extension which` {
+    @Nested inner class
+    `create instances by extension which` {
 
         @Test
         fun `is empty`() {

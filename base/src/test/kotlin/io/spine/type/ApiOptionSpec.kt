@@ -51,9 +51,8 @@ import org.junit.jupiter.api.Test
 @DisplayName("`ApiOption` should")
 class ApiOptionSpec {
 
-    @Nested
-    @DisplayName("provide items for API stability annotations")
-    inner class ApiStabilityEnum {
+    @Nested inner class
+    `provide items for API stability annotations` {
 
         @Test
         fun beta() {
@@ -85,9 +84,8 @@ class ApiOptionSpec {
         }
     }
 
-    @Nested
-    @DisplayName("locate itself in descriptors")
-    inner class LocatingInDescriptor {
+    @Nested inner class
+    `locate itself in descriptors` {
 
         @Test
         fun beta() {

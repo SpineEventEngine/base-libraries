@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,10 +23,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.protobuf;
 
 import com.google.common.base.Converter;
-import com.google.errorprone.annotations.InlineMe;
 import com.google.protobuf.Duration;
 import com.google.protobuf.util.Durations;
 import io.spine.string.Stringifiers;
@@ -59,16 +59,6 @@ import static java.util.Objects.requireNonNull;
  */
 @SuppressWarnings("UtilityClass")
 public final class Durations2 {
-
-    /**
-     * Zero duration.
-     *
-     * @deprecated please use {@link Durations#ZERO}.
-     */
-    @Deprecated
-    public static final Duration ZERO = fromMillis(0L);
-
-    private static final String PROTOBUF_DURATIONS = "com.google.protobuf.util.Durations";
 
     /** Prevent instantiation of this utility class. */
     private Durations2() {
@@ -180,19 +170,6 @@ public final class Durations2 {
         return result;
     }
 
-    /**
-     * Returns {@code true} if the passed value is greater than zero,
-     * {@code false} otherwise.
-     *
-     * @deprecated please use {@link Durations#isPositive(Duration)}
-     */
-    @Deprecated
-    public static boolean isPositive(Duration value) {
-        checkNotNull(value);
-        return Durations.isPositive(value);
-
-    }
-
     /** Returns {@code true} if the passed value is zero, {@code false} otherwise. */
     public static boolean isZero(Duration value) {
         checkNotNull(value);
@@ -215,17 +192,6 @@ public final class Durations2 {
     public static boolean isLessThan(Duration value, Duration another) {
         var result = compare(value, another) < 0;
         return result;
-    }
-
-    /**
-     * Returns {@code true} if the passed duration is negative, {@code false} otherwise.
-     *
-     * @deprecated please use {@link Durations#isNegative(Duration)}.
-     */
-    @Deprecated
-    @InlineMe(replacement = "Durations.isNegative(value)", imports = PROTOBUF_DURATIONS)
-    public static boolean isNegative(Duration value) {
-        return Durations.isNegative(value);
     }
 
     /**
@@ -255,7 +221,7 @@ public final class Durations2 {
      * this method does not throw a checked exception.
      *
      * @throws IllegalArgumentException
-     *         if the string is not of required format
+     *         if the string is not of the required format
      */
     public static Duration parse(String str) {
         checkNotNull(str);

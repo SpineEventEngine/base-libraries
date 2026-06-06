@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.string
 
 import com.google.common.collect.ImmutableList
@@ -37,8 +38,11 @@ import io.kotest.matchers.string.shouldContain
 import io.spine.base.Identifier
 import io.spine.base.Time
 import io.spine.string.Stringifiers.stringify
+import io.spine.testing.Assertions.assertIllegalArgument
 import io.spine.test.string.STask
 import io.spine.test.string.STaskId
+import io.spine.test.string.sTask
+import io.spine.test.string.sTaskId
 import io.spine.test.string.STaskStatus
 import io.spine.testing.UtilityClassTest
 import io.spine.type.toCompactJson
@@ -57,9 +61,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
         private const val SIZE = 5
     }
 
-    @Nested
-    @DisplayName("stringify")
-    internal inner class StringifyKt {
+    @Nested internal inner class
+    `stringify` {
 
         @Test
         fun boolean() = checkStringifies(false, "false")
@@ -97,13 +100,13 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
 
         @Test
         fun `a Protobuf 'Message'`() {
-            val id = STaskId.newBuilder()
-                .setUuid(Identifier.newUuid())
-                .build()
-            val message = STask.newBuilder()
-                .setId(id)
-                .setStatus(STaskStatus.DONE)
-                .build()
+            val id = sTaskId {
+                uuid = Identifier.newUuid()
+            }
+            val message = sTask {
+                this.id = id
+                status = STaskStatus.DONE
+            }
 
             val expected = message.toCompactJson()
             checkStringifies(message, expected)
@@ -114,10 +117,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
         }
     }
 
-    @Nested
-    @DisplayName("create 'Stringifier' with a delimeter for")
-    internal inner class Delimited {
-
+    @Nested internal inner class
+    `create 'Stringifier' with a delimiter for` {
         @Test
         fun List() {
             val stamps: List<Timestamp> = createList()
@@ -169,9 +170,8 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
      * This class covers only cases that are not touched by other tests that
      * involve parsing of string values.
      */
-    @Nested
-    @DisplayName("parse a string into")
-    internal inner class Parsing {
+    @Nested internal inner class
+    `parse a string into` {
 
         @Test
         fun Boolean() {
@@ -192,6 +192,22 @@ internal class StringifiersSpec : UtilityClassTest<Stringifiers>(Stringifiers::c
             val parsed = stringifier.fromString(numString)
 
             parsed shouldContainExactly numbers
+        }
+
+        @Test
+        fun Map() {
+            val map = mapOf(1L to 10L, 2L to 20L, -3L to 30L)
+            val stringifier = mapStringifier<Long, Long>()
+
+            val parsed = stringifier.fromString(stringifier.toString(map))
+
+            parsed shouldBe map
+        }
+
+        @Test
+        fun `failing on a malformed map string`() {
+            val stringifier = mapStringifier<Long, Long>()
+            assertIllegalArgument { stringifier.fromString("not-a-number:10") }
         }
     }
 
