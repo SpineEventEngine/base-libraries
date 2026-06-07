@@ -24,22 +24,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.type
+package io.spine.query
 
-import com.google.protobuf.ExtensionRegistry
-import io.spine.option.OptionsProvider
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
+import io.spine.query.ComparisonOperator.EQUALS
+import io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.isin
+import io.spine.query.given.RecordQueryBuilderTestEnv.queryManufacturer
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-/**
- * Holds an instance of [ExtensionRegistry] initialized with all known custom Protobuf options.
- *
- * @see OptionsProvider.registryWithAllOptions
- */
-internal object ExtensionRegistryHolder {
+@DisplayName("`RecordCriterion` should")
+internal class RecordCriterionSpec {
 
-    /**
-     * Lazily initialized instance of [ExtensionRegistry] with all known custom Protobuf options.
-     */
-    val extensionRegistry: ExtensionRegistry by lazy {
-        OptionsProvider.registryWithAllOptions()
+    @Test
+    fun `add a parameter to its query builder when a value is set`() {
+        val isinValue = "JP 3633400001"
+        val builder: RecordQueryBuilder<ManufacturerId, Manufacturer> = queryManufacturer()
+
+        val criterion: RecordCriterion<ManufacturerId, Manufacturer, String> = builder.where(isin)
+        val query = criterion.`is`(isinValue).build()
+
+        val params = query.subject().predicate().parameters()
+        params shouldHaveSize 1
+
+        val param = params.first()
+        param.column() shouldBe isin
+        param.operator() shouldBe EQUALS
+        param.value() shouldBe isinValue
     }
 }

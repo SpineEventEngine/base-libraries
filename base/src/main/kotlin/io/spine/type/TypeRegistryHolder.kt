@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,12 +31,12 @@ import com.google.protobuf.TypeRegistry
 /**
  * Holds an instance of [TypeRegistry] containing all [known types][KnownTypes].
  */
-public object TypeRegistryHolder {
+internal object TypeRegistryHolder {
 
     /**
      * Lazily initialized instance of [TypeRegistry] with all [known types][KnownTypes].
      */
-    public val typeRegistry: TypeRegistry by lazy {
+    val typeRegistry: TypeRegistry by lazy {
         KnownTypes.instance().typeRegistry()
     }
 }
