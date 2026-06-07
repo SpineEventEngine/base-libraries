@@ -89,7 +89,6 @@ object LicenseReporter {
             excludeGroups = arrayOf(
                 Spine.group,
                 "io.spine.gcloud",
-                "io.spine.protodata",
                 Spine.toolsGroup,
                 "io.spine.validation"
             )
