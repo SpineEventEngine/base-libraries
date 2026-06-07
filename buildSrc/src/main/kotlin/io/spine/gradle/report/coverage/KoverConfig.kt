@@ -28,6 +28,7 @@ package io.spine.gradle.report.coverage
 
 import io.spine.dependency.test.Jacoco
 import io.spine.dependency.test.Kover
+import io.spine.gradle.testing.TESTKIT_COVERAGE_DIR
 import java.io.File
 import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
 import org.gradle.api.Project
@@ -90,6 +91,19 @@ private const val KOTLIN_FILE_CLASS_SUFFIX: String = "Kt"
  *    `kover { reports { filters { excludes { classes(...) } } } }`.
  *  - Configures the root `koverXmlReport` task with `onCheck = true` and
  *    excludes the union of generated-class FQNs across all subprojects.
+ *  - Feeds the JaCoCo execution data produced by Gradle TestKit worker JVMs
+ *    (see [io.spine.gradle.testing.enableTestKitCoverage]) into the `total`
+ *    reports as `additionalBinaryReports`, both per subproject and at the root.
+ *    Without this, plugin code exercised out-of-process through `GradleRunner`
+ *    — most notably `Plugin<Settings>` implementations, which cannot be
+ *    unit-tested in-process — is not credited to coverage.
+ *
+ *    The worker data is merged as binary `.exec` rather than as a generated
+ *    XML report on purpose. `additionalBinaryReports` is the only merge hook
+ *    Kover offers (there is no XML-merge equivalent), and binary data merges at
+ *    the probe level against each module's actual bytecode: a line hit both
+ *    in-process and out-of-process is counted once. Summing pre-aggregated XML
+ *    reports instead would double-count such lines.
  *
  * This is the Kover-based successor to the deprecated JaCoCo-based
  * coverage aggregation pipeline. The behaviour mirrors what
@@ -163,6 +177,9 @@ class KoverConfig private constructor(
         sub.extensions.configure(KoverProjectExtension::class.java) {
             useJacoco(Jacoco.version)
             reports {
+                total {
+                    additionalBinaryReports.addAll(testKitExecFilesProvider(sub))
+                }
                 filters {
                     excludes {
                         classes(perSubprojectExcludePatternsProvider(sub))
@@ -180,6 +197,7 @@ class KoverConfig private constructor(
                     xml {
                         onCheck.set(true)
                     }
+                    additionalBinaryReports.addAll(rootTestKitExecFilesProvider())
                 }
                 filters {
                     excludes {
@@ -206,6 +224,31 @@ class KoverConfig private constructor(
                 .toSortedSet()
                 .toExclusionPatterns()
         }
+
+    /**
+     * Lazy `Provider` of the JaCoCo execution-data files produced by the Gradle
+     * TestKit workers of every subproject that applies the Kover plugin.
+     *
+     * These files credit out-of-process plugin execution (settings plugins and
+     * other code run through `GradleRunner`) to the root coverage rollup.
+     * Resolved at task-graph time, after the `test` tasks have written them.
+     *
+     * @see io.spine.gradle.testing.enableTestKitCoverage
+     */
+    private fun rootTestKitExecFilesProvider(): Provider<Iterable<File>> =
+        rootProject.provider {
+            rootProject.subprojects.asSequence()
+                .filter { it.pluginManager.hasPlugin(Kover.id) }
+                .flatMap { testKitExecFiles(it).asSequence() }
+                .toList()
+        }
+
+    /**
+     * Lazy `Provider` of the JaCoCo execution-data files produced by the Gradle
+     * TestKit workers of [sub]. See [rootTestKitExecFilesProvider] for timing notes.
+     */
+    private fun testKitExecFilesProvider(sub: Project): Provider<Iterable<File>> =
+        sub.provider { testKitExecFiles(sub) }
 
     /**
      * Lazy `Provider` of the generated-class FQN exclusion patterns
@@ -238,6 +281,24 @@ class KoverConfig private constructor(
             .distinct()
             .toList()
     }
+}
+
+/**
+ * Returns the JaCoCo execution-data (`.exec`) files written by the Gradle TestKit
+ * workers of the [project], or an empty list if the module produced none.
+ *
+ * The files reside under `build/`[TESTKIT_COVERAGE_DIR] and are created by the
+ * `plugin-testlib` test harness when a module opts in via
+ * [io.spine.gradle.testing.enableTestKitCoverage].
+ */
+private fun testKitExecFiles(project: Project): List<File> {
+    val dir = project.layout.buildDirectory.dir(TESTKIT_COVERAGE_DIR).get().asFile
+    if (!dir.isDirectory) {
+        return emptyList()
+    }
+    return dir.listFiles { file -> file.isFile && file.extension == "exec" }
+        ?.sorted()
+        ?: emptyList()
 }
 
 private fun generatedSrcDirs(project: Project): Set<File> {

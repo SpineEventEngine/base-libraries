@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.code.proto
 
 import com.google.common.testing.EqualsTester
@@ -33,6 +34,7 @@ import com.google.protobuf.DescriptorProtos.FileDescriptorProto
 import com.google.protobuf.Descriptors.Descriptor
 import com.google.protobuf.Timestamp
 import com.google.protobuf.value
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.collections.containExactly
 import io.kotest.matchers.optional.shouldBePresent
 import io.kotest.matchers.should
@@ -233,6 +235,58 @@ internal class MessageTypeSpec {
             .addEqualityGroup(type(Url.getDescriptor()), type(Url.getDescriptor()))
             .addEqualityGroup(type(Timestamp.getDescriptor()))
             .testEquals()
+    }
+
+    @Test
+    fun `convert itself to a descriptor proto`() {
+        val descriptor = Url.getDescriptor()
+        type(descriptor).toProto() shouldBe descriptor.toProto()
+    }
+
+    @Nested inner class
+    `tell if it is a signal` {
+
+        @Test
+        fun `positively for a command`() {
+            type(MttStartProject.getDescriptor()).isSignal shouldBe true
+        }
+
+        @Test
+        fun `positively for an event`() {
+            type(MttProjectStarted.getDescriptor()).isSignal shouldBe true
+        }
+
+        @Test
+        fun `positively for a rejection`() {
+            type(TestRejections.MttSampleRejection.getDescriptor()).isSignal shouldBe true
+        }
+
+        @Test
+        fun `negatively for a non-signal`() {
+            type(MttUuidMessage.getDescriptor()).isSignal shouldBe false
+        }
+    }
+
+    @Nested inner class
+    `obtain a field declaration` {
+
+        @Test
+        fun `by its name`() {
+            val field = type(Uri.getDescriptor()).field("host")
+            field.name().value() shouldBe "host"
+        }
+
+        @Test
+        fun `rejecting an unknown name`() {
+            shouldThrow<IllegalArgumentException> {
+                type(Uri.getDescriptor()).field("no_such_field")
+            }
+        }
+    }
+
+    @Test
+    fun `not be a UUID value when it has more than one field`() {
+        type(Timestamp.getDescriptor()).isUuidValue shouldBe false
     }
 
     companion object {

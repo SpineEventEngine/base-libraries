@@ -30,6 +30,7 @@ import com.google.common.testing.EqualsTester
 import com.google.protobuf.Descriptors.Descriptor
 import com.google.protobuf.FieldMask
 import com.google.protobuf.Timestamp
+import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.spine.base.EntityState
@@ -125,6 +126,29 @@ internal class EntityQuerySpec {
             .addEqualityGroup(query1a, query1b)
             .addEqualityGroup(query2)
             .testEquals()
+    }
+
+    @Test
+    fun `apply a custom column criterion`() {
+        val customColumn = object : CustomColumn<StubState, Long>() {
+            override fun name(): ColumnName = ColumnName.of("custom_seconds")
+            override fun type(): Class<Long> = Long::class.java
+            override fun valueIn(source: StubState): Long = 0L
+        }
+        val builder = TestEntityQueryBuilder()
+
+        builder.where(customColumn, 100L)
+        builder.withMask(Field.named("seconds"))
+
+        val query = builder.build()
+        query.subject().predicate().customParameters().shouldNotBeEmpty()
+    }
+
+    @Test
+    fun `build a transformed query`() {
+        val builder = TestEntityQueryBuilder()
+        val transformed = builder.build { _ -> "transformed-result" }
+        transformed shouldBe "transformed-result"
     }
 }
 

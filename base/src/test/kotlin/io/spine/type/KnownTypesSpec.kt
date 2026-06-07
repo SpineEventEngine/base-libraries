@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.type
 
 import com.google.protobuf.Any
@@ -50,6 +51,10 @@ import io.spine.string.pi
 import io.spine.test.types.KnownTask
 import io.spine.test.types.KnownTaskId
 import io.spine.test.types.KnownTaskName
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -226,5 +231,22 @@ internal class KnownTypesSpec {
         assertThrows<SecurityException> {
             KnownTypes.Holder.extendWith(TypeSet.newBuilder().build())
         }
+    }
+
+    @Test
+    fun `provide a string representation listing the types`() {
+        knownTypes.toString() shouldContain "KnownTypes"
+    }
+
+    @Test
+    fun `resolve to the loaded instance upon deserialization`() {
+        val bytes = ByteArrayOutputStream().use { bytesOut ->
+            ObjectOutputStream(bytesOut).use { it.writeObject(knownTypes) }
+            bytesOut.toByteArray()
+        }
+        val restored = ObjectInputStream(ByteArrayInputStream(bytes)).use { it.readObject() }
+
+        (restored is KnownTypes) shouldBe true
+        restored.toString() shouldBe knownTypes.toString()
     }
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,8 +23,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.code.proto
 
+import com.google.common.testing.EqualsTester
 import com.google.protobuf.Any
 import com.google.protobuf.DescriptorProtos.FileDescriptorSet
 import com.google.protobuf.Duration
@@ -33,6 +35,7 @@ import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain as shouldContainString
 import io.spine.type.MessageType
 import io.spine.type.TypeName
 import org.junit.jupiter.api.DisplayName
@@ -78,6 +81,36 @@ internal class TypeSetTest {
         val messageTypes = TypeSet.onlyMessages(file)
 
         messageTypes should containOnly(MessageType.of(Any.getDefaultInstance()))
+    }
+
+    @Test
+    fun `add message types in bulk via the builder`() {
+        val anyType = MessageType.of(Any.getDefaultInstance())
+        val durationType = MessageType.of(Duration.getDefaultInstance())
+        val typeSet = TypeSet.newBuilder()
+            .addAll(listOf(anyType, durationType))
+            .build()
+
+        typeSet.messageTypes() shouldContain anyType
+        typeSet.messageTypes() shouldContain durationType
+    }
+
+    @Test
+    fun `support equality`() {
+        val first = TypeSet.from(fileSet)
+        val second = TypeSet.from(fileSet)
+        val empty = TypeSet.newBuilder().build()
+
+        EqualsTester()
+            .addEqualityGroup(first, second)
+            .addEqualityGroup(empty)
+            .testEquals()
+    }
+
+    @Test
+    fun `print its type names`() {
+        val typeSet = TypeSet.from(fileSet)
+        typeSet.toString() shouldContainString "messageTypes"
     }
 
     private fun assertNotEmpty(typeSet: TypeSet) {

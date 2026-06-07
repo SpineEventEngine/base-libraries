@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,4 +24,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-val versionToPublish: String by extra("2.0.0-SNAPSHOT.402")
+package io.spine.string
+
+import com.google.common.testing.SerializableTester.reserialize
+import io.kotest.matchers.types.shouldBeSameInstanceAs
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+@DisplayName("Built-in stringifiers should resolve to their singleton on deserialization")
+internal class StringifierSingletonsSpec {
+
+    @Test
+    fun `Long stringifier`() {
+        reserialize(LongStringifier.getInstance()) shouldBeSameInstanceAs
+                LongStringifier.getInstance()
+    }
+
+    @Test
+    fun `Integer stringifier`() {
+        reserialize(IntegerStringifier.getInstance()) shouldBeSameInstanceAs
+                IntegerStringifier.getInstance()
+    }
+
+    @Test
+    fun `Boolean stringifier`() {
+        reserialize(BooleanStringifier.getInstance()) shouldBeSameInstanceAs
+                BooleanStringifier.getInstance()
+    }
+
+    @Test
+    fun `no-op stringifier`() {
+        reserialize(NoOpStringifier.getInstance()) shouldBeSameInstanceAs
+                NoOpStringifier.getInstance()
+    }
+}

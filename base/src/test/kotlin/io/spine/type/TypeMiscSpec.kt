@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,4 +24,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-val versionToPublish: String by extra("2.0.0-SNAPSHOT.402")
+package io.spine.type
+
+import com.google.protobuf.Syntax
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+@DisplayName("`type` package types should")
+internal class TypeMiscSpec {
+
+    @Test
+    fun `convert an 'EnumType' to its descriptor proto`() {
+        val enumType = EnumType.create(Syntax.getDescriptor())
+        enumType.toProto() shouldBe Syntax.getDescriptor().toProto()
+    }
+}
