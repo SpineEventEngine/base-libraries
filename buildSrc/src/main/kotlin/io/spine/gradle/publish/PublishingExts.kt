@@ -35,6 +35,7 @@ import java.util.*
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
@@ -248,8 +249,16 @@ fun Project.sourcesJar(): TaskProvider<Jar> = tasks.getOrCreate("sourcesJar") {
     description = "Assembles a JAR with Java, Kotlin, and Proto sources from the `main` source set"
     dependOnGenerateProto()
     archiveClassifier.set("sources")
-    from(sourceSets["main"].allSource) // Puts Java and Kotlin sources.
-    from(protoSources()) // Puts Proto sources.
+    // `allSource` also sees the generated `proto-resources` directory, which bundles
+    // copies of `.proto` files (this module's own and its dependencies') as runtime resources.
+    // This behavior starts from Protobuf Gradle Plugin 0.10.0, and it is not expected
+    // to be changed in the future.
+    // This is why we do not call `from(protoSources())` in this function any more.
+    from(sourceSets["main"].allSource)
+
+    // Even if there are duplicates in sources, we want only one.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     exclude("desc.ref", "*.desc") // Exclude descriptor files and the descriptor reference.
 }
 
