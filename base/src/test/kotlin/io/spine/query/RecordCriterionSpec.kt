@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,23 +24,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.local
+package io.spine.query
 
-/**
- * Dependencies on ProtoTap plugins.
- *
- * See [`SpineEventEngine/ProtoTap`](https://github.com/SpineEventEngine/ProtoTap/).
- */
-@Suppress(
-    "unused" /* Some subprojects do not use ProtoTap directly. */,
-    "ConstPropertyName" /* We use custom convention for artifact properties. */,
-    "MemberVisibilityCanBePrivate" /* The properties are used directly by other subprojects. */,
-)
-object ProtoTap {
-    const val group = Spine.toolsGroup
-    const val version = "0.14.0"
-    const val gradlePluginId = "io.spine.prototap"
-    const val api = "$group:prototap-api:$version"
-    const val gradlePlugin = "$group:prototap-gradle-plugin:$version"
-    const val protocPlugin = "$group:prototap-protoc-plugin:$version"
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
+import io.spine.query.ComparisonOperator.EQUALS
+import io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.isin
+import io.spine.query.given.RecordQueryBuilderTestEnv.queryManufacturer
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+@DisplayName("`RecordCriterion` should")
+internal class RecordCriterionSpec {
+
+    @Test
+    fun `add a parameter to its query builder when a value is set`() {
+        val isinValue = "JP 3633400001"
+        val builder: RecordQueryBuilder<ManufacturerId, Manufacturer> = queryManufacturer()
+
+        val criterion: RecordCriterion<ManufacturerId, Manufacturer, String> = builder.where(isin)
+        val query = criterion.`is`(isinValue).build()
+
+        val params = query.subject().predicate().parameters()
+        params shouldHaveSize 1
+
+        val param = params.first()
+        param.column() shouldBe isin
+        param.operator() shouldBe EQUALS
+        param.value() shouldBe isinValue
+    }
 }

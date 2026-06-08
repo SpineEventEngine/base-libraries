@@ -24,6 +24,20 @@ dependencies {
 }
 ```
 
+## The `environment` module
+
+This module contains helpers for detecting the runtime environment in which the code is
+executed — the operating system family, and whether the application runs in the `Tests` or
+the default (production) mode, including support for user-defined environment types.
+This module is used internally by Spine SDK components.
+If you need it as a direct dependency in your Gradle project, please use the following code:
+
+```kotlin
+dependencies {
+    implementation("io.spine:spine-environment:$version")
+}
+```
+
 ## The `format` module
 
 This module contains utilities for parsing files in various types like YAML, JSON, binary Protobuf,
