@@ -27,12 +27,20 @@ together with the receiving change in `tool-base`.
 
 ## Plan
 
-- [ ] Remove `base/src/main/kotlin/io/spine/code/proto/CodeGeneratorRequestWriter.kt`.
-- [ ] Remove `base/src/test/kotlin/io/spine/code/proto/CodeGeneratorRequestWriterSpec.kt`.
-- [ ] Bump version `2.0.0-SNAPSHOT.404` -> `2.0.0-SNAPSHOT.410` (breaking).
+- [x] Remove `base/src/main/kotlin/io/spine/code/proto/CodeGeneratorRequestWriter.kt`.
+- [x] Remove `base/src/test/kotlin/io/spine/code/proto/CodeGeneratorRequestWriterSpec.kt`.
+- [x] Bump version `2.0.0-SNAPSHOT.404` -> `2.0.0-SNAPSHOT.410` (breaking).
 - [ ] `./gradlew build` green; commit regenerated dependency reports if any.
-- [ ] Push and open a draft PR; merge after the tool-base PR.
+  - Blocked in the sandbox: all Spine artifact repositories return 403 for
+    the buildscript dependency `io.spine.tools:protobuf-setup-plugins`, so
+    no Gradle build can run here at all. Verification is delegated to PR CI.
+  - Repo-wide greps confirm no remaining references to the removed class;
+    the surviving `CodeGeneratorRequest*` specs do not use it.
+- [x] Push and open a draft PR; merge after the tool-base PR.
 
 ## Log
 
 - 2026-06-10 — drafted; executing autonomously per issue #938.
+- 2026-06-10 — removal committed and version bumped; sandbox cannot resolve
+  Spine snapshot artifacts (403 on all repos), so the build runs on PR CI
+  instead.
