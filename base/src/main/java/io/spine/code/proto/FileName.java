@@ -113,7 +113,7 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
     }
 
     /**
-     * Returns the file name with extension but without path.
+     * Returns the file name with an extension but without a path.
      */
     public String nameWithExtension() {
         var fullName = value();
