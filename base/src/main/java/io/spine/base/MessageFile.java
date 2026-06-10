@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * A enumeration of file naming conventions for pre-defined types of messages.
+ * An enumeration of file naming conventions for pre-defined types of messages.
  */
 public enum MessageFile implements Predicate<FileDescriptorProto> {
 
