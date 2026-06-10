@@ -1,11 +1,11 @@
 /*
- * Copyright 2026, TeamDev. All rights reserved.
+ * Copyright 2022, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * https://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -30,6 +30,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.errorprone.annotations.Immutable;
 import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import com.google.protobuf.Descriptors.FileDescriptor;
+import io.spine.base.MessageFile;
 import io.spine.code.fs.AbstractFileName;
 
 import java.io.Serial;
@@ -53,15 +54,6 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
 
     /** The file system separator as defined by Protobuf. Not platform-dependent. */
     private static final char PATH_SEPARATOR = '/';
-
-    /** The conventional suffix of a file declaring command messages. */
-    private static final String COMMANDS_SUFFIX = "commands" + EXTENSION;
-
-    /** The conventional suffix of a file declaring event messages. */
-    private static final String EVENTS_SUFFIX = "events" + EXTENSION;
-
-    /** The conventional suffix of a file declaring rejection messages. */
-    private static final String REJECTIONS_SUFFIX = "rejections" + EXTENSION;
 
     private FileName(String value) {
         super(value);
@@ -139,8 +131,8 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
         return result;
     }
 
-    private boolean hasSuffix(String suffix) {
-        var result = value().endsWith(suffix);
+    private boolean matches(MessageFile file) {
+        var result = value().endsWith(file.suffix());
         return result;
     }
 
@@ -148,20 +140,20 @@ public class FileName extends AbstractFileName<FileName> implements UnderscoredN
      * Returns {@code true} if the name of the file matches convention for command message files.
      */
     public boolean isCommands() {
-        return hasSuffix(COMMANDS_SUFFIX);
+        return matches(MessageFile.COMMANDS);
     }
 
     /**
      * Returns {@code true} if the name of the file matches convention for event message files.
      */
     public boolean isEvents() {
-        return hasSuffix(EVENTS_SUFFIX);
+        return matches(MessageFile.EVENTS);
     }
 
     /**
      * Returns {@code true} if the name of the file matches convention for rejection message files.
      */
     public boolean isRejections() {
-        return hasSuffix(REJECTIONS_SUFFIX);
+        return matches(MessageFile.REJECTIONS);
     }
 }
