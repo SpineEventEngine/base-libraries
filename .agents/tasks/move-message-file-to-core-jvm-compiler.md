@@ -48,7 +48,7 @@ its tests pass without the enum.
       `base/src/test/proto/spine/test/base/message_file_test_events.proto`
       (test ported to CoreJvmCompiler).
 - [x] Update copyright headers of modified files to 2026.
-- [x] Bump `version.gradle.kts` → `2.0.0-SNAPSHOT.405`; project version
+- [x] Bump `version.gradle.kts` → `2.0.0-SNAPSHOT.410` (combined with PR #943); project version
       strings in `docs/dependencies/*` updated to match (no dependency
       changed, so the regenerated content differs only in those strings).
 - [ ] Build `:base` and run its tests — **blocked locally**: the remote

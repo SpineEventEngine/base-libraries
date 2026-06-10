@@ -1,6 +1,6 @@
 
 
-# Dependencies of `io.spine:spine-annotations:2.0.0-SNAPSHOT.405`
+# Dependencies of `io.spine:spine-annotations:2.0.0-SNAPSHOT.410`
 
 ## Runtime
 1.  **Group** : org.jetbrains. **Name** : annotations. **Version** : 26.1.0.
@@ -767,7 +767,7 @@ This report was generated on **Mon Jun 08 18:37:28 WEST 2026** using
 
 
 
-# Dependencies of `io.spine:spine-base:2.0.0-SNAPSHOT.405`
+# Dependencies of `io.spine:spine-base:2.0.0-SNAPSHOT.410`
 
 ## Runtime
 1.  **Group** : com.google.code.findbugs. **Name** : jsr305. **Version** : 3.0.2.
@@ -1611,7 +1611,7 @@ This report was generated on **Mon Jun 08 18:37:29 WEST 2026** using
 
 
 
-# Dependencies of `io.spine:spine-environment:2.0.0-SNAPSHOT.405`
+# Dependencies of `io.spine:spine-environment:2.0.0-SNAPSHOT.410`
 
 ## Runtime
 1.  **Group** : com.google.code.findbugs. **Name** : jsr305. **Version** : 3.0.2.
@@ -2437,7 +2437,7 @@ This report was generated on **Mon Jun 08 18:37:28 WEST 2026** using
 
 
 
-# Dependencies of `io.spine:spine-format:2.0.0-SNAPSHOT.405`
+# Dependencies of `io.spine:spine-format:2.0.0-SNAPSHOT.410`
 
 ## Runtime
 1.  **Group** : com.fasterxml.jackson. **Name** : jackson-bom. **Version** : 2.22.0.
