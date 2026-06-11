@@ -21,11 +21,12 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           java-version: 17
           distribution: zulu
-          cache: gradle
+
+      - uses: gradle/actions/setup-gradle@v6
 
       # See: https://github.com/al-cheb/configure-pagefile-action
       - name: Configure Pagefile
@@ -33,8 +34,7 @@ jobs:
 
       - name: Build project and run tests
         shell: cmd
-        # For the reason on `--no-daemon` see https://github.com/actions/cache/issues/454
-        run: gradlew.bat build --stacktrace --no-daemon
+        run: gradlew.bat build --stacktrace
 
       # See: https://github.com/marketplace/actions/junit-report-action
       - name: Publish Test Report

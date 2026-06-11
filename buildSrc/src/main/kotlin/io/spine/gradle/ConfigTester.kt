@@ -39,8 +39,8 @@ import org.gradle.api.tasks.TaskContainer
  * A tool to execute the Gradle `build` task in selected Git repositories
  * with the local version of [config] contents.
  *
- * Checks out the content of selected repositories into the specified [tempFolder]. The folder
- * is created if it does not exist. By default, uses `./tmp` as a temp folder.
+ * Checks out the content of selected repositories into the specified [tempFolder].
+ * The folder is created if it does not exist. By default, uses `./tmp` as a temp folder.
  *
  * Replaces the `config` and `buildSrc` folders in the checked out repository by the local versions
  * of code. If the repository-under-test already contains its own `buildSrc` or `config` folders,
@@ -356,7 +356,7 @@ object SpineRepos {
 
     val base: URI = library("base")
     val baseTypes: URI = library("base-types")
-    val coreJava: URI = library("core-java")
+    val coreJvm: URI = library("core-jvm")
     val web: URI = library("web")
 
     private fun library(repo: String) = URI(libsOrg + repo)

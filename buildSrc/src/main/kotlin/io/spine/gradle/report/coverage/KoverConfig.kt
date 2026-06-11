@@ -276,7 +276,7 @@ class KoverConfig private constructor(
             .flatMap { root ->
                 root.walk()
                     .filter { !it.isDirectory }
-                    .flatMap { it.fqnsRelativeTo(root).asSequence() }
+                    .flatMap { it.classNamesIn(root).asSequence() }
             }
             .distinct()
             .toList()
@@ -359,7 +359,7 @@ private fun KotlinSourceSet.isMainSourceSet(): Boolean =
  *
  * Returns an empty list if this file is not under [root].
  */
-private fun File.fqnsRelativeTo(root: File): List<String> {
+internal fun File.classNamesIn(root: File): List<String> {
     if (!startsWith(root)) {
         return emptyList()
     }

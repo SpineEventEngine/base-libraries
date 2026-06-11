@@ -24,4 +24,40 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-val versionToPublish: String by extra("2.0.0-SNAPSHOT.410")
+package io.spine.base
+
+import com.google.protobuf.Any
+import com.google.protobuf.DescriptorProtos.FileDescriptorProto
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+
+@DisplayName("`MessageFile` should")
+internal class MessageFileSpec {
+
+    @Test
+    fun `expose the suffix required for the corresponding kind of files`() {
+        MessageFile.COMMANDS.suffix() shouldBe "commands.proto"
+        MessageFile.EVENTS.suffix() shouldBe "events.proto"
+        MessageFile.REJECTIONS.suffix() shouldBe "rejections.proto"
+    }
+
+    @Nested internal inner class
+    `test a file descriptor` {
+
+        @Test
+        fun `accepting the file with matching suffix`() {
+            val file = FileDescriptorProto.newBuilder()
+                .setName("given_events.proto")
+                .build()
+            MessageFile.EVENTS.test(file) shouldBe true
+        }
+
+        @Test
+        fun `rejecting the file with non-matching suffix`() {
+            val file = Any.getDescriptor().file.toProto()
+            MessageFile.EVENTS.test(file) shouldBe false
+        }
+    }
+}
