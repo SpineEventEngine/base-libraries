@@ -8,14 +8,6 @@ jobs:
     name: Build on Windows
 
     steps:
-      - name: Configure Git for Windows symlink compatibility
-        shell: pwsh
-        run: |
-          # Avoid creating/expecting native symlinks on Windows runners.
-          # This helps when repository paths (like .agents/guidelines) are represented
-          # via links that can trigger EPERM on stat/access.
-          git config --global core.symlinks false
-
       - uses: actions/checkout@v6
         with:
           submodules: recursive
