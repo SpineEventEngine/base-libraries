@@ -24,23 +24,40 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.local
+package io.spine.base
 
-/**
- * Spine Base module.
- *
- * @see <a href="https://github.com/SpineEventEngine/base-libraries">spine-base-libraries</a>
- */
-@Suppress("ConstPropertyName", "unused")
-object Base {
-    const val version = "2.0.0-SNAPSHOT.404"
-    const val versionForBuildScript = "2.0.0-SNAPSHOT.404"
-    const val group = Spine.group
-    private const val prefix = "spine"
-    const val libModule = "$prefix-base"
-    const val lib = "$group:$libModule:$version"
-    const val libForBuildScript = "$group:$libModule:$versionForBuildScript"
-    const val annotations = "$group:$prefix-annotations:$version"
-    const val environment = "$group:$prefix-environment:$version"
-    const val format = "$group:$prefix-format:$version"
+import com.google.protobuf.Any
+import com.google.protobuf.DescriptorProtos.FileDescriptorProto
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+
+@DisplayName("`MessageFile` should")
+internal class MessageFileSpec {
+
+    @Test
+    fun `expose the suffix required for the corresponding kind of files`() {
+        MessageFile.COMMANDS.suffix() shouldBe "commands.proto"
+        MessageFile.EVENTS.suffix() shouldBe "events.proto"
+        MessageFile.REJECTIONS.suffix() shouldBe "rejections.proto"
+    }
+
+    @Nested internal inner class
+    `test a file descriptor` {
+
+        @Test
+        fun `accepting the file with matching suffix`() {
+            val file = FileDescriptorProto.newBuilder()
+                .setName("given_events.proto")
+                .build()
+            MessageFile.EVENTS.test(file) shouldBe true
+        }
+
+        @Test
+        fun `rejecting the file with non-matching suffix`() {
+            val file = Any.getDescriptor().file.toProto()
+            MessageFile.EVENTS.test(file) shouldBe false
+        }
+    }
 }
