@@ -42,10 +42,10 @@ val tempFolder = File("./tmp")
 ConfigTester(config, tasks, tempFolder)
     .addRepo(SpineRepos.baseTypes)  // Builds `base-types` at `master`.
     .addRepo(SpineRepos.base)       // Builds `base` at `master`.
-    .addRepo(SpineRepos.coreJava)   // Builds `core-java` at `master`.
+    .addRepo(SpineRepos.coreJvm)    // Builds `core-jvm` at `master`.
 
     // This is how one builds a specific branch of some repository:
-    // .addRepo(SpineRepos.coreJava, Branch("grpc-concurrency-fixes"))
+    // .addRepo(SpineRepos.coreJvm, Branch("grpc-concurrency-fixes"))
 
     // Register the produced task under the selected name to invoke manually upon need.
     .registerUnder("buildDependants")

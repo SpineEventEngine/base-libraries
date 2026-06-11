@@ -39,7 +39,7 @@ jobs:
     outputs:
       package-names: ${{ steps.request-package-names.outputs.package-names }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: 'true'
 
