@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -30,12 +30,12 @@ import com.google.errorprone.annotations.Immutable;
 import io.spine.annotation.SPI;
 
 /**
- * A column storing the data which is not directly declared as a field in the {@code Message}
+ * A column storing the data that is not directly declared as a field in the {@code Message}
  * of an {@link io.spine.base.EntityState EntityState} or a plain record.
  *
  * <p>End-users may choose to store some arbitrary or computed on-the-fly data
  * along with the record. E.g. the time of entity creation or the role of the user created
- * the record etc. That is, something which isn't included into the definition
+ * the record etc. That is, something that isn't included into the definition
  * of the {@code Message} type of the record.
  *
  * <p>The framework users would need to provide their own {@link CustomColumn} implementation.

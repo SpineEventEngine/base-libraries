@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import kotlin.annotation.AnnotationTarget.PROPERTY
 import kotlin.annotation.AnnotationTarget.VALUE_PARAMETER
 
 /**
- * The `Modified` annotation is used to mark the source code which was
+ * The `Modified` annotation is used to mark the source code that was
  * [created][Generated] by one code generator and then
  * modified by another code generator hereby referenced as "modifier".
  *
@@ -55,7 +55,7 @@ import kotlin.annotation.AnnotationTarget.VALUE_PARAMETER
  *
  * If changes that a modifier applies to original source files are significant and
  * are likely to overwhelm the value of the [comments] element,
- * authors of modifiers may consider putting a URL to the documentation which outlines
+ * authors of modifiers may consider putting a URL to the documentation that outlines
  * the nature of changes applied by the modifier.
  *
  * @property value Provides the name and other optional references

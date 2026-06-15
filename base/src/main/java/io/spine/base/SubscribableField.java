@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -31,10 +31,10 @@ import io.spine.annotation.Internal;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * A subscribable message field which can be passed to subscription filters.
+ * A subscribable message field that can be passed to subscription filters.
  *
  * <p>For each message that can be subscribed to, and also for any number of configured additional
- * types, the Spine routines will generate a nested {@code Field} type which exposes all message
+ * types, the Spine routines will generate a nested {@code Field} type that exposes all message
  * fields as {@code SubscribableField} instances. Example:
  * <pre>
  * // Given message declarations.
@@ -87,7 +87,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <p>See the Spine code generation routines in the {@code tool-base} module for extensive details
  * on how the types are generated.
  *
- * @apiNote In the generated code this class is, among others, inherited by the types which
+ * @apiNote In the generated code this class is, among others, inherited by the types that
  *        declare nested message fields as own public instance methods, as follows:
  *        <pre>
  *        public EntityStateField someFieldName() {...}

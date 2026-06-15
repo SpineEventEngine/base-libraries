@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ import java.nio.charset.StandardCharsets
  * The [desc.ref][NAME] file is needed to avoid walking through the whole classpath for
  * finding descriptor set files.
  *
- * A module which contains proto files gets a descriptor set file and the file with the reference
+ * A module that contains proto files gets a descriptor set file and the file with the reference
  * to it when the Spine's Descriptor Set File Gradle Plugin is applied to the project.
  *
  * The plugin can be applied either directly or indirectly e.g.,

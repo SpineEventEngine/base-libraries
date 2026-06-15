@@ -51,7 +51,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <p>The instances of this type are immutable.
  *
  * @param <R>
- *         the type of records which columns are described
+ *         the type of records that columns are described
  * @implNote This type delegates all of its operations to a nested {@link ImmutableList}.
  */
 @Immutable
@@ -70,7 +70,7 @@ public final class Columns<R extends Message> implements List<RecordColumn<R, ?>
      * @param columns
      *         the columns to join in a list
      * @param <R>
-     *         the type of records which columns are joined into a list
+     *         the type of records that columns are joined into a list
      * @return a new instance of the column list
      */
     @SafeVarargs

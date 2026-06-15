@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -60,7 +60,7 @@ abstract class QueryCriterion<R extends Message,
      * Creates a new instance.
      *
      * @param column
-     *         the column which actual value to use later in querying
+     *         the column that actual value to use later in querying
      * @param builder
      *         the builder of an query in scope of which the criterion is created
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -344,7 +344,7 @@ val buildToolConfigurations: Array<String> = arrayOf(
 )
 
 /**
- * Make the `sourcesJar` task accept duplicated input which seems to occur
+ * Make the `sourcesJar` task accept duplicated input, which seems to occur
  * somewhere inside Protobuf Gradle Plugin.
  */
 fun Project.allowDuplicationInSourcesJar() {

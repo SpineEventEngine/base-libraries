@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,8 @@ package io.spine.base;
 import com.google.errorprone.annotations.Immutable;
 import io.spine.type.KnownMessage;
 
-
 /**
- * A message which can be dispatched to one or more entities.
+ * A message that can be dispatched to one or more entities.
  *
  * <p>The IDs of destination entities are determined by the content of a message
  * implementing this interface and by the context of the message,

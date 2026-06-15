@@ -45,7 +45,7 @@ public final class Predicates2 {
     }
 
     /**
-     * Retrieves a {@link Predicate} on a given type {@code T} which distinguishes passed values
+     * Retrieves a {@link Predicate} on a given type {@code T} that distinguishes passed values
      * by some property.
      *
      * <p>The predicate is satisfied (returns {@code true}) iff the result of applying the given

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ internal abstract class ProtoConverter<M : Message, T : Any> : Converter<M, T>()
          * [BytesValue][com.google.protobuf.BytesValue].
          *
          * [Protobuf enums][ProtocolMessageEnum] are converted using a dedicated
-         * [EnumConverter] which handles conversions by name or by number.
+         * [EnumConverter] that handles conversions by name or by number.
          *
          *  * [lists][List] are converted to [io.spine.base.ListOfAnys].
          *

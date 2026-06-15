@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -38,7 +38,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 /**
- * An abstract base for queries which may be used to fetch the records defined as Protobuf messages.
+ * An abstract base for queries that may be used to fetch the records defined as Protobuf messages.
  *
  * @param <I>
  *         the type of record identifiers
@@ -56,7 +56,7 @@ abstract class AbstractQuery<I, R extends Message, P extends SubjectParameter<R,
     private final Subject<I, R> subject;
 
     /**
-     * List of sorting directives which define the order of records in the query results.
+     * List of sorting directives that define the order of records in the query results.
      *
      * <p>Directives are applied one by one, starting with the first one. The second one
      * and all consecutive directives specify the sorting order of records, which are considered

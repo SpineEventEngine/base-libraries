@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -126,7 +126,7 @@ public final class ClassName extends StringTypeValue {
     /**
      * Creates an instance of {@code ClassName} from the given Protobuf message type descriptor.
      *
-     * <p>The resulting class name is the name of the Java class which represents
+     * <p>The resulting class name is the name of the Java class that represents
      * the given Protobuf type.
      *
      * @param messageType
@@ -142,7 +142,7 @@ public final class ClassName extends StringTypeValue {
     /**
      * Creates an instance of {@code ClassName} from the given Protobuf enum type descriptor.
      *
-     * <p>The resulting class name is the name of the Java enum which represents the given Protobuf
+     * <p>The resulting class name is the name of the Java enum that represents the given Protobuf
      * type.
      *
      * @param enumType
@@ -157,7 +157,7 @@ public final class ClassName extends StringTypeValue {
     /**
      * Creates an instance of {@code ClassName} from the given Protobuf service descriptor.
      *
-     * <p>The resulting class name is the name of the Java gRPC stub class which is generated from
+     * <p>The resulting class name is the name of the Java gRPC stub class that is generated from
      * the given service type.
      *
      * @param serviceType
@@ -193,7 +193,7 @@ public final class ClassName extends StringTypeValue {
     }
 
     /**
-     * Obtains prefix for a type which is enclosed into the passed message.
+     * Obtains prefix for a type that is enclosed into the passed message.
      * If a {@code null} value is passed, returns an empty string.
      */
     private static String containingClassPrefix(@Nullable Descriptor containingMessage) {
@@ -223,7 +223,7 @@ public final class ClassName extends StringTypeValue {
     }
 
     /**
-     * Converts the name which may be a nested class name with {@link #OUTER_CLASS_DELIMITER}
+     * Converts the name that may be a nested class name with {@link #OUTER_CLASS_DELIMITER}
      * to the name separated with dots.
      *
      * @see Class#getCanonicalName()

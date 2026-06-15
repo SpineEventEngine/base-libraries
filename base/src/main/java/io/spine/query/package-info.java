@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -35,7 +35,7 @@
  * developers deal with an abstraction over a database port. Under these circumstances,
  * a convenient language is required to describe the how the message data is saved and retrieved.
  *
- * <p>Proto messages may have complex structure which hardly maps to a flat structure of most
+ * <p>Proto messages may have complex structure that hardly maps to a flat structure of most
  * relational databases and even some NoSQL storages. Therefore, when a Protobuf message
  * is persisted, it is typically transformed to a byte array through the native Protobuf
  * serialization mechanism. The resulting record is stored along with its identifier.
@@ -62,7 +62,7 @@
  * <p>In scope of this document, a "record" means a Protobuf message persisted into a storage.
  * Each record has an identifier, a serialized {@code Message} content as BLOB, and potentially
  * declares one or more record columns. A column is typically a part of a stored message
- * (e.g. a field, or a value of a function of several fields) which is stored in the same DB object
+ * (e.g. a field, or a value of a function of several fields) that is stored in the same DB object
  * or a table row.
  *
  * <p>The stored records may be queried in one of three ways:
@@ -152,7 +152,7 @@
  * </pre>
  *
  * <p>Where {@code b} is the instance of the same {@code RecordQueryBuilder}, for proper chaining.
- * This query selects all the records which have either {@code whenFounded} value less than
+ * This query selects all the records that have either {@code whenFounded} value less than
  * January, 1, 1990, or the {@code isTraded} value equal to {@code true}.
  *
  * <p>Please note that {@code ManufacturerId} is used as a type of the record identifier when
@@ -192,7 +192,7 @@
  * descending. Finally, the query result is limited to the top ten records.
  *
  * <p>Please note, that {@linkplain io.spine.query.RecordQueryBuilder#limit(int) limit(..)}
- * method may only be used in queries which sort their results. Otherwise, a runtime exception
+ * method may only be used in queries that sort their results. Otherwise, a runtime exception
  * is thrown upon building the query.
  *
  * <h4>Field masks</h4>
@@ -269,8 +269,8 @@
  *        .build();
  * </pre>
  *
- * <p>It produces a query for all the {@code ProjectView} records which status is not
- * {@code CREATED} and which were started more than five days ago.
+ * <p>It produces a query for all the {@code ProjectView} records that have a status other than
+ * {@code CREATED} and that were started more than five days ago.
  *
  * <p>Disjunction (or OR statements) are also supported:
  *
@@ -286,7 +286,7 @@
  *                   .build();
  * </pre>
  *
- * <p>This piece produces a query targeting the projects which are either done or started more
+ * <p>This piece produces a query targeting the projects that are either done or started more
  * than thirty days ago.
  *
  * <p>The first field of the {@code Message} is treated as
@@ -321,7 +321,7 @@
  * the custom columns. They are intended to handle the cases in which some computed on-the-fly data
  * should be stored along with the record. It may the time of entity creation, the role of the
  * user created the record, whether the entity is deleted or archived etc. That is, something
- * which isn't included into the definition of the original {@code Message} type of the record.
+ * that isn't included into the definition of the original {@code Message} type of the record.
  *
  * <pre>
  * // The column presumably defined as a custom column for querying.

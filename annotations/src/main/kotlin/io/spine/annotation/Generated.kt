@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@ import kotlin.annotation.AnnotationTarget.VALUE_PARAMETER
  * exclude the generated code from test coverage.
  *
  * [JaCoCo analyzes](https://github.com/jacoco/jacoco/issues/685#issuecomment-392020612)
- * Java classes for the presence of an annotation which simple name is `Generated`.
+ * Java classes for the presence of an annotation whose simple name is `Generated`.
  * It cannot be `GrpcGenerated` or `SpineGenerated`.
  * It could be any package, but the simple name must be `Generated`.
  * Such a class is automatically excluded from the report.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ internal object CallerProvider {
     private val stackWalker: StackWalker = StackWalker.getInstance(RETAIN_CLASS_REFERENCE)
 
     /**
-     * Obtains the class of the object which calls the method from which
+     * Obtains the class of the object that calls the method from which
      * this method is being called.
      */
     fun callerClass(): Class<*> {
@@ -48,7 +48,7 @@ internal object CallerProvider {
     }
 
     /**
-     * Obtains the class preceding in the call chain the class which calls
+     * Obtains the class preceding in the call chain the class that calls
      * the method from which this method is being called.
      */
     fun previousCallerClass(): Class<*> {

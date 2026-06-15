@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -40,7 +40,7 @@ import java.util.Optional;
  * A builder for instance of {@link Query}.
  *
  * @param <I>
- *         the type of identifiers of the records which are queried
+ *         the type of identifiers of the records that are queried
  * @param <R>
  *         the type of queried records
  * @param <P>
@@ -117,8 +117,8 @@ public interface QueryBuilder<I,
      *                .build();
      * </pre>
      *
-     * <p>The {@code ProjectView} query above targets the instances which are either started
-     * more than thirty days ago, or those which are in {@code DONE} status.
+     * <p>The {@code ProjectView} query above targets the instances that are either started
+     * more than thirty days ago, or those that are in {@code DONE} status.
      *
      * <p>Each {@code Either} is a lambda serving to preserve the current {@code QueryBuilder} with
      * its API and syntax sugar for creating the new predicates, but in a disjunction context.
@@ -136,7 +136,7 @@ public interface QueryBuilder<I,
      *                }).build();
      * </pre>
      *
-     * <p>This example creates a query for the {@code ProjectView} instances which have one
+     * <p>This example creates a query for the {@code ProjectView} instances that have one
      * of the expected {@code statuses}. Note that {@code either(..)} is passed with a single
      * argument lambda. Each predicate appended to the builder inside of the passed lambda
      * is treated as a disjunction predicate. Basically, that is just a short form of

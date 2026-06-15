@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -30,13 +30,13 @@ import com.google.errorprone.annotations.Immutable;
 import io.spine.base.EntityState;
 
 /**
- * A queryable column of an entity which can be passed to the query filters.
+ * A queryable column of an entity that can be passed to the query filters.
  *
  * <p>Normally, instances of this class are provided by the Spine-generated column enumeration and
  * should not be constructed in the user code directly.
  *
- * <p>For each message which represents an entity state and has columns, the Spine routines will
- * generate a nested {@code Column} class which exposes all columns of the entity as
+ * <p>For each message that represents an entity state and has columns, the Spine routines will
+ * generate a nested {@code Column} class that exposes all columns of the entity as
  * {@code EntityColumn} instances. Example:
  *
  * <pre>

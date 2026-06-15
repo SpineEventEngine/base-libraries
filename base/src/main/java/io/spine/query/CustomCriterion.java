@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -37,7 +37,7 @@ import static io.spine.query.ComparisonOperator.EQUALS;
  * <p>The custom parameters are set as desired values for the {@link CustomColumn}s.
  *
  * @param <S>
- *         the type of objects which serve as a source for the column values
+ *         the type of objects that serve as a source for the column values
  * @param <V>
  *         the type of column values
  * @param <B>
@@ -62,7 +62,7 @@ final class CustomCriterion<S, V, B extends QueryBuilder<?, ?, ?, B, ?>> {
     }
 
     /**
-     * Sets the value which should be equal to the actual column value when querying.
+     * Sets the value that should be equal to the actual column value when querying.
      *
      * <p>Appends the {@code QueryBuilder} associated with this criterion with
      * the {@linkplain CustomSubjectParameter custom subject parameter} based on the specified
