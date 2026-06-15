@@ -36,6 +36,7 @@ import com.google.protobuf.Parser
 import com.google.protobuf.UnknownFieldSet
 import io.kotest.matchers.shouldBe
 import java.io.OutputStream
+import java.io.Serial
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -70,6 +71,7 @@ internal class `Extensions for 'Throwable' should` {
      */
     private class StubRejectionThrowable: RejectionThrowable(StubRejectionMessage()) {
         companion object {
+            @Serial
             private const val serialVersionUID: Long = 0L
         }
     }
@@ -105,6 +107,7 @@ internal class `Extensions for 'Throwable' should` {
         private fun notImplemented(): Nothing = TODO("Stub type")
 
         companion object {
+            @Serial
             private const val serialVersionUID: Long = 0L
         }
     }

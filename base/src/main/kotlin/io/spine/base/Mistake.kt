@@ -26,6 +26,8 @@
 
 package io.spine.base
 
+import java.io.Serial
+
 /**
  * A special kind of [RuntimeException] that represents an error, such as a programming or
  * a system configuration error made by a human or a software agent.
@@ -58,6 +60,7 @@ public abstract class Mistake(message: String?, cause: Throwable?) :
     public constructor() : this(null, null)
 
     public companion object {
+        @Serial
         private const val serialVersionUID: Long = 0L
     }
 }
