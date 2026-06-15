@@ -44,7 +44,7 @@ final class AndExpression<R> extends Expression<R, AndExpression<R>> {
      * Creates a new instance of builder for this expression.
      *
      * @param <R>
-     *         the type of records that parameters are a part of this expression
+     *         the type of records whose parameters are a part of this expression
      */
     static <R> AndBuilder<R> newBuilder() {
         return new AndBuilder<>();
