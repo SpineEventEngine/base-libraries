@@ -39,7 +39,7 @@ class EntityStateSpec {
      * This test simply makes the generic parameter used because the stub class uses it.
      *
      * @see <a href="https://github.com/SpineEventEngine/ProtoData/issues/114">Corresponding issue
-     * </a> for mor details.
+     * </a> for more details.
      */
     @Test
     fun `generic parameter for ID`() {
