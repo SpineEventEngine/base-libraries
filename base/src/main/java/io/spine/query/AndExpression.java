@@ -32,7 +32,7 @@ import static io.spine.query.LogicalOperator.AND;
  * Conjunctive expression.
  *
  * @param <R>
- *         the type of records that parameters are a part of this expression
+ *         the type of records whose parameters are a part of this expression
  */
 final class AndExpression<R> extends Expression<R, AndExpression<R>> {
 
