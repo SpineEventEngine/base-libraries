@@ -36,7 +36,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.query.LogicalOperator.AND;
 
 /**
- * Helper utility performing the multiplication of parts of boolean expressions that results
+ * Helper utility performing the multiplication of parts of boolean expressions that result
  * in cartesian products.
  */
 final class CartesianProducts {
