@@ -44,8 +44,8 @@ import org.junit.jupiter.api.io.TempDir
  * @property format The format to test.
  * @property instance The instance of the type [T] to be used when writing files
  *   and comparing with the parsed values.
- * @property file The file path that is composed having the temporary directory
- *  as the parent, using a randomly generated UUID-based name.
+ * @property file The file path that is composed using the temporary directory
+ *  as the parent, with a randomly generated UUID-based name.
  *  The file name has the extension supported by the given [format].
  *
  * @see setup
