@@ -60,7 +60,7 @@ abstract class QueryCriterion<R extends Message,
      * Creates a new instance.
      *
      * @param column
-     *         the column that actual value to use later in querying
+     *         the column whose actual value is used later in querying
      * @param builder
      *         the builder of an query in scope of which the criterion is created
      */
