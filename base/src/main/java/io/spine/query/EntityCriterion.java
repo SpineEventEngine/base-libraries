@@ -49,7 +49,7 @@ public final class EntityCriterion<S extends EntityState<?>,
      * Creates a new instance.
      *
      * @param column
-     *         the column whose actual value to use later in querying
+     *         the column whose actual value is used later in querying
      * @param builder
      *         the builder of an {@link EntityQuery} in scope of which the criterion is created
      */

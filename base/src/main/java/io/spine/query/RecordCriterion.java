@@ -46,7 +46,7 @@ public final class RecordCriterion<I, R extends Message, V>
      * Creates a new instance.
      *
      * @param column
-     *         the column whose actual value to use later in querying
+     *         the column whose actual value is used later in querying
      * @param builder
      *         the builder in scope of which this criterion exists
      */
