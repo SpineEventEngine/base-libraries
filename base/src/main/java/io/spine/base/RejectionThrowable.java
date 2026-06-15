@@ -55,7 +55,7 @@ public abstract class RejectionThrowable extends Throwable {
     /** The moment of creation of this object. */
     private final Timestamp timestamp;
 
-    /** Optional ID of the entity that thrown the message. */
+    /** Optional ID of the entity that threw the message. */
     private @MonotonicNonNull Any producerId;
 
     protected RejectionThrowable(RejectionMessage message) {
