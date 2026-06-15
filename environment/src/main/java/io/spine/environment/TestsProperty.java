@@ -44,7 +44,7 @@ import static java.lang.Boolean.TRUE;
 final class TestsProperty {
 
     /**
-     * The key name of the system property that tells if a code runs under a testing framework.
+     * The key name of the system property that tells whether the code runs under a testing framework.
      *
      * <p>If your testing framework is not among the {@link Tests#knownTestingFrameworks()},
      * set this property to {@code true} before running tests.
