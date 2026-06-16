@@ -47,7 +47,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 /**
- * A utility class that allows to obtain Protobuf file descriptors.
+ * A utility class for obtaining Protobuf file descriptors.
  */
 public final class FileDescriptors {
 

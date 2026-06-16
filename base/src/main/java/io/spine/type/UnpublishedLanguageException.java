@@ -34,7 +34,7 @@ import static java.lang.String.format;
 
 /**
  * Thrown when a Protobuf type having the {@code internal_type} option is sent
- * to a bounded context that declares it. Or, when the declaring bounded context attempts
+ * to a bounded context that does not declare it. Or, when the declaring bounded context attempts
  * to send this type outside.
  *
  * <p>A Java type corresponding to a Protobuf type with the {@code internal_type} option
