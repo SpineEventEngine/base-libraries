@@ -10,7 +10,7 @@ all modules and does not describe the project structure per-subproject.
  -->
 <groupId>io.spine</groupId>
 <artifactId>base-libraries</artifactId>
-<version>2.0.0-SNAPSHOT.412</version>
+<version>2.0.0-SNAPSHOT.413</version>
 
 <inceptionYear>2015</inceptionYear>
 
@@ -32,31 +32,26 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
-    <version>null</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.dataformat</groupId>
     <artifactId>jackson-dataformat-yaml</artifactId>
-    <version>null</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-guava</artifactId>
-    <version>null</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-jdk8</artifactId>
-    <version>null</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-jsr310</artifactId>
-    <version>null</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
@@ -126,9 +121,32 @@ all modules and does not describe the project structure per-subproject.
     <scope>compile</scope>
   </dependency>
   <dependency>
+    <groupId>com.google.auto.service</groupId>
+    <artifactId>auto-service-annotations</artifactId>
+    <version>1.1.1</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>com.google.errorprone</groupId>
+    <artifactId>error_prone_annotations</artifactId>
+    <version>2.36.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>com.google.errorprone</groupId>
+    <artifactId>error_prone_type_annotations</artifactId>
+    <version>2.36.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>org.checkerframework</groupId>
+    <artifactId>checker-qual</artifactId>
+    <version>4.2.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
     <groupId>com.fasterxml.jackson.module</groupId>
     <artifactId>jackson-module-kotlin</artifactId>
-    <version>null</version>
     <scope>runtime</scope>
   </dependency>
   <dependency>
@@ -192,32 +210,14 @@ all modules and does not describe the project structure per-subproject.
     <scope>test</scope>
   </dependency>
   <dependency>
-    <groupId>com.google.auto.service</groupId>
-    <artifactId>auto-service-annotations</artifactId>
-    <version>1.1.1</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
     <groupId>com.google.devtools.ksp</groupId>
     <artifactId>symbol-processing-api</artifactId>
     <version>2.3.9</version>
   </dependency>
   <dependency>
     <groupId>com.google.errorprone</groupId>
-    <artifactId>error_prone_annotations</artifactId>
-    <version>2.36.0</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.google.errorprone</groupId>
     <artifactId>error_prone_core</artifactId>
     <version>2.36.0</version>
-  </dependency>
-  <dependency>
-    <groupId>com.google.errorprone</groupId>
-    <artifactId>error_prone_type_annotations</artifactId>
-    <version>2.36.0</version>
-    <scope>provided</scope>
   </dependency>
   <dependency>
     <groupId>com.google.protobuf</groupId>
@@ -253,12 +253,6 @@ all modules and does not describe the project structure per-subproject.
     <groupId>net.sourceforge.pmd</groupId>
     <artifactId>pmd-java</artifactId>
     <version>7.25.0</version>
-  </dependency>
-  <dependency>
-    <groupId>org.checkerframework</groupId>
-    <artifactId>checker-qual</artifactId>
-    <version>4.2.0</version>
-    <scope>provided</scope>
   </dependency>
   <dependency>
     <groupId>org.jacoco</groupId>

@@ -82,8 +82,8 @@ private fun Project.readGitHubToken(): String {
 }
 
 /**
- * Read the personal access token for the `developers@spine.io` account that
- * has only the permission to read public GitHub packages.
+ * Reads the personal access token for the `developers@spine.io` account.
+ * The token grants only read access to public GitHub packages.
  *
  * The token is extracted from the archive called `aus.weis` stored under `buildSrc`.
  * The archive has such an unusual name to avoid scanning for tokens placed in repositories
