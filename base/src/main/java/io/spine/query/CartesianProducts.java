@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -36,7 +36,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.query.LogicalOperator.AND;
 
 /**
- * Helper utility performing the multiplication of parts of boolean expressions which results
+ * Helper utility performing the multiplication of parts of boolean expressions that result
  * in cartesian products.
  */
 final class CartesianProducts {
@@ -55,7 +55,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     static <R>
     void cartesianSimpleParams(List<SubjectParameter<R, ?, ?>> simpleParams,
@@ -79,7 +79,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     static <R>
     void cartesianChildren(List<Expression<R, ?>> children,
@@ -103,7 +103,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     static <R>
     void cartesianCustomParams(List<CustomSubjectParameter<?, ?>> customParams,
@@ -126,7 +126,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R>
     void paramOverSimpleParams(SubjectParameter<R, ?, ?> param,
@@ -148,7 +148,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R>
     void paramOverCustomParams(SubjectParameter<R, ?, ?> param,
@@ -170,7 +170,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void paramOverChildren(SubjectParameter<R, ?, ?> param,
                                               ImmutableList<Expression<R, ?>> children,
@@ -190,7 +190,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void customOverChildren(CustomSubjectParameter<?, ?> customParam,
                                                OrExpression<R> expression,
@@ -210,7 +210,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void customOverCustom(CustomSubjectParameter<?, ?> customParam,
                                              OrExpression<R> second,
@@ -231,7 +231,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void customOverSimple(CustomSubjectParameter<?, ?> customParam,
                                              OrExpression<R> expression,
@@ -252,7 +252,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R>
     void childOverSimpleParams(Expression<R, ?> child,
@@ -273,7 +273,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R>
     void childOverCustomParams(Expression<R, ?> child,
@@ -295,7 +295,7 @@ final class CartesianProducts {
      * <p>Appends the resulting {@code AndExpression}s to the provided result builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void childOverChildren(Expression<R, ?> child,
                                               ImmutableList<Expression<R, ?>> children,
@@ -317,7 +317,7 @@ final class CartesianProducts {
      * of the passed builder.
      *
      * @param <R>
-     *         the type of records which query conditions are described by the processed expressions
+     *         the type of records that query conditions are described by the processed expressions
      */
     private static <R> void addChild(Expression<R, ?> child, AndBuilder<R> destination) {
         if (child.operator() == AND) {

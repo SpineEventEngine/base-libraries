@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -31,7 +31,7 @@ import java.util.Objects;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * A parameter which defines the expected value for the {@linkplain RecordColumn record column}
+ * A parameter that defines the expected value for the {@linkplain RecordColumn record column}
  * in scope of a particular {@linkplain Query query}.
  *
  * @param <R>
@@ -54,7 +54,7 @@ public abstract class SubjectParameter<R, C extends Column<R, V>, V> {
     }
 
     /**
-     * Returns the record column which is going to be queried with this parameter.
+     * Returns the record column that is going to be queried with this parameter.
      */
     public final C column() {
         return column;

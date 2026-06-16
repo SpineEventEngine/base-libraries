@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import kotlin.annotation.AnnotationRetention.SOURCE
 import kotlin.annotation.AnnotationTarget.CLASS
 
 /**
- * Indicates an interface which is implemented in the generated code adding desired behavior
+ * Indicates an interface that is implemented in the generated code adding desired behavior
  * using default methods declared in the interface.
  *
  * ## Motivation
@@ -49,7 +49,7 @@ import kotlin.annotation.AnnotationTarget.CLASS
  *
  * ## Creating a mixin interface
  *
- * In order to generate a class which implements a custom mixin interface:
+ * In order to generate a class that implements a custom mixin interface:
  * 1. Create the interface and mark it with this annotation.
  * 2. Declare methods of interest accessing properties of the generated types following
  *    the Protobuf convention for the accessor methods.

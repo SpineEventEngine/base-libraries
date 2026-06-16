@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -32,7 +32,7 @@ import static io.spine.query.LogicalOperator.OR;
  * Disjunctive expression.
  *
  * @param <R>
- *         the type of records, which parameters are a part of this expression
+ *         the type of records whose parameters are a part of this expression
  */
 final class OrExpression<R> extends Expression<R, OrExpression<R>> {
 
@@ -44,7 +44,7 @@ final class OrExpression<R> extends Expression<R, OrExpression<R>> {
      * Creates a new instance of builder for this expression.
      *
      * @param <R>
-     *         the type of records, which parameters are a part of this expression
+     *         the type of records whose parameters are a part of this expression
      */
     static <R> OrBuilder<R> newBuilder() {
         return new OrBuilder<>();

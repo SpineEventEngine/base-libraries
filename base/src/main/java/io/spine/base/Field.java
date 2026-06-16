@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -194,7 +194,7 @@ public final class Field extends ValueHolder<FieldPath> {
      * Obtains the value of the field in the given message.
      *
      * @param holder
-     *         the message which potentially has the referenced field
+     *         the message that potentially has the referenced field
      * @return the value of the field or empty {@code Optional} if the field is not defined
      *         in this type of messages
      */
@@ -389,7 +389,7 @@ public final class Field extends ValueHolder<FieldPath> {
      * <p>{@link Message#getField(FieldDescriptor)} returns {@code EnumValueDescriptor} if
      * a field of a message is an enum value. This descriptor contains information about
      * the value of the enum. This method converts this value into an instance of a generated
-     * Java {@link Enum} which corresponds to the enum proto type of the field.
+     * Java {@link Enum} that corresponds to the enum proto type of the field.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
         // The generic arg. of the enum is of no importance here.

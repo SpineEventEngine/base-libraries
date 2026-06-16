@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -38,7 +38,7 @@ import java.util.Optional;
  * @param <T>
  *         the type of the value held by this option
  * @param <K>
- *         the type of object which holds the option such as "field", "message", or "file"
+ *         the type of object that holds the option such as "field", "message", or "file"
  * @see <a href="https://developers.google.com/protocol-buffers/docs/proto3#custom_options">Protobuf
  *         Custom Options</a>
  */

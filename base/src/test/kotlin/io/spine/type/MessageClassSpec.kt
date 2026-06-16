@@ -34,6 +34,7 @@ import com.google.protobuf.StringValue
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import java.io.Serial
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -118,7 +119,7 @@ private class TestMessageClass : MessageClass<Message> {
     constructor(value: Class<out Message>, url: TypeUrl) : super(value, url)
 
     private companion object {
-        @Suppress("ConstPropertyName", "unused")
+        @Serial
         private const val serialVersionUID: Long = 0L
     }
 }

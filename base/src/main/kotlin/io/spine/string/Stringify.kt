@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -96,7 +96,7 @@ public object Stringifiers {
      * Converts the passed value to the string representation.
      *
      * Use this method for converting non-generic objects. For generic objects,
-     * please use the overload which accepts [Type] as the second parameter.
+     * please use the overload that accepts [Type] as the second parameter.
      *
      * @param obj
      *         the object to convert.
@@ -174,7 +174,6 @@ public object Stringifiers {
         keyClass: Class<K>,
         valueClass: Class<V>
     ): Stringifier<Map<K, V>> = MapStringifier(keyClass, valueClass)
-
 
     /**
      * Obtains `Stringifier` for the map with custom delimiter for the passed map elements.
@@ -297,7 +296,7 @@ public object Stringifiers {
         DefaultMessageStringifier(messageClass)
 
     /**
-     * Creates the `Escaper` which escapes contained '\' and passed characters.
+     * Creates the `Escaper` that escapes contained '\' and passed characters.
      *
      * @param charToEscape
      *         the char to escape.

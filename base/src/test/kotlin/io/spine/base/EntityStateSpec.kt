@@ -28,6 +28,7 @@ package io.spine.base
 
 import io.kotest.matchers.shouldBe
 import io.spine.testing.StubMessage
+import java.io.Serial
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -38,7 +39,7 @@ class EntityStateSpec {
      * This test simply makes the generic parameter used because the stub class uses it.
      *
      * @see <a href="https://github.com/SpineEventEngine/ProtoData/issues/114">Corresponding issue
-     * </a> for mor details.
+     * </a> for more details.
      */
     @Test
     fun `generic parameter for ID`() {
@@ -60,12 +61,14 @@ class EntityStateSpec {
 
 class StubEntityState: StubMessage(), EntityState<Long> {
     companion object {
+        @Serial
         private const val serialVersionUID: Long = 0L
     }
 }
 
 class StubViewState: StubMessage(), ViewState<Long> {
     companion object {
+        @Serial
         private const val serialVersionUID: Long = 0L
     }
 }

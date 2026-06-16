@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package io.spine.base;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -40,7 +41,7 @@ import static io.spine.base.Time.currentTime;
 import static io.spine.util.Exceptions.newIllegalStateException;
 
 /**
- * A {@code Throwable}, which state is a {@link Message}.
+ * A {@code Throwable} that has a {@link Message} as its state.
  *
  * <p>Typically used to signalize about a command rejection, occurred in a system. In which case
  * the {@code message} thrown is a detailed description of the rejection reason.
@@ -54,7 +55,7 @@ public abstract class RejectionThrowable extends Throwable {
     /** The moment of creation of this object. */
     private final Timestamp timestamp;
 
-    /** Optional ID of the entity which thrown the message. */
+    /** Optional ID of the entity that threw the message. */
     private @MonotonicNonNull Any producerId;
 
     protected RejectionThrowable(RejectionMessage message) {

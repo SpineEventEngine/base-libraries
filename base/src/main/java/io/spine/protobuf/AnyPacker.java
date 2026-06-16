@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -51,7 +51,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *  because for the performance reasons.
  *
  *  <p>The implementation of {@link Any#unpack(Class)} invokes the {@link Any#is(Class) is(Class)}
- *  method which obtains a default instance of a message by calling a method
+ *  method that obtains a default instance of a message by calling a method
  *  {@code getDefaultInstance()} reflectively.
  *
  *  <p>We are aiming for better performance by caching the default instances

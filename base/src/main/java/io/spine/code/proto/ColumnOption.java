@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -33,7 +33,7 @@ import io.spine.type.MessageType;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 /**
- * An option which marks entity state fields as entity columns.
+ * An option that marks entity state fields as entity columns.
  *
  * <p>Such fields are stored separately from the entity record and can be specified as criteria for
  * the entity query filters.

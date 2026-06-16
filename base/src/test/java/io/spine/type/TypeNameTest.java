@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Provides only class-level tests.
  *
- * <p>Other methods of {@link TypeName} are just over {@link TypeUrl} which are tested by
+ * <p>Other methods of {@link TypeName} are just over {@link TypeUrl} that are tested by
  * its own set of tests.
  */
 @DisplayName("`TypeName` should")

@@ -29,6 +29,8 @@ package io.spine.code.fs;
 import com.google.errorprone.annotations.Immutable;
 import io.spine.value.ComparableStringValue;
 
+import java.io.Serial;
+
 /**
  * A name of a source code file.
  *
@@ -38,6 +40,7 @@ import io.spine.value.ComparableStringValue;
 public abstract class AbstractFileName<F extends AbstractFileName<F>>
         extends ComparableStringValue<F> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     protected AbstractFileName(String value) {

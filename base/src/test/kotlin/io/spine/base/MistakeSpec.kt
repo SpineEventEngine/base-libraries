@@ -27,6 +27,7 @@
 package io.spine.base
 
 import io.kotest.matchers.shouldBe
+import java.io.Serial
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -77,6 +78,7 @@ private class KMistake : Mistake {
     constructor(message: String?, cause: Throwable?) : super(message, cause)
 
     companion object {
+        @Serial
         private const val serialVersionUID: Long = 0L
     }
 }

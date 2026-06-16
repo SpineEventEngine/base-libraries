@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -58,7 +58,7 @@ public final class QueryPredicate<R> {
     private final ImmutableList<SubjectParameter<R, ?, ?>> parameters;
 
     /**
-     * The list of query parameters which address the custom columns of the queried record.
+     * The list of query parameters that address the custom columns of the queried record.
      */
     private final ImmutableList<CustomSubjectParameter<?, ?>> customParameters;
 
@@ -87,7 +87,7 @@ public final class QueryPredicate<R> {
      * @param operator
      *         the operator to apply to child elements during predicate evaluation
      * @param <R>
-     *         the type of the record which is stored for subject
+     *         the type of the record that is stored for subject
      */
     static <R> Builder<R> newBuilder(LogicalOperator operator) {
         checkNotNull(operator);
@@ -103,7 +103,7 @@ public final class QueryPredicate<R> {
      * @param operator
      *         the operator to apply to child elements during predicate evaluation
      * @param <R>
-     *         the type of the record which is stored for subject
+     *         the type of the record that is stored for subject
      */
     static <R> Builder<R> newBuilder(QueryPredicate.Builder<R> parent, LogicalOperator operator) {
         checkNotNull(parent);
@@ -119,7 +119,7 @@ public final class QueryPredicate<R> {
     }
 
     /**
-     * Returns the parameters of this predicate which query the values of own columns declared
+     * Returns the parameters of this predicate that query the values of own columns declared
      * in the queried record.
      */
     public ImmutableList<SubjectParameter<R, ?, ?>> parameters() {
@@ -127,7 +127,7 @@ public final class QueryPredicate<R> {
     }
 
     /**
-     * Returns the parameters of this predicate which relate to the custom columns
+     * Returns the parameters of this predicate that relate to the custom columns
      * of the queried record.
      */
     public ImmutableList<CustomSubjectParameter<?, ?>> customParameters() {
@@ -287,7 +287,7 @@ public final class QueryPredicate<R> {
          * (i.e. is a top-level one).
          *
          * @param operator
-         *         the operator which defines whether the parameters are evaluated
+         *         the operator that defines whether the parameters are evaluated
          *         in conjunction or disjunction with each other
          * @see QueryPredicate#newBuilder(LogicalOperator)
          */
@@ -302,7 +302,7 @@ public final class QueryPredicate<R> {
          * @param parent
          *         the builder of parent predicate
          * @param operator
-         *         the operator which defines whether the parameters are evaluated
+         *         the operator that defines whether the parameters are evaluated
          *         in conjunction or disjunction with each other
          * @see QueryPredicate#newBuilder(LogicalOperator)
          */

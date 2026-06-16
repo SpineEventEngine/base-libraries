@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import com.google.common.io.ByteSource
  * ### API Note
  *
  * This interface is used internally for parsing any types from [ByteSource].
- * It should not be confused with [com.google.protobuf.Parser] which is used
+ * It should not be confused with [com.google.protobuf.Parser] that is used
  * in the Protobuf generated code for parsing [com.google.protobuf.Message] types
  * from various binary format inputs.
  *

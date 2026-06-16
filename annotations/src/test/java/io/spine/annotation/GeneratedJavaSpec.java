@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ import org.junit.jupiter.api.DisplayName;
 class GeneratedJavaSpec {
 
     /**
-     * This class mimics a generated class which has one line annotation.
+     * This class mimics a generated class that has one line annotation.
      */
     @Generated("With one line value")
     private static class SingleLineAnnotation {

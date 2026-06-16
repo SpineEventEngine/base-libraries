@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@ public final class ApiOption {
     /**
      * Enumeration of available API options.
      *
-     * @implNote This private enum gathers option instances in the form which is more
+     * @implNote This private enum gathers option instances in the form that is more
      *         compact than a bunch of private static fields.
      */
     private enum The {
@@ -114,28 +114,28 @@ public final class ApiOption {
     }
 
     /**
-     * Obtains an option which marks beta API.
+     * Obtains an option that marks beta API.
      */
     public static ApiOption beta() {
         return The.BETA.option;
     }
 
     /**
-     * Obtains an option which marks experimental API.
+     * Obtains an option that marks experimental API.
      */
     public static ApiOption experimental() {
         return The.EXPERIMENTAL.option;
     }
 
     /**
-     * Obtains an option which marks internal API.
+     * Obtains an option that marks internal API.
      */
     public static ApiOption internal() {
         return The.INTERNAL.option;
     }
 
     /**
-     * Obtains an option which marks beta service provider interface elements.
+     * Obtains an option that marks beta service provider interface elements.
      */
     public static ApiOption spi() {
         return The.SPI.option;
@@ -203,7 +203,7 @@ public final class ApiOption {
     /**
      * Obtains the value of the boolean option, if it exists, returning it as {@code Optional}
      * with the value.
-     * 
+     *
      * <p>If the option does not exist, returns {@code Optional.empty()}.
      */
     private static <T extends ExtendableMessage<T>>
@@ -211,10 +211,10 @@ public final class ApiOption {
         if (!options.hasExtension(option)) {
             return Optional.empty();
         }
-        var value = options.getExtension(option); 
-        return Optional.of(value); 
+        var value = options.getExtension(option);
+        return Optional.of(value);
     }
-    
+
     /**
      * Checks if message fields may be defined with this option.
      *

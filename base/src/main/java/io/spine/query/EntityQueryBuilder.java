@@ -37,7 +37,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 /**
- * Base type for builders of queries which are aimed to fetch the records of entity states.
+ * Base type for builders of queries that are aimed to fetch the records of entity states.
  *
  * @param <I>
  *         the type of entity identifiers
@@ -46,7 +46,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
  * @param <B>
  *         the type of a particular {@code EntityQueryBuilder} implementation
  * @param <Q>
- *         the type of a particular {@link EntityQuery} implementation which this builder
+ *         the type of a particular {@link EntityQuery} implementation that this builder
  *         is aimed to build
  */
 @SuppressWarnings("AbstractClassNeverImplemented") /* Used in the generated code. */

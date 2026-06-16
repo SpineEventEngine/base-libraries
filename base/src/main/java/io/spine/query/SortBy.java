@@ -35,7 +35,7 @@ import java.util.Objects;
  * of values in a particular {@linkplain io.spine.query.RecordColumn column}.
  *
  * @param <C>
- *         type of the column which values are used for sorting
+ *         type of the column whose values are used for sorting
  * @param <R>
  *         the type of the sorted records
  */

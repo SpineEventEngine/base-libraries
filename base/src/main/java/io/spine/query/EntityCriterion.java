@@ -30,7 +30,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.spine.base.EntityState;
 
 /**
- * An expression which sets the value to compare for the {@link EntityColumn} in scope of
+ * An expression that sets the value to compare for the {@link EntityColumn} in scope of
  * a {@link EntityQueryBuilder} when building an {@link EntityQuery}.
  *
  * @param <S>
@@ -49,7 +49,7 @@ public final class EntityCriterion<S extends EntityState<?>,
      * Creates a new instance.
      *
      * @param column
-     *         the column which actual value to use later in querying
+     *         the column whose actual value is used later in querying
      * @param builder
      *         the builder of an {@link EntityQuery} in scope of which the criterion is created
      */

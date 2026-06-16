@@ -38,12 +38,12 @@ import static com.google.protobuf.Descriptors.FieldDescriptor.Type.MESSAGE;
 public final class FieldTypes {
 
     /**
-     * The field of the {@code map} message type which represents the {@code map} key.
+     * The field of the {@code map} message type that represents the {@code map} key.
      */
     private static final String MAP_ENTRY_KEY = "key";
 
     /**
-     * The field of the {@code map} message type which represents the {@code map} value.
+     * The field of the {@code map} message type that represents the {@code map} value.
      */
     @SuppressWarnings("DuplicateStringLiteralInspection") // Duplication with unrelated modules.
     private static final String MAP_ENTRY_VALUE = "value";

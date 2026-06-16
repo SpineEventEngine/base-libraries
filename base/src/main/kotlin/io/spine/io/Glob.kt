@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,13 +52,13 @@ public data class Glob(val pattern: String) {
     public companion object {
 
         /**
-         * A pattern which matches any file.
+         * A pattern that matches any file.
          */
         @JvmField
         public val any: Glob = Glob("**")
 
         /**
-         * Creates a pattern which matches any file with the given extensions.
+         * Creates a pattern that matches any file with the given extensions.
          *
          * @param extensions File extensions with or without the leading dot.
          *   If no extensions are specified, the created pattern will match
@@ -70,7 +70,7 @@ public data class Glob(val pattern: String) {
             create(extensions.toList(), false)
 
         /**
-         * Creates a pattern which matches any file with the given extensions.
+         * Creates a pattern that matches any file with the given extensions.
          *
          * @param extensions File extensions with or without the leading dot.
          *  If no extensions are specified, the created pattern will match
@@ -82,7 +82,7 @@ public data class Glob(val pattern: String) {
             create(extensions, false)
 
         /**
-         * Creates a pattern which matches any file with the given extensions in lower- and
+         * Creates a pattern that matches any file with the given extensions in lower- and
          * uppercase versions of specified file extensions.
          *
          * Even if char sequences are in passed the `mIxeD` case, only `lower`- and `UPPER`- case
@@ -95,7 +95,7 @@ public data class Glob(val pattern: String) {
             create(extensions.toList(), true)
 
         /**
-         * Creates a pattern which matches any file with the given extensions in lower- and
+         * Creates a pattern that matches any file with the given extensions in lower- and
          * uppercase versions of specified file extensions.
          *
          * Even if char sequences are in passed the `mIxeD` case, only `lower`- and `UPPER`- case

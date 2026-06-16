@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import com.google.common.collect.Iterables
 public fun <E> Iterable<E>.theOnly(): E = Iterables.getOnlyElement(this)
 
 /**
- * Builds a `Sequence` which consists of the elements of this `Iterable` and
+ * Builds a `Sequence` that consists of the elements of this `Iterable` and
  * the given [infix] between them.
  *
  * Example:
