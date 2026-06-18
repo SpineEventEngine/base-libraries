@@ -339,11 +339,25 @@ enum IdType {
      * Obtains the constant reserved by convention for the "undefined" identifier value —
      * the one with the number zero — declared in the given Protobuf enum class.
      *
-     * <p>In a {@code proto3} enum the constant with the number zero must be declared first,
-     * so it is the {@linkplain Class#getEnumConstants() first enum constant}. The synthetic
-     * {@code UNRECOGNIZED} constant is appended last and is therefore never returned.
+     * <p>The constant is located by its number through the enum descriptor, so it is correct
+     * regardless of the declaration order. If the enum declares no constant with the number
+     * zero — possible only for {@code proto2} — the first declared constant is returned.
      */
     private static Object zeroValue(Class<?> enumClass) {
-        return enumClass.getEnumConstants()[0];
+        var constants = enumClass.getEnumConstants();
+        var enumDescriptor = ((ProtocolMessageEnum) constants[0]).getDescriptorForType();
+        var zero = enumDescriptor.findValueByNumber(0);
+        if (zero == null) {
+            return constants[0];
+        }
+        return enumConstant(enumClass, zero.getName());
+    }
+
+    /**
+     * Obtains the enum constant of the given class by its name.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"}) // `enumClass` is an `enum`, ensured by `matchClass()`.
+    private static Object enumConstant(Class<?> enumClass, String name) {
+        return Enum.valueOf((Class) enumClass, name);
     }
 }
