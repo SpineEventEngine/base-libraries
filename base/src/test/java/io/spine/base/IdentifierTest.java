@@ -33,6 +33,8 @@ import com.google.common.truth.OptionalSubject;
 import com.google.protobuf.Any;
 import com.google.protobuf.DescriptorProtos.FieldDescriptorProto;
 import com.google.protobuf.Descriptors.Descriptor;
+import com.google.protobuf.Descriptors.EnumDescriptor;
+import com.google.protobuf.Descriptors.EnumValueDescriptor;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
@@ -666,6 +668,36 @@ class IdentifierTest {
             // not be treated as an enum ID class (which would fail on `getEnumConstants()`).
             assertIllegalArgument(() -> checkSupported(ProtocolMessageEnum.class));
             assertIllegalArgument(() -> Identifier.defaultValue(ProtocolMessageEnum.class));
+        }
+
+        @Test
+        @DisplayName("a `ProtocolMessageEnum` value that is not a Java enum constant")
+        void protocolMessageEnumValue() {
+            // A non-enum `ProtocolMessageEnum` instance must not be treated as an enum ID,
+            // which would later fail casting the value to `Enum` in `toString()`.
+            assertIllegalArgument(() -> Identifier.toString(new NotAnEnum()));
+        }
+    }
+
+    /**
+     * A {@link ProtocolMessageEnum} implementation that is not a Java {@code enum},
+     * used to verify that such values are not recognized as enum identifiers.
+     */
+    private static final class NotAnEnum implements ProtocolMessageEnum {
+
+        @Override
+        public int getNumber() {
+            return 1;
+        }
+
+        @Override
+        public EnumValueDescriptor getValueDescriptor() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public EnumDescriptor getDescriptorForType() {
+            throw new UnsupportedOperationException();
         }
     }
 

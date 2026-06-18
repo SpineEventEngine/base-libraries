@@ -156,7 +156,10 @@ enum IdType {
     ENUM {
         @Override
         <I> boolean matchValue(I id) {
-            return id instanceof ProtocolMessageEnum;
+            // Require an actual Java enum constant, not merely a `ProtocolMessageEnum`
+            // implementor, consistent with `matchClass()`. Later paths (such as
+            // `Identifier.toString()`) cast the value to `Enum`.
+            return id instanceof Enum<?> && id instanceof ProtocolMessageEnum;
         }
 
         /**
