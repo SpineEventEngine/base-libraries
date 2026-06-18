@@ -260,10 +260,10 @@ public final class Identifier<I> {
      * because calling {@link ProtocolMessageEnum#getNumber()} on it throws an exception.
      */
     private static boolean isUndefinedEnum(ProtocolMessageEnum value) {
-        if (value instanceof Enum && "UNRECOGNIZED".equals(((Enum<?>) value).name())) {
-            return false;
-        }
-        return value.getNumber() == 0;
+        // The value is always a Java enum constant, as ensured by `IdType.ENUM.matchValue()`.
+        // `UNRECOGNIZED` is excluded first because calling `getNumber()` on it throws.
+        return !"UNRECOGNIZED".equals(((Enum<?>) value).name())
+                && value.getNumber() == 0;
     }
 
     static <I> IllegalArgumentException unsupported(I id) {

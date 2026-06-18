@@ -93,6 +93,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("`Identifier` should")
@@ -303,6 +304,9 @@ class IdentifierTest {
             assertEmpty(TaskStatus.TASK_STATUS_UNDEFINED);
             assertNotEmpty(TaskStatus.TASK_OPEN);
             assertNotEmpty(TaskStatus.TASK_CLOSED);
+            // `UNRECOGNIZED` is not the zero value and must not be treated as empty
+            // (calling `getNumber()` on it would otherwise throw).
+            assertNotEmpty(TaskStatus.UNRECOGNIZED);
         }
 
         <I> void assertNotEmpty(I value) {
@@ -677,6 +681,24 @@ class IdentifierTest {
             // which would later fail casting the value to `Enum` in `toString()`.
             assertIllegalArgument(() -> Identifier.toString(new NotAnEnum()));
         }
+
+        @Test
+        @DisplayName("a plain Java enum, which is not a Protobuf enum")
+        void plainJavaEnum() {
+            // A Java enum that does not implement `ProtocolMessageEnum` is not a supported ID.
+            assertIllegalArgument(() -> Identifier.toString(PlainEnum.A));
+            assertIllegalArgument(() -> checkSupported(PlainEnum.class));
+        }
+
+        @Test
+        @DisplayName("a plain Java enum class when unpacking")
+        void plainJavaEnumUnpacking() {
+            var any = AnyPacker.pack(StringValue.of(TEST_ID));
+            // `PlainEnum` is a Java enum but not a Protobuf enum, so the enum branch is
+            // skipped and the `String` value cannot be cast to it.
+            assertThrows(ClassCastException.class,
+                         () -> Identifier.unpack(any, PlainEnum.class));
+        }
     }
 
     /**
@@ -699,6 +721,24 @@ class IdentifierTest {
         public EnumDescriptor getDescriptorForType() {
             throw new UnsupportedOperationException();
         }
+    }
+
+    /**
+     * A plain Java enum that does not implement {@link ProtocolMessageEnum},
+     * used to verify that such types are not recognized as enum identifiers.
+     */
+    private enum PlainEnum {
+        A,
+        B
+    }
+
+    @Test
+    @DisplayName("not support restoring an enum from a `Message` without the target class")
+    void enumFromMessageUnsupported() {
+        // `IdType.ENUM.fromMessage` is never reached in normal flow (an enum cannot be
+        // restored without the target class); a direct call documents that contract.
+        assertThrows(IllegalStateException.class,
+                     () -> ENUM.fromMessage(StringValue.of(TEST_ID)));
     }
 
     @Nested
