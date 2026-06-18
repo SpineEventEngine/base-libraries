@@ -80,3 +80,18 @@ enum TaskStatus {
 message EnumFieldId {
     TaskStatus status = 1;
 }
+
+// A second enum, of a different type than `TaskStatus`, used to verify that
+// an enum ID field is matched by its specific enum type.
+enum Priority {
+    PRIORITY_UNDEFINED = 0;
+    LOW = 1;
+    HIGH = 2;
+}
+
+// A message with two enum fields of different types, declaring the non-matching
+// one first, for testing that an enum ID field is matched by its enum type.
+message TwoEnumFieldsId {
+    Priority priority = 1;
+    TaskStatus status = 2;
+}

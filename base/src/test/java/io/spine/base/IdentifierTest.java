@@ -47,6 +47,7 @@ import io.spine.test.identifiers.NestedMessageId;
 import io.spine.test.identifiers.SeveralFieldsId;
 import io.spine.test.identifiers.TaskStatus;
 import io.spine.test.identifiers.TimestampFieldId;
+import io.spine.test.identifiers.TwoEnumFieldsId;
 import io.spine.testing.TestValues;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -777,6 +778,24 @@ class IdentifierTest {
         void messageType() {
             assertFound(StringValue.class, SeveralFieldsId.getDescriptor());
             assertNotFound(StringValue.class, IdWithPrimitiveFields.getDescriptor());
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum")
+        void enumType() {
+            assertFound(TaskStatus.class, EnumFieldId.getDescriptor());
+            assertNotFound(TaskStatus.class, IdWithPrimitiveFields.getDescriptor());
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum, by its specific enum type")
+        void enumTypeDisambiguated() {
+            // `TwoEnumFieldsId` declares `Priority priority = 1` before `TaskStatus status = 2`.
+            // Searching for a `TaskStatus` ID must return the `status` field, not the first
+            // enum field of an unrelated enum type.
+            var found = Field.findIdField(TaskStatus.class, TwoEnumFieldsId.getDescriptor());
+            assertThat(found).isPresent();
+            assertThat(found.get().getName()).isEqualTo("status");
         }
 
         <I> void assertFound(Class<I> idClass, Descriptor message) {
