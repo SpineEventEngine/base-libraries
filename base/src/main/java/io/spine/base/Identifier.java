@@ -431,7 +431,10 @@ public final class Identifier<I> {
     public static <I> I unpack(Any any, Class<I> idClass) {
         checkNotNull(any);
         checkNotNull(idClass);
-        if (ProtocolMessageEnum.class.isAssignableFrom(idClass)) {
+        // Restrict to an actual Java `enum` (not merely a `ProtocolMessageEnum` implementor),
+        // mirroring `IdType.ENUM.matchClass()`. The `ProtocolMessageEnum` interface itself is
+        // assignable but is not an enum and cannot be converted by `TypeConverter`.
+        if (idClass.isEnum() && ProtocolMessageEnum.class.isAssignableFrom(idClass)) {
             return TypeConverter.toObject(any, idClass);
         }
         var identifier = unpack(any);

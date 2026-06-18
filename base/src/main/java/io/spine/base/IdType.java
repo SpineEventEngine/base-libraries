@@ -178,7 +178,10 @@ enum IdType {
 
         @Override
         <I> boolean matchClass(Class<I> idClass) {
-            return ProtocolMessageEnum.class.isAssignableFrom(idClass);
+            // Require an actual Java `enum`, not merely a `ProtocolMessageEnum` implementor:
+            // the `ProtocolMessageEnum` interface itself (and any non-enum implementation) has
+            // no enum constants, so `defaultValue()` would fail on `getEnumConstants()`.
+            return idClass.isEnum() && ProtocolMessageEnum.class.isAssignableFrom(idClass);
         }
 
         /**

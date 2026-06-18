@@ -38,6 +38,7 @@ import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.StringValue;
+import com.google.protobuf.ProtocolMessageEnum;
 import com.google.protobuf.Struct;
 import com.google.protobuf.Timestamp;
 import io.spine.protobuf.AnyPacker;
@@ -656,6 +657,15 @@ class IdentifierTest {
         @DisplayName("class")
         void clazz() {
             assertIllegalArgument(() -> Identifier.toType(Float.class));
+        }
+
+        @Test
+        @DisplayName("the `ProtocolMessageEnum` interface, which is not a Java enum")
+        void protocolMessageEnumInterface() {
+            // The interface is assignable from itself but has no enum constants, so it must
+            // not be treated as an enum ID class (which would fail on `getEnumConstants()`).
+            assertIllegalArgument(() -> checkSupported(ProtocolMessageEnum.class));
+            assertIllegalArgument(() -> Identifier.defaultValue(ProtocolMessageEnum.class));
         }
     }
 
