@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -26,29 +26,57 @@
 
 package io.spine.base;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.testing.NullPointerTester;
 import com.google.common.truth.BooleanSubject;
 import com.google.common.truth.OptionalSubject;
 import com.google.protobuf.Any;
+import com.google.protobuf.DescriptorProtos.FieldDescriptorProto;
 import com.google.protobuf.Descriptors.Descriptor;
+import com.google.protobuf.Descriptors.EnumDescriptor;
+import com.google.protobuf.Descriptors.EnumValueDescriptor;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Empty;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.StringValue;
+import com.google.protobuf.ProtocolMessageEnum;
 import com.google.protobuf.Struct;
 import com.google.protobuf.Timestamp;
 import io.spine.protobuf.AnyPacker;
+import io.spine.test.identifiers.EnumFieldId;
 import io.spine.test.identifiers.IdWithPrimitiveFields;
 import io.spine.test.identifiers.NestedMessageId;
 import io.spine.test.identifiers.SeveralFieldsId;
+import io.spine.test.identifiers.TaskStatus;
 import io.spine.test.identifiers.TimestampFieldId;
+import io.spine.test.identifiers.TwoEnumFieldsId;
 import io.spine.testing.TestValues;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_BOOL;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_BYTES;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_DOUBLE;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_ENUM;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_FIXED32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_FIXED64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_FLOAT;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_GROUP;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_INT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_INT64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_MESSAGE;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SFIXED32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SFIXED64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SINT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SINT64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_STRING;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_UINT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_UINT64;
+import static io.spine.base.IdType.ENUM;
 import static io.spine.base.IdType.INTEGER;
 import static io.spine.base.IdType.LONG;
 import static io.spine.base.IdType.MESSAGE;
@@ -60,10 +88,12 @@ import static io.spine.base.Identifier.newUuid;
 import static io.spine.protobuf.TypeConverter.toMessage;
 import static io.spine.testing.Assertions.assertIllegalArgument;
 import static io.spine.testing.DisplayNames.NOT_ACCEPT_NULLS;
+import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("`Identifier` should")
@@ -115,6 +145,12 @@ class IdentifierTest {
         @DisplayName("`Message`")
         void ofMessage() {
             assertTypeOf(toMessage(300), MESSAGE);
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum")
+        void ofEnum() {
+            assertTypeOf(TaskStatus.TASK_OPEN, ENUM);
         }
 
         private static void assertTypeOf(Object id, IdType expectedType) {
@@ -188,6 +224,13 @@ class IdentifierTest {
             assertThat(Identifier.defaultValue(Timestamp.class))
                     .isEqualTo(Timestamp.getDefaultInstance());
         }
+
+        @Test
+        @DisplayName("a Protobuf enum")
+        void ofEnum() {
+            assertThat(Identifier.defaultValue(TaskStatus.class))
+                    .isEqualTo(TaskStatus.TASK_STATUS_UNDEFINED);
+        }
     }
 
     @Nested
@@ -253,6 +296,17 @@ class IdentifierTest {
         void messageId() {
             assertEmpty(Struct.getDefaultInstance());
             assertNotEmpty(Time.currentTime());
+        }
+
+        @Test
+        @DisplayName("treating the zero-numbered enum constant as empty")
+        void enumId() {
+            assertEmpty(TaskStatus.TASK_STATUS_UNDEFINED);
+            assertNotEmpty(TaskStatus.TASK_OPEN);
+            assertNotEmpty(TaskStatus.TASK_CLOSED);
+            // `UNRECOGNIZED` is not the zero value and must not be treated as empty
+            // (calling `getNumber()` on it would otherwise throw).
+            assertNotEmpty(TaskStatus.UNRECOGNIZED);
         }
 
         <I> void assertNotEmpty(I value) {
@@ -336,6 +390,12 @@ class IdentifierTest {
             var result = Identifier.toString(id);
 
             assertEquals(TEST_ID, result);
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum")
+        void ofEnum() {
+            assertEquals("TASK_OPEN", Identifier.toString(TaskStatus.TASK_OPEN));
         }
 
         @Test
@@ -447,12 +507,144 @@ class IdentifierTest {
         void messageValue() {
             assertDoesNotThrow(() -> Identifier.checkSupported(StringValue.class));
         }
+
+        @Test
+        @DisplayName("a Protobuf enum class")
+        void enumValue() {
+            assertDoesNotThrow(() -> Identifier.checkSupported(TaskStatus.class));
+        }
     }
 
     @Test
     @DisplayName("throw `IllegalArgumentException` for unsupported class")
     void checkNotSupported() {
         assertIllegalArgument(() -> checkSupported(Boolean.class));
+    }
+
+    @Nested
+    @DisplayName("tell if a Protobuf field type is supported for an ID")
+    class SupportedIdType {
+
+        private final ImmutableList<FieldDescriptorProto.Type> supported = ImmutableList.of(
+                TYPE_STRING,
+                TYPE_INT32, TYPE_UINT32, TYPE_SINT32, TYPE_FIXED32, TYPE_SFIXED32,
+                TYPE_INT64, TYPE_UINT64, TYPE_SINT64, TYPE_FIXED64, TYPE_SFIXED64,
+                TYPE_ENUM,
+                TYPE_MESSAGE);
+
+        private final ImmutableList<FieldDescriptorProto.Type> unsupported = ImmutableList.of(
+                TYPE_BOOL, TYPE_FLOAT, TYPE_DOUBLE, TYPE_BYTES, TYPE_GROUP);
+
+        @Test
+        @DisplayName("accepting `string`, integer, `enum`, and `Message` types")
+        void accepting() {
+            for (var type : supported) {
+                assertWithMessage("`%s` should be supported", type)
+                        .that(Identifier.isSupportedIdType(type))
+                        .isTrue();
+            }
+        }
+
+        @Test
+        @DisplayName("rejecting `bool`, `float`, `double`, `bytes`, and `group` types")
+        void rejecting() {
+            for (var type : unsupported) {
+                assertWithMessage("`%s` should not be supported", type)
+                        .that(Identifier.isSupportedIdType(type))
+                        .isFalse();
+            }
+        }
+
+        @Test
+        @DisplayName("classifying every declared field type")
+        void everyType() {
+            // `FieldDescriptorProto.Type` comes from the proto2 `descriptor.proto`,
+            // so it has no `UNRECOGNIZED` sentinel — every declared value must be classified.
+            for (var type : FieldDescriptorProto.Type.values()) {
+                var classified = supported.contains(type) || unsupported.contains(type);
+                assertWithMessage("`%s` must be classified as supported or not", type)
+                        .that(classified)
+                        .isTrue();
+            }
+        }
+
+        @Test
+        @DisplayName("not classifying any type as both supported and unsupported")
+        void noOverlap() {
+            for (var type : supported) {
+                assertThat(unsupported).doesNotContain(type);
+            }
+        }
+
+        @Test
+        @DisplayName("accepting a supported field descriptor")
+        void supportedField() {
+            assertSupported(stringField(), true);
+            assertSupported(intField(), true);
+            assertSupported(longField(), true);
+            assertSupported(messageField(), true);
+            assertSupported(enumField(), true);
+        }
+
+        @Test
+        @DisplayName("rejecting an unsupported field descriptor")
+        void unsupportedField() {
+            assertSupported(boolField(), false);
+        }
+
+        @Test
+        @DisplayName("agreeing with `IdType.matchField` for each field")
+        void consistentWithMatchField() {
+            var fields = ImmutableList.of(
+                    stringField(), intField(), longField(),
+                    messageField(), enumField(), boolField());
+            for (var field : fields) {
+                var anyIdTypeMatches = stream(IdType.values()).anyMatch(t -> t.matchField(field));
+                assertWithMessage("Disagreement for field `%s`", field.getFullName())
+                        .that(Identifier.isSupportedIdType(field))
+                        .isEqualTo(anyIdTypeMatches);
+            }
+        }
+
+        private void assertSupported(FieldDescriptor field, boolean expected) {
+            assertWithMessage("`%s`", field.getFullName())
+                    .that(Identifier.isSupportedIdType(field))
+                    .isEqualTo(expected);
+        }
+
+        private FieldDescriptor severalFieldsField(int index) {
+            return SeveralFieldsId.getDescriptor()
+                                  .getFields()
+                                  .get(index);
+        }
+
+        private FieldDescriptor stringField() {
+            return severalFieldsField(0);
+        }
+
+        private FieldDescriptor intField() {
+            return severalFieldsField(1);
+        }
+
+        private FieldDescriptor messageField() {
+            return severalFieldsField(2);
+        }
+
+        private FieldDescriptor longField() {
+            return severalFieldsField(3);
+        }
+
+        private FieldDescriptor enumField() {
+            return EnumFieldId.getDescriptor()
+                              .getFields()
+                              .get(0);
+        }
+
+        private FieldDescriptor boolField() {
+            return IdWithPrimitiveFields.getDescriptor()
+                                        .getFields()
+                                        .get(2);
+        }
     }
 
     @Nested
@@ -472,6 +664,81 @@ class IdentifierTest {
         void clazz() {
             assertIllegalArgument(() -> Identifier.toType(Float.class));
         }
+
+        @Test
+        @DisplayName("the `ProtocolMessageEnum` interface, which is not a Java enum")
+        void protocolMessageEnumInterface() {
+            // The interface is assignable from itself but has no enum constants, so it must
+            // not be treated as an enum ID class (which would fail on `getEnumConstants()`).
+            assertIllegalArgument(() -> checkSupported(ProtocolMessageEnum.class));
+            assertIllegalArgument(() -> Identifier.defaultValue(ProtocolMessageEnum.class));
+        }
+
+        @Test
+        @DisplayName("a `ProtocolMessageEnum` value that is not a Java enum constant")
+        void protocolMessageEnumValue() {
+            // A non-enum `ProtocolMessageEnum` instance must not be treated as an enum ID,
+            // which would later fail casting the value to `Enum` in `toString()`.
+            assertIllegalArgument(() -> Identifier.toString(new NotAnEnum()));
+        }
+
+        @Test
+        @DisplayName("a plain Java enum, which is not a Protobuf enum")
+        void plainJavaEnum() {
+            // A Java enum that does not implement `ProtocolMessageEnum` is not a supported ID.
+            assertIllegalArgument(() -> Identifier.toString(PlainEnum.A));
+            assertIllegalArgument(() -> checkSupported(PlainEnum.class));
+        }
+
+        @Test
+        @DisplayName("a plain Java enum class when unpacking")
+        void plainJavaEnumUnpacking() {
+            var any = AnyPacker.pack(StringValue.of(TEST_ID));
+            // `PlainEnum` is a Java enum but not a Protobuf enum, so the enum branch is
+            // skipped and the `String` value cannot be cast to it.
+            assertThrows(ClassCastException.class,
+                         () -> Identifier.unpack(any, PlainEnum.class));
+        }
+    }
+
+    /**
+     * A {@link ProtocolMessageEnum} implementation that is not a Java {@code enum},
+     * used to verify that such values are not recognized as enum identifiers.
+     */
+    private static final class NotAnEnum implements ProtocolMessageEnum {
+
+        @Override
+        public int getNumber() {
+            return 1;
+        }
+
+        @Override
+        public EnumValueDescriptor getValueDescriptor() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public EnumDescriptor getDescriptorForType() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
+     * A plain Java enum that does not implement {@link ProtocolMessageEnum},
+     * used to verify that such types are not recognized as enum identifiers.
+     */
+    private enum PlainEnum {
+        A,
+        B
+    }
+
+    @Test
+    @DisplayName("not support restoring an enum from a `Message` without the target class")
+    void enumFromMessageUnsupported() {
+        // `IdType.ENUM.fromMessage` is never reached in normal flow (an enum cannot be
+        // restored without the target class); a direct call documents that contract.
+        assertThrows(IllegalStateException.class,
+                     () -> ENUM.fromMessage(StringValue.of(TEST_ID)));
     }
 
     @Nested
@@ -491,6 +758,14 @@ class IdentifierTest {
         @DisplayName("and throw if `Any` is empty")
         void rejectEmptyAny() {
             assertIllegalArgument(() -> Identifier.unpack(Any.getDefaultInstance()));
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum packed into `Any` using the target class")
+        void enumRoundTrip() {
+            var any = Identifier.pack(TaskStatus.TASK_OPEN);
+            var unpacked = Identifier.unpack(any, TaskStatus.class);
+            assertEquals(TaskStatus.TASK_OPEN, unpacked);
         }
     }
 
@@ -537,6 +812,15 @@ class IdentifierTest {
             assertTrue(MESSAGE.matchField(field(2)));
         }
 
+        @Test
+        @DisplayName("a Protobuf enum")
+        void enumField() {
+            var field = EnumFieldId.getDescriptor()
+                                   .getFields()
+                                   .get(0);
+            assertTrue(ENUM.matchField(field));
+        }
+
         FieldDescriptor field(int index) {
             var field =
                     SeveralFieldsId.getDescriptor()
@@ -576,6 +860,24 @@ class IdentifierTest {
         void messageType() {
             assertFound(StringValue.class, SeveralFieldsId.getDescriptor());
             assertNotFound(StringValue.class, IdWithPrimitiveFields.getDescriptor());
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum")
+        void enumType() {
+            assertFound(TaskStatus.class, EnumFieldId.getDescriptor());
+            assertNotFound(TaskStatus.class, IdWithPrimitiveFields.getDescriptor());
+        }
+
+        @Test
+        @DisplayName("a Protobuf enum, by its specific enum type")
+        void enumTypeDisambiguated() {
+            // `TwoEnumFieldsId` declares `Priority priority = 1` before `TaskStatus status = 2`.
+            // Searching for a `TaskStatus` ID must return the `status` field, not the first
+            // enum field of an unrelated enum type.
+            var found = Field.findIdField(TaskStatus.class, TwoEnumFieldsId.getDescriptor());
+            assertThat(found).isPresent();
+            assertThat(found.get().getName()).isEqualTo("status");
         }
 
         <I> void assertFound(Class<I> idClass, Descriptor message) {

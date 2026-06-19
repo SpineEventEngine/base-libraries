@@ -34,6 +34,7 @@ import com.google.protobuf.Descriptors.Descriptor;
 import com.google.protobuf.Descriptors.EnumValueDescriptor;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Message;
+import com.google.protobuf.ProtocolMessageEnum;
 import io.spine.annotation.VisibleForTesting;
 import io.spine.code.proto.ScalarType;
 import io.spine.type.TypeName;
@@ -273,6 +274,7 @@ public final class Field extends ValueHolder<FieldPath> {
                        .stream()
                        .filter(idType::matchField)
                        .filter(f -> idType != IdType.MESSAGE || sameMessageType(idClass, f))
+                       .filter(f -> idType != IdType.ENUM || sameEnumType(idClass, f))
                        .findFirst();
         return found;
     }
@@ -286,6 +288,23 @@ public final class Field extends ValueHolder<FieldPath> {
         var messageType = TypeUrl.of((Class<? extends Message>) idClass);
         var fieldType = TypeUrl.from(f.getMessageType());
         return fieldType.equals(messageType);
+    }
+
+    /**
+     * Verifies if the class of identifiers and the type of the field represent the same enum type.
+     *
+     * <p>The {@code matchField} check of {@code IdType.ENUM} accepts any enum field because it
+     * does not know the requested enum class. This check, performed once the class is known,
+     * ensures that an enum ID field of one type is not mistaken for a field of another enum
+     * type declared in the same message.
+     */
+    private static <I> boolean sameEnumType(Class<I> idClass, FieldDescriptor f) {
+        var idEnum = (ProtocolMessageEnum) Identifier.defaultValue(idClass);
+        var idEnumType = idEnum.getDescriptorForType()
+                               .getFullName();
+        var fieldEnumType = f.getEnumType()
+                             .getFullName();
+        return fieldEnumType.equals(idEnumType);
     }
 
     /**
