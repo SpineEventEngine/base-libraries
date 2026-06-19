@@ -16,8 +16,15 @@ links to a shared requirements file (e.g. `jvm-project.md`), read that too.
 
 Shared skills, scripts, and guidelines come from the `.agents/shared` submodule (the
 [`agents`][agents-repo] repository) exposed via symlinks.
-`./config/pull` initializes and floats it automatically; on a fresh clone that skips
-`pull`, run `git submodule update --init --remote .agents/shared`.
+`./config/pull` initializes and floats them automatically. But a fresh `git worktree`
+(and some shallow clones / cloud checkouts) start with NO submodules checked out, so
+those symlinks dangle and no skills are found. Bootstrap such a tree with
+**`./init-submodules`** — a root script that materializes the missing submodules
+(`config`, `.agents/shared`, …) at their pinned commits. It depends on no pre-existing
+`config` submodule, so it works before `./config/pull` (which lives inside the `config`
+submodule) can. Claude Code runs it automatically via a `SessionStart` hook; other
+agents and humans run it by hand, then `./config/pull` to float the shared submodules
+to their branch tips.
 
 ## Commit and history safety
 
@@ -115,7 +122,7 @@ In consumer repositories, skip without comment any path matching:
 - `.claude/**`, `.idea/**`, `.junie/**`
 - `.github/copilot-instructions.md`
 - `buildSrc/**` (except `buildSrc/src/main/kotlin/module.gradle.kts`)
-- `gradle/`, `gradlew`, `gradlew.bat`
+- `gradle/`, `gradlew`, `gradlew.bat`, `init-submodules`
 - `.codecov.yml`, `.gitignore`, `gradle.properties`, `lychee.toml`
 - `.github/workflows/` — unless the workflow was introduced by this repo
 

@@ -26,19 +26,39 @@
 
 package io.spine.base;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.google.protobuf.Any;
+import com.google.protobuf.DescriptorProtos.FieldDescriptorProto;
+import com.google.protobuf.Descriptors.FieldDescriptor;
+import com.google.protobuf.EnumValue;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.Message;
+import com.google.protobuf.ProtocolMessageEnum;
 import com.google.protobuf.StringValue;
 import io.spine.annotation.VisibleForTesting;
 import io.spine.protobuf.AnyPacker;
+import io.spine.protobuf.TypeConverter;
 import io.spine.string.StringifierRegistry;
 import org.jspecify.annotations.Nullable;
 
 import java.util.UUID;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_ENUM;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_FIXED32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_FIXED64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_INT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_INT64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_MESSAGE;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SFIXED32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SFIXED64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SINT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_SINT64;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_STRING;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_UINT32;
+import static com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type.TYPE_UINT64;
 import static io.spine.util.Exceptions.newIllegalArgumentException;
 import static io.spine.util.Exceptions.newIllegalStateException;
 
@@ -52,8 +72,19 @@ import static io.spine.util.Exceptions.newIllegalStateException;
  *   <li>{@code String}
  *   <li>{@code Long}
  *   <li>{@code Integer}
+ *   <li>A Protobuf enum (a class implementing {@link com.google.protobuf.ProtocolMessageEnum
+ *       ProtocolMessageEnum}).
  *   <li>A class implementing {@link Message}.
  * </ul>
+ *
+ * <p>For a Protobuf enum identifier, the constant with the number zero is reserved by
+ * convention for the "undefined" value (a {@code null}-like value). Such a value is treated
+ * as an {@linkplain #isEmpty(Object) empty} identifier.
+ *
+ * <p>To check whether a Protobuf message field may serve as an identifier, use
+ * {@link #isSupportedIdType(com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Type)
+ * isSupportedIdType()}. It is the single source of truth for this rule; tools such as
+ * the Spine compiler delegate to it rather than maintaining their own list.
  *
  * <p>Consider using {@code Message}-based IDs if you want to have typed IDs in your code,
  * and/or if you need to have IDs with some structure inside.
@@ -109,6 +140,24 @@ public final class Identifier<I> {
     /** An empty ID string representation. */
     static final String EMPTY_ID = "EMPTY";
 
+    /**
+     * Protobuf field types that may serve as an identifier.
+     *
+     * <p>This is the programmatic counterpart of the
+     * <a href="#supported">Supported types of identifiers</a> section: a {@code string},
+     * every 32-bit and 64-bit integer encoding (Java {@code Integer} and {@code Long}),
+     * a Protobuf {@code enum}, and a {@code Message}.
+     *
+     * @see #isSupportedIdType(FieldDescriptorProto.Type)
+     */
+    private static final ImmutableSet<FieldDescriptorProto.Type> SUPPORTED_ID_TYPES =
+            Sets.immutableEnumSet(
+                    TYPE_STRING,
+                    TYPE_INT32, TYPE_UINT32, TYPE_SINT32, TYPE_FIXED32, TYPE_SFIXED32,
+                    TYPE_INT64, TYPE_UINT64, TYPE_SINT64, TYPE_FIXED64, TYPE_SFIXED64,
+                    TYPE_ENUM,
+                    TYPE_MESSAGE);
+
     private final IdType type;
     private final I value;
 
@@ -136,6 +185,9 @@ public final class Identifier<I> {
 
     /**
      * Obtains a default value for an identifier of the passed class.
+     *
+     * <p>For a Protobuf enum, the default value is the constant with the number zero, which is
+     * reserved by convention for the "undefined" value.
      */
     public static <I> I defaultValue(Class<I> idClass) {
         checkNotNull(idClass);
@@ -173,7 +225,10 @@ public final class Identifier<I> {
      *
      * <p>For string and message identifiers, the method verifies the values.
      *
-     * <p>A string identifier is empty, if it contains an empty string.
+     * <p>A string identifier is empty if it contains an empty string.
+     *
+     * <p>An enum identifier is empty if it holds the constant with the number zero, which is
+     * reserved by convention for the "undefined" value.
      *
      * @param value
      *         the value to check
@@ -188,10 +243,27 @@ public final class Identifier<I> {
         if (id.type == IdType.INTEGER || id.type == IdType.LONG) {
             return false;
         }
+        if (id.type == IdType.ENUM) {
+            return isUndefinedEnum((ProtocolMessageEnum) value);
+        }
 
         var str = id.toString();
         var result = EMPTY_ID.equals(str);
         return result;
+    }
+
+    /**
+     * Tells if the passed Protobuf enum value is the "undefined" constant
+     * with the number zero.
+     *
+     * <p>The {@code UNRECOGNIZED} constant generated by Protobuf is not considered empty
+     * because calling {@link ProtocolMessageEnum#getNumber()} on it throws an exception.
+     */
+    private static boolean isUndefinedEnum(ProtocolMessageEnum value) {
+        // The value is always a Java enum constant, as ensured by `IdType.ENUM.matchValue()`.
+        // `UNRECOGNIZED` is excluded first because calling `getNumber()` on it throws.
+        return !"UNRECOGNIZED".equals(((Enum<?>) value).name())
+                && value.getNumber() == 0;
     }
 
     static <I> IllegalArgumentException unsupported(I id) {
@@ -225,6 +297,49 @@ public final class Identifier<I> {
     }
 
     /**
+     * Tells whether a Protobuf field of the given type may serve as an identifier.
+     *
+     * <p>This method classifies the <em>type</em> of the field only. A {@code repeated} or
+     * a {@code map} field can never be an identifier regardless of its element type, so the
+     * caller must reject such fields separately — this method considers only the singular
+     * type. By the same token, {@code TYPE_GROUP} (a Protobuf 2 construct) is not a supported
+     * identifier type.
+     *
+     * <p>This is the single source of truth for the
+     * <a href="#supported">supported identifier types</a>. Tools that decide whether
+     * a message field can be used as an ID (such as the Spine compiler) should delegate here
+     * instead of maintaining their own list.
+     *
+     * @param type
+     *         the type of the field
+     * @return {@code true} if a field of this type can be an identifier;
+     *         {@code false} otherwise
+     * @see #isSupportedIdType(FieldDescriptor)
+     */
+    public static boolean isSupportedIdType(FieldDescriptorProto.Type type) {
+        checkNotNull(type);
+        return SUPPORTED_ID_TYPES.contains(type);
+    }
+
+    /**
+     * Tells whether the given field may serve as an identifier, considering its type only.
+     *
+     * <p>Like {@link #isSupportedIdType(FieldDescriptorProto.Type)}, this method does not
+     * take the cardinality of the field into account — a {@code repeated} or a {@code map}
+     * field can never be an identifier even if its element type is supported.
+     *
+     * @param field
+     *         the field to check
+     * @return {@code true} if a field of this type can be an identifier;
+     *         {@code false} otherwise
+     * @see #isSupportedIdType(FieldDescriptorProto.Type)
+     */
+    public static boolean isSupportedIdType(FieldDescriptor field) {
+        checkNotNull(field);
+        return isSupportedIdType(field.toProto().getType());
+    }
+
+    /**
      * Wraps the passed ID value into an instance of {@link Any}.
      *
      * <p>The passed value must be of one of the supported types listed below.
@@ -235,6 +350,7 @@ public final class Identifier<I> {
      *   <li>For {@code String} — {@link StringValue}
      *   <li>For {@code Long} — {@link Int64Value}
      *   <li>For {@code Integer} — {@link Int32Value}
+     *   <li>For a Protobuf enum — {@link EnumValue}
      * </ul>
      *
      * @param id
@@ -262,6 +378,10 @@ public final class Identifier<I> {
      *   <li>{@code Long} for unwrapped {@link Int64Value}
      *   <li>unwrapped {@code Message} instance if its type is none of the above
      * </ul>
+     *
+     * <p>A Protobuf enum identifier packed as {@link EnumValue}
+     * is returned as the raw {@code EnumValue} message, because reconstructing the original enum
+     * constant requires its class. Use {@link #unpack(Any, Class)} to obtain the enum constant.
      *
      * @param any
      *         the ID value wrapped into {@code Any}
@@ -295,6 +415,11 @@ public final class Identifier<I> {
      * Does the same as {@link #unpack(com.google.protobuf.Any)} and
      * additionally casts the ID to the specified class.
      *
+     * <p>If {@code idClass} is a Protobuf enum, the value packed as
+     * {@link EnumValue} is converted back to the corresponding
+     * enum constant. This is the only way to restore an enum identifier, because the packed
+     * {@code EnumValue} does not preserve the enum type.
+     *
      * @param any
      *         the ID value wrapped into {@code Any}
      * @param idClass
@@ -304,7 +429,14 @@ public final class Identifier<I> {
      * @return unwrapped ID
      */
     public static <I> I unpack(Any any, Class<I> idClass) {
+        checkNotNull(any);
         checkNotNull(idClass);
+        // Restrict to an actual Java `enum` (not merely a `ProtocolMessageEnum` implementor),
+        // mirroring `IdType.ENUM.matchClass()`. The `ProtocolMessageEnum` interface itself is
+        // assignable but is not an enum and cannot be converted by `TypeConverter`.
+        if (idClass.isEnum() && ProtocolMessageEnum.class.isAssignableFrom(idClass)) {
+            return TypeConverter.toObject(any, idClass);
+        }
         var identifier = unpack(any);
         return idClass.cast(identifier);
     }
@@ -332,6 +464,7 @@ public final class Identifier<I> {
      *         <li>for classes implementing {@link Message} — a JSON form;
      *           <li>for {@code String}, {@code Long}, {@code Integer} —
      *               the result of {@link Object#toString()};
+     *           <li>for a Protobuf enum — the {@linkplain Enum#name() name} of the constant;
      *           <li>for {@code null} ID — the {@link #NULL_ID};
      *           <li>if the result is empty or a blank string — the {@link #EMPTY_ID}.
      *         </ul>
@@ -369,6 +502,7 @@ public final class Identifier<I> {
             case INTEGER,
                  LONG,
                  STRING -> value.toString();
+            case ENUM -> ((Enum<?>) value).name();
             case MESSAGE -> MessageIdToString.convert((Message) value);
             default -> throw newIllegalStateException(
                     "`toString()` is not supported for type: `%s`.", type

@@ -28,13 +28,17 @@ package io.spine.base;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.Descriptors.FieldDescriptor;
+import com.google.protobuf.EnumValue;
 import com.google.protobuf.Int32Value;
 import com.google.protobuf.Int64Value;
 import com.google.protobuf.Message;
+import com.google.protobuf.ProtocolMessageEnum;
 import com.google.protobuf.StringValue;
 import io.spine.protobuf.AnyPacker;
 import io.spine.protobuf.Messages;
 import io.spine.protobuf.TypeConverter;
+
+import static io.spine.util.Exceptions.newIllegalStateException;
 
 /**
  * Supported types of identifiers.
@@ -139,6 +143,73 @@ enum IdType {
         @Override
         boolean matchField(FieldDescriptor field) {
             return FieldDescriptor.JavaType.LONG == field.getJavaType();
+        }
+    },
+
+    /**
+     * A Protobuf enum used as an identifier.
+     *
+     * <p>The Java class generated for a Protobuf enum implements {@link ProtocolMessageEnum}.
+     * The constant with the number zero is reserved by convention for the "undefined" value
+     * and is treated as an {@linkplain Identifier#isEmpty(Object) empty} identifier.
+     */
+    ENUM {
+        @Override
+        <I> boolean matchValue(I id) {
+            // Require an actual Java enum constant, not merely a `ProtocolMessageEnum`
+            // implementor, consistent with `matchClass()`. Later paths (such as
+            // `Identifier.toString()`) cast the value to `Enum`.
+            return id instanceof Enum<?> && id instanceof ProtocolMessageEnum;
+        }
+
+        /**
+         * Always returns {@code false}.
+         *
+         * <p>A Protobuf enum is packed into {@link Any} as an {@link EnumValue}, which carries
+         * only the {@linkplain EnumValue#getName() name} and {@linkplain EnumValue#getNumber()
+         * number} of the value, but not the enum type. Restoring the original Java enum constant
+         * therefore requires the target class, which is unavailable in this method. Enum
+         * identifiers are restored only via {@link Identifier#unpack(Any, Class)}.
+         *
+         * <p>Returning {@code false} keeps the raw {@code EnumValue} handled by {@link #MESSAGE}
+         * in the class-less {@link Identifier#unpack(Any)}, preserving its behavior.
+         */
+        @Override
+        boolean matchMessage(Message message) {
+            return false;
+        }
+
+        @Override
+        <I> boolean matchClass(Class<I> idClass) {
+            // Require an actual Java `enum`, not merely a `ProtocolMessageEnum` implementor:
+            // the `ProtocolMessageEnum` interface itself (and any non-enum implementation) has
+            // no enum constants, so `defaultValue()` would fail on `getEnumConstants()`.
+            return idClass.isEnum() && ProtocolMessageEnum.class.isAssignableFrom(idClass);
+        }
+
+        /**
+         * Always throws {@link IllegalStateException}.
+         *
+         * <p>This method is never called because {@link #matchMessage(Message)} returns
+         * {@code false} for this type. Restoring an enum identifier requires the target class;
+         * use {@link Identifier#unpack(Any, Class)} instead.
+         */
+        @Override
+        Object fromMessage(Message message) {
+            throw newIllegalStateException(
+                    "An enum identifier must be restored with the target class" +
+                            " via `Identifier.unpack(Any, Class)`.");
+        }
+
+        @Override
+        <I> I defaultValue(Class<I> idClass) {
+            var undefined = zeroValue(idClass);
+            return (I) undefined;
+        }
+
+        @Override
+        boolean matchField(FieldDescriptor field) {
+            return FieldDescriptor.JavaType.ENUM == field.getJavaType();
         }
     },
 
@@ -262,5 +333,31 @@ enum IdType {
         var msg = toMessage(id);
         var result = AnyPacker.pack(msg);
         return result;
+    }
+
+    /**
+     * Obtains the constant reserved by convention for the "undefined" identifier value —
+     * the one with the number zero — declared in the given Protobuf enum class.
+     *
+     * <p>The constant is located by its number through the enum descriptor, so it is correct
+     * regardless of the declaration order. If the enum declares no constant with the number
+     * zero — possible only for {@code proto2} — the first declared constant is returned.
+     */
+    private static Object zeroValue(Class<?> enumClass) {
+        var constants = enumClass.getEnumConstants();
+        var enumDescriptor = ((ProtocolMessageEnum) constants[0]).getDescriptorForType();
+        var zero = enumDescriptor.findValueByNumber(0);
+        if (zero == null) {
+            return constants[0];
+        }
+        return enumConstant(enumClass, zero.getName());
+    }
+
+    /**
+     * Obtains the enum constant of the given class by its name.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"}) // `enumClass` is an `enum`, ensured by `matchClass()`.
+    private static Object enumConstant(Class<?> enumClass, String name) {
+        return Enum.valueOf((Class) enumClass, name);
     }
 }
