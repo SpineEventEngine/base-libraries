@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -251,6 +251,38 @@ class RecordQueryBuilderTest {
             var query = builder.build();
             var actualBuilder = query.toBuilder();
             assertThat(actualBuilder).isSameInstanceAs(builder);
+        }
+    }
+
+    @Nested
+    @DisplayName("treat `is` as a short form of `isEqualTo`")
+    final class IsEqualToAlias {
+
+        @Test
+        @DisplayName("appending an `EQUALS` parameter via `isEqualTo`")
+        void appendEqualsParameter() {
+            var isinValue = "JP 3496600002";
+            var parameters = queryManufacturer()
+                    .where(isin).isEqualTo(isinValue)
+                    .predicate()
+                    .parameters();
+            assertThat(parameters).hasSize(1);
+            assertHasParamValue(parameters, isin, EQUALS, isinValue);
+        }
+
+        @Test
+        @DisplayName("producing the same parameter as `is`")
+        void matchIs() {
+            var isinValue = "JP 3496600002";
+            var viaIs = queryManufacturer()
+                    .where(isin).is(isinValue)
+                    .predicate()
+                    .parameters();
+            var viaIsEqualTo = queryManufacturer()
+                    .where(isin).isEqualTo(isinValue)
+                    .predicate()
+                    .parameters();
+            assertThat(viaIsEqualTo).isEqualTo(viaIs);
         }
     }
 
