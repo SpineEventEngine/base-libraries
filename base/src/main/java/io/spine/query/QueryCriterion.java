@@ -86,16 +86,42 @@ abstract class QueryCriterion<R extends Message,
 
     /**
      * Appends an associated query builder with a criterion checking that the value
-     * of the associated column equals to the one provided.
+     * of the associated column equals the one provided.
+     *
+     * <p>The shorter {@link #is(Object) is()} alias has the same effect and reads more
+     * fluently from Java. Prefer this method in Kotlin, where {@code is} is a reserved
+     * word and calling {@code is()} requires wrapping the name in backticks.
      *
      * @param value
      *         the column value to use when querying
      * @return the instance of query builder associated with this criterion
+     * @see #is(Object)
+     */
+    @CanIgnoreReturnValue
+    public B isEqualTo(V value) {
+        checkNotNull(value);
+        return addParameter(builder, column, EQUALS, value);
+    }
+
+    /**
+     * Appends an associated query builder with a criterion checking that the value
+     * of the associated column equals the one provided.
+     *
+     * <p>This method is a short form of {@link #isEqualTo(Object) isEqualTo()}.
+     * It is a convenience wrapper for working with a {@code QueryCriterion} from Java.
+     *
+     * <p>In Kotlin, prefer {@link #isEqualTo(Object) isEqualTo()} because {@code is} is
+     * a reserved word there, so calling this method requires wrapping its name in
+     * backticks.
+     *
+     * @param value
+     *         the column value to use when querying
+     * @return the instance of query builder associated with this criterion
+     * @see #isEqualTo(Object)
      */
     @CanIgnoreReturnValue
     public B is(V value) {
-        checkNotNull(value);
-        return addParameter(builder, column, EQUALS, value);
+        return isEqualTo(value);
     }
 
     /**
