@@ -105,7 +105,7 @@ abstract class QueryCriterion<R extends Message,
 
     /**
      * Appends an associated query builder with a criterion checking that the value
-     * of the associated column equals to the one provided.
+     * of the associated column equals the one provided.
      *
      * <p>This method is a short form of {@link #isEqualTo(Object) isEqualTo()}.
      * It is a convenience wrapper for working with a {@code QueryCriterion} from Java.
