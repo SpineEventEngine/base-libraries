@@ -255,8 +255,8 @@ class RecordQueryBuilderTest {
     }
 
     @Nested
-    @DisplayName("treat `is` as a short form of `isEqualTo`")
-    final class IsEqualToAlias {
+    @DisplayName("support filtering by given values")
+    final class IsEqualTo {
 
         @Test
         @DisplayName("appending an `EQUALS` parameter via `isEqualTo`")
@@ -271,7 +271,7 @@ class RecordQueryBuilderTest {
         }
 
         @Test
-        @DisplayName("producing the same parameter as `is`")
+        @DisplayName("providing `is` alias for `isEqualTo`")
         void matchIs() {
             var isinValue = "JP 3496600002";
             var viaIs = queryManufacturer()
