@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +89,6 @@ tasks {
     excludeGoogleProtoFromArtifacts()
 }
 
-
 // For generating test fixtures. See `src/test/proto`.
 protobuf {
     configurations.excludeProtobufLite()
@@ -99,6 +98,15 @@ protobuf {
     }
 
     generateProtoTasks.all().configureEach {
+        // The `doLast` action below deletes files from this task's own output
+        // directory, which is not reproduced when the task is restored from the
+        // Gradle build cache. A cached restoration yields an output (and a
+        // downstream descriptor set on the test classpath) that differs from a
+        // fresh run, intermittently leaving `io.spine.type.KnownTypes` with an
+        // incomplete set of types. Opt this task out of the build cache so it
+        // always executes and the deletion is always applied.
+        outputs.cacheIf { false }
+
         // Delete files generated in `com.google` packages because
         // we add `protobuf(Protobuf.protoSrcLib)` dependency above.
         doLast {
