@@ -86,7 +86,7 @@ abstract class QueryCriterion<R extends Message,
 
     /**
      * Appends an associated query builder with a criterion checking that the value
-     * of the associated column equals to the one provided.
+     * of the associated column equals the one provided.
      *
      * <p>The shorter {@link #is(Object) is()} alias has the same effect and reads more
      * fluently from Java. Prefer this method in Kotlin, where {@code is} is a reserved
