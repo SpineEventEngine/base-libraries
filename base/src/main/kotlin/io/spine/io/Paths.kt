@@ -28,6 +28,7 @@
 
 package io.spine.io
 
+import io.spine.annotation.VisibleForTesting
 import io.spine.string.toBase64Encoded
 import java.io.File
 import java.nio.file.Path
@@ -112,10 +113,11 @@ public object Separator {
  * required when processing paths that originate from Windows while running on a non-Windows
  * machine.
  *
- * It is intentionally `internal`: it backs [Path.toUnixPath] and [File.toUnixPath] and is not
- * meant to be a general-purpose `String` API.
+ * This function is visible for testing under Windows for converting
+ * paths to the Unix forms that we conventionally use in assertions.
  */
-internal fun String.toUnix(): String = if (contains(Separator.Windows)) {
+@VisibleForTesting
+public fun String.toUnix(): String = if (contains(Separator.Windows)) {
     replace(Separator.Windows, Separator.Unix)
 } else {
     this
