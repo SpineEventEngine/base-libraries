@@ -99,11 +99,6 @@ val RepositoryHandler.intellijReleases: MavenArtifactRepository
         includeIntelliJPlatformOnly()
     }
 
-val RepositoryHandler.jetBrainsCacheRedirector: MavenArtifactRepository
-    get() = maven("https://cache-redirector.jetbrains.com/intellij-dependencies") {
-        includeIntelliJPlatformOnly()
-    }
-
 val RepositoryHandler.intellijDependencies: MavenArtifactRepository
     get() = maven("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies") {
         includeIntelliJPlatformOnly()
@@ -118,7 +113,7 @@ fun RepositoryHandler.standardToSpineSdk() {
     // the first repository that can serve an artifact, so keeping these ahead of
     // the special-purpose ones means coordinates shared with them (such as
     // `org.jetbrains:annotations`) resolve here and never reach a less reliable
-    // mirror like `cache-redirector.jetbrains.com`.
+    // JetBrains mirror.
     //
     // `io.spine.*` modules are served only by the Spine repositories below, so
     // they are excluded here. Otherwise Gradle would query Central / the Plugin
@@ -147,11 +142,13 @@ fun RepositoryHandler.standardToSpineSdk() {
             }
         }
 
-    // IntelliJ Platform repositories. Each is restricted to the IntelliJ
-    // coordinates it serves (see `includeIntelliJPlatformOnly`), so a transient
-    // 5xx from one of them cannot break the resolution of unrelated artifacts.
+    // IntelliJ Platform repositories. `intellijReleases` serves the platform
+    // artifacts (`com.jetbrains.intellij.*`); `intellijDependencies` serves the
+    // repackaged third-party dependencies (`org.jetbrains.intellij.deps.*` and
+    // JetBrains-internal builds). Each is restricted to the coordinates it serves
+    // (see `includeIntelliJPlatformOnly`), so a transient 5xx from one of them
+    // cannot break the resolution of unrelated artifacts.
     intellijReleases
-    jetBrainsCacheRedirector
     intellijDependencies
 
     maven {
@@ -219,12 +216,11 @@ private fun ArtifactRepository.excludeSpine() {
  * Restricts a JetBrains/IntelliJ Platform repository to the coordinates it
  * actually serves.
  *
- * These hosts — `cache-redirector.jetbrains.com` in particular — periodically
- * answer with HTTP 5xx. Once Gradle sees such an error, it disables the
- * repository for the rest of the build and fails the resolution instead of
- * falling back to another repository. Without this filter the redirector is
- * queried for every artifact, so a single 502 on an unrelated POM (such as
- * `com.fasterxml.jackson:jackson-parent`) breaks the whole build.
+ * These hosts periodically answer with HTTP 5xx. Once Gradle sees such an error,
+ * it disables the repository for the rest of the build and fails the resolution
+ * instead of falling back to another repository. Without this filter such a
+ * repository is queried for every artifact, so a single 502 on an unrelated POM
+ * (such as `com.fasterxml.jackson:jackson-parent`) would break the whole build.
  */
 private fun MavenArtifactRepository.includeIntelliJPlatformOnly() {
     content {
