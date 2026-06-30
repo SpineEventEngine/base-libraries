@@ -107,8 +107,7 @@ afterEvaluate {
     }
 }
 
-@Suppress("unused")
-val dokkaGeneratePublicationHtml by tasks.getting {
+tasks.named("dokkaGeneratePublicationHtml") {
     dependsOn(tasks.jar)
 }
 

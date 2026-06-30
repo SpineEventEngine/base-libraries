@@ -112,10 +112,10 @@ public object Separator {
  * required when processing paths that originate from Windows while running on a non-Windows
  * machine.
  *
- * It is intentionally `internal`: it backs [Path.toUnixPath] and [File.toUnixPath] and is not
- * meant to be a general-purpose `String` API.
+ * It backs [Path.toUnixPath] and [File.toUnixPath], and is also available directly for
+ * normalizing string paths to the Unix form used in assertions.
  */
-internal fun String.toUnix(): String = if (contains(Separator.Windows)) {
+public fun String.toUnix(): String = if (contains(Separator.Windows)) {
     replace(Separator.Windows, Separator.Unix)
 } else {
     this

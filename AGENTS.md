@@ -19,9 +19,15 @@ Shared skills, scripts, and guidelines come from the `.agents/shared` submodule 
 `./config/pull` initializes and floats them automatically. But a fresh `git worktree`
 (and some shallow clones / cloud checkouts) start with NO submodules checked out, so
 those symlinks dangle and no skills are found. Bootstrap such a tree with
-**`./init-submodules`** — a root script that materializes the missing submodules
-(`config`, `.agents/shared`, …) at their pinned commits. It depends on no pre-existing
-`config` submodule, so it works before `./config/pull` (which lives inside the `config`
+**`./init-submodules`** — a root script that materializes the missing
+*config-managed* submodules at their pinned commits: `config` itself, plus every
+submodule that declares a tracked `branch` in `.gitmodules` (`.agents/shared`, and
+any shared submodule added later) — the same rule `./config/pull` uses to decide
+what it floats. Submodules the consumer owns (a Hugo theme, a vendored library,
+doc-example submodules, …) declare no tracked branch and are left untouched, so the
+automatic `SessionStart` run never tries to clone — or fail on credentials for — a
+submodule this project does not manage. It depends on no pre-existing `config`
+submodule, so it works before `./config/pull` (which lives inside the `config`
 submodule) can. Claude Code runs it automatically via a `SessionStart` hook; other
 agents and humans run it by hand, then `./config/pull` to float the shared submodules
 to their branch tips.
