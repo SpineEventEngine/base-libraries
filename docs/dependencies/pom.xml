@@ -10,7 +10,7 @@ all modules and does not describe the project structure per-subproject.
  -->
 <groupId>io.spine</groupId>
 <artifactId>base-libraries</artifactId>
-<version>2.0.0-SNAPSHOT.422</version>
+<version>2.0.0-SNAPSHOT.423</version>
 
 <inceptionYear>2015</inceptionYear>
 
@@ -32,26 +32,31 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
+    <version>2.22.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.dataformat</groupId>
     <artifactId>jackson-dataformat-yaml</artifactId>
+    <version>2.22.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-guava</artifactId>
+    <version>2.22.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-jdk8</artifactId>
+    <version>2.22.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-jsr310</artifactId>
+    <version>2.22.0</version>
     <scope>compile</scope>
   </dependency>
   <dependency>
@@ -129,7 +134,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.google.errorprone</groupId>
     <artifactId>error_prone_annotations</artifactId>
-    <version>2.36.0</version>
+    <version>2.47.0</version>
     <scope>provided</scope>
   </dependency>
   <dependency>
@@ -147,6 +152,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.fasterxml.jackson.module</groupId>
     <artifactId>jackson-module-kotlin</artifactId>
+    <version>2.22.0</version>
     <scope>runtime</scope>
   </dependency>
   <dependency>
@@ -296,12 +302,22 @@ all modules and does not describe the project structure per-subproject.
   </dependency>
   <dependency>
     <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>abi-tools</artifactId>
+    <version>2.3.21</version>
+  </dependency>
+  <dependency>
+    <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-build-tools-compat</artifactId>
     <version>2.3.21</version>
   </dependency>
   <dependency>
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-build-tools-impl</artifactId>
+    <version>2.3.21</version>
+  </dependency>
+  <dependency>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-klib-commonizer-embeddable</artifactId>
     <version>2.3.21</version>
   </dependency>
   <dependency>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,10 @@ package io.spine.compare
 import com.google.protobuf.Duration
 import com.google.protobuf.Timestamp
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.shouldBe
+import java.util.UUID
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -75,5 +78,27 @@ internal class ComparatorRegistrySpec {
         registry.find<StringBuilder>() shouldBe null
         registry.register<StringBuilder>(comparator)
         registry.find<StringBuilder>() shouldBe comparator
+    }
+
+    @Test
+    fun `expose the supported types`() {
+        registry.types() shouldContain Timestamp::class.java
+        registry.types() shouldContain Duration::class.java
+    }
+
+    @Test
+    fun `include a newly registered type among the supported types`() {
+        val comparator = compareBy<CharSequence> { it.length }
+        registry.types() shouldNotContain CharSequence::class.java
+        registry.register<CharSequence>(comparator)
+        registry.types() shouldContain CharSequence::class.java
+    }
+
+    @Test
+    fun `return a snapshot of the supported types`() {
+        val snapshot = registry.types()
+        snapshot shouldNotContain UUID::class.java
+        registry.register<UUID>(compareBy { it.toString() })
+        snapshot shouldNotContain UUID::class.java
     }
 }
