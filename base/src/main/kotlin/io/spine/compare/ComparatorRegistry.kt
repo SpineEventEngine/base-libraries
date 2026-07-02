@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +77,15 @@ public object ComparatorRegistry {
      */
     @JvmStatic
     public fun contains(clazz: Class<*>): Boolean = map.containsKey(clazz)
+
+    /**
+     * Returns the types for which comparators are currently registered.
+     *
+     * The returned set is a snapshot; subsequent registrations do not
+     * affect it, and modifying it does not affect the registry.
+     */
+    @JvmStatic
+    public fun types(): Set<Class<*>> = map.keys.toSet()
 
     private fun loadServiceProviders() {
         ServiceLoader.load(ComparatorProvider::class.java)
