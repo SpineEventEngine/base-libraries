@@ -64,7 +64,7 @@ public data class Indent(
     /**
      * Same as [repeat].
      */
-    public fun atLevel(l: Int): String = repeat(l)
+    public fun atLevel(n: Int): String = repeat(n)
 
     public companion object {
 
