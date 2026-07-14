@@ -51,6 +51,21 @@ public data class Indent(
      */
     override fun toString(): String = value
 
+    /**
+     * Repeats this indentation [n] times.
+     *
+     * @throws [IllegalArgumentException] when [n] < 0.
+     */
+    public fun repeat(n: Int): String {
+        require(n >= 0) { "Count `n` must be non-negative, but was $n."}
+        return value.repeat(n)
+    }
+
+    /**
+     * Same as [repeat].
+     */
+    public fun atLevel(n: Int): String = repeat(n)
+
     public companion object {
 
         /**
@@ -88,18 +103,3 @@ public data class Indent(
         }
     }
 }
-
-/**
- * Repeats this indentation [n] times.
- *
- * @throws [IllegalArgumentException] when [n] < 0.
- */
-public fun Indent.repeat(n: Int): String {
-    require(size >= 0) { "Count `n` must be non-negative, but was $size."}
-    return value.repeat(n)
-}
-
-/**
- * Same as [repeat].
- */
-public fun Indent.atLevel(l: Int): String = repeat(l)
