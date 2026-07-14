@@ -54,6 +54,14 @@ public object ComparatorRegistry {
     }
 
     /**
+     * Registers a [comparator] for the specified type [T].
+     *
+     * The method overrides the previously set comparator, if any.
+     */
+    public inline fun <reified T> register(comparator: Comparator<T>): Unit =
+        register(T::class.java, comparator)
+
+    /**
      * Returns a comparator for the given [clazz].
      *
      * @throws IllegalStateException if there is no a comparator for the given [clazz].
@@ -66,6 +74,13 @@ public object ComparatorRegistry {
     }
 
     /**
+     * Returns a comparator for the specified type [T].
+     *
+     * @throws IllegalStateException if there is no a comparator for the type [T].
+     */
+    public inline fun <reified T : Any> get(): Comparator<T> = get(T::class.java)
+
+    /**
      * Returns a comparator for the given [clazz], if any.
      */
     @JvmStatic
@@ -73,10 +88,20 @@ public object ComparatorRegistry {
     public fun <T> find(clazz: Class<T>): Comparator<T>? = map[clazz] as Comparator<T>?
 
     /**
+     * Returns a comparator for the specified type [T], if any.
+     */
+    public inline fun <reified T : Any> find(): Comparator<T>? = find(T::class.java)
+
+    /**
      * Tells whether the registry has a comparator for the given [clazz].
      */
     @JvmStatic
     public fun contains(clazz: Class<*>): Boolean = map.containsKey(clazz)
+
+    /**
+     * Tells whether the registry has a comparator for the specified type [T].
+     */
+    public inline fun <reified T : Any> contains(): Boolean = contains(T::class.java)
 
     /**
      * Returns the types for which comparators are currently registered.
@@ -92,28 +117,3 @@ public object ComparatorRegistry {
             .forEach { it.registerIn(this) }
     }
 }
-
-/**
- * Tells whether the registry has a comparator for the specified type [T].
- */
-public inline fun <reified T : Any> ComparatorRegistry.contains(): Boolean = contains(T::class.java)
-
-/**
- * Returns a comparator for the specified type [T], if any.
- */
-public inline fun <reified T : Any> ComparatorRegistry.find(): Comparator<T>? = find(T::class.java)
-
-/**
- * Returns a comparator for the specified type [T].
- *
- * @throws IllegalStateException if there is no a comparator for the type [T].
- */
-public inline fun <reified T : Any> ComparatorRegistry.get(): Comparator<T> = get(T::class.java)
-
-/**
- * Registers a [comparator] for the specified type [T].
- *
- * The method overrides the previously set comparator, if any.
- */
-public inline fun <reified T> ComparatorRegistry.register(comparator: Comparator<T>): Unit =
-    register(T::class.java, comparator)
