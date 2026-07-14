@@ -58,13 +58,13 @@ public object ComparatorRegistry {
      *
      * The method overrides the previously set comparator, if any.
      */
-    public inline fun <reified T> register(comparator: Comparator<T>): Unit =
+    public inline fun <reified T : Any> register(comparator: Comparator<T>): Unit =
         register(T::class.java, comparator)
 
     /**
      * Returns a comparator for the given [clazz].
      *
-     * @throws IllegalStateException if there is no a comparator for the given [clazz].
+     * @throws IllegalStateException if there is no comparator for the given [clazz].
      */
     @JvmStatic
     @Suppress("UNCHECKED_CAST") // Type safety is enforced by `register()` method signature.
@@ -76,7 +76,7 @@ public object ComparatorRegistry {
     /**
      * Returns a comparator for the specified type [T].
      *
-     * @throws IllegalStateException if there is no a comparator for the type [T].
+     * @throws IllegalStateException if there is no comparator for the type [T].
      */
     public inline fun <reified T : Any> get(): Comparator<T> = get(T::class.java)
 
