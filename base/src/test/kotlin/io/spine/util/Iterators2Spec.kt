@@ -24,35 +24,44 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.local
+package io.spine.util
 
-// For backward compatibility.
-@Suppress("unused")
-@Deprecated("Use `CoreJvm` instead.", ReplaceWith("CoreJvm"))
-typealias CoreJava = CoreJvm
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.shouldBe
+import io.spine.testing.UtilityClassTest
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-/**
- * Dependencies on `core-jvm` modules.
- *
- * See [`SpineEventEngine/core-jvm`](https://github.com/SpineEventEngine/core-jvm/).
- */
-@Suppress("ConstPropertyName", "unused")
-object CoreJvm {
-    const val group = Spine.group
-    const val version = "2.0.0-SNAPSHOT.450"
+@DisplayName("`Iterators2` utility class should")
+internal class Iterators2Spec : UtilityClassTest<Iterators2>(Iterators2::class.java) {
 
-    const val coreArtifact = "spine-core"
-    const val clientArtifact = "spine-client"
-    const val serverArtifact = "spine-server"
+    @Test
+    fun `retain only the elements matching the predicate`() {
+        val source = listOf(1, 2, 3, 4, 5, 6).iterator()
 
-    const val core = "$group:$coreArtifact:$version"
-    const val client = "$group:$clientArtifact:$version"
-    const val server = "$group:$serverArtifact:$version"
+        val filtered = Iterators2.filter(source) { it % 2 == 0 }
 
-    @Deprecated("Use `serverTestLib` instead.", ReplaceWith("serverTestLib"))
-    const val testUtilServer = "${Spine.toolsGroup}:server-testlib:$version"
+        filtered.asSequence().toList() shouldContainExactly listOf(2, 4, 6)
+    }
 
-    const val coreTestLib = "${Spine.toolsGroup}:core-testlib:$version"
-    const val clientTestLib = "${Spine.toolsGroup}:client-testlib:$version"
-    const val serverTestLib = "${Spine.toolsGroup}:server-testlib:$version"
+    @Test
+    fun `return an exhausted iterator when no elements match`() {
+        val source = listOf(1, 3, 5).iterator()
+
+        val filtered = Iterators2.filter(source) { it % 2 == 0 }
+
+        filtered.hasNext() shouldBe false
+    }
+
+    @Test
+    fun `not support removal`() {
+        val source = mutableListOf(1, 2, 3)
+        val filtered: MutableIterator<Int> = Iterators2.filter(source.iterator()) { true }
+        filtered.next()
+
+        shouldThrow<UnsupportedOperationException> {
+            filtered.remove()
+        }
+    }
 }

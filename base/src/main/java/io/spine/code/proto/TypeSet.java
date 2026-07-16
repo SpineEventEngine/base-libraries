@@ -269,10 +269,9 @@ public final class TypeSet {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof TypeSet)) {
+        if (!(o instanceof TypeSet typeSet)) {
             return false;
         }
-        var typeSet = (TypeSet) o;
         return Objects.equal(messageTypes, typeSet.messageTypes) &&
                 Objects.equal(enumTypes, typeSet.enumTypes);
     }

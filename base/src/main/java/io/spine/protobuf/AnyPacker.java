@@ -78,8 +78,8 @@ public final class AnyPacker {
      */
     public static Any pack(Message message) {
         checkNotNull(message);
-        if (message instanceof Any) {
-            return (Any) message;
+        if (message instanceof Any any) {
+            return any;
         }
         var typeUrl = TypeUrl.from(message.getDescriptorForType());
         var typeUrlPrefix = typeUrl.prefix();

@@ -102,8 +102,10 @@ public enum ComparisonOperator {
      * The actual value must be greater than the value of the subject parameter.
      */
     GREATER_THAN {
-        @SuppressWarnings({"ChainOfInstanceofChecks", // Generic but limited operand types.
-                "rawtypes", "unchecked"               // Types are checked at runtime.
+        @SuppressWarnings({
+                "ChainOfInstanceofChecks", // Generic but limited operand types.
+                "PatternMatchingInstanceof", // To keep generic for `Comparable<?>`.
+                "rawtypes", "unchecked"    // Types are checked at runtime.
         })
         @Override
         public boolean eval(@Nullable Object left, @Nullable Object right) {
@@ -117,8 +119,7 @@ public enum ComparisonOperator {
                                right.getClass())
                 );
             }
-            if (left instanceof Timestamp) {
-                var firstT = (Timestamp) left;
+            if (left instanceof Timestamp firstT) {
                 var secondT = (Timestamp) right;
                 return Timestamps.compare(firstT, secondT) > 0;
             }

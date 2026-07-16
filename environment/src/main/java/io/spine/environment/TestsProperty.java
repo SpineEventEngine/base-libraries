@@ -34,7 +34,6 @@ import org.jspecify.annotations.Nullable;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkState;
-import static java.lang.Boolean.TRUE;
 
 /**
  * Encapsulates work with the values of the {@link #KEY} environment variable.
@@ -60,8 +59,7 @@ final class TestsProperty {
      * @see Tests#enabled()
      */
     @VisibleForTesting
-    static final ImmutableList<String> TESTS_VALUES =
-            ImmutableList.of(TRUE.toString(), "1");
+    static final ImmutableList<String> TESTS_VALUES = ImmutableList.of("true", "1");
 
     /**
      * Surrounding characters that may be in the value.

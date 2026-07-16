@@ -24,35 +24,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.local
+package io.spine.util
 
-// For backward compatibility.
-@Suppress("unused")
-@Deprecated("Use `CoreJvm` instead.", ReplaceWith("CoreJvm"))
-typealias CoreJava = CoreJvm
+import io.kotest.matchers.shouldBe
+import io.spine.testing.UtilityClassTest
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-/**
- * Dependencies on `core-jvm` modules.
- *
- * See [`SpineEventEngine/core-jvm`](https://github.com/SpineEventEngine/core-jvm/).
- */
-@Suppress("ConstPropertyName", "unused")
-object CoreJvm {
-    const val group = Spine.group
-    const val version = "2.0.0-SNAPSHOT.450"
+@DisplayName("`Suppliers2` utility class should")
+internal class Suppliers2Spec : UtilityClassTest<Suppliers2>(Suppliers2::class.java) {
 
-    const val coreArtifact = "spine-core"
-    const val clientArtifact = "spine-client"
-    const val serverArtifact = "spine-server"
+    @Test
+    fun `return the value obtained from the delegate`() {
+        val memoized = Suppliers2.memoize { "answer" }
 
-    const val core = "$group:$coreArtifact:$version"
-    const val client = "$group:$clientArtifact:$version"
-    const val server = "$group:$serverArtifact:$version"
+        memoized.get() shouldBe "answer"
+    }
 
-    @Deprecated("Use `serverTestLib` instead.", ReplaceWith("serverTestLib"))
-    const val testUtilServer = "${Spine.toolsGroup}:server-testlib:$version"
+    @Test
+    fun `call the delegate lazily and only once`() {
+        var calls = 0
+        val memoized = Suppliers2.memoize { ++calls }
 
-    const val coreTestLib = "${Spine.toolsGroup}:core-testlib:$version"
-    const val clientTestLib = "${Spine.toolsGroup}:client-testlib:$version"
-    const val serverTestLib = "${Spine.toolsGroup}:server-testlib:$version"
+        calls shouldBe 0
+
+        memoized.get() shouldBe 1
+        memoized.get() shouldBe 1
+        calls shouldBe 1
+    }
 }
