@@ -34,7 +34,6 @@ import org.jspecify.annotations.Nullable;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkState;
-import static java.lang.Boolean.TRUE;
 
 /**
  * Encapsulates work with the values of the {@link #KEY} environment variable.
