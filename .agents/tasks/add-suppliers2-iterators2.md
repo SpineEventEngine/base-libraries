@@ -46,8 +46,12 @@ can later drop its copies.
 
 ## Log
 
-- 2026-07-16 — drafted and validated (build commands, `UtilityClassTest`
+- 2026-07-16 16:45 — drafted and validated (build commands, `UtilityClassTest`
   contract, detekt impact); executing.
-- 2026-07-16 — all files in place; scoped specs green (11 tests, 0 failures);
-  full `./gradlew build dokkaGenerate` BUILD SUCCESSFUL in 30s.
+- 2026-07-16 16:55 — all files in place; scoped specs green (11 tests,
+  0 failures); full `./gradlew build dokkaGenerate` BUILD SUCCESSFUL in 30s.
   `spine-code-review` + `kotlin-engineer` review passes launched.
+- 2026-07-16 17:14 — version bumped to `.425`, reports regenerated,
+  pre-PR gate PASS (3 reviewers approve); PR #953 opened.
+- 2026-07-16 17:35 — `review-docs` nits addressed: `@return` tags on both
+  methods, labeled `Suppliers.memoize()` link, timed `Log` entries.
