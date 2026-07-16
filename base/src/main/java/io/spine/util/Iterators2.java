@@ -70,8 +70,8 @@ public final class Iterators2 {
      * @return a filtered view of the given iterator
      */
     @SuppressWarnings("NullableProblems")
-    public static <T> Iterator<T>
-    filter(Iterator<T> unfiltered, Predicate<? super T> retainIfTrue) {
+    public static <T> Iterator<T> filter(Iterator<T> unfiltered,
+                                         Predicate<? super T> retainIfTrue) {
         return Iterators.filter(unfiltered, retainIfTrue::test);
     }
 }
