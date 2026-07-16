@@ -46,7 +46,8 @@ public final class Suppliers2 {
      * Returns a supplier that obtains the value from the given delegate on the first call,
      * and returns that same value on the calls that follow.
      *
-     * <p>Prefer this method over {@link Suppliers#memoize(com.google.common.base.Supplier)}
+     * <p>Prefer this method over
+     * {@link Suppliers#memoize(com.google.common.base.Supplier) Suppliers.memoize()}
      * when the supplied value is not {@code null} — which, in this
      * {@link org.jspecify.annotations.NullMarked @NullMarked} code, is the usual case.
      * Guava declares its method as {@code <T extends @Nullable Object>}, deliberately, so that
@@ -59,6 +60,7 @@ public final class Suppliers2 {
      *         the supplier of the value to memoize
      * @param <T>
      *         the type of the supplied value
+     * @return a supplier that memoizes the value of the delegate
      */
     @SuppressWarnings("NullableProblems")
     public static <T> Supplier<T> memoize(Supplier<T> delegate) {

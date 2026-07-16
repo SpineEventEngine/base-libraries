@@ -72,8 +72,8 @@ final class MessageIdToString {
             result = Identifier.EMPTY_ID;
         } else if (values.size() == 1) {
             var object = values.iterator().next();
-            result = object instanceof Message
-                     ? convert((Message) object)
+            result = object instanceof Message msg
+                     ? convert(msg)
                      : object.toString();
         } else {
             result = messageWithMultipleFieldsToString(message);

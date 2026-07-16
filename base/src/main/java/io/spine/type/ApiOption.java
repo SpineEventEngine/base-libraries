@@ -70,8 +70,9 @@ import static io.spine.option.OptionsProto.sPIType;
 public final class ApiOption {
 
     /*
-     * Fields of type {@code GeneratedExtension} are immutable, despite not being annotated.
+     * Fields of type `GeneratedExtension` are immutable, despite not being annotated.
      */
+
     @SuppressWarnings("Immutable")
     private final GeneratedExtension<FileOptions, Boolean> fileOption;
     @SuppressWarnings("Immutable")

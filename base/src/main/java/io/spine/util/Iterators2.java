@@ -67,6 +67,7 @@ public final class Iterators2 {
      *         the predicate matching the elements to retain
      * @param <T>
      *         the type of the iterated elements
+     * @return a filtered view of the given iterator
      */
     @SuppressWarnings("NullableProblems")
     public static <T> Iterator<T>

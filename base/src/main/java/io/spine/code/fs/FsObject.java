@@ -77,12 +77,7 @@ public abstract class FsObject {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof FsObject)) {
-            return false;
-        }
-        var other = (FsObject) obj;
-        return Objects.equals(this.path, other.path);    }
+        return (this == obj) ||
+                ((obj instanceof FsObject other) && Objects.equals(this.path, other.path));
+    }
 }

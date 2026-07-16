@@ -60,8 +60,7 @@ final class TestsProperty {
      * @see Tests#enabled()
      */
     @VisibleForTesting
-    static final ImmutableList<String> TESTS_VALUES =
-            ImmutableList.of(TRUE.toString(), "1");
+    static final ImmutableList<String> TESTS_VALUES = ImmutableList.of("true", "1");
 
     /**
      * Surrounding characters that may be in the value.

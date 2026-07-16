@@ -479,8 +479,8 @@ public final class Identifier<I> {
         }
 
         Identifier<?> identifier;
-        if (id instanceof Any) {
-            var unpacked = AnyPacker.unpack((Any) id);
+        if (id instanceof Any idAny) {
+            var unpacked = AnyPacker.unpack(idAny);
             identifier = fromMessage(unpacked);
         } else {
             identifier = from(id);
