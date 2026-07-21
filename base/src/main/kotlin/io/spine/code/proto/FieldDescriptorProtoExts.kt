@@ -58,7 +58,7 @@ public fun FieldDescriptorProto.isMap(): Boolean =
  *
  * For example, a proto field with the name 'word_dictionary' has 'wordDictionary' JSON name.
  * Every map field has a corresponding entry type.
- * For 'word_dictionary' it would be 'WordDictionaryEntry'
+ * For 'word_dictionary' it would be 'WordDictionaryEntry'.
  *
  * @return the name of the map field.
  */

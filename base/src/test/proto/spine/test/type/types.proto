@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 syntax = "proto3";
 
 package spine.test.type;
@@ -51,7 +52,7 @@ message Url {
 
 // A URL in a structured form.
 //
-// This is a test-only type, which is similar to one available from `base-types` artifact.
+// This is a test-only type, which is similar to one available from the `base-types` artifact.
 //
 message Uri {
 
@@ -87,7 +88,7 @@ message Uri {
             // Most often used schemas.
             Schema schema = 1;
 
-            // Some other protocol
+            // Some other protocol.
             string name = 2;
         }
     }
@@ -115,7 +116,7 @@ message Uri {
         string password = 2;
     }
 
-    // Url query parameter type. Should look like key=value after converting to string
+    // Url query parameter type. Should look like key=value after converting to string.
     message QueryParameter {
 
         // Parameter name.
@@ -128,7 +129,7 @@ message Uri {
 
 // A human language as defined by ISO 639-1.
 //
-// A test-only sibling of the type with the same name availble from `base-types` artifact.
+// A test-only sibling of the type with the same name available from `base-types` artifact.
 //
 enum Language {
 

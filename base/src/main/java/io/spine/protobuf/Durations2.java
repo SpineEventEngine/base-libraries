@@ -60,7 +60,7 @@ import static java.util.Objects.requireNonNull;
 @SuppressWarnings("UtilityClass")
 public final class Durations2 {
 
-    /** Prevent instantiation of this utility class. */
+    /** Prevents instantiation of this utility class. */
     private Durations2() {
     }
 
@@ -160,7 +160,7 @@ public final class Durations2 {
     }
 
     /**
-     * Returns {@code true} of the passed value is greater or equal zero,
+     * Returns {@code true} if the passed value is greater or equal zero,
      * {@code false} otherwise.
      */
     public static boolean isPositiveOrZero(Duration value) {
@@ -204,7 +204,7 @@ public final class Durations2 {
     }
 
     /**
-     * Converts the passed value to Java Time value.
+     * Converts the passed value to a Java Time value.
      */
     public static java.time.Duration toJavaTime(Duration value) {
         checkNotNull(value);
@@ -232,7 +232,7 @@ public final class Durations2 {
     }
 
     /**
-     * Obtains the instance of Java Time converter.
+     * Obtains the instance of the Java Time converter.
      */
     public static Converter<java.time.Duration, Duration> converter() {
         return JtConverter.INSTANCE;

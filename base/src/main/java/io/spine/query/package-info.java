@@ -31,9 +31,9 @@
  *
  * <p>A significant part of the Protobuf messages emitted in the Spine-powered applications are
  * written and read from a persistent storage at some point in their lifecycle. At the same time,
- * Spine apps follow the hexagonal architecture. Instead of writing a database-specific code,
+ * Spine apps follow the hexagonal architecture. Instead of writing database-specific code,
  * developers deal with an abstraction over a database port. Under these circumstances,
- * a convenient language is required to describe the how the message data is saved and retrieved.
+ * a convenient language is required to describe how the message data is saved and retrieved.
  *
  * <p>Proto messages may have complex structure that hardly maps to a flat structure of most
  * relational databases and even some NoSQL storages. Therefore, when a Protobuf message
@@ -41,7 +41,7 @@
  * serialization mechanism. The resulting record is stored along with its identifier.
  * It's worth mentioning that the Protobuf binary format makes the records compact in size and
  * resilient to any future changes made to the declaration of a stored {@code Message}. There
- * are more information available on the Protobuf serialization performance
+ * is more information available on the Protobuf serialization performance
  * <a href="https://dzone.com/articles/protobuf-performance-comparison-and-points-to-make">over
  * the web</a>.
  *
@@ -167,7 +167,7 @@
  *                   .build();
  * </pre>
  *
- * <p>Where {@code someManufacturer} must a value of {@code ManufacturerId} type. In addition
+ * <p>Where {@code someManufacturer} must be a value of {@code ManufacturerId} type. In addition
  * to {@link io.spine.query.IdCriterion#is(java.lang.Object) is(value)}, the framework also provides
  * {@link io.spine.query.IdCriterion#in(java.lang.Object[]) in(...values)} and
  * {@link io.spine.query.IdCriterion#in(java.lang.Iterable) in(Iterable values)}
@@ -220,7 +220,7 @@
  * <h3>Entity Queries</h3>
  *
  * <p>Among all the stored Protobuf messages, there is a special case. If a message is declared as
- * an Entity state, it triggers an additional processing on a build-time. The framework
+ * an Entity state, it triggers additional processing at build-time. The framework
  * automatically extends the Java types generated for Entity states with more Entity-specific API.
  *
  * <p>Let's consider a message:
@@ -319,8 +319,8 @@
  *
  * <p>In addition to the columns declared in the Entity state, the query API allows declaring
  * the custom columns. They are intended to handle the cases in which some computed on-the-fly data
- * should be stored along with the record. It may the time of entity creation, the role of the
- * user created the record, whether the entity is deleted or archived etc. That is, something
+ * should be stored along with the record. It may be the time of entity creation, the role of the
+ * user who created the record, whether the entity is deleted or archived, etc. That is, something
  * that isn't included into the definition of the original {@code Message} type of the record.
  *
  * <pre>
@@ -413,7 +413,7 @@
  * <p>If a Proto message declares an Entity state with no columns, the framework still requires
  * at least one field declared. As described above, it is treated as an Entity identifier.
  * Therefore, both {@code QueryBuilder} and {@code Query} are generated for this case, allowing
- * to query the Entity state records by their identifiers.
+ * querying the Entity state records by their identifiers.
  *
  * <h3>Further reading</h3>
  *

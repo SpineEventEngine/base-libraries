@@ -84,7 +84,7 @@ public inline fun <reified K : Any, reified V : Any> mapStringifier(
 /**
  * Utility object for working with `Stringifier`s.
  *
- * **API Note**: This object is Kotlin port of the `Stringifiers` class from Java.
+ * **API Note**: This object is a Kotlin port of the `Stringifiers` class from Java.
  * It is kept as an object, rather than a group of top-level functions, to preserve backward
  * compatibility with the existing Java code. It is expected that it will be gradually
  * migrated to top-level functions with an appropriate deprecation cycle.
@@ -121,7 +121,7 @@ public object Stringifiers {
      * This method must be used if the passed object is a generic type.
      *
      * @param obj
-     *         to object to convert.
+     *         the object to convert.
      * @param typeOfT
      *         the type of the passed object.
      * @param T
@@ -232,7 +232,7 @@ public object Stringifiers {
     public fun forDuration(): Stringifier<Duration> = DurationStringifier.getInstance()
 
     /**
-     * Obtains a stringifier that coverts a Timestamp into to RFC 3339 date string format.
+     * Obtains a stringifier that converts a Timestamp into RFC 3339 date string format.
      *
      * @see com.google.protobuf.util.Timestamps.toString
      * @see com.google.protobuf.util.Timestamps.parse

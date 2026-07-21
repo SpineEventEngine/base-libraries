@@ -289,7 +289,7 @@ public final class Identifier<I> {
         until Java 18. So we link to the class Javadoc where the header comes first. */
     public static <I> void checkSupported(Class<I> idClass) {
         checkNotNull(idClass);
-        // Even through `getType()` can never return null, we use its return value here
+        // Even though `getType()` can never return null, we use its return value here
         // instead of annotating the method so that the returned value can be ignored
         // just because of this one usage.
         var type = toType(idClass);
@@ -343,7 +343,7 @@ public final class Identifier<I> {
      * Wraps the passed ID value into an instance of {@link Any}.
      *
      * <p>The passed value must be of one of the supported types listed below.
-     * The type of the value wrapped in to the returned instance is defined by the type
+     * The type of the value wrapped into the returned instance is defined by the type
      * of the passed value:
      * <ul>
      *   <li>For classes implementing {@link Message} — the value of the message itself
@@ -371,7 +371,7 @@ public final class Identifier<I> {
     /**
      * Extracts an ID value from the passed {@code Any} instance.
      *
-     * <p>Returned type depends on the type of the message wrapped into {@code Any}:
+     * <p>The returned type depends on the type of the message wrapped into {@code Any}:
      * <ul>
      *   <li>{@code String} for unwrapped {@link StringValue}
      *   <li>{@code Integer} for unwrapped {@link Int32Value}

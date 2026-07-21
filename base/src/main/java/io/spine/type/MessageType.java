@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -340,11 +340,11 @@ public class MessageType extends Type<Descriptor, DescriptorProto> {
     }
 
     /**
-     * Obtains a leading comments by the {@link LocationPath}.
+     * Obtains the leading comments for the {@link LocationPath}.
      *
      * <p>This method logs a warning message if the file declaring this message type does not have
      * {@linkplain FileDescriptorProto#hasSourceCodeInfo() source code info}
-     * produced ty Protobuf compiler. The warning message provides instructions for configuring
+     * produced by Protobuf compiler. The warning message provides instructions for configuring
      * the Protobuf Gradle plugin for enabling source code info.
      *
      * @param locationPath
@@ -366,7 +366,7 @@ public class MessageType extends Type<Descriptor, DescriptorProto> {
     }
 
     /**
-     * Obtain file descriptor via {@link KnownTypes} because it loads descriptor set file,
+     * Obtains a file descriptor via {@link KnownTypes} because it loads a descriptor set file,
      * which may contain source code information.
      *
      * <p>Descriptors available in the generated code -- obtained via

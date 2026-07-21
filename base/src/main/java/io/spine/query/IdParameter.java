@@ -82,7 +82,7 @@ public final class IdParameter<I> {
     }
 
     /**
-     * Creates an new instance of this parameter without restricting it to any identifier values.
+     * Creates a new instance of this parameter without restricting it to any identifier values.
      *
      * @param <I>
      *         the type of the values, to satisfy the contract of a calling party

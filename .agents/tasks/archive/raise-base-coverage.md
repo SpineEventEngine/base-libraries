@@ -39,7 +39,7 @@ gaps closed without weakening Codecov settings.
 - [x] Analyze whether `io.spine.code.fs` is used in SpineEventEngine projects.
 - [x] Mark `io.spine.code.fs` types that are not used by any project as deprecated.
 - [x] Deprecate `io.spine.code.fs` types that are not used.
-- [x] Analyse whether `RejectionType` is used in Spine SDK projects and deprecate if not.
+- [x] Analyze whether `RejectionType` is used in Spine SDK projects and deprecate if not.
 - [x] Finalize test cases for the remaining non-deprecated API and wait for
   approval to write tests.
 - [x] Add approved Kotlin `*Spec` tests using stubs, not mocks.

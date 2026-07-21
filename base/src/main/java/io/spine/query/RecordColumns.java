@@ -62,7 +62,7 @@ import java.lang.annotation.Target;
  * for that.
  *
  * <ol>
- *     <li>It allows to refer to columns via a {@code static import}, as it's nice to shorten
+ *     <li>It allows referring to columns via a {@code static import}, as it's nice to shorten
  *     the expression in which a column declaration is used.
  *
  *     <li>We want to preserve the type of the column value (which is determined by the second
@@ -88,8 +88,8 @@ import java.lang.annotation.Target;
  * <p>Note that {@code myProjectName} is checked to be of {@code ProjectName} type, at the time
  * of code compilation.
  *
- * <p>Also, the snake_case notation used in the declaration of {@code project_name} field.
- * As many field names contain at least two words, such an approach allows to easily distinguish
+ * <p>Also, note the snake_case notation used in the declaration of the {@code project_name} field.
+ * As many field names contain at least two words, such an approach allows easily distinguishing
  * a field from a Java variable holding a value to which the field values are compared
  * ({@code myProjectName} in the example above).
  *

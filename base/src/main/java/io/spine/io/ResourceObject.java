@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import static java.lang.String.format;
  * Abstract base for objects stored in program resources.
  *
  * <p>Such a resource is represented by a string path relative to the {@code "resources"} directory
- * of a project, and is loaded by a specified {@link ClassLoader} on runtime.
+ * of a project, and is loaded by a specified {@link ClassLoader} at runtime.
  */
 abstract class ResourceObject {
 

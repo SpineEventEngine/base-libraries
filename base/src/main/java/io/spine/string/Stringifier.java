@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -29,7 +29,7 @@ package io.spine.string;
 import com.google.common.base.Converter;
 
 /**
- * Serves as converter from {@code I} to {@code String} with an associated
+ * Serves as a converter from {@code I} to {@code String} with an associated
  * reverse function from {@code String} to {@code I}.
  *
  * <p>It is used for converting back and forth between the different
@@ -42,12 +42,12 @@ import com.google.common.base.Converter;
 public abstract class Stringifier<T> extends Converter<T, String> {
 
     /**
-     * Convert the thing to a string.
+     * Converts the thing to a string.
      */
     protected abstract String toString(T obj);
 
     /**
-     * Convert the string back to a thing.
+     * Converts the string back to a thing.
      */
     protected abstract T fromString(String s);
 

@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -96,7 +96,7 @@ public fun CharSequence.revealLineSeparators(): String {
 }
 
 /**
- * Replaces line separators in this sequence taking the replacement test as the result
+ * Replaces line separators in this sequence taking the replacement text as the result
  * of the given function on a [Separator].
  *
  * If there are no separators in this sequence, returns [this]. Otherwise, the sequence is

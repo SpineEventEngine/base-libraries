@@ -1,11 +1,11 @@
 /*
- * Copyright 2023, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -47,7 +47,7 @@ public fun Descriptor.field(number: Int): FieldDescriptor? = findFieldByNumber(n
  * The method filters synthetic descriptors created for map fields.
  * A descriptor of a map field entry is named after the name of the field
  * with the `"Entry"` suffix.
- * We use this convention for filtering [Descriptor.nestedTypes] returned by Protobuf API.
+ * We use this convention for filtering [Descriptor.nestedTypes] returned by the Protobuf API.
  *
  * @see <a href="https://protobuf.dev/programming-guides/proto3/#maps-features">
  *     Protobuf documentation</a>

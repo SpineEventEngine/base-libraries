@@ -37,7 +37,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.Optional;
 
 /**
- * A builder for instance of {@link Query}.
+ * A builder for an instance of {@link Query}.
  *
  * @param <I>
  *         the type of identifiers of the records that are queried

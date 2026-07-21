@@ -134,7 +134,7 @@ public abstract class Type<T extends GenericDescriptor, P extends Message> {
     public abstract ClassName javaClassName();
 
     /**
-     * Obtains package for the corresponding Java type.
+     * Obtains the package for the corresponding Java type.
      */
     public PackageName javaPackage() {
         var file = descriptor.getFile().toProto();
@@ -143,7 +143,7 @@ public abstract class Type<T extends GenericDescriptor, P extends Message> {
     }
 
     /**
-     * Obtains simple class name for corresponding Java type.
+     * Obtains the simple class name for the corresponding Java type.
      */
     public final SimpleClassName simpleJavaClassName() {
         return javaClassName().toSimple();

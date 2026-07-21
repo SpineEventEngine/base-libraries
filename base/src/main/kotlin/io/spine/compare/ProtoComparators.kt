@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import com.google.protobuf.util.Durations
 import com.google.protobuf.util.Timestamps
 
 /**
- * Registers comparators provided by `protobuf-java-util` library
+ * Registers comparators provided by the `protobuf-java-util` library
  * for `Timestamp` and `Duration` types.
  */
 @AutoService(ComparatorProvider::class)

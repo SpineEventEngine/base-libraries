@@ -74,7 +74,7 @@ public class RecordQueryBuilder<I, R extends Message>
      * Builds a query on top of this record query builder and transforms it according
      * to the logic of the passed transformer.
      *
-     * <p>This method is a syntax sugar for a convenient method chaining for those who wishes to use
+     * <p>This method is a syntax sugar for a convenient method chaining for those who wish to use
      * the produced query in their own transformation flow.
      *
      * @param transformer

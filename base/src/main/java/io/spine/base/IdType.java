@@ -284,7 +284,7 @@ enum IdType {
     }
 
     /**
-     * Returns {@code true} if the passed instances of {@link Object} matches this
+     * Returns {@code true} if the passed instance of {@link Object} matches this
      * type of identifiers; {@code false} otherwise.
      */
     abstract <I> boolean matchValue(I id);

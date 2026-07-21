@@ -101,7 +101,7 @@ public abstract class RejectionThrowable extends Throwable {
     }
 
     /**
-     * Obtains ID of the entity that has thrown the message.
+     * Obtains the ID of the entity that has thrown the message.
      */
     public synchronized Optional<Any> producerId() {
         return Optional.ofNullable(producerId);

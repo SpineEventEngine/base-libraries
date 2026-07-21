@@ -48,7 +48,7 @@ import static java.lang.String.format;
  * <h2>Detecting the type of the environment</h2>
  *
  * <p>It is possible to {@linkplain #type() obtain the type} of the current
- * environment, or to check whether current environment type {@linkplain #is(Class) matches
+ * environment, or to check whether the current environment type {@linkplain #is(Class) matches
  * another type}.
  * <pre>
  *
@@ -81,7 +81,7 @@ import static java.lang.String.format;
  * <p>The framework users may define their custom settings depending on the current environment
  * type and then {@linkplain #register(Class) register} them for further detection. Custom types
  * are {@linkplain CustomEnvironmentType#enabled() evaluated} in the order reverse to registration.
- * That is, last registered type would be checked first and so on.
+ * That is, the last-registered type would be checked first and so on.
  * Please see {@link CustomEnvironmentType} for details.
  *
  * <h3>When environment changes</h3>
@@ -133,7 +133,7 @@ public final class Environment implements WithLogging {
     /**
      * The types the environment can be in.
      *
-     * <p>Always contains {@link #STANDARD_TYPES} as last two elements.
+     * <p>Always contains {@link #STANDARD_TYPES} as the last two elements.
      *
      * @see #register(EnvironmentType)
      */
@@ -168,7 +168,7 @@ public final class Environment implements WithLogging {
     }
 
     /**
-     * Remembers the specified environment type, allowing {@linkplain #is(Class) to
+     * Remembers the specified environment type, allowing one {@linkplain #is(Class) to
      * determine whether it's enabled} later.
      *
      * <p>Note that the default types are still present.
@@ -195,7 +195,7 @@ public final class Environment implements WithLogging {
     }
 
     /**
-     * Give custom environment types a chance to be detected as the current one
+     * Gives custom environment types a chance to be detected as the current one
      * in response to the changes of their surroundings.
      *
      * <p>Unlike {@link #reset()} this method keeps custom types, but clears
@@ -207,7 +207,7 @@ public final class Environment implements WithLogging {
     }
 
     /**
-     * Configures a callback to be called when corresponding environment type is
+     * Configures a callback to be called when the corresponding environment type is
      * {@linkplain EnvironmentType#enabled() detected}.
      *
      * @param cls
@@ -234,7 +234,7 @@ public final class Environment implements WithLogging {
     }
 
     /**
-     * Remembers the specified environment type, allowing {@linkplain #is(Class) to
+     * Remembers the specified environment type, allowing one {@linkplain #is(Class) to
      * determine whether it's enabled} later.
      *
      * <p>The specified {@code type} must have a parameterless constructor. The
@@ -271,7 +271,7 @@ public final class Environment implements WithLogging {
      * the method goes through them in the latest-registered to earliest-registered order.
      * Then, checks {@link Tests} and {@link DefaultMode}.
      *
-     * <p>Please note that this method follows assigment compatibility:
+     * <p>Please note that this method follows assignment compatibility:
      * <pre>
      *
      *     abstract class AppEngine extends EnvironmentType {

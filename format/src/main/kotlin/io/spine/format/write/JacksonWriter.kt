@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import io.spine.format.JacksonSupport
 import java.io.File
 
 /**
- * The abstract base for writes based on the [Jackson](https://github.com/FasterXML) library.
+ * The abstract base for writers based on the [Jackson](https://github.com/FasterXML) library.
  *
  * If you plan to support a new data format, please see [JacksonSupport].
  *

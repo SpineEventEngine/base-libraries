@@ -47,7 +47,7 @@ import kotlin.io.path.isDirectory
  * If the given file does not exist, it is created along with its parent directories,
  * if required.
  *
- * If the passed [File] points to the existing directory, an
+ * If the passed [File] points to an existing directory, an
  * [IllegalArgumentException] is thrown.
  *
  * In case of any I/O issues, the respective exceptions are rethrown as

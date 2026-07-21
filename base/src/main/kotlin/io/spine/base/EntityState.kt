@@ -35,7 +35,7 @@ import com.google.errorprone.annotations.Immutable
  *
  * The `kind` of the entity state defines the actual interface of the entity state
  * that could be this interface or one that extends it.
- * If the `kind` is [ENTITY][io.spine.option.EntityOption.Kind.ENTITY] the generated
+ * If the `kind` is [ENTITY][io.spine.option.EntityOption.Kind.ENTITY], the generated
  * message will implement this interface. Otherwise, it would be one of the subinterfaces.
  * For example, if the `kind` is [PROJECTION][io.spine.option.EntityOption.Kind.PROJECTION],
  * the generated message will implement [ProjectionState].

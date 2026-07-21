@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ private object DefaultInstanceValue : ClassValue<Message>() {
      https://discuss.kotlinlang.org/t/does-kotlin-have-multi-catch/486/39
   We expect `UncheckedExecutionException` or `NoSuchMethodException` if
   the passed class is just `Class<Message>` or another non-generated `Message` class
-  which does not have a static method `getDefaultInstance()`.
+  that does not have a static method `getDefaultInstance()`.
 */
 public fun <M : Message> builderFor(cls: Class<M>): Message.Builder {
     return try {

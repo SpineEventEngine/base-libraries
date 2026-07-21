@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import java.nio.file.Path
  *
  * This method creates a new `Thread` for deleting the passed directory.
  * That's why calling it should not be taken lightly. If your application creates
- * several directories that need to be removed when JVM is terminated, consider
+ * several directories that need to be removed when the JVM is terminated, consider
  * gathering them under a common root passed to this method.
  *
  * @see Runtime.addShutdownHook

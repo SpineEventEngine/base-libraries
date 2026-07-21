@@ -69,8 +69,8 @@ public final class ColumnOption extends FieldOption<Boolean> {
     /**
      * Returns all fields of a message type that are declared as columns.
      *
-     * <p>If the message type is not eligible for having columns, returns empty list regardless of
-     * how fields are declared.
+     * <p>If the message type is not eligible for having columns, returns an empty list regardless
+     * of how fields are declared.
      */
     public static ImmutableList<FieldDeclaration> columnsOf(MessageType messageType) {
         if (!declaresEntity(messageType)) {

@@ -79,7 +79,7 @@ public final class PackageName extends StringTypeValue {
     }
 
     /**
-     * Obtains Protobuf package delimiter.
+     * Obtains the Protobuf package delimiter.
      */
     public static String delimiter() {
         return DELIMITER;

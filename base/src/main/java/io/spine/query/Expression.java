@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -43,7 +43,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * It makes it difficult to use them in operations like applying the distributive law
  * of boolean algebra.
  *
- * <p>Therefore, this type and its descendants serve as a "staging" data structures for performing
+ * <p>Therefore, this type and its descendants serve as "staging" data structures for performing
  * manipulations with the expression parts.
  *
  * @param <R>
@@ -127,7 +127,7 @@ abstract class Expression<R, E extends Expression<R, E>> {
     }
 
     /**
-     * Creates a new builder of the same {@code Expression} type as current one.
+     * Creates a new builder of the same {@code Expression} type as the current one.
      */
     abstract Builder<R, E, ?> createBuilder();
 
