@@ -48,7 +48,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * from the given instance of {@link Any}.
  *
  * @implNote This class does not use the {@link Any#unpack(Class)} method for unpacking
- *  because of the performance reasons.
+ *  for performance reasons.
  *
  *  <p>The implementation of {@link Any#unpack(Class)} invokes the {@link Any#is(Class) is(Class)}
  *  method that obtains a default instance of a message by calling a method
