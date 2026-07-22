@@ -117,7 +117,7 @@ protobuf {
 }
 
 /**
- * Remove the code generated for Google Protobuf library types.
+ * Removes the code generated for Google Protobuf library types.
  *
  * The code for the `com.google` package was generated because we wanted
  * to have descriptors for all the types, including those from Google Protobuf library.
@@ -150,7 +150,7 @@ private val Project.generatedDir
 /**
  * Obtains the `generated` directory for the source set of the task.
  *
- * If [language] is specified returns the subdirectory for this language.
+ * If [language] is specified, returns the subdirectory for this language.
  */
 private fun GenerateProtoTask.generatedDir(language: String = ""): File {
     val path = "${project.generatedDir}/${sourceSet.name}/$language"

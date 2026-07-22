@@ -785,7 +785,7 @@ class IdentifierTest {
 
     @Nested
     @DisplayName("recognize field descriptor")
-    @SuppressWarnings("BadImport") // OK to static-import `Identifier.Type` for brefity.
+    @SuppressWarnings("BadImport") // OK to static-import `Identifier.Type` for brevity.
     class FieldDescr {
 
         @Test

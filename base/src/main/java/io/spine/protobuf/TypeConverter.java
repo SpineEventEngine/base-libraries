@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -40,7 +40,7 @@ import static io.spine.protobuf.AnyPacker.unpack;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A utility for converting {@linkplain Message Protobuf Messages} (in form of {@link Any})
+ * A utility for converting {@linkplain Message Protobuf Messages} (in the form of {@link Any})
  * to arbitrary {@linkplain Object Java Objects} and, where applicable, back to {@link Any}.
  *
  * <h2>Conversion of Singular Types</h2>
@@ -51,7 +51,7 @@ import static java.util.Objects.requireNonNull;
  *     <li>Java primitives — the passed {@link Any} is unpacked into one of the types
  *         {@code Int32Value, Int64Value, UInt32Value, UInt64Value, FloatValue, DoubleValue,
  *         BoolValue, StringValue, BytesValue} and then transformed into the corresponding Java
- *         type, either a primitive value, or {@code String} of {@link ByteString}. For more info,
+ *         type, either a primitive value, or {@code String} or {@link ByteString}. For more info,
  *         see <a href="https://developers.google.com/protocol-buffers/docs/proto3#scalar">
  *         the official document</a>.
  *     <li>{@linkplain Enum Java Enum} types — the passed {@link Any} is unpacked into the {@link

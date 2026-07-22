@@ -48,12 +48,12 @@ internal abstract class ProtoConverter<M : Message, T : Any> : Converter<M, T>()
     override fun doBackward(t: T): M = toMessage(t)
 
     /**
-     * Converts supplied `input` message into a typed object.
+     * Converts the supplied `input` message into a typed object.
      */
     protected abstract fun toObject(input: M): T
 
     /**
-     * Converts supplied `input` object into a Protobuf message.
+     * Converts the supplied `input` object into a Protobuf message.
      */
     protected abstract fun toMessage(input: T): M
 

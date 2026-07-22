@@ -68,7 +68,7 @@ public final class LocationPath {
         this.path = ImmutableList.copyOf(check ? checkPath(items) : items);
     }
 
-    /** Creates an copy of the passed path. */
+    /** Creates a copy of the passed path. */
     LocationPath(LocationPath start) {
         this(start.path, false);
     }

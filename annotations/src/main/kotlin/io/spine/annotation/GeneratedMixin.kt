@@ -37,14 +37,14 @@ import kotlin.annotation.AnnotationTarget.CLASS
  * ## Motivation
  *
  * This annotation allows documenting the intent of the interface.
- * It also allows to instruct IDEs to consider annotated interfaces as implemented before
+ * It also allows instructing IDEs to consider annotated interfaces as implemented before
  * the code generation phase, or if the interfaces are used only from projects that depend
  * on the one declaring these interfaces.
  *
- * For example, Spine Base project introduces the `io.spine.base.CommandMessage` interface.
+ * For example, the Spine Base project introduces the `io.spine.base.CommandMessage` interface.
  * There are no command messages generated in the Base project because it does not provide any
  * backend API. The interface is used by multiple subprojects of the Spine SDK that depend
- * on Base, but it is not used withing the project.
+ * on Base, but it is not used within the project.
  * Annotating the interface with `GeneratedMixin` addresses the issue.
  *
  * ## Creating a mixin interface

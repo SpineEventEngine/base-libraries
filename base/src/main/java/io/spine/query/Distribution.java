@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -67,7 +67,7 @@ final class Distribution {
     }
 
     /**
-     * Applies the distribution law to given {@code AndExpression} being in conjunction
+     * Applies the distribution law to the given {@code AndExpression} being in conjunction
      * with an {@code OrExpression}.
      */
     private static <R> OrExpression<R> distributeCnj(AndExpression<R> and, OrExpression<R> or) {
@@ -77,7 +77,6 @@ final class Distribution {
         distributeChildren(and, or.children(), result);
         return result.build();
     }
-
 
     /**
      * Distributes the parts of the passed {@code AND} expression over the list
@@ -178,7 +177,7 @@ final class Distribution {
      * }
      *
      * <p>The outcome is a cartesian product of parts of each expression. All resulting pairs
-     * are expressions such as {@code (paramA && childB)}, joined by conjunction.  The resulting
+     * are expressions such as {@code (paramA && childB)}, joined by conjunction. The resulting
      * {@code OrExpression} contains all these newly created conjunctive pairs as children:
      *
      * <p>Outcome:

@@ -57,7 +57,7 @@ public abstract class EntityQueryBuilder<I,
         extends AbstractQueryBuilder<I, S, EntitySubjectParameter<S, ?>, B, Q> {
 
     /**
-     * Creates an new instance of the {@code EntityQueryBuilder}.
+     * Creates a new instance of the {@code EntityQueryBuilder}.
      *
      * @param idType
      *         the type of entity identifiers
@@ -106,7 +106,7 @@ public abstract class EntityQueryBuilder<I,
      * Builds a query on top of this entity query builder and transforms it according
      * to the logic of the passed transformer.
      *
-     * <p>This method is a syntax sugar for a convenient method chaining for those who wishes to use
+     * <p>This method is a syntax sugar for a convenient method chaining for those who wish to use
      * the produced query in their own transformation flow.
      *
      * @param transformer

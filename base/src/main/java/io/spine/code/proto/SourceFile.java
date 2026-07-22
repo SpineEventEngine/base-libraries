@@ -67,7 +67,7 @@ public class SourceFile extends AbstractSourceFile {
     }
 
     /**
-     * Obtains descriptor of the file.
+     * Obtains the descriptor of the file.
      */
     public FileDescriptor descriptor() {
         return descriptor;

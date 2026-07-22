@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -48,7 +48,7 @@ public abstract class EnvironmentType<T extends EnvironmentType<T>> {
      * Returns {@code true} if the underlying system is currently in this environment type.
      *
      * <p>For example, if an application is deployed to a fleet of virtual machines, an environment
-     * variable may be set for every virtual machine. Application developer may use this type of
+     * variable may be set for every virtual machine. An application developer may use this type of
      * knowledge to determine the current environment.
      */
     protected abstract boolean enabled();

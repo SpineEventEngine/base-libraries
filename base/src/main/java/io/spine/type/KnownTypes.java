@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -239,7 +239,7 @@ public class KnownTypes implements Serializable {
     }
 
     /**
-     * Shows if the given {@link TypeUrl} is known the system.
+     * Shows if the given {@link TypeUrl} is known to the system.
      *
      * @param typeUrl
      *         the {@code TypeUrl} to look up

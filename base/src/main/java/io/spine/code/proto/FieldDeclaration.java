@@ -100,7 +100,7 @@ public final class FieldDeclaration {
     }
 
     /**
-     * Obtains descriptor of the field.
+     * Obtains the descriptor of the field.
      */
     public FieldDescriptor descriptor() {
         return field;
@@ -140,7 +140,7 @@ public final class FieldDeclaration {
     }
 
     /**
-     * Obtains fully-qualified canonical name of the Java class that corresponds to the declared
+     * Obtains the fully-qualified canonical name of the Java class that corresponds to the declared
      * type of the field.
      *
      * <p>If the field is {@code repeated}, obtains the name of the elements.
@@ -271,7 +271,7 @@ public final class FieldDeclaration {
     }
 
     /**
-     * Determines whether the field marked as {@code repeated}.
+     * Determines whether the field is marked as {@code repeated}.
      *
      * <p>A map field is not considered repeated.
      *
@@ -311,7 +311,7 @@ public final class FieldDeclaration {
     }
 
     /**
-     * Obtains a class name of the field type or a name a wrapper class, if the field is scalar.
+     * Obtains a class name of the field type or a name of a wrapper class, if the field is scalar.
      */
     @Internal
     public ClassName className() {

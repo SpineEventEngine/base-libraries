@@ -32,7 +32,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.query.ComparisonOperator.EQUALS;
 
 /**
- * Allows to specify the values for the {@link CustomSubjectParameter}s.
+ * Allows specifying the values for the {@link CustomSubjectParameter}s.
  *
  * <p>The custom parameters are set as desired values for the {@link CustomColumn}s.
  *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public fun Iterable<String>.camelCase(): String =
     filter { it.isNotBlank() }.joinToString(separator = "") { it.titleCase() }
 
 /**
- * A diagnostic extension allowing to print an `Iterable` into a string enclosing
+ * A diagnostic extension allowing printing an `Iterable` into a string enclosing
  * the elements with backticks and separating them with commas.
  */
 public fun <T> Iterable<T>.joinBackticked(): String =
@@ -119,7 +119,7 @@ public fun String.trimWhitespace(): String {
  * This may cause issues when writing generated texts under Windows.
  *
  * If you could not find a replacement for system-dependent line separation in
- * `io.spine.string` package, please use this function after a Kotlin string utility call.
+ * the `io.spine.string` package, please use this function after a Kotlin string utility call.
  *
  * @see String.pi
  * @see String.tm
@@ -181,7 +181,7 @@ public fun String.toBase64Encoded(): String {
 }
 
 /**
- * Decodes Base64-encoded value into a string with UTF-8 charset.
+ * Decodes a Base64-encoded value into a string with UTF-8 charset.
  *
  * @see Base64
  */

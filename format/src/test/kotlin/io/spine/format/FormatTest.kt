@@ -39,7 +39,7 @@ import org.junit.jupiter.api.io.TempDir
 
 /**
  * The abstract base for format tests that create a [file] under
- * automatically created [temporary directory][tempDir].
+ * an automatically created [temporary directory][tempDir].
  *
  * @property format The format to test.
  * @property instance The instance of the type [T] to be used when writing files

@@ -402,7 +402,7 @@ public final class Field extends ValueHolder<FieldPath> {
     }
 
     /**
-     * If the passed value is {@code EnumValueDescriptor} converts it to the corresponding
+     * If the passed value is {@code EnumValueDescriptor}, converts it to the corresponding
      * Java enum value. Otherwise, returns the passed value.
      *
      * <p>{@link Message#getField(FieldDescriptor)} returns {@code EnumValueDescriptor} if
@@ -448,7 +448,7 @@ public final class Field extends ValueHolder<FieldPath> {
         return field;
     }
 
-    /** Ensures that the passed filed name does not contain the path separator. */
+    /** Ensures that the passed field name does not contain the path separator. */
     private static void checkName(String fieldName) {
         checkNotEmptyOrBlank(fieldName);
         checkArgument(

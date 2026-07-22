@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 syntax = "proto3";
 
 // API Note on Packaging
 // ---------------------
 // We do not define the package for this file to allow shorter options for user-defined types.
-// This allows to write:
+// This allows writing:
 //
 //     option (internal) = true;
 //
@@ -39,11 +40,11 @@ syntax = "proto3";
 
 // Custom Type Prefix Option
 // -------------------------
-// The custom `type_url_prefix` option allows to define specify custom type URL prefix for messages
+// The custom `type_url_prefix` option allows specifying a custom type URL prefix for messages
 // defined in a proto file. This option is declared in this file. Other proto files must import
 // `options.proto` to be able to specify custom type URL prefix.
 //
-// It is recommended that the import statement is provided before the line with `type_url_prefix`
+// It is recommended that the import statement is provided before the line with the `type_url_prefix`
 // option to make it obvious that custom option is defined in the imported file.
 //
 // For example:
@@ -212,7 +213,7 @@ extend google.protobuf.FieldOptions {
     //      }
     //      ```
     //
-    //   3. For map fields: each value in the map must meet the constraints of message type.
+    //   3. For map fields: each value in the map must meet the constraints of its message type.
     //      Note: Protobuf does not allow messages to be used as map keys.
     //
     //      Example:
@@ -308,7 +309,7 @@ extend google.protobuf.FieldOptions {
     //
     // Once set, the `id` field cannot be changed.
     //
-    // Use `(if_set_again).error_msg` option to specify a custom error message that will be used for
+    // Use the `(if_set_again).error_msg` option to specify a custom error message that will be used for
     // composing the error upon attempting to re-assign the field value. Refer to the documentation
     // for the corresponding option for an example of its usage.
     //
@@ -368,10 +369,10 @@ extend google.protobuf.FieldOptions {
     //
     IfHasDuplicatesOption if_has_duplicates = 73828;
 
-    // The option to indicate that a numeric field is required to have a value which belongs
+    // The option to indicate that a numeric field is required to have a value that belongs
     // to the specified bounded range.
     //
-    // For unbounded ranges, please use `(min)` and `(max) options.
+    // For unbounded ranges, please use `(min)` and `(max)` options.
     //
     RangeOption range = 73829;
 
@@ -380,7 +381,7 @@ extend google.protobuf.FieldOptions {
     // API Annotations
     //-----------------
 
-    // Indicates a field which is internal to Spine, not part of the public API, and should not be
+    // Indicates a field that is internal to Spine, not part of the public API, and should not be
     // used by users of the framework.
     //
     // If you plan to implement an extension of the framework, which is going to be
@@ -413,7 +414,7 @@ extend google.protobuf.FieldOptions {
     //
     bool beta = 73853;
 
-    // Marks an entity state field as column.
+    // Marks an entity state field as a column.
     //
     // The column fields are stored separately from the entity record and can be specified as
     // filtering criteria during entity querying.
@@ -425,13 +426,13 @@ extend google.protobuf.FieldOptions {
     //    int32 year_of_registration = 8 [(column) = true];
     // }
     //
-    // The `year_of_registration` field value can then be used as query parameter when reading
+    // The `year_of_registration` field value can then be used as a query parameter when reading
     // entities of `UserProfile` type from the server side.
     //
     // The value of a column field can be updated in two ways:
     //
     // 1. In the receptors of the entity, just like any other part of entity state.
-    // 2. Using the language-specific tools like `EntityWithColumns` interface in Java.
+    // 2. Using the language-specific tools like the `EntityWithColumns` interface in Java.
     //
     // All column fields are considered optional by the framework.
     //
@@ -496,9 +497,9 @@ extend google.protobuf.MessageOptions {
     //
     // WARNING: This option is deprecated and is scheduled for removal in Spine v2.0.0.
     //
-    // Allows to re-define validation constraints for a message when its usage as a field of
+    // Allows re-defining validation constraints for a message when its usage as a field of
     // another type requires alternative constraints. This includes definition of constraints for
-    // a message which does not have them defined within the type.
+    // a message that does not have them defined within the type.
     //
     // A target field of an external constraint should be specified using a fully-qualified
     // field name (e.g. `mypackage.MessageName.field_name`).
@@ -552,7 +553,7 @@ extend google.protobuf.MessageOptions {
     //          string new_value = 2 [(required) = true];
     //     }
     //
-    // NOTE: A target field for an external validation constraint must be have the option `(validate)`
+    // NOTE: A target field for an external validation constraint must have the option `(validate)`
     //       set to `true`. See the definition of the `RenameTask.change` field in the example
     //       above. If there is no such option defined, or it is set to `false`, the external
     //       constraint will not be applied.
@@ -590,17 +591,17 @@ extend google.protobuf.MessageOptions {
     // 2. The type is internal to a bounded context, artifact of which exposes the type to
     // the outside world (presumably for historical reasons).
     //
-    // The type with such an option can be used only inside the bounded context which declares it.
+    // The type with such an option can be used only inside the bounded context that declares it.
     //
     // The type must not be used neither for inbound (i.e. being sent to the bounded context
-    // which declares this type) nor for outbound communication (i.e. being sent by this
+    // that declares this type) nor for outbound communication (i.e. being sent by this
     // bounded context outside).
     //
     // An attempt to violate these usage restrictions will result in a runtime error.
     //
     bool internal_type = 73911;
 
-    // Indicates a file which contains elements of Service Provider Interface (SPI).
+    // Indicates a file that contains elements of Service Provider Interface (SPI).
     bool SPI_type = 73912;
 
     // Indicates a public API that can change at any time, and has no guarantee of
@@ -611,7 +612,7 @@ extend google.protobuf.MessageOptions {
     // in a future release.
     bool beta_type = 73914;
 
-    // Specifies a characteristic inherent in the the given message type.
+    // Specifies a characteristic inherent in the given message type.
     //
     // Example: using `(is)` message option.
     //
@@ -624,7 +625,7 @@ extend google.protobuf.MessageOptions {
     // In the example above, `CreateProject` message is a `ProjectCommand`.
     //
     // To specify a characteristic for every message in a `.proto` file,
-    // please use `(every_is)` file option.
+    // please use the `(every_is)` file option.
     //
     // If both `(is)` and `(every_is)` options are applicable for a type, both are applied.
     //
@@ -662,7 +663,7 @@ extend google.protobuf.FileOptions {
     //
     string type_url_prefix = 73941;
 
-    // Indicates a file which contains types usage of which is restricted.
+    // Indicates a file that contains types usage of which is restricted.
     //
     // For more information on such restrictions please see the documentation of
     // the type option called `internal_type`.
@@ -673,13 +674,13 @@ extend google.protobuf.FileOptions {
     //
     bool internal_all = 73942;
 
-    // Indicates a file which contains elements of Service Provider Interface (SPI).
+    // Indicates a file that contains elements of Service Provider Interface (SPI).
     //
     // This option applies to messages, enums, and services.
     //
     bool SPI_all = 73943;
 
-    // Indicates a file declaring public data type API which that can change at any time,
+    // Indicates a file declaring public data type API that can change at any time,
     // has no guarantee of API stability and backward-compatibility.
     //
     // If a file contains a declaration of a `service`, this option will NOT be applied to it.
@@ -717,7 +718,7 @@ extend google.protobuf.FileOptions {
     // In the example above, `CreateProject`, `CreateProject.WithAssignee`, and `DeleteProject`
     // messages are `ProjectCommand`-s.
     //
-    // To specify a characteristic for a single message, please use `(is)` message option.
+    // To specify a characteristic for a single message, please use the `(is)` message option.
     // If both `(is)` and `(every_is)` options are applicable for a type, both are applied.
     //
     // When targeting Java, specify the name of a Java interface to be implemented by these
@@ -945,7 +946,7 @@ message MaxOption {
     //
     string value = 1;
 
-    // Specifies if the field should be strictly less than the specified maximum
+    // Specifies if the field should be strictly less than the specified maximum.
     //
     // The default value is false, i.e. the bound is inclusive.
     //
@@ -997,7 +998,7 @@ message PatternOption {
     // https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html
     //
     // Note: in Java, regex patterns are not wrapped in explicit delimiters like in Perl or PHP.
-    // Instead, the pattern is provided as a string literal. Therefore, `/` symbol does not need
+    // Instead, the pattern is provided as a string literal. Therefore, the `/` symbol does not need
     // to be escaped.
     //
     // The provided string literal is passed directly to the regex engine. So, it must be exactly
@@ -1044,9 +1045,9 @@ message PatternOption {
         //
         bool dot_all = 1;
 
-        // Allows to ignore the case of the matched symbols.
+        // Allows ignoring the case of the matched symbols.
         //
-        // For example, this modifier is specified, string `ABC` would be a complete match for
+        // For example, if this modifier is specified, string `ABC` would be a complete match for
         // the regex `[a-z]+`.
         //
         // On some platforms may be represented by the `i` flag.
@@ -1060,7 +1061,7 @@ message PatternOption {
         //
         bool multiline = 3;
 
-        // Enables matching the whole UTF-8 sequences,
+        // Enables matching the whole UTF-8 sequences.
         //
         // On some platforms may be represented by the `u` flag.
         //
@@ -1072,8 +1073,8 @@ message PatternOption {
         // By default, a string only matches a pattern if it is a full match, i.e. there are no
         // unaccounted for leading and/or trailing characters.
         //
-        // This modifier is usually not represented programming languages, as the control over
-        // weather to match an entire string or only its part is provided to the user by other
+        // This modifier is usually not represented in programming languages, as the control over
+        // whether to match an entire string or only its part is provided to the user by other
         // language means. For example, in Java, this would be the difference between methods
         // `matches()` and `find()` of the `java.util.regex.Matcher` class.
         //
@@ -1087,7 +1088,7 @@ message PatternOption {
 //
 message IfInvalidOption {
 
-    // Do not specify error message for `(validate)`, it is no longer used by
+    // Do not specify an error message for `(validate)`; it is no longer used by
     // the validation library.
     option deprecated = true;
 
@@ -1256,7 +1257,7 @@ message EveryIsOption {
     // When a simple name is set, it is assumed that the interface belongs to
     // the package of the generated message classes.
     //
-    // If the value of the `generate` field is set to `false` the referenced interface must exist.
+    // If the value of the `generate` field is set to `false`, the referenced interface must exist.
     // Otherwise, a compilation error will occur.
     //
     // If the value of the `generate` field is set to `true`, the framework will
@@ -1268,10 +1269,10 @@ message EveryIsOption {
     string java_type = 2;
 }
 
-// Defines additional type for a message type in which this option is declared.
+// Defines an additional type for a message type in which this option is declared.
 //
 // The nature of the type depends on the target programming language.
-// For example, the `java_type` property defines a name of the Java interface which
+// For example, the `java_type` property defines a name of the Java interface that
 // the generated message class will implement.
 //
 message IsOption {
@@ -1398,9 +1399,9 @@ message IfHasDuplicatesOption {
     string error_msg = 1;
 }
 
-// Indicate that the numeric field must belong to the specified bounded range.
+// Indicates that the numeric field must belong to the specified bounded range.
 //
-// For unbounded ranges, please use `(min)` and `(max) options.
+// For unbounded ranges, please use `(min)` and `(max)` options.
 //
 // The option supports all singular and repeated numeric fields.
 //
@@ -1535,7 +1536,7 @@ message ChoiceOption {
 // Declares the field groups, at least one of which must have all of its fields set.
 //
 // Unlike the `(required)` field constraint, which requires the presence of
-// a specific field, this option allows to specify alternative field groups.
+// a specific field, this option allows specifying alternative field groups.
 //
 message RequireOption {
 

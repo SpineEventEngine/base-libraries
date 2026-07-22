@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 syntax = "proto3";
 
 package spine.test.protobuf;
@@ -34,7 +35,7 @@ option java_package="io.spine.test.protobuf";
 option java_multiple_files = true;
 option java_outer_classname = "DescriptorExtsSpecProto";
 
-// This is a message type which contains both nested types and a map field.
+// This is a message type that contains both nested types and a map field.
 //
 // Protobuf generates synthetic descriptors for map entry types.
 // See https://protobuf.dev/programming-guides/proto3/#maps-features for details.

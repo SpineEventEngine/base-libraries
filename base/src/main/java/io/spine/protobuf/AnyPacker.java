@@ -41,14 +41,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Utilities for packing messages into {@link Any} and unpacking them.
  *
- * <p>When packing, the {@code AnyPacker} takes care of obtaining correct type URL prefix
+ * <p>When packing, the {@code AnyPacker} takes care of obtaining the correct type URL prefix
  * for the passed messages.
  *
  * <p>When unpacking, the {@code AnyPacker} obtains a Java class matching the type URL
  * from the given instance of {@link Any}.
  *
  * @implNote This class does not use the {@link Any#unpack(Class)} method for unpacking
- *  because for the performance reasons.
+ *  for performance reasons.
  *
  *  <p>The implementation of {@link Any#unpack(Class)} invokes the {@link Any#is(Class) is(Class)}
  *  method that obtains a default instance of a message by calling a method
@@ -71,7 +71,7 @@ public final class AnyPacker {
     /**
      * Wraps {@link Message} object inside of {@link Any} instance.
      *
-     * <p>If an instance of {@code Any} passed, this instance is returned.
+     * <p>If an instance of {@code Any} is passed, this instance is returned.
      *
      * @param message the message to pack
      * @return the wrapping instance of {@link Any} or the message itself, if it is {@code Any}

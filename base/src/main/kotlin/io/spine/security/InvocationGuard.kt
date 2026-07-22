@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.checkerframework.checker.signature.qual.FullyQualifiedName
 public object InvocationGuard {
 
     /**
-     * Throws [SecurityException] of the calling class is not that passed.
+     * Throws [SecurityException] if the calling class is not that passed.
      */
     @JvmStatic
     public fun allowOnly(allowedCallerClass: @FullyQualifiedName String) {
@@ -47,7 +47,7 @@ public object InvocationGuard {
     }
 
     /**
-     * Throws [SecurityException] of the calling class is not among the named.
+     * Throws [SecurityException] if the calling class is not among the named.
      */
     @JvmStatic
     public fun allowOnly(

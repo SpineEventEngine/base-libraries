@@ -136,7 +136,7 @@ internal class ClassNameSpec {
 }
 
 /**
- * Stab classes for testing [ClassName] methods.
+ * Stub classes for testing [ClassName] methods.
  */
 class Outer {
     class Inner {

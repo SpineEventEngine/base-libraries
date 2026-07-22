@@ -48,7 +48,7 @@ final class CartesianProducts {
     }
 
     /**
-     * Multiplies the each of the passed simple parameters onto each of parts
+     * Multiplies each of the passed simple parameters onto each of the parts
      * of the passed {@code OrExpression}, handling the multiplication
      * as {@code A && (B || C || D ...) <=> (A && B) || (A && C) || (A && D) || ...)}
      *
@@ -72,7 +72,7 @@ final class CartesianProducts {
     }
 
     /**
-     * Multiplies the each of the passed child expressions onto each of parts
+     * Multiplies each of the passed child expressions onto each of the parts
      * of the passed {@code OrExpression}, handling the multiplication
      * as {@code A && (B || C || D ...) <=> (A && B) || (A && C) || (A && D) || ...)}
      *
@@ -96,7 +96,7 @@ final class CartesianProducts {
     }
 
     /**
-     * Multiplies the each of the passed custom parameters onto each of parts
+     * Multiplies each of the passed custom parameters onto each of the parts
      * of the passed {@code OrExpression}, handling the multiplication
      * as {@code A && (B || C || D ...) <=> (A && B) || (A && C) || (A && D) || ...)}
      *
@@ -313,7 +313,7 @@ final class CartesianProducts {
      * Appends a child expression to the passed {@code AndBuilder}.
      *
      * <p>If the passed child expression is a conjunctive one, its contents are copied
-     * to the contents of the passed builder. And in other case, it is appended as a child
+     * to the contents of the passed builder. And in the other case, it is appended as a child
      * of the passed builder.
      *
      * @param <R>

@@ -82,7 +82,7 @@ public final class TypeUrl implements Serializable {
     }
 
     /**
-     * Create new {@code TypeUrl}.
+     * Creates a new {@code TypeUrl}.
      */
     private static TypeUrl create(String prefix, String typeName) {
         return new TypeUrl(prefix, typeName);
@@ -218,7 +218,7 @@ public final class TypeUrl implements Serializable {
      * <p>If the type is a standard proto type, the {@linkplain Prefix#GOOGLE_APIS standard prefix}
      * is returned.
      *
-     * <p>For custom times, returns the value specified in the {@linkplain
+     * <p>For custom types, returns the value specified in the {@linkplain
      * OptionsProto#typeUrlPrefix file option}.
      */
     private static String prefixFor(GenericDescriptor descriptor) {
@@ -280,7 +280,7 @@ public final class TypeUrl implements Serializable {
     }
 
     /**
-     * Obtains string representation of the URL.
+     * Obtains the string representation of the URL.
      */
     public String value() {
         var result = composeTypeUrl(prefix, typeName.value());

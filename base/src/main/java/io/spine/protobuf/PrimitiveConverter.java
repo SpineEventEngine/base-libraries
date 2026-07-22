@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -48,7 +48,7 @@ import static java.util.Objects.requireNonNull;
  * @param <M>
  *         the type of the message
  * @param <T>
- *         the type to converter to and from the message
+ *         the type to convert to and from the message
  * @implNote The arguments are checked during the conversion and an
  *         {@link IllegalArgumentException} is thrown in case of mismatch. The type name used in
  *         the error message is a simple {@link Class#getName() Class.getName()} call result.

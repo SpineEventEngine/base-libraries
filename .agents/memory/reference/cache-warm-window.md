@@ -18,7 +18,7 @@ same cache slot — provided they fall within the TTL.
 Developers must have `ENABLE_PROMPT_CACHING_1H=1` set, otherwise the
 window is too short for cross-session hits to occur reliably.
 This setting will work ONLY for Claude Code which runs the CLI binary.
-It will not work for JetBrains Air or any other IDE plugin which does not
+It will not work for JetBrains Air or any other IDE plugin that does not
 run the Claude Code CLI binary.
 
 **Cache is per Anthropic workspace.** All developers authenticated via the

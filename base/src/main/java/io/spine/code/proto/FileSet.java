@@ -245,14 +245,14 @@ public final class FileSet {
     }
 
     /**
-     * Obtains immutable view of the files in this set.
+     * Obtains an immutable view of the files in this set.
      */
     public ImmutableSet<FileDescriptor> files() {
         return ImmutableSet.copyOf(files.values());
     }
 
     /**
-     * Obtains array with the files of this set.
+     * Obtains an array with the files of this set.
      */
     FileDescriptor[] toArray() {
         return files.values()
@@ -279,7 +279,7 @@ public final class FileSet {
     }
 
     /**
-     * Obtains the set of the files that match passed names.
+     * Obtains the set of the files that match the passed names.
      */
     public FileSet find(Collection<FileName> fileNames) {
         Map<FileName, FileDescriptor> found = newHashMapWithExpectedSize(fileNames.size());
@@ -302,7 +302,7 @@ public final class FileSet {
     }
 
     /**
-     * Adds file to the set.
+     * Adds a file to the set.
      */
     @CanIgnoreReturnValue
     public boolean add(FileDescriptor file) {
@@ -329,7 +329,7 @@ public final class FileSet {
     }
 
     /**
-     * Returns a string with alphabetically sorted list of files of this set.
+     * Returns a string with an alphabetically sorted list of files of this set.
      */
     @Override
     public String toString() {

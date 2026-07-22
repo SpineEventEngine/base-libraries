@@ -23,7 +23,7 @@ can later drop its copies.
 - `io.spine.util` already hosts the Guava-companion naming pattern
   (`Preconditions2`, `Predicates2`) and is `@NullMarked` via `package-info.java`.
 - The classes keep `@Internal` (as in the source PR): they are framework
-  plumbing; widening to public API later is non-breaking, the reverse is not.
+  plumbing; widening to public API later is non-breaking; the reverse is not.
 - New tests follow `kotlin-jvm-tester` conventions: Kotlin, `Spec` suffix,
   `internal`, `UtilityClassTest` base (private ctor + final +
   `NullPointerTester` on public statics), Kotest assertions.

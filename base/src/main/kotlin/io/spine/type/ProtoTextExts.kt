@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@ public fun MessageOrBuilder.printToString(): String =
  *
  * The output starts with the fully qualified name of the message type, followed
  * by a curly brace. Then follows the [text about the fields][printToString] indented
- * with to spaces. The output closes by a curly brace on the new line.
+ * with two spaces. The output closes by a curly brace on the new line.
  *
  * The output is produced using [TypeRegistry] populated with [KnownTypes].
  *

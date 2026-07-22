@@ -31,7 +31,7 @@ import io.spine.base.EntityState;
 
 /**
  * An expression that sets the value to compare for the {@link EntityColumn} in scope of
- * a {@link EntityQueryBuilder} when building an {@link EntityQuery}.
+ * an {@link EntityQueryBuilder} when building an {@link EntityQuery}.
  *
  * @param <S>
  *         the type of entity state

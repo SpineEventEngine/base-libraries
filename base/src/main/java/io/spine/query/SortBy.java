@@ -46,7 +46,7 @@ public final class SortBy<C extends RecordColumn<R, ?>, R extends Message> {
     private final Direction direction;
 
     /**
-     * Creates an sorting directive for the given column in a given direction.
+     * Creates a sorting directive for the given column in a given direction.
      */
     SortBy(C column, Direction direction) {
         this.column = column;

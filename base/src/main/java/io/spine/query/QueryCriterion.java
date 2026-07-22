@@ -46,7 +46,7 @@ import static io.spine.query.ComparisonOperator.LESS_THAN;
  * @param <C>
  *         the type of the column to which this restriction is put
  * @param <B>
- *         the type of the query builder, in scope of which this restiction is set
+ *         the type of the query builder, in scope of which this restriction is set
  */
 abstract class QueryCriterion<R extends Message,
                               V,
@@ -62,7 +62,7 @@ abstract class QueryCriterion<R extends Message,
      * @param column
      *         the column whose actual value is used later in querying
      * @param builder
-     *         the builder of an query in scope of which the criterion is created
+     *         the builder of a query in scope of which the criterion is created
      */
     QueryCriterion(C column, B builder) {
         this.column = column;

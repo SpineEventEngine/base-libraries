@@ -73,7 +73,7 @@ public object DescriptorSetReferenceFile {
     }
 
     /**
-     * Create a reference file pointing to the given descriptor set file.
+     * Creates a reference file pointing to the given descriptor set file.
      *
      * If the reference file already exists, it will be overwritten.
      *

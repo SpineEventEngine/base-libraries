@@ -37,7 +37,7 @@ import java.util.Optional;
  * An option for a message representing a state of the entity that defines its kind and visibility
  * to queries.
  *
- * <p>There are four kids of options, namely, Aggregate, Projection, Process Manager, and Entity.
+ * <p>There are four kinds of options, namely, Aggregate, Projection, Process Manager, and Entity.
  */
 @Immutable
 public final class EntityStateOption extends MessageOption<EntityOption> {

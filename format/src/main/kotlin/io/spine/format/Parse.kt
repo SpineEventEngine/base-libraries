@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import java.io.File
  * @param file The file to parse.
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if the parsing of the file fails.
- * @throws ClassCastException if the stored values is not of the type [T].
+ * @throws ClassCastException if the stored value is not of the type [T].
  */
 public inline fun <reified T : Any> parse(file: File): T =
     parse(file, T::class.java)
@@ -57,7 +57,7 @@ public inline fun <reified T : Any> parse(file: File): T =
  * @param format The format of the file.
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if the parsing of the file fails.
- * @throws ClassCastException if the stored values is not of the type [T].
+ * @throws ClassCastException if the stored value is not of the type [T].
  */
 public inline fun <reified T : Any> parse(file: File, format: Format<in T>): T =
     parse(file, format, T::class.java)
@@ -95,7 +95,7 @@ public fun <T : Any> parse(file: File, cls: Class<T>): T {
  * @param cls The class of the instance stored in the file.
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if the parsing of the file fails.
- * @throws ClassCastException if the stored values is not of the type [T].
+ * @throws ClassCastException if the stored value is not of the type [T].
  */
 public fun <T : Any> parse(
     file: File,

@@ -77,7 +77,7 @@ public data class Indent(
          * The default size of indentation used in the Proto Text output.
          *
          * Two spaces are used for indentation in `TextFormat.TextGenerator.indent()`,
-         * which is private in Protobuf library.
+         * which is private in the Protobuf library.
          *
          * @see <a href="https://protobuf.dev/reference/protobuf/textformat-spec/">Protobuf
          * Text Format Language Specification</a>

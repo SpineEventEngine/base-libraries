@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -89,7 +89,7 @@ public final class Time {
     }
 
     /**
-     * Sets provider of the current time.
+     * Sets the provider of the current time.
      *
      * <p>The most common scenario for using this method is test cases of code that deals
      * with current time.
@@ -184,7 +184,7 @@ public final class Time {
     /**
      * Provides an incremental value of nanoseconds for the local JVM.
      *
-     * <p>In most cases, the JVM and underlying OS provides the millisecond-level precision at best.
+     * <p>In most cases, the JVM and underlying OS provide the millisecond-level precision at best.
      * Therefore, the messages produced in such a virtual machine are often stamped
      * with the same time value. However, most of the message-ordering routines require
      * the distinct time values for proper work.
@@ -201,7 +201,7 @@ public final class Time {
      * It is designed to keep the millisecond value provided by a typical-JVM system clock intact.
      *
      * <p>The nanosecond value is reset for each new passed {@code seconds} and {@code nanos}
-     * values. That allows to receive {@code 1 000} distinct time values per millisecond.
+     * values. That allows receiving {@code 1 000} distinct time values per millisecond.
      *
      * <p>In case the upper bound of the nanos is reached, meaning that there were more than
      * {@code 1 000} calls to this class within a millisecond, the nanosecond value is reset

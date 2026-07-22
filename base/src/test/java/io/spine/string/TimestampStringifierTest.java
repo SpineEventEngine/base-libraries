@@ -1,11 +1,11 @@
 /*
- * Copyright 2022, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Redistribution and use in source and/or binary forms, with or without
  * modification, must retain the above copyright notice and the following
@@ -49,7 +49,7 @@ class TimestampStringifierTest extends AbstractStringifierTest<Timestamp> {
     @Test
     @DisplayName("throw `IllegalArgumentException` when parsing unsupported format")
     void parsingError() {
-        // This uses TextFormat printing, for the output which won't be parsable.
+        // This uses TextFormat printing, for the output that won't be parsable.
         var time = currentTime().toString();
         assertIllegalArgument(() -> fromString(time, Timestamp.class));
     }

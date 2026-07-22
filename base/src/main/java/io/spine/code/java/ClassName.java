@@ -96,7 +96,7 @@ public final class ClassName extends StringTypeValue {
     }
 
     /**
-     * Creates a class name from the specified package the and simple name.
+     * Creates a class name from the specified package and simple name.
      *
      * @param packageName
      *         the name of the class package
@@ -240,7 +240,7 @@ public final class ClassName extends StringTypeValue {
      * The actual returned value is obtained from {@link Class#getName()}. In most cases,
      * the {@code Class.getName()} and the JDK-spec binary name coincide.
      *
-     * @return the name with the {@link #OUTER_CLASS_DELIMITER}s between nested classed if any
+     * @return the name with the {@link #OUTER_CLASS_DELIMITER}s between nested classes if any
      * @implSpec This method returns the same value as does the {@code value()} method. Use
      *         this method for more clarity in the client code.
      */
@@ -306,7 +306,7 @@ public final class ClassName extends StringTypeValue {
     }
 
     /**
-     * Obtain the part of the name after the last {@link #DOT_SEPARATOR .} (dot) symbol.
+     * Obtains the part of the name after the last {@link #DOT_SEPARATOR .} (dot) symbol.
      *
      * @param fullName
      *         a full class name
@@ -334,10 +334,10 @@ public final class ClassName extends StringTypeValue {
     }
 
     /**
-     * Obtains the simple name of the top level class.
+     * Obtains the simple name of the top-level class.
      *
      * <p>If this class is top level, returns the simple name of this class.
-     * If this class is nested, returns the name of the declaring top level class.
+     * If this class is nested, returns the name of the declaring top-level class.
      */
     public SimpleClassName topLevelClass() {
         var qualifiedClassName = afterDot(value());
