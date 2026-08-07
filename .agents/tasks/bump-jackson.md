@@ -74,12 +74,35 @@ with 3.x defaults (property order, java.time representation). Guarded here by
 
 ## Decisions log
 
-- 3.x changed defaults: prefer accepting new defaults (library has no persisted
-  contract of its own; only mapper config was `INDENT_OUTPUT`); every accepted
-  wire-format change is proven parseable-from-2.x by fixture tests and listed in
-  the report. `builderWithJackson2Defaults()` scaffold skipped — single mapper
-  construction site, small test surface; revisit if tests surface landmines.
-- `JacksonSupport.factory` is `internal`, so its type/shape can change without
-  breaking external API; `modules: MutableList<Module>` is public — its element
-  type change (`Module` → `JacksonModule`) is an unavoidable breaking change of
-  this major migration (version already bumped on this branch).
+- 3.x changed defaults: accepted the new defaults (no restores). The library has
+  no persisted contract of its own; only mapper config was `INDENT_OUTPUT`,
+  which `JacksonSupport` still enables explicitly.
+  `builderWithJackson2Defaults()` scaffold skipped — single mapper construction
+  site, small test surface; all tests passed on 3.x defaults directly.
+- `JacksonSupport.factory` was `internal`, so it was replaced by
+  `internal abstract fun mapperBuilder(): MapperBuilder<*, *>` without breaking
+  external API; `modules: MutableList<Module>` is public — its element type
+  change (`Module` → `JacksonModule`) is an unavoidable breaking change of this
+  major migration (version already bumped on this branch).
+
+## Results (verified 2026-08-08)
+
+- Resolved: `jackson-bom` / `jackson-databind` / `jackson-module-kotlin` 3.2.1;
+  `jackson-annotations` 2.22 (BOM-resolved, the only `com.fasterxml` artifact
+  on the `:format` runtime classpath).
+- Wire format: the **only** diff between 2.22.1 and 3.2.1 outputs of the fixture
+  value is `java.time.Instant` — numeric epoch → ISO-8601 string
+  (`DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS` now off). Property order is
+  unchanged for Kotlin data classes (constructor properties keep declaration
+  order); YAML output is otherwise byte-identical despite the snakeyaml-engine
+  switch (`---` marker and quoting preserved).
+- `Jackson2CompatibilitySpec` proves 2.x-written JSON/YAML (numeric `Instant`)
+  parse intact under 3.2.1.
+- `./gradlew build` and `dokkaGenerate` clean; residual
+  `com.fasterxml.jackson` grep: zero hits in module sources (this repo never
+  used the 2.x annotations package). No test deleted or disabled.
+- IOException catch sites: none existed; 5 stale KDoc `@throws` claims fixed.
+- §11 removals: none in use.
+- Deferred: `buildSrc`'s own Jackson stays 2.x by design (config-owned);
+  jackson-module-kotlin 3.3.x raises the Kotlin floor to 2.2 — this repo is on
+  Kotlin 2.3.x already, so the next LTS bump is unblocked from that side.
