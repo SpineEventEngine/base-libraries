@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,11 @@
 
 package io.spine.format
 
-import com.fasterxml.jackson.core.JsonFactory
-import com.fasterxml.jackson.databind.Module
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
 import io.spine.annotation.SPI
+import tools.jackson.databind.JacksonModule
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.SerializationFeature
+import tools.jackson.databind.cfg.MapperBuilder
 
 /**
  * An abstract base class for I/O operations using the
@@ -64,19 +64,19 @@ import io.spine.annotation.SPI
 public abstract class JacksonSupport {
 
     /**
-     * A factory used to create [JsonGenerator][com.fasterxml.jackson.core.JsonGenerator] and
-     * [JsonParser][com.fasterxml.jackson.core.JsonParser] instances for a specific data format.
+     * Creates a builder assembling the [mapper] for a specific data format.
      *
-     * Although the name `JsonFactory` suggests JSON-only support,
-     * Jackson provides alternative factories for other data formats such as
-     * [XML](https://github.com/FasterXML/jackson-dataformat-xml),
-     * [YAML][com.fasterxml.jackson.dataformat.yaml.YAMLFactory], and other
-     * [text-based formats](https://github.com/FasterXML/jackson-dataformats-text).
+     * Jackson selects the target format by the type of the mapper, such as
+     * [JsonMapper][tools.jackson.databind.json.JsonMapper] for JSON, or
+     * [YAMLMapper][tools.jackson.dataformat.yaml.YAMLMapper] for
+     * [YAML](https://github.com/FasterXML/jackson-dataformats-text) and other
+     * [text-based](https://github.com/FasterXML/jackson-dataformats-text) or
+     * [XML](https://github.com/FasterXML/jackson-dataformat-xml) formats.
      *
-     * Subclasses must implement this property by returning a factory appropriate
-     * for the target format.
+     * Subclasses must implement this method by returning a builder appropriate
+     * for the target format, e.g., `JsonMapper.builder()`.
      */
-    internal abstract val factory: JsonFactory
+    internal abstract fun mapperBuilder(): MapperBuilder<*, *>
 
     /**
      * A lazily initialized and cached instance of [ObjectMapper] configured for the target format.
@@ -84,39 +84,42 @@ public abstract class JacksonSupport {
      * Upon initialization, the mapper registers shared [modules], which are intended
      * to be available to all [JacksonSupport] subclasses.
      *
-     * To contribute a shared [Module], modify the [modules] list in the companion object
+     * To contribute a shared [JacksonModule], modify the [modules] list in the companion object
      * **before** accessing this property or any class derived from [JacksonSupport].
      *
-     * If a module should only apply to a specific subclass, register it within
-     * that subclass using [ObjectMapper.registerModule].
+     * If a module should only apply to a specific subclass, add it to the builder
+     * returned by the [mapperBuilder] of that subclass using
+     * [MapperBuilder.addModule].
      *
-     * By default, this mapper is configured with [SerializationFeature.INDENT_OUTPUT] enabled.
-     * To disable indentation, call [ObjectMapper.disable] as needed.
+     * This mapper is configured with [SerializationFeature.INDENT_OUTPUT] enabled.
+     * The mapper is immutable: changing other settings requires rebuilding,
+     * e.g., `mapper.rebuild()`.
      *
      * @see modules
-     * @see ObjectMapper.findAndRegisterModules
+     * @see MapperBuilder.findAndAddModules
      */
     protected val mapper: ObjectMapper by lazy {
-        ObjectMapper(factory)
-            .registerModules(modules)
+        mapperBuilder()
+            .addModules(modules)
             .enable(SerializationFeature.INDENT_OUTPUT)
+            .build()
     }
 
     public companion object {
 
         /**
-         * A shared list of Jackson [Module]s registered with each [ObjectMapper]
+         * A shared list of [JacksonModule]s registered with each [ObjectMapper]
          * created by [JacksonSupport].
          *
-         * This list is initialized lazily using [ObjectMapper.findModules], which discovers
+         * This list is initialized lazily using [MapperBuilder.findModules], which discovers
          * modules via the [ServiceLoader][java.util.ServiceLoader] mechanism on the classpath.
          *
          * Modules that are not compatible with `ServiceLoader` can be added to this list manually.
          * This must be done **before** accessing any instance or `object` derived
          * from [JacksonSupport], to ensure proper registration.
          */
-        public val modules: MutableList<Module> by lazy {
-            ObjectMapper.findModules()
+        public val modules: MutableList<JacksonModule> by lazy {
+            MapperBuilder.findModules().toMutableList()
         }
     }
 }
