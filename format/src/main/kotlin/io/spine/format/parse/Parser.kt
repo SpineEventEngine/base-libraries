@@ -51,8 +51,9 @@ internal sealed interface Parser<T : Any> {
      *   the type [T] supported by this parser.
      * @throws java.io.IOException or its subclass, if reading the file fails,
      *   or if parsing of Protobuf-backed content fails.
-     * @throws tools.jackson.core.JacksonException if parsing of Jackson-backed content
-     *   ([Json][io.spine.format.Format.Json] or [Yaml][io.spine.format.Format.Yaml]) fails.
+     * @throws tools.jackson.core.JacksonException or its subclass, if parsing
+     *   of Jackson-backed content ([Json][io.spine.format.Format.Json] or
+     *   [Yaml][io.spine.format.Format.Yaml]) fails.
      */
     fun <R : T> parse(source: ByteSource, cls: Class<out R>): R
 }

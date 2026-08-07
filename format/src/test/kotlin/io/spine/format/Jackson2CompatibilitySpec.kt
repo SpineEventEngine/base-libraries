@@ -40,10 +40,10 @@ import org.junit.jupiter.api.io.TempDir
  * after the migration to Jackson 3.
  *
  * The fixture files under `given/v2` were produced by serializing [v2Instance]
- * through [io.spine.format.write] while the module still depended on
- * `com.fasterxml.jackson:jackson-bom:2.22.1`.
+ * through [io.spine.format.write] while the module still
+ * depended on `com.fasterxml.jackson:jackson-bom:2.22.1`.
  */
-@DisplayName("Jackson-backed formats should")
+@DisplayName("`Jackson`-backed formats should")
 internal class Jackson2CompatibilitySpec {
 
     @TempDir
@@ -54,7 +54,7 @@ internal class Jackson2CompatibilitySpec {
      * the format by the file extension, as production code does.
      */
     private fun fixtureFile(name: String): File {
-        val resource = javaClass.classLoader.getResource("$FIXTURE_DIR/$name")
+        val resource = javaClass.getResource("/$FIXTURE_DIR/$name")
         checkNotNull(resource) {
             "Missing test resource: `$FIXTURE_DIR/$name`."
         }

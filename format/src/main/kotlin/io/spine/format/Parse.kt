@@ -41,8 +41,8 @@ import java.io.File
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if reading the file fails,
  *  or if parsing of Protobuf-backed content fails.
- * @throws tools.jackson.core.JacksonException if parsing of Jackson-backed content
- *  ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
+ * @throws tools.jackson.core.JacksonException or its subclass, if parsing of
+ *  Jackson-backed content ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
  * @throws ClassCastException if the stored value is not of the type [T].
  */
 public inline fun <reified T : Any> parse(file: File): T =
@@ -61,8 +61,8 @@ public inline fun <reified T : Any> parse(file: File): T =
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if reading the file fails,
  *  or if parsing of Protobuf-backed content fails.
- * @throws tools.jackson.core.JacksonException if parsing of Jackson-backed content
- *  ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
+ * @throws tools.jackson.core.JacksonException or its subclass, if parsing of
+ *  Jackson-backed content ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
  * @throws ClassCastException if the stored value is not of the type [T].
  */
 public inline fun <reified T : Any> parse(file: File, format: Format<in T>): T =
@@ -79,8 +79,8 @@ public inline fun <reified T : Any> parse(file: File, format: Format<in T>): T =
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if reading the file fails,
  *  or if parsing of Protobuf-backed content fails.
- * @throws tools.jackson.core.JacksonException if parsing of Jackson-backed content
- *  ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
+ * @throws tools.jackson.core.JacksonException or its subclass, if parsing of
+ *  Jackson-backed content ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
  * @throws ClassCastException if the file extension does not match the type
  *  of the [Format<T>][Format] specified by the [cls] parameter, or
  *  if the stored value is not of the type [T].
@@ -105,8 +105,8 @@ public fun <T : Any> parse(file: File, cls: Class<T>): T {
  * @throws IllegalStateException if the file is not of the supported [format][Format].
  * @throws java.io.IOException or its subclass, if reading the file fails,
  *  or if parsing of Protobuf-backed content fails.
- * @throws tools.jackson.core.JacksonException if parsing of Jackson-backed content
- *  ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
+ * @throws tools.jackson.core.JacksonException or its subclass, if parsing of
+ *  Jackson-backed content ([Json][Format.Json] or [Yaml][Format.Yaml]) fails.
  * @throws ClassCastException if the stored value is not of the type [T].
  */
 public fun <T : Any> parse(
