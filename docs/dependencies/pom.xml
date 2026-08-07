@@ -24,42 +24,6 @@ all modules and does not describe the project structure per-subproject.
 
 <dependencies>
   <dependency>
-    <groupId>com.fasterxml.jackson</groupId>
-    <artifactId>jackson-bom</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.dataformat</groupId>
-    <artifactId>jackson-dataformat-yaml</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-guava</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-jdk8</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-jsr310</artifactId>
-    <version>2.22.1</version>
-    <scope>compile</scope>
-  </dependency>
-  <dependency>
     <groupId>com.google.guava</groupId>
     <artifactId>guava</artifactId>
     <version>33.6.0-jre</version>
@@ -126,6 +90,30 @@ all modules and does not describe the project structure per-subproject.
     <scope>compile</scope>
   </dependency>
   <dependency>
+    <groupId>tools.jackson</groupId>
+    <artifactId>jackson-bom</artifactId>
+    <version>3.2.1</version>
+    <scope>compile</scope>
+  </dependency>
+  <dependency>
+    <groupId>tools.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>3.2.1</version>
+    <scope>compile</scope>
+  </dependency>
+  <dependency>
+    <groupId>tools.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-yaml</artifactId>
+    <version>3.2.1</version>
+    <scope>compile</scope>
+  </dependency>
+  <dependency>
+    <groupId>tools.jackson.datatype</groupId>
+    <artifactId>jackson-datatype-guava</artifactId>
+    <version>3.2.1</version>
+    <scope>compile</scope>
+  </dependency>
+  <dependency>
     <groupId>com.google.auto.service</groupId>
     <artifactId>auto-service-annotations</artifactId>
     <version>1.1.1</version>
@@ -134,7 +122,7 @@ all modules and does not describe the project structure per-subproject.
   <dependency>
     <groupId>com.google.errorprone</groupId>
     <artifactId>error_prone_annotations</artifactId>
-    <version>2.47.0</version>
+    <version>2.42.0</version>
     <scope>provided</scope>
   </dependency>
   <dependency>
@@ -150,9 +138,9 @@ all modules and does not describe the project structure per-subproject.
     <scope>provided</scope>
   </dependency>
   <dependency>
-    <groupId>com.fasterxml.jackson.module</groupId>
+    <groupId>tools.jackson.module</groupId>
     <artifactId>jackson-module-kotlin</artifactId>
-    <version>2.22.1</version>
+    <version>3.2.1</version>
     <scope>runtime</scope>
   </dependency>
   <dependency>
