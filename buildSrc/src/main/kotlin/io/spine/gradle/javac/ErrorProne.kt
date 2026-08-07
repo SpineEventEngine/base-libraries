@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ fun JavaCompile.configureErrorProne() {
 private object ErrorProneConfig {
 
     /**
-     * Command line options for the `Error Prone` compiler.
+     * Command-line options for the `Error Prone` compiler.
      */
     val ARGUMENTS = CommandLineArgumentProvider {
         listOf(

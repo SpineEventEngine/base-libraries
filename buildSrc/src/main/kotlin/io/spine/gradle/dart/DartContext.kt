@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,13 +30,13 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 
 /**
- * Provides access to the current [DartEnvironment] and shortcuts for running `pub` tool.
+ * Provides access to the current [DartEnvironment] and shortcuts for running the `pub` tool.
  */
 open class DartContext(dartEnv: DartEnvironment, internal val project: Project)
     : DartEnvironment by dartEnv
 {
     /**
-     * Executes `pub` command in this [Exec] task.
+     * Executes the `pub` command in this [Exec] task.
      *
      * The Dart ecosystem uses packages to manage shared software such as libraries and tools.
      * To get or publish Dart packages, the `pub` package manager is to be used.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ internal constructor(
     /**
      * Obtains a string that contains project dependencies as XML.
      *
-     * <p>Obtained string also contains a closing project tag.
+     * <p>The obtained string also contains a closing project tag.
      */
     private fun projectDependencies(): String {
         val destination = StringWriter()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.withGroovyBuilder
 
 /**
- * Applies `mc-js` plugin and specifies directories for generated code.
+ * Applies the `mc-js` plugin and specifies directories for generated code.
  *
  * @see JsPlugins
  */

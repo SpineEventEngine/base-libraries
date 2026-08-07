@@ -1,6 +1,6 @@
 
 
-# Dependencies of `io.spine:spine-annotations:2.0.0-SNAPSHOT.426`
+# Dependencies of `io.spine:spine-annotations:2.0.0-SNAPSHOT.427`
 
 ## Runtime
 1.  **Group** : org.jetbrains. **Name** : annotations. **Version** : 26.1.0.
@@ -771,14 +771,14 @@
 
 The dependencies distributed under several licenses, are used according their commercial-use-friendly license.
 
-This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using 
+This report was generated on **Fri Aug 07 23:36:26 WEST 2026** using 
 [Gradle-License-Report plugin](https://github.com/jk1/Gradle-License-Report) by Evgeny Naumenko, licensed under 
 [Apache 2.0 License](https://github.com/jk1/Gradle-License-Report/blob/master/LICENSE).
 
 
 
 
-# Dependencies of `io.spine:spine-base:2.0.0-SNAPSHOT.426`
+# Dependencies of `io.spine:spine-base:2.0.0-SNAPSHOT.427`
 
 ## Runtime
 1.  **Group** : com.google.code.findbugs. **Name** : jsr305. **Version** : 3.0.2.
@@ -850,7 +850,7 @@ This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using
      * **License:** [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
      * **License:** [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-1.  **Group** : com.fasterxml.jackson. **Name** : jackson-bom. **Version** : 2.22.0.
+1.  **Group** : com.fasterxml.jackson. **Name** : jackson-bom. **Version** : 2.22.1.
      * **Project URL:** [https://github.com/FasterXML/jackson-bom](https://github.com/FasterXML/jackson-bom)
      * **License:** [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
      * **License:** [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
@@ -1646,14 +1646,14 @@ This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using
 
 The dependencies distributed under several licenses, are used according their commercial-use-friendly license.
 
-This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using 
+This report was generated on **Fri Aug 07 23:36:26 WEST 2026** using 
 [Gradle-License-Report plugin](https://github.com/jk1/Gradle-License-Report) by Evgeny Naumenko, licensed under 
 [Apache 2.0 License](https://github.com/jk1/Gradle-License-Report/blob/master/LICENSE).
 
 
 
 
-# Dependencies of `io.spine:spine-environment:2.0.0-SNAPSHOT.426`
+# Dependencies of `io.spine:spine-environment:2.0.0-SNAPSHOT.427`
 
 ## Runtime
 1.  **Group** : com.google.code.findbugs. **Name** : jsr305. **Version** : 3.0.2.
@@ -2483,14 +2483,14 @@ This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using
 
 The dependencies distributed under several licenses, are used according their commercial-use-friendly license.
 
-This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using 
+This report was generated on **Fri Aug 07 23:36:26 WEST 2026** using 
 [Gradle-License-Report plugin](https://github.com/jk1/Gradle-License-Report) by Evgeny Naumenko, licensed under 
 [Apache 2.0 License](https://github.com/jk1/Gradle-License-Report/blob/master/LICENSE).
 
 
 
 
-# Dependencies of `io.spine:spine-format:2.0.0-SNAPSHOT.426`
+# Dependencies of `io.spine:spine-format:2.0.0-SNAPSHOT.427`
 
 ## Runtime
 1.  **Group** : com.fasterxml.jackson. **Name** : jackson-bom. **Version** : 2.22.1.
@@ -3400,6 +3400,6 @@ This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using
 
 The dependencies distributed under several licenses, are used according their commercial-use-friendly license.
 
-This report was generated on **Tue Jul 21 19:53:09 WEST 2026** using 
+This report was generated on **Fri Aug 07 23:36:26 WEST 2026** using 
 [Gradle-License-Report plugin](https://github.com/jk1/Gradle-License-Report) by Evgeny Naumenko, licensed under 
 [Apache 2.0 License](https://github.com/jk1/Gradle-License-Report/blob/master/LICENSE).
