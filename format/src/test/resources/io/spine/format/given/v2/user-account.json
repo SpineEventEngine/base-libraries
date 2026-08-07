@@ -1,0 +1,10 @@
+{
+  "id" : "8f4a2c1e-0000-4000-8000-000000000042",
+  "creationTimestamp" : 1786105845.123456789,
+  "emails" : [ {
+    "value" : "j.doe@example.org"
+  }, {
+    "value" : "john@acme-corp.com"
+  } ],
+  "gender" : "X"
+}
