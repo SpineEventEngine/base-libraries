@@ -24,7 +24,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import io.spine.dependency.boms.BomsPlugin
 import io.spine.dependency.lib.Jackson
 import io.spine.dependency.lib.Jackson.DataFormat
 import io.spine.dependency.lib.Jackson.DataType
