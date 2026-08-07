@@ -27,7 +27,6 @@
 package io.spine.format
 
 import io.spine.annotation.SPI
-import tools.jackson.databind.JacksonModule
 import tools.jackson.databind.ObjectMapper
 import tools.jackson.databind.SerializationFeature
 import tools.jackson.databind.cfg.MapperBuilder
@@ -48,17 +47,20 @@ import tools.jackson.databind.cfg.MapperBuilder
  * rather than subclassing this base class directly.
  *
  * ## Adding Support for a New Format
+ *
+ * [Format] is a sealed hierarchy, so new formats are added within the `format`
+ * module of the Spine SDK. If you are a contributor, follow these steps:
  * 1. Create a new writer class by extending
  *  [JacksonWriter][io.spine.format.write.JacksonWriter].
  * 2. Create a corresponding parser class by extending
  *  [JacksonParser][io.spine.format.parse.JacksonParser].
- * 3. Define an `object` that extends [Format], and provide instances
- *  of the new [writer][Format.writer] and [parser][Format.parser],
- *  along with the appropriate file [extension(s)][Format.extension].
- * 4. **If you are a contributor to the Spine SDK**, nest the new format `object`
- *  under the [Format] class. This helps maintain an enumeration-like structure.
- *  We avoid using a Kotlin `enum` here because we need generic parameters.
- *  Also, be sure to add the new `object` to the [Format.entries] list.
+ * 3. Define an `object` that extends [Format], nesting it under the [Format]
+ *  class, and provide instances of the new [writer][Format.writer] and
+ *  [parser][Format.parser], along with the appropriate file
+ *  [extension(s)][Format.extension]. Nesting helps maintain
+ *  an enumeration-like structure. We avoid using a Kotlin `enum` here
+ *  because we need generic parameters.
+ * 4. Add the new `object` to the [Format.entries] list.
  */
 @SPI
 public abstract class JacksonSupport {
@@ -67,10 +69,10 @@ public abstract class JacksonSupport {
      * Creates a builder assembling the [mapper] for a specific data format.
      *
      * Jackson selects the target format by the type of the mapper, such as
-     * [JsonMapper][tools.jackson.databind.json.JsonMapper] for JSON, or
+     * [JsonMapper][tools.jackson.databind.json.JsonMapper] for JSON or
      * [YAMLMapper][tools.jackson.dataformat.yaml.YAMLMapper] for
-     * [YAML](https://github.com/FasterXML/jackson-dataformats-text) and other
-     * [text-based](https://github.com/FasterXML/jackson-dataformats-text) or
+     * [YAML](https://github.com/FasterXML/jackson-dataformats-text); other mapper types
+     * cover other [text-based](https://github.com/FasterXML/jackson-dataformats-text) or
      * [XML](https://github.com/FasterXML/jackson-dataformat-xml) formats.
      *
      * Subclasses must implement this method by returning a builder appropriate
@@ -81,45 +83,33 @@ public abstract class JacksonSupport {
     /**
      * A lazily initialized and cached instance of [ObjectMapper] configured for the target format.
      *
-     * Upon initialization, the mapper registers shared [modules], which are intended
-     * to be available to all [JacksonSupport] subclasses.
+     * Upon initialization, the mapper registers the modules discovered via the
+     * [ServiceLoader][java.util.ServiceLoader] mechanism, making them available
+     * to all [JacksonSupport] subclasses.
      *
-     * To contribute a shared [JacksonModule], modify the [modules] list in the companion object
-     * **before** accessing this property or any class derived from [JacksonSupport].
+     * To contribute a shared [JacksonModule][tools.jackson.databind.JacksonModule],
+     * expose it as a `ServiceLoader` service, e.g., by annotating the module class
+     * with `@AutoService(JacksonModule::class)`.
      *
      * If a module should only apply to a specific subclass, add it to the builder
-     * returned by the [mapperBuilder] of that subclass using
-     * [MapperBuilder.addModule].
+     * returned by the [mapperBuilder] of that subclass using [MapperBuilder.addModule].
      *
      * This mapper is configured with [SerializationFeature.INDENT_OUTPUT] enabled.
      * The mapper is immutable: changing other settings requires rebuilding,
      * e.g., `mapper.rebuild()`.
      *
-     * @see modules
+     * Note on `java.time` values: Jackson 3 disables the
+     * `DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS` setting by default, so types
+     * such as [java.time.Instant] are written as ISO-8601 strings rather than
+     * the numeric epoch values Jackson 2 produced. Data written in the old
+     * format remains readable.
+     *
      * @see MapperBuilder.findAndAddModules
      */
     protected val mapper: ObjectMapper by lazy {
         mapperBuilder()
-            .addModules(modules)
+            .findAndAddModules()
             .enable(SerializationFeature.INDENT_OUTPUT)
             .build()
-    }
-
-    public companion object {
-
-        /**
-         * A shared list of [JacksonModule]s registered with each [ObjectMapper]
-         * created by [JacksonSupport].
-         *
-         * This list is initialized lazily using [MapperBuilder.findModules], which discovers
-         * modules via the [ServiceLoader][java.util.ServiceLoader] mechanism on the classpath.
-         *
-         * Modules that are not compatible with `ServiceLoader` can be added to this list manually.
-         * This must be done **before** accessing any instance or `object` derived
-         * from [JacksonSupport], to ensure proper registration.
-         */
-        public val modules: MutableList<JacksonModule> by lazy {
-            MapperBuilder.findModules().toMutableList()
-        }
     }
 }

@@ -106,3 +106,32 @@ with 3.x defaults (property order, java.time representation). Guarded here by
 - Deferred: `buildSrc`'s own Jackson stays 2.x by design (config-owned);
   jackson-module-kotlin 3.3.x raises the Kotlin floor to 2.2 — this repo is on
   Kotlin 2.3.x already, so the next LTS bump is unblocked from that side.
+
+## Follow-up folded into this branch: `JacksonSupport` SPI rework
+
+Per the user's request (initially spawned as a separate task, then redirected
+to this same branch):
+
+- Manual module registration is dropped entirely (per the user's decision):
+  the former `public MutableList` companion — and the interim
+  `registerModule()` design — are replaced by `ServiceLoader`-only discovery.
+  Each mapper builder calls `MapperBuilder.findAndAddModules()`; modules are
+  contributed by exposing them as `ServiceLoader` services (e.g., via
+  `@AutoService(JacksonModule::class)`). `JacksonSupport` no longer has a
+  companion object; removing the published `modules` property is a breaking
+  change covered by the `.430` bump. Module discovery remains covered by the
+  JSON/YAML round-trip specs, which require the Kotlin and Guava modules.
+- The `internal abstract mapperBuilder()` vs. `@SPI public class` tension is
+  resolved on the documentation side: [Format] is a **sealed** class, so new
+  formats can only be added inside the `format` module. The class KDoc now says
+  so instead of implying external extension. `mapperBuilder()` stays `internal`.
+- Review fixes applied from three review agents (kotlin-engineer,
+  spine-code-review, review-docs): `YAMLMapper` KDoc sentence rewritten
+  (meaning-distorting attachment), `Instant`/ISO-8601 wire note added to the
+  `mapper` KDoc, `@throws JacksonException` extended with "or its subclass",
+  widow-line reflows, `@DisplayName` backticks, `javaClass.getResource`.
+- Version re-bumped `.427` → `.430`: the branch carries breaking API changes
+  (`modules` type changed twice over: `MutableList<Module>` →
+  `List<JacksonModule>`), and the version policy rounds breaking changes up to
+  the next multiple of ten. Sanctioned re-bump: reclassification to a breaking
+  PR.
