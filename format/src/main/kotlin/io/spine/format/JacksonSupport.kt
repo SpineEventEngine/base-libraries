@@ -54,8 +54,8 @@ import tools.jackson.databind.cfg.MapperBuilder
  *  [JacksonWriter][io.spine.format.write.JacksonWriter].
  * 2. Create a corresponding parser class by extending
  *  [JacksonParser][io.spine.format.parse.JacksonParser].
- * 3. Define an `object` that extends [Format], nesting it under the [Format]
- *  class, and provide instances of the new [writer][Format.writer] and
+ * 3. Define an `object` that extends [Format], nesting it under that class,
+ *  and provide instances of the new [writer][Format.writer] and
  *  [parser][Format.parser], along with the appropriate file
  *  [extension(s)][Format.extension]. Nesting helps maintain
  *  an enumeration-like structure. We avoid using a Kotlin `enum` here
@@ -71,9 +71,9 @@ public abstract class JacksonSupport {
      * Jackson selects the target format by the type of the mapper, such as
      * [JsonMapper][tools.jackson.databind.json.JsonMapper] for JSON or
      * [YAMLMapper][tools.jackson.dataformat.yaml.YAMLMapper] for
-     * [YAML](https://github.com/FasterXML/jackson-dataformats-text); other mapper types
-     * cover other [text-based](https://github.com/FasterXML/jackson-dataformats-text) or
-     * [XML](https://github.com/FasterXML/jackson-dataformat-xml) formats.
+     * [YAML](https://github.com/FasterXML/jackson-dataformats-text); additional mapper
+     * types cover other [text-based](https://github.com/FasterXML/jackson-dataformats-text)
+     * or [XML](https://github.com/FasterXML/jackson-dataformat-xml) formats.
      *
      * Subclasses must implement this method by returning a builder appropriate
      * for the target format, e.g., `JsonMapper.builder()`.
