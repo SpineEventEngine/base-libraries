@@ -89,7 +89,8 @@ public abstract class JacksonSupport {
      *
      * To contribute a shared [JacksonModule][tools.jackson.databind.JacksonModule],
      * expose it as a `ServiceLoader` service, e.g., by annotating the module class
-     * with `@AutoService(JacksonModule::class)`.
+     * with `@AutoService(JacksonModule::class)`, where `@AutoService` is
+     * `com.google.auto.service.AutoService` from Google Auto Service.
      *
      * If a module should only apply to a specific subclass, add it to the builder
      * returned by the [mapperBuilder] of that subclass using [MapperBuilder.addModule].
