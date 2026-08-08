@@ -29,15 +29,19 @@ package io.spine.dependency.lib
 import io.spine.dependency.Dependency
 import io.spine.dependency.DependencyWithBom
 
-// https://github.com/FasterXML/jackson/wiki/Jackson-Releases
-//
-// Jackson 3.x uses the `tools.jackson` group ID and the matching `tools.jackson.*`
-// packages (JSTEP-1). The sole exception is `jackson-annotations`: Jackson 3.x keeps
-// consuming the 2.x artifact, so both its coordinates and its
-// `com.fasterxml.jackson.annotation` package stay unchanged.
-//
-// https://github.com/FasterXML/jackson/blob/main/jackson3/MIGRATING_TO_JACKSON_3.md
-@Suppress("unused")
+/**
+ * Jackson library dependencies.
+ *
+ * Jackson 3.x uses the `tools.jackson` group ID and the matching `tools.jackson.*`
+ * packages (JSTEP-1). The sole exception is `jackson-annotations`: Jackson 3.x keeps
+ * consuming the 2.x artifact, so both its coordinates and its
+ * `com.fasterxml.jackson.annotation` package stay unchanged.
+ *
+ * See:
+ *  - [Jackson Releases](https://github.com/FasterXML/jackson/wiki/Jackson-Releases)
+ *  - [Migrating to Jackson 3](https://github.com/FasterXML/jackson/blob/main/jackson3/MIGRATING_TO_JACKSON_3.md)
+ */
+@Suppress("unused", "ConstPropertyName")
 object Jackson : DependencyWithBom() {
     override val group = "tools.jackson"
     override val version = "3.2.1"
@@ -47,8 +51,9 @@ object Jackson : DependencyWithBom() {
      * on the 2.x line.
      *
      * Must match the `jackson.version.annotations` property declared by the [bom].
+     *
+     * See: https://github.com/FasterXML/jackson-annotations?tab=readme-ov-file#release-notes
      */
-    // https://github.com/FasterXML/jackson-annotations?tab=readme-ov-file#release-notes
     const val annotationsVersion = "2.22"
 
     // https://github.com/FasterXML/jackson-bom
