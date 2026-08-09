@@ -30,6 +30,7 @@ import io.spine.dependency.build.ErrorProne
 import io.spine.dependency.build.GradleDoctor
 import io.spine.dependency.build.Ksp
 import io.spine.dependency.build.PluginPublishPlugin
+import io.spine.dependency.lib.JetBrainsAnnotations
 import io.spine.dependency.lib.Protobuf
 import io.spine.dependency.local.Compiler
 import io.spine.dependency.local.CoreJvmCompiler
@@ -39,18 +40,20 @@ import io.spine.dependency.test.Kover
 import io.spine.gradle.repo.standardToSpineSdk
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.JavaExec
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.exclude
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
 /**
  * Provides shortcuts to reference our dependency objects.
  *
- * Dependency objects cannot be used under `plugins` section because `io` is a value
- * declared in auto-generated `org.gradle.kotlin.dsl.PluginAccessors.kt` file.
+ * Dependency objects cannot be used under the `plugins` section because `io` is a value
+ * declared in the auto-generated `org.gradle.kotlin.dsl.PluginAccessors.kt` file.
  * It conflicts with our own declarations.
  *
  * In such cases, a shortcut to apply a plugin can be created:
@@ -91,7 +94,7 @@ val ScriptHandlerScope.coreJvmCompiler: CoreJvmCompiler
  * Shortcut to [CoreJvmCompiler] dependency object.
  *
  * This plugin is not published to Gradle Portal and cannot be applied directly to a project.
- * Firstly, it should be put to buildscript's classpath and then applied by ID only.
+ * Firstly, it should be put to the buildscript's classpath and then applied by ID only.
  */
 val PluginDependenciesSpec.coreJvmCompiler: CoreJvmCompiler
     get() = CoreJvmCompiler
@@ -116,8 +119,8 @@ val PluginDependenciesSpec.spineCompiler: Compiler
 /**
  * Provides shortcuts for applying plugins from our dependency objects.
  *
- * Dependency objects cannot be used under `plugins` section because `io` is a value
- * declared in auto-generated `org.gradle.kotlin.dsl.PluginAccessors.kt` file.
+ * Dependency objects cannot be used under the `plugins` section because `io` is a value
+ * declared in the auto-generated `org.gradle.kotlin.dsl.PluginAccessors.kt` file.
  * It conflicts with our own declarations.
  *
  * Declaring of top-level shortcuts eliminates the need to apply plugins
@@ -177,10 +180,10 @@ fun Project.configureTaskDependencies() {
      * Creates a dependency between the Gradle task of *this* name
      * onto the task with `taskName`.
      *
-     * If either of tasks does not exist in the enclosing `Project`,
+     * If either of the tasks does not exist in the enclosing `Project`,
      * this method does nothing.
      *
-     * This extension is kept local to `configureTaskDependencies` extension
+     * This extension is kept local to the `configureTaskDependencies` extension
      * to prevent its direct usage from outside.
      */
     fun String.dependOn(taskName: String) {
@@ -278,7 +281,7 @@ fun JavaExec.remoteDebug(enabled: Boolean = true) {
  *
  * @param enabled If `true` the task will be suspended.
  * @throws IllegalStateException if the task with the given name is not found, or,
- *  if the taks is not of [JavaExec] type.
+ *  if the task is not of [JavaExec] type.
  */
 fun Project.setRemoteDebug(taskName: String, enabled: Boolean = true) {
     val task = tasks.findByName(taskName)
@@ -324,7 +327,7 @@ fun Project.testFixturesSpineCompilerRemoteDebug(enabled: Boolean = true) =
 /**
  * Parts of names of configurations to be excluded by
  * `artifactMeta/excludeConfigurations/containing` in the modules
- * where `io.spine.atifact-meta` plugin is applied.
+ * where the `io.spine.atifact-meta` plugin is applied.
  */
 val buildToolConfigurations: Array<String> = arrayOf(
     "detekt",
@@ -337,7 +340,7 @@ val buildToolConfigurations: Array<String> = arrayOf(
 )
 
 /**
- * Make the `sourcesJar` task accept duplicated input, which seems to occur
+ * Makes the `sourcesJar` task accept duplicated input, which seems to occur
  * somewhere inside Protobuf Gradle Plugin.
  */
 fun Project.allowDuplicationInSourcesJar() {
@@ -346,4 +349,24 @@ fun Project.allowDuplicationInSourcesJar() {
             duplicatesStrategy = DuplicatesStrategy.INCLUDE
         }
     }
+}
+
+/**
+ * Excludes `org.jetbrains:annotations` from this published dependency.
+ *
+ * Build script classpaths pin the module to the version used by the Kotlin
+ * runtime embedded into Gradle (`strictly 13.0`, "Pinned to the embedded
+ * Kotlin"), while `kotlinx-coroutines` and other transitive dependencies require
+ * later versions such as `23.0.0`.
+ * Gradle 9.6 may fail to reconcile the two declarations — the outcome depends on
+ * the shape of the consumer's dependency graph — making the plugin unresolvable
+ * without a consumer-side workaround, such as forcing the module version on
+ * the build script classpath.
+ *
+ * The annotations are compile-time metadata, not needed at runtime.
+ * Consumers still receive version `13.0` through the `kotlin-stdlib`
+ * dependency, which satisfies the pin.
+ */
+fun ModuleDependency.excludeJetBrainsAnnotations() {
+    exclude(group = JetBrainsAnnotations.groupId, module = JetBrainsAnnotations.artifactId)
 }

@@ -47,8 +47,11 @@ repositories {
 /**
  * The version of Jackson used by `buildSrc`.
  *
- * Please keep this value in sync with [io.spine.dependency.lib.Jackson.version].
- * It is not a requirement but would be good in terms of consistency.
+ * This value is deliberately decoupled from [io.spine.dependency.lib.Jackson.version],
+ * which now points to Jackson 3.x. The `buildSrc` sources still use the Jackson 2.x API
+ * (`com.fasterxml.jackson.*`), so they must stay on a 2.x version until they are migrated
+ * to `tools.jackson.*`. Any maintained 2.x release will do — bump this only when `buildSrc`
+ * itself needs a fix from a later 2.x, not to track the newest one.
  */
 val jacksonVersion = "2.18.3"
 
@@ -132,7 +135,7 @@ val kotestJvmPluginVersion = "0.4.10"
 /**
  * @see [io.spine.dependency.test.Kover]
  */
-val koverVersion = "0.9.8"
+val koverVersion = "0.9.9"
 
 /**
  * The version of the Shadow Plugin.
@@ -222,7 +225,7 @@ dependOnBuildSrcJar()
 /**
  * Adds a dependency on a `buildSrc.jar`, iff:
  *  1) the `src` folder is missing, and
- *  2) `buildSrc.jar` is present in `buildSrc/` folder instead.
+ *  2) `buildSrc.jar` is present in the `buildSrc/` folder instead.
  *
  * This approach is used in the scope of integration testing.
  */
@@ -241,7 +244,7 @@ fun Project.dependOnBuildSrcJar() {
  * Includes the `implementation` dependency on `artifactregistry-auth-common`,
  * with the version defined in [googleAuthToolVersion].
  *
- * `artifactregistry-auth-common` has transitive dependency on Gson and Apache `commons-codec`.
+ * `artifactregistry-auth-common` has a transitive dependency on Gson and Apache `commons-codec`.
  * Gson from version `2.8.6` until `2.8.9` is vulnerable to Deserialization of Untrusted Data
  * (https://devhub.checkmarx.com/cve-details/CVE-2022-25647/).
  *

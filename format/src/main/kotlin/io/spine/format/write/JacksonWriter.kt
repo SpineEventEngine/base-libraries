@@ -26,11 +26,11 @@
 
 package io.spine.format.write
 
-import com.fasterxml.jackson.core.JsonFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import io.spine.annotation.SPI
 import io.spine.format.JacksonSupport
 import java.io.File
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.dataformat.yaml.YAMLMapper
 
 /**
  * The abstract base for writers based on the [Jackson](https://github.com/FasterXML) library.
@@ -51,9 +51,8 @@ public abstract class JacksonWriter : JacksonSupport(), Writer<Any>
  */
 internal object JsonWriter : JacksonWriter() {
 
-    override val factory: JsonFactory by lazy {
-        JsonFactory()
-    }
+    override fun mapperBuilder(): JsonMapper.Builder =
+        JsonMapper.builder()
 
     override fun write(file: File, value: Any) =
         mapper.writeValue(file, value)
@@ -66,9 +65,8 @@ internal object JsonWriter : JacksonWriter() {
  */
 internal object YamlWriter : JacksonWriter(), Writer<Any> {
 
-    override val factory: JsonFactory by lazy {
-        YAMLFactory()
-    }
+    override fun mapperBuilder(): YAMLMapper.Builder =
+        YAMLMapper.builder()
 
     override fun write(file: File, value: Any) =
         mapper.writeValue(file, value)

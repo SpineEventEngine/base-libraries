@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,11 +32,11 @@ import com.google.protobuf.gradle.remove
 import io.spine.dependency.lib.Protobuf
 
 /**
- * Applies and configures `protobuf` plugin to work with a JavaScript module.
+ * Applies and configures the `protobuf` plugin to work with a JavaScript module.
  *
  * In particular, this method:
  *
- *  1. Specifies an executable for `protoc` compiler.
+ *  1. Specifies an executable for the `protoc` compiler.
  *  2. Configures `GenerateProtoTask`.
  *
  * @see JsPlugins

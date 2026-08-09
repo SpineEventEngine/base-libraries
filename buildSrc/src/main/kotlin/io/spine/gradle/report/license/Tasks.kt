@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.gradle.api.tasks.TaskProvider
 /**
  * Locates `generateLicenseReport` in this [TaskContainer].
  *
- * The task generates a license report for a specific Gradle project. License report includes
+ * The task generates a license report for a specific Gradle project. The license report includes
  * information of all dependencies and their licenses.
  */
 val TaskContainer.generateLicenseReport: TaskProvider<Task>

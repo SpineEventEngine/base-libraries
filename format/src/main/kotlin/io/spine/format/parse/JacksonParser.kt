@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,14 @@
 
 package io.spine.format.parse
 
-import com.fasterxml.jackson.core.JsonFactory
 import com.google.common.io.ByteSource
 import io.spine.annotation.SPI
 import io.spine.format.JacksonSupport
 import io.spine.format.write.JsonWriter
 import io.spine.format.write.YamlWriter
 import java.nio.charset.Charset.defaultCharset
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.dataformat.yaml.YAMLMapper
 
 /**
  * The abstract base parsers of text-based formats backed by
@@ -60,9 +61,9 @@ public abstract class JacksonParser : JacksonSupport(), Parser<Any> {
  * @see io.spine.format.write.JsonWriter
  */
 internal data object JsonParser : JacksonParser() {
-    override val factory: JsonFactory by lazy {
-        JsonWriter.factory
-    }
+
+    override fun mapperBuilder(): JsonMapper.Builder =
+        JsonWriter.mapperBuilder()
 }
 
 /**
@@ -71,7 +72,7 @@ internal data object JsonParser : JacksonParser() {
  * @see io.spine.format.write.YamlWriter
  */
 internal data object YamlParser : JacksonParser() {
-    override val factory: JsonFactory by lazy {
-        YamlWriter.factory
-    }
+
+    override fun mapperBuilder(): YAMLMapper.Builder =
+        YamlWriter.mapperBuilder()
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, TeamDev. All rights reserved.
+ * Copyright 2026, TeamDev. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.gradle.api.Project
  * Exposes the test classes of this project as a new "testArtifacts" configuration.
  *
  * This allows other projects to depend on the test classes from this project within a Gradle
- * multi-project build. It is helpful in case the dependant projects re-use abstract test suites
+ * multi-project build. It is helpful in case the dependent projects re-use abstract test suites
  * of some "parent" project.
  *
  * Please note that this utility requires Gradle `java` plugin to be applied. Hence, it is
