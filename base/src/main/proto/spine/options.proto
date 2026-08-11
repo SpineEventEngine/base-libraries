@@ -632,6 +632,9 @@ extend google.protobuf.MessageOptions {
     // When targeting Java, specify the name of a Java interface to be implemented by this
     // message via `(is).java_type`.
     //
+    // When targeting TypeScript, specify the name of a TypeScript interface to be
+    // implemented by this message via `(is).ts_type`.
+    //
     IsOption is = 73915;
 
     // Reserved 73916 to 73921 for future API annotation options.
@@ -723,6 +726,9 @@ extend google.protobuf.FileOptions {
     //
     // When targeting Java, specify the name of a Java interface to be implemented by these
     // message types via `(every_is).java_type`.
+    //
+    // When targeting TypeScript, specify the name of a TypeScript interface to be
+    // implemented by these message types via `(every_is).ts_type`.
     //
     EveryIsOption every_is = 73946;
 
@@ -1235,6 +1241,7 @@ message EntityOption {
 // The nature of the type depends on the target programming language.
 // For example, the `java_type` property defines a name of the Java interface common
 // to all message classes generated for the proto file having this option.
+// Similarly, the `ts_type` property defines a name of the TypeScript interface.
 //
 // The option triggers creation of the common type if the `generate` property is set to true.
 // Otherwise, it is expected that the user provides the reference to an existing type.
@@ -1267,6 +1274,22 @@ message EveryIsOption {
     // will have no declared methods.
     //
     string java_type = 2;
+
+    // The reference to a TypeScript top-level interface.
+    //
+    // The interface cannot be nested into a namespace or a class.
+    // If a nested interface is provided, the code generation should fail the build process.
+    //
+    // The value is a simple name of the interface. It is assumed that the interface
+    // is available in the scope of the generated message types.
+    //
+    // If the value of the `generate` field is set to `false`, the referenced interface must exist.
+    // Otherwise, a compilation error will occur.
+    //
+    // If the value of the `generate` field is set to `true`, the framework will
+    // generate the interface using the given name.
+    //
+    string ts_type = 3;
 }
 
 // Defines an additional type for a message type in which this option is declared.
@@ -1274,6 +1297,7 @@ message EveryIsOption {
 // The nature of the type depends on the target programming language.
 // For example, the `java_type` property defines a name of the Java interface that
 // the generated message class will implement.
+// Similarly, the `ts_type` property defines a name of the TypeScript interface.
 //
 message IsOption {
 
@@ -1290,6 +1314,18 @@ message IsOption {
     // The referenced interface must exist. Otherwise, a compilation error will occur.
     //
     string java_type = 1;
+
+    // The reference to a TypeScript top-level interface.
+    //
+    // The interface cannot be nested into a namespace or a class.
+    // If a nested interface is provided, the code generation should fail the build process.
+    //
+    // The value is a simple name of the interface. It is assumed that the interface
+    // is available in the scope of the generated message types.
+    //
+    // The referenced interface must exist. Otherwise, a compilation error will occur.
+    //
+    string ts_type = 2;
 }
 
 // Defines the way to compare two messages of the same type to one another.
