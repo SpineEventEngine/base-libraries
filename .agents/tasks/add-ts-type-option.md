@@ -44,3 +44,7 @@ message type(s), mirroring the existing `java_type` contract.
   `Message` from `google-protobuf`" paragraph — TS codegen will likely
   use Buf, so docs stay implementation-neutral (see team memory
   `ts-codegen-via-buf`). Rebuilt: green.
+- 2026-08-11 — pre-pr PASS (build green; kotlin-engineer APPROVE,
+  review-docs APPROVE, spine-code-review APPROVE WITH CHANGES — noted
+  the pre-existing +10 bump vs additive change; surfaced in PR body).
+  PR: https://github.com/SpineEventEngine/base-libraries/pull/956
