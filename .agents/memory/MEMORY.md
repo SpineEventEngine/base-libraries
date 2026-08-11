@@ -13,7 +13,7 @@ See [README.md](README.md) for the format and routing rules.
 
 ## Project (durable context & rationale)
 
-*(no entries yet)*
+- [ts-codegen-via-buf](project/ts-codegen-via-buf.md) — TS codegen will likely use Buf (protobuf-es); keep proto option docs implementation-neutral.
 
 ## Reference (external systems)
 
