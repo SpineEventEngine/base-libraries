@@ -37,6 +37,9 @@ import io.spine.dependency.DependencyWithBom
  * consuming the 2.x artifact, so both its coordinates and its
  * `com.fasterxml.jackson.annotation` package stay unchanged.
  *
+ * The Jackson 2.x artifacts, which some of our dependencies still consume,
+ * are declared by [JacksonV2].
+ *
  * See:
  *  - [Jackson Releases](https://github.com/FasterXML/jackson/wiki/Jackson-Releases)
  *  - [Migrating to Jackson 3](https://github.com/FasterXML/jackson/blob/main/jackson3/MIGRATING_TO_JACKSON_3.md)
@@ -50,7 +53,7 @@ object Jackson : DependencyWithBom() {
      * The version of `jackson-annotations`, which Jackson 3.x deliberately keeps
      * on the 2.x line.
      *
-     * Must match the `jackson.version.annotations` property declared by the [bom].
+     * Must match the `jackson.version.annotations` property declared by the [JacksonV2.bom].
      *
      * See: https://github.com/FasterXML/jackson-annotations?tab=readme-ov-file#release-notes
      */
