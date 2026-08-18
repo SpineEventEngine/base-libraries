@@ -213,11 +213,20 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation(gradleTestKit())
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
     useJUnitPlatform()
+
+    // Functional tests run real Gradle builds via TestKit and inject the production
+    // classes of `buildSrc` into the build script classpath of those builds.
+    // The argument provider defers resolving the classpath to execution time.
+    val mainClasspath = sourceSets.main.get().runtimeClasspath
+    jvmArgumentProviders.add(CommandLineArgumentProvider {
+        listOf("-DbuildSrc.classpath=${mainClasspath.asPath}")
+    })
 }
 
 dependOnBuildSrcJar()
