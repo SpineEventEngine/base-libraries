@@ -33,8 +33,10 @@ import io.spine.dependency.DependencyWithBom
  * Jackson 2.x dependencies.
  *
  * Jackson 2.x artifacts keep the `com.fasterxml.jackson.*` group IDs, unlike
- * Jackson 3.x, which moved to `tools.jackson` (JSTEP-1). We declare the 2.x line
- * to align the versions of the artifacts pulled transitively by third-party
+ * Jackson 3.x, which moved to `tools.jackson`
+ * ([JSTEP-1](https://github.com/FasterXML/jackson-future-ideas/wiki/JSTEP-1)).
+ *
+ * We declare the 2.x line to align the versions of the artifacts pulled transitively by third-party
  * dependencies, while our own code uses Jackson 3.x declared by [Jackson].
  *
  * The `jackson-annotations` artifact, although it belongs to the 2.x line, is
