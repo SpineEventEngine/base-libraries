@@ -25,7 +25,7 @@
  */
 
 /**
- * Utilities for working with the operating system under which the code runs.
+ * Types describing the operating system under which the code runs.
  */
 @CheckReturnValue
 @NullMarked

@@ -29,30 +29,68 @@ package io.spine.os
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 @DisplayName("`OsFamily` should")
 internal class OsFamilySpec {
 
-    @Test
-    fun `tell whether each family matches the current operating system`() {
-        // Exactly one of the *nix-like families is current on the build machines,
-        // while the remaining ones report `false`. We assert the methods execute
-        // and that the set of current families is consistent with the OS name.
-        val osName = System.getProperty("os.name").lowercase()
+    @ParameterizedTest
+    @CsvSource(
+        "windows 11,           ';', true",
+        "windows server 2022,  ';', true",
+        "linux,                ':', false",
+        "mac os x,             ':', false",
+        "openvms,              ':', false",
+    )
+    fun `detect Windows`(osName: String, pathSeparator: String, expected: Boolean) {
+        OsFamily.Windows.matches(osName, pathSeparator) shouldBe expected
+    }
 
-        OsFamily.Windows.isCurrent() shouldBe osName.contains("windows")
+    @ParameterizedTest
+    @CsvSource(
+        "mac os x,             ':', true",
+        "darwin,               ':', true",
+        "linux,                ':', false",
+        "windows 11,           ';', false",
+        "hp-ux,                ':', false",
+    )
+    fun `detect macOS, including the hosts reporting themselves as Darwin`(
+        osName: String,
+        pathSeparator: String,
+        expected: Boolean
+    ) {
+        OsFamily.macOS.matches(osName, pathSeparator) shouldBe expected
+    }
 
-        // `macOS` and `Unix` evaluate their own predicates; calling them exercises
-        // the overridden `isCurrent()` methods regardless of the host OS.
-        OsFamily.macOS.isCurrent()
-        OsFamily.Unix.isCurrent()
+    @ParameterizedTest
+    @CsvSource(
+        "linux,                ':', true",
+        "hp-ux,                ':', true",
+        "sunos,                ':', true",
+        // A Mac is a Unix, too.
+        "mac os x,             ':', true",
+        "darwin,               ':', true",
+        // OpenVMS uses the Unix path separator, but is not a Unix.
+        "openvms,              ':', false",
+        // Windows is told apart by the path separator alone.
+        "windows 11,           ';', false",
+    )
+    fun `detect Unix, excluding OpenVMS`(
+        osName: String,
+        pathSeparator: String,
+        expected: Boolean
+    ) {
+        OsFamily.Unix.matches(osName, pathSeparator) shouldBe expected
     }
 
     @Test
-    fun `report macOS as current on a Mac host`() {
-        val osName = System.getProperty("os.name").lowercase()
-        if (osName.contains("mac") || osName.contains("darwin")) {
-            OsFamily.macOS.isCurrent() shouldBe true
+    fun `tell the current OS by the system properties`() {
+        val osName = System.getProperty("os.name", "").lowercase()
+        val pathSeparator = System.getProperty("path.separator", "")
+
+        OsFamily.entries.forEach {
+            it.isCurrent() shouldBe it.matches(osName, pathSeparator)
         }
     }
 }
