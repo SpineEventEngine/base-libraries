@@ -333,9 +333,9 @@ public class KnownTypes implements Serializable {
          * @throws java.lang.SecurityException
          *         if called from the client code
          */
-        @Internal /* exposed only to `io.spine.tools.type.MoreKnownTypes`. */
+        @Internal /* exposed only to `io.spine.tools.proto.type.MoreKnownTypes`. */
         public static void extendWith(TypeSet moreKnownTypes) {
-            InvocationGuard.allowOnly("io.spine.tools.type.MoreKnownTypes");
+            InvocationGuard.allowOnly("io.spine.tools.proto.type.MoreKnownTypes");
             lock.lock();
             try {
                 var extended = instance.extendWith(moreKnownTypes);
