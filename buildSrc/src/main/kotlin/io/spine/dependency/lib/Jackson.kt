@@ -33,7 +33,8 @@ import io.spine.dependency.DependencyWithBom
  * Jackson library dependencies.
  *
  * Jackson 3.x uses the `tools.jackson` group ID and the matching `tools.jackson.*`
- * packages (JSTEP-1). The sole exception is `jackson-annotations`: Jackson 3.x keeps
+ * packages ([JSTEP-1](https://github.com/FasterXML/jackson-future-ideas/wiki/JSTEP-1)).
+ * The sole exception is `jackson-annotations`: Jackson 3.x keeps
  * consuming the 2.x artifact, so both its coordinates and its
  * `com.fasterxml.jackson.annotation` package stay unchanged.
  *
@@ -152,7 +153,7 @@ object Jackson : DependencyWithBom() {
         val javaXMoney = "$group:$infix-javax-money"
 
         // https://github.com/FasterXML/jackson-datatypes-misc/tree/3.x/moneta
-        val moneta = "$group:jackson-datatype-moneta"
+        val moneta = "$group:$infix-moneta"
 
         override val modules = listOf(
             guava,

@@ -65,7 +65,7 @@ public object InvocationGuard {
     }
 
     private fun nonAllowedCaller(callingClass: @ClassGetName Class<*>): SecurityException {
-        val msg = "The class `$callingClass.name` is not allowed to perform this operation."
-        throw SecurityException(msg)
+        val msg = "The class `${callingClass.name}` is not allowed to perform this operation."
+        return SecurityException(msg)
     }
 }
