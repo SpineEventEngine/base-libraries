@@ -49,5 +49,9 @@ Closes [#958](https://github.com/SpineEventEngine/base-libraries/issues/958).
 - 2026-08-19 — `./gradlew build` and `dokkaGenerate` green; dependency
   reports regenerated (they were stale after the `.441` bump and the
   `config` update already on this branch).
-- 2026-08-19 — status `in-review`: changes left uncommitted per the
-  commit-authorization rule in `AGENTS.md`.
+- 2026-08-19 — pre-PR gate PASS: build + `dokkaGenerate` green;
+  `spine-code-review`, `kotlin-engineer`, `review-docs` all approved.
+  Their findings folded in: KDoc now records that the double must call
+  `extendWith` directly, since the guard resolves the immediate frame.
+- 2026-08-19 — PR opened:
+  https://github.com/SpineEventEngine/base-libraries/pull/959
