@@ -31,13 +31,14 @@ Closes [#958](https://github.com/SpineEventEngine/base-libraries/issues/958).
 ## Plan
 
 - [x] Update the allowed FQN and the `@Internal` comment in `KnownTypes.java`.
-- [x] Add a test fixture named `io.spine.tools.proto.type.MoreKnownTypes` in
+- [x] Add a test double named `io.spine.tools.proto.type.MoreKnownTypes` in
       `base` test sources, and a positive `KnownTypesSpec` case asserting the
       guard admits it.
 - [x] Fix the mangled `SecurityException` message in `InvocationGuard`
       (`"$callingClass.name"` interpolates the class then appends `.name`).
 - [x] Version already bumped on this branch: `.440` -> `.441`.
-- [x] Build green (`build` + `dokkaGenerate` on JDK 17); report the Base version carrying the fix on the issue.
+- [x] Build green (`build` + `dokkaGenerate` on JDK 17); report the Base
+      version carrying the fix on the issue.
 
 ## Log
 

@@ -45,6 +45,10 @@ internal object MoreKnownTypes {
     /**
      * Calls the guarded method with an empty type set, which leaves
      * the known types intact.
+     *
+     * The call must stay direct. The guard resolves the immediate caller
+     * frame, so an extra frame from another class would break the match
+     * quietly, leaving the test passing for the wrong reason.
      */
     fun extendWithNothing() {
         KnownTypes.Holder.extendWith(TypeSet.newBuilder().build())
