@@ -31,6 +31,7 @@ import io.spine.dependency.build.Dokka
 import io.spine.dependency.build.ErrorProne
 import io.spine.dependency.build.JSpecify
 import io.spine.dependency.lib.Kotlin
+import io.spine.dependency.lib.KotlinX
 import io.spine.dependency.local.Base
 import io.spine.dependency.local.Logging
 import io.spine.dependency.local.Reflect
@@ -128,6 +129,7 @@ fun Module.forceConfigurations() {
             resolutionStrategy {
                 force(
                     Kotlin.bom,
+                    KotlinX.Coroutines.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
                     Base.annotations,
