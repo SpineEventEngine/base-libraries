@@ -50,7 +50,7 @@ import io.spine.dependency.DependencyWithBom
 @Suppress("unused")
 object JacksonV2 : DependencyWithBom() {
     override val group = "com.fasterxml.jackson"
-    override val version = "2.22.1"
+    override val version = "2.22.2"
 
     // https://github.com/FasterXML/jackson-bom
     override val bom = "$group:jackson-bom:$version"
@@ -102,6 +102,19 @@ object JacksonV2 : DependencyWithBom() {
 
         val parameterNames = "$group:jackson-module-parameter-names"
 
-        override val modules = listOf(parameterNames)
+        // https://github.com/FasterXML/jackson-module-kotlin/releases
+        val kotlin = "$group:jackson-module-kotlin"
+
+        override val modules = listOf(parameterNames, kotlin)
+    }
+
+    // https://github.com/FasterXML/jackson-jr/tree/2.x
+    object Junior : Dependency() {
+        override val version = JacksonV2.version
+        override val group = "$groupPrefix.jr"
+
+        val objects = "$group:jackson-jr-objects"
+
+        override val modules = listOf(objects)
     }
 }
