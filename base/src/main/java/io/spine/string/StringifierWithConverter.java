@@ -16,6 +16,8 @@ package io.spine.string;
 
 import com.google.common.base.Converter;
 
+import java.io.Serial;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -25,6 +27,7 @@ import static java.util.Objects.requireNonNull;
  */
 abstract class StringifierWithConverter<T> extends SerializableStringifier<T> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**

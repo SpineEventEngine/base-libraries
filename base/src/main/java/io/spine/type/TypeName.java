@@ -21,6 +21,8 @@ import com.google.protobuf.Descriptors.GenericDescriptor;
 import com.google.protobuf.Message;
 import io.spine.value.StringTypeValue;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
@@ -31,6 +33,7 @@ import static com.google.common.base.Preconditions.checkState;
 @Immutable
 public final class TypeName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**

@@ -16,6 +16,8 @@ package io.spine.value;
 
 import com.google.errorprone.annotations.Immutable;
 
+import java.io.Serial;
+
 /**
  * Abstract base for classes holding a value of a {@link Class}.
  *
@@ -29,6 +31,7 @@ public abstract class ClassTypeValue<T> extends ValueHolder<Class<? extends T>> 
     /* NOTE: the class has the 'Type' infix in the name to prevent the name clash with
        java.lang.ClassValue. */
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     protected ClassTypeValue(Class<? extends T> value) {

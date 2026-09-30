@@ -19,7 +19,10 @@ import com.google.protobuf.Any;
 import io.spine.base.EntityState;
 import io.spine.testing.StubMessage;
 
+import java.io.Serial;
+
 @Immutable
 public final class FakeEntityState extends StubMessage implements EntityState<Any> {
+    @Serial
     private static final long serialVersionUID = 0;
 }

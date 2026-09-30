@@ -18,6 +18,8 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import io.spine.value.StringTypeValue;
 
+import java.io.Serial;
+
 import static io.spine.type.TypeName.NESTED_TYPE_SEPARATOR;
 
 /**
@@ -27,6 +29,7 @@ import static io.spine.type.TypeName.NESTED_TYPE_SEPARATOR;
  */
 public final class NestedTypeName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private static final Joiner simpleNameJoiner = Joiner.on(NESTED_TYPE_SEPARATOR);

@@ -14,6 +14,8 @@
 
 package io.spine.string;
 
+import java.io.Serial;
+
 /**
  * The {@code Stringifier} for the {@code String} values.
  *
@@ -21,6 +23,7 @@ package io.spine.string;
  */
 final class NoOpStringifier extends SerializableStringifier<String> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private static final NoOpStringifier INSTANCE = new NoOpStringifier();

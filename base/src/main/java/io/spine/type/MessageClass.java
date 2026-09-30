@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.protobuf.Message;
 import io.spine.value.ClassTypeValue;
 
+import java.io.Serial;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Objects;
@@ -33,6 +34,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public abstract class MessageClass<M extends Message> extends ClassTypeValue<M> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /** The URL of the type of proto messages represented by this class. */

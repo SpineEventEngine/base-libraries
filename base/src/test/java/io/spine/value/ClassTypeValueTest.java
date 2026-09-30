@@ -18,6 +18,8 @@ import com.google.common.testing.EqualsTester;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 import static com.google.common.testing.SerializableTester.reserializeAndAssert;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,6 +57,7 @@ class ClassTypeValueTest {
 
     private static class AClassValue extends ClassTypeValue<Object> {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         private AClassValue(Class<?> value) {

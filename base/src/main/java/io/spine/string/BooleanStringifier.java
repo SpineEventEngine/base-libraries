@@ -14,6 +14,8 @@
 
 package io.spine.string;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -21,6 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 final class BooleanStringifier extends SerializableStringifier<Boolean> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private static final BooleanStringifier INSTANCE = new BooleanStringifier();

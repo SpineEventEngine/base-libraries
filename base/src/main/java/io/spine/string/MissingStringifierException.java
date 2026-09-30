@@ -14,6 +14,8 @@
 
 package io.spine.string;
 
+import java.io.Serial;
+
 /**
  * Thrown when a string conversion operation encounters a type for which
  * there is no registered {@link Stringifier Stringifier}.
@@ -23,6 +25,7 @@ package io.spine.string;
  */
 public class MissingStringifierException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     public MissingStringifierException(String message) {

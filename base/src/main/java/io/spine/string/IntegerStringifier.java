@@ -17,11 +17,14 @@ package io.spine.string;
 import com.google.common.base.Converter;
 import com.google.common.primitives.Ints;
 
+import java.io.Serial;
+
 /**
  * The {@code Stringifier} for the integer values.
  */
 final class IntegerStringifier extends StringifierWithConverter<Integer> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private static final IntegerStringifier INSTANCE = new IntegerStringifier();

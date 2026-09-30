@@ -21,6 +21,7 @@ import com.google.protobuf.Descriptors.FileDescriptor;
 import io.spine.value.StringTypeValue;
 import org.checkerframework.checker.signature.qual.ClassGetSimpleName;
 
+import java.io.Serial;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -35,6 +36,7 @@ public final class SimpleClassName extends StringTypeValue {
 
     static final String OR_BUILDER_SUFFIX = "OrBuilder";
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private static final SimpleClassName BUILDER_CLASS_NAME = new SimpleClassName("Builder");
 

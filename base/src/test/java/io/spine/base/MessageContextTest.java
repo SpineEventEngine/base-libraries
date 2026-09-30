@@ -20,6 +20,8 @@ import io.spine.testing.StubMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 import static com.google.common.truth.Truth.assertThat;
 
 @DisplayName("MessageContext interface should")
@@ -37,6 +39,7 @@ class MessageContextTest {
      */
     @Immutable
     private static class StubMessageContext extends StubMessage implements MessageContext {
+        @Serial
         private static final long serialVersionUID = 0L;
     }
 }

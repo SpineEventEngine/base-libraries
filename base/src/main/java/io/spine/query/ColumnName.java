@@ -17,6 +17,8 @@ package io.spine.query;
 import io.spine.code.proto.FieldDeclaration;
 import io.spine.value.StringTypeValue;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
 
@@ -25,6 +27,7 @@ import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
  */
 public final class ColumnName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private ColumnName(String value) {

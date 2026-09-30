@@ -14,6 +14,8 @@
 
 package io.spine.type;
 
+import java.io.Serial;
+
 import static java.lang.String.format;
 
 /**
@@ -29,6 +31,7 @@ import static java.lang.String.format;
  */
 public class UnexpectedTypeException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**

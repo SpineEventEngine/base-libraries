@@ -17,6 +17,7 @@ package io.spine.string;
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
 
+import java.io.Serial;
 import java.text.ParseException;
 
 import static io.spine.util.Exceptions.newIllegalArgumentException;
@@ -26,6 +27,7 @@ import static io.spine.util.Exceptions.newIllegalArgumentException;
  */
 final class TimestampStringifier extends SerializableStringifier<Timestamp> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private static final TimestampStringifier INSTANCE = new TimestampStringifier();
 

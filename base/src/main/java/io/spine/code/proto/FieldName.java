@@ -21,6 +21,7 @@ import io.spine.base.Field;
 import io.spine.base.FieldPath;
 import io.spine.code.AbstractFieldName;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -33,6 +34,7 @@ import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
 @Immutable
 public final class FieldName extends AbstractFieldName implements UnderscoredName {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**

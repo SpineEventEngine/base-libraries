@@ -16,6 +16,8 @@ package io.spine.value;
 
 import com.google.errorprone.annotations.Immutable;
 
+import java.io.Serial;
+
 /**
  * Abstract base for string value objects.
  *
@@ -25,6 +27,7 @@ import com.google.errorprone.annotations.Immutable;
 @Immutable
 public abstract class StringTypeValue extends ValueHolder<String> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     protected StringTypeValue(String value) {

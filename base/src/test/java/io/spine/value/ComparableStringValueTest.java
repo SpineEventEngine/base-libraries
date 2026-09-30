@@ -17,6 +17,8 @@ package io.spine.value;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,6 +39,7 @@ class ComparableStringValueTest {
 
     private static class TestVal extends ComparableStringValue<TestVal> {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         private TestVal(String value) {

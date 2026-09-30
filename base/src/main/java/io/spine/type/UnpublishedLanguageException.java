@@ -16,6 +16,8 @@ package io.spine.type;
 
 import com.google.protobuf.Message;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.spine.type.PubPreconditions.requireInternal;
 import static java.lang.String.format;
@@ -32,6 +34,7 @@ import static java.lang.String.format;
  */
 public class UnpublishedLanguageException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**

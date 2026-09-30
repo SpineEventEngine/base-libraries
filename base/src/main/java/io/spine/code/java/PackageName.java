@@ -18,6 +18,8 @@ import com.google.errorprone.annotations.Immutable;
 import com.google.protobuf.DescriptorProtos.FileDescriptorProto;
 import io.spine.value.StringTypeValue;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
@@ -29,6 +31,7 @@ import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
 @Immutable
 public final class PackageName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private static final char DELIMITER_CHAR = '.';
     private static final String DELIMITER = String.valueOf(DELIMITER_CHAR);

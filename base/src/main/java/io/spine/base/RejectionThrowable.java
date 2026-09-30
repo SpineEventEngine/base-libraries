@@ -22,6 +22,7 @@ import io.spine.annotation.Internal;
 import io.spine.string.Stringifiers;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
+import java.io.Serial;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -36,6 +37,7 @@ import static io.spine.util.Exceptions.newIllegalStateException;
  */
 public abstract class RejectionThrowable extends Throwable {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private final RejectionMessage message;

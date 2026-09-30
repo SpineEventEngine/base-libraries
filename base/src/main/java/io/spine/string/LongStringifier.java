@@ -17,11 +17,14 @@ package io.spine.string;
 import com.google.common.base.Converter;
 import com.google.common.primitives.Longs;
 
+import java.io.Serial;
+
 /**
  * The {@code Stringifier} for the long values.
  */
 final class LongStringifier extends StringifierWithConverter<Long> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private static final LongStringifier INSTANCE = new LongStringifier();

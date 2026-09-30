@@ -17,6 +17,7 @@ package io.spine.string;
 import com.google.protobuf.Duration;
 import com.google.protobuf.util.Durations;
 
+import java.io.Serial;
 import java.text.ParseException;
 
 import static io.spine.util.Exceptions.illegalArgumentWithCauseOf;
@@ -26,6 +27,7 @@ import static io.spine.util.Exceptions.illegalArgumentWithCauseOf;
  */
 final class DurationStringifier extends SerializableStringifier<Duration> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private static final DurationStringifier INSTANCE = new DurationStringifier();
 

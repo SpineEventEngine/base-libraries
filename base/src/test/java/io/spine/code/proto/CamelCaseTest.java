@@ -20,6 +20,7 @@ import io.spine.value.StringTypeValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
 import java.util.List;
 
 import static io.spine.code.proto.CamelCase.convert;
@@ -54,6 +55,7 @@ class CamelCaseTest extends UtilityClassTest<CamelCase> {
      */
     private static class UnderName extends StringTypeValue implements UnderscoredName {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         private UnderName(String value) {

@@ -20,6 +20,7 @@ import com.google.protobuf.util.Timestamps;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
 import java.text.ParseException;
 
 @DisplayName("SerializableConverter should")
@@ -33,6 +34,7 @@ class SerializableConverterTest {
 
     private static class StubSerializer extends SerializableConverter<Timestamp, String> {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         @Override

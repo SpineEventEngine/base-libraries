@@ -17,6 +17,8 @@ package io.spine.base;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("`Mistake` Java API should")
@@ -35,6 +37,7 @@ class MistakeJavaSpec {
     @SuppressWarnings("ExceptionClassNameDoesntEndWithException")
     private static class JMistake extends Mistake {
 
+        @Serial
         private static final long serialVersionUID = 0L;
     }
 }

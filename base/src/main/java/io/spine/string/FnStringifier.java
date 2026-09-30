@@ -16,6 +16,8 @@ package io.spine.string;
 
 import io.spine.util.SerializableFunction;
 
+import java.io.Serial;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -27,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @SuppressWarnings("AbstractClassNeverImplemented") /* Implemented in `base-types`. */
 public abstract class FnStringifier<T> extends SerializableStringifier<T> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private final SerializableFunction<T, String> printer;

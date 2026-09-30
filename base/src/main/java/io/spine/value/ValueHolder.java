@@ -16,6 +16,7 @@ package io.spine.value;
 
 import org.jspecify.annotations.Nullable;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public abstract class ValueHolder<T extends Serializable> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 0L;
     private final T value;
 

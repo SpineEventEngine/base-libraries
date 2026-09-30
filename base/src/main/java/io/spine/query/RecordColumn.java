@@ -20,6 +20,7 @@ import io.spine.annotation.Internal;
 import io.spine.value.ValueHolder;
 import org.jspecify.annotations.Nullable;
 
+import java.io.Serial;
 import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -40,6 +41,7 @@ public class RecordColumn<R extends Message, V>
         extends ValueHolder<ColumnName>
         implements Column<R, V> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     private final Class<V> valueType;

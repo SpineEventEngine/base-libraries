@@ -16,6 +16,7 @@ package io.spine.util;
 
 import com.google.common.base.Converter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -31,5 +32,6 @@ public abstract class SerializableConverter<A, B>
         extends Converter<A, B>
         implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 }

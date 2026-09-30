@@ -17,6 +17,8 @@ package io.spine.query;
 import com.google.errorprone.annotations.Immutable;
 import io.spine.base.EntityState;
 
+import java.io.Serial;
+
 /**
  * A queryable column of an entity that can be passed to the query filters.
  *
@@ -77,6 +79,7 @@ import io.spine.base.EntityState;
 @Immutable
 public final class EntityColumn<S extends EntityState<?>, V> extends RecordColumn<S, V> {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     public EntityColumn(String columnName, Class<V> valueType, Getter<S, V> getter) {

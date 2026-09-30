@@ -26,6 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serial;
 import java.util.Map;
 
 import static io.spine.testing.Assertions.assertIllegalState;
@@ -100,6 +101,7 @@ class RejectionThrowableTest {
      */
     private static class TestRejectionThrowable extends RejectionThrowable {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         private TestRejectionThrowable(RejectionMessage rejection) {
@@ -120,6 +122,7 @@ class RejectionThrowableTest {
     @SuppressWarnings({"ReturnOfNull", "Immutable"}) // OK for a fake.
     private static class FakeRejectionMessage extends AbstractMessage implements RejectionMessage {
 
+        @Serial
         private static final long serialVersionUID = 0L;
 
         @Override

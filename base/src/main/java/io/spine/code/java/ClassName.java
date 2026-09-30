@@ -26,6 +26,7 @@ import org.checkerframework.checker.signature.qual.ClassGetName;
 import org.checkerframework.checker.signature.qual.FullyQualifiedName;
 import org.jspecify.annotations.Nullable;
 
+import java.io.Serial;
 import java.util.Deque;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -41,6 +42,7 @@ import static io.spine.util.Preconditions2.checkNotEmptyOrBlank;
 @SuppressWarnings("ClassWithTooManyMethods")
 public final class ClassName extends StringTypeValue {
 
+    @Serial
     private static final long serialVersionUID = 0L;
 
     /**
