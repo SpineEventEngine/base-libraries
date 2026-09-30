@@ -146,9 +146,10 @@ fun Module.forceConfigurations() {
  * Resolves the published `spine-annotations` to the `:annotations` module of this build.
  *
  * Gradle knows the module as `io.spine:annotations`, while it is published as
- * `io.spine:spine-annotations`. So the published artifact, which `spine-logging` and
- * `spine-testlib` bring transitively, does not conflict with the module, and both would
- * end up on a classpath, and in the SBOM of the artifact.
+ * `io.spine:spine-annotations`. Because the coordinates differ, conflict resolution
+ * does not treat the published artifact, which `spine-logging` and `spine-testlib`
+ * bring transitively, as the same module. Without this substitution, both would end up
+ * on the classpath, and in the SBOM of the artifact.
  *
  * The configurations of Dokka resolve its plugins, which are not built here,
  * so they are left as they are.
