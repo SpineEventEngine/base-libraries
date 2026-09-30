@@ -133,6 +133,8 @@ fun Module.forceConfigurations() {
                     Coroutines.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
+                    // `substituteAnnotations()` replaces it with `:annotations` elsewhere;
+                    // this pins the version for the configurations of Dokka.
                     Base.annotations,
                     Base.lib,
                     Logging.lib,
@@ -150,6 +152,9 @@ fun Module.forceConfigurations() {
  * does not treat the published artifact, which `spine-logging` and `spine-testlib`
  * bring transitively, as the same module. Without this substitution, both would end up
  * on the classpath, and in the SBOM of the artifact.
+ *
+ * `:annotations` applies this script too, so its test classpath resolves the published
+ * artifact to the module itself, which is intended.
  *
  * The configurations of Dokka resolve its plugins, which are not built here,
  * so they are left as they are.
