@@ -53,8 +53,9 @@ internal data class MavenMetadata(var versioning: Versioning = Versioning()) {
          */
         fun fetchAndParse(url: URL): MavenMetadata? {
             return try {
-                val metadata = mapper.readValue(url, MavenMetadata::class.java)
-                metadata
+                url.openStream().use { stream ->
+                    mapper.readValue(stream, MavenMetadata::class.java)
+                }
             } catch (_: FileNotFoundException) {
                 null
             }
