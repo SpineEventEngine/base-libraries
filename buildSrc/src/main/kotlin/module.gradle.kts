@@ -66,6 +66,7 @@ project.run {
     configureKotlin(javaVersion)
     addDependencies()
     forceConfigurations()
+    substituteAnnotations()
 
     val generatedDir = "$projectDir/generated"
     setTaskDependencies(generatedDir)
@@ -132,6 +133,8 @@ fun Module.forceConfigurations() {
                     Coroutines.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
+                    // `substituteAnnotations()` replaces it with `:annotations` elsewhere;
+                    // this pins the version for the configurations of Dokka.
                     Base.annotations,
                     Base.lib,
                     Logging.lib,
@@ -139,6 +142,34 @@ fun Module.forceConfigurations() {
             }
         }
     }
+}
+
+/**
+ * Resolves the published `spine-annotations` to the `:annotations` module of this build.
+ *
+ * Gradle knows the module as `io.spine:annotations`, while it is published as
+ * `io.spine:spine-annotations`. Because the coordinates differ, conflict resolution
+ * does not treat the published artifact, which `spine-logging` and `spine-testlib`
+ * bring transitively, as the same module. Without this substitution, both would end up
+ * on the classpath, and in the SBOM of the artifact.
+ *
+ * `:annotations` applies this script too, so its test classpath resolves the published
+ * artifact to the module itself, which is intended.
+ *
+ * The configurations of Dokka resolve its plugins, which are not built here,
+ * so they are left as they are.
+ */
+fun Module.substituteAnnotations() {
+    val annotations = Base.annotations.substringBeforeLast(':')
+    configurations
+        .matching { !it.name.startsWith("dokka") }
+        .configureEach {
+            resolutionStrategy.dependencySubstitution {
+                substitute(module(annotations))
+                    .using(project(":annotations"))
+                    .because("`:annotations` is the module published as `$annotations`.")
+            }
+        }
 }
 
 fun Module.setTaskDependencies(generatedDir: String) {
