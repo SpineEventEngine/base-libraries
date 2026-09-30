@@ -1,0 +1,38 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:io.spine.environment////PointingToDeclaration/-environment -library/io.spine.environment/index.html
+$dokka.location:io.spine.environment/CustomEnvironmentType///PointingToDeclaration/-environment -library/io.spine.environment/-custom-environment-type/index.html
+$dokka.location:io.spine.environment/CustomEnvironmentType/CustomEnvironmentType/#/PointingToDeclaration/-environment -library/io.spine.environment/-custom-environment-type/-custom-environment-type.html
+$dokka.location:io.spine.environment/DefaultMode///PointingToDeclaration/-environment -library/io.spine.environment/-default-mode/index.html
+$dokka.location:io.spine.environment/DefaultMode/enabled/#/PointingToDeclaration/-environment -library/io.spine.environment/-default-mode/enabled.html
+$dokka.location:io.spine.environment/DefaultMode/self/#/PointingToDeclaration/-environment -library/io.spine.environment/-default-mode/self.html
+$dokka.location:io.spine.environment/Environment///PointingToDeclaration/-environment -library/io.spine.environment/-environment/index.html
+$dokka.location:io.spine.environment/Environment/createCopy/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment/create-copy.html
+$dokka.location:io.spine.environment/Environment/instance/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment/instance.html
+$dokka.location:io.spine.environment/Environment/is/#java.lang.Class<? extends io.spine.environment.EnvironmentType>/PointingToDeclaration/-environment -library/io.spine.environment/-environment/is.html
+$dokka.location:io.spine.environment/Environment/register/#java.lang.Class<? extends io.spine.environment.CustomEnvironmentType<?>>/PointingToDeclaration/-environment -library/io.spine.environment/-environment/register.html
+$dokka.location:io.spine.environment/Environment/reset/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment/reset.html
+$dokka.location:io.spine.environment/Environment/restoreFrom/#io.spine.environment.Environment/PointingToDeclaration/-environment -library/io.spine.environment/-environment/restore-from.html
+$dokka.location:io.spine.environment/Environment/setTo/#java.lang.Class<? extends io.spine.environment.EnvironmentType<?>>/PointingToDeclaration/-environment -library/io.spine.environment/-environment/set-to.html
+$dokka.location:io.spine.environment/Environment/type/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment/type.html
+$dokka.location:io.spine.environment/Environment/whenDetected/#java.lang.Class<T>#java.util.function.Consumer<T>/PointingToDeclaration/-environment -library/io.spine.environment/-environment/when-detected.html
+$dokka.location:io.spine.environment/EnvironmentType///PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/index.html
+$dokka.location:io.spine.environment/EnvironmentType/EnvironmentType/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/-environment-type.html
+$dokka.location:io.spine.environment/EnvironmentType/enabled/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/enabled.html
+$dokka.location:io.spine.environment/EnvironmentType/equals/#java.lang.Object/PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/equals.html
+$dokka.location:io.spine.environment/EnvironmentType/hashCode/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/hash-code.html
+$dokka.location:io.spine.environment/EnvironmentType/self/#/PointingToDeclaration/-environment -library/io.spine.environment/-environment-type/self.html
+$dokka.location:io.spine.environment/OsFamily.Unix///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-environment -library/io.spine.environment/-os-family/-unix/index.html
+$dokka.location:io.spine.environment/OsFamily.Windows///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-environment -library/io.spine.environment/-os-family/-windows/index.html
+$dokka.location:io.spine.environment/OsFamily.macOS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-environment -library/io.spine.environment/-os-family/mac-o-s/index.html
+$dokka.location:io.spine.environment/OsFamily///PointingToDeclaration/-environment -library/io.spine.environment/-os-family/index.html
+$dokka.location:io.spine.environment/OsFamily/detect/#/PointingToDeclaration/-environment -library/io.spine.environment/-os-family/detect.html
+$dokka.location:io.spine.environment/OsFamily/isCurrent/#/PointingToDeclaration/-environment -library/io.spine.environment/-os-family/is-current.html
+$dokka.location:io.spine.environment/OsFamily/valueOf/#java.lang.String/PointingToDeclaration/-environment -library/io.spine.environment/-os-family/value-of.html
+$dokka.location:io.spine.environment/OsFamily/values/#/PointingToDeclaration/-environment -library/io.spine.environment/-os-family/values.html
+$dokka.location:io.spine.environment/Tests///PointingToDeclaration/-environment -library/io.spine.environment/-tests/index.html
+$dokka.location:io.spine.environment/Tests/enabled/#/PointingToDeclaration/-environment -library/io.spine.environment/-tests/enabled.html
+$dokka.location:io.spine.environment/Tests/knownTestingFrameworks/#/PointingToDeclaration/-environment -library/io.spine.environment/-tests/known-testing-frameworks.html
+$dokka.location:io.spine.environment/Tests/self/#/PointingToDeclaration/-environment -library/io.spine.environment/-tests/self.html
+$dokka.location:io.spine.environment/Tests/type/#/PointingToDeclaration/-environment -library/io.spine.environment/-tests/type.html
+io.spine.environment
