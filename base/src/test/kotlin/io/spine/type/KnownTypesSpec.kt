@@ -51,6 +51,7 @@ import io.spine.string.pi
 import io.spine.test.types.KnownTask
 import io.spine.test.types.KnownTaskId
 import io.spine.test.types.KnownTaskName
+import io.spine.tools.proto.type.MoreKnownTypes
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -58,6 +59,7 @@ import java.io.ObjectOutputStream
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.fail
 
@@ -230,6 +232,13 @@ internal class KnownTypesSpec {
     fun `prohibit calling 'extendWith' from client code`() {
         assertThrows<SecurityException> {
             KnownTypes.Holder.extendWith(TypeSet.newBuilder().build())
+        }
+    }
+
+    @Test
+    fun `allow calling 'extendWith' from 'MoreKnownTypes'`() {
+        assertDoesNotThrow {
+            MoreKnownTypes.extendWithNothing()
         }
     }
 

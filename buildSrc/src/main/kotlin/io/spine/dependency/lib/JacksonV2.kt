@@ -33,8 +33,10 @@ import io.spine.dependency.DependencyWithBom
  * Jackson 2.x dependencies.
  *
  * Jackson 2.x artifacts keep the `com.fasterxml.jackson.*` group IDs, unlike
- * Jackson 3.x, which moved to `tools.jackson` (JSTEP-1). We declare the 2.x line
- * to align the versions of the artifacts pulled transitively by third-party
+ * Jackson 3.x, which moved to `tools.jackson`
+ * ([JSTEP-1](https://github.com/FasterXML/jackson-future-ideas/wiki/JSTEP-1)).
+ *
+ * We declare the 2.x line to align the versions of the artifacts pulled transitively by third-party
  * dependencies, while our own code uses Jackson 3.x declared by [Jackson].
  *
  * The `jackson-annotations` artifact, although it belongs to the 2.x line, is
@@ -48,7 +50,7 @@ import io.spine.dependency.DependencyWithBom
 @Suppress("unused")
 object JacksonV2 : DependencyWithBom() {
     override val group = "com.fasterxml.jackson"
-    override val version = "2.22.1"
+    override val version = "2.22.2"
 
     // https://github.com/FasterXML/jackson-bom
     override val bom = "$group:jackson-bom:$version"
@@ -100,6 +102,19 @@ object JacksonV2 : DependencyWithBom() {
 
         val parameterNames = "$group:jackson-module-parameter-names"
 
-        override val modules = listOf(parameterNames)
+        // https://github.com/FasterXML/jackson-module-kotlin/releases
+        val kotlin = "$group:jackson-module-kotlin"
+
+        override val modules = listOf(parameterNames, kotlin)
+    }
+
+    // https://github.com/FasterXML/jackson-jr/tree/2.x
+    object Junior : Dependency() {
+        override val version = JacksonV2.version
+        override val group = "$groupPrefix.jr"
+
+        val objects = "$group:jackson-jr-objects"
+
+        override val modules = listOf(objects)
     }
 }

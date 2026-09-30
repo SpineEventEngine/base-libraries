@@ -24,16 +24,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.spine.dependency.lib
+package io.spine.tools.proto.type
 
-// https://cloud.google.com/java/docs/reference
-@Suppress("unused", "ConstPropertyName")
-object AppEngine {
-    private const val version = "1.9.82"
-    const val sdk = "com.google.appengine:appengine-api-1.0-sdk:$version"
+import io.spine.code.proto.TypeSet
+import io.spine.type.KnownTypes
 
-    object GradlePlugin {
-        private const val version = "2.2.0"
-        const val lib = "com.google.cloud.tools:appengine-gradle-plugin:$version"
+/**
+ * A test double standing in for the production `MoreKnownTypes` class of
+ * the `tool-base/proto-code` module.
+ *
+ * [KnownTypes.Holder.extendWith] admits exactly one caller, matched by its
+ * fully qualified name at runtime. This object bears that name so that the
+ * allowed value is pinned by a test in this repository, rather than only by
+ * a build failure in a project consuming both libraries.
+ *
+ * @see io.spine.security.InvocationGuard
+ */
+internal object MoreKnownTypes {
+
+    /**
+     * Calls the guarded method with an empty type set, which leaves
+     * the known types intact.
+     *
+     * The call must stay direct. The guard resolves the immediate caller
+     * frame, so an extra frame from another class would break the match
+     * quietly, leaving the test passing for the wrong reason.
+     */
+    fun extendWithNothing() {
+        KnownTypes.Holder.extendWith(TypeSet.newBuilder().build())
     }
 }
