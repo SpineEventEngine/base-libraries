@@ -14,30 +14,99 @@
 
 package io.spine.environment
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
-import io.spine.environment.OsFamily.Unix
-import io.spine.environment.OsFamily.Windows
-import io.spine.environment.OsFamily.macOS
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 @DisplayName("`OsFamily` should")
 internal class OsFamilySpec {
 
+    @ParameterizedTest
+    @CsvSource(
+        "windows 11,           ';', true",
+        "windows server 2022,  ';', true",
+        "linux,                ':', false",
+        "mac os x,             ':', false",
+        "openvms,              ':', false",
+    )
+    fun `detect Windows`(osName: String, pathSeparator: String, expected: Boolean) {
+        OsFamily.Windows.matches(osName, pathSeparator) shouldBe expected
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "mac os x,             ':', true",
+        "darwin,               ':', true",
+        "linux,                ':', false",
+        "windows 11,           ';', false",
+        "hp-ux,                ':', false",
+    )
+    fun `detect macOS, including the hosts reporting themselves as Darwin`(
+        osName: String,
+        pathSeparator: String,
+        expected: Boolean
+    ) {
+        OsFamily.macOS.matches(osName, pathSeparator) shouldBe expected
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "linux,                ':', true",
+        "hp-ux,                ':', true",
+        "sunos,                ':', true",
+        // A Mac is a Unix, too.
+        "mac os x,             ':', true",
+        "darwin,               ':', true",
+        // Classic (pre-OS X) Mac OS uses the Unix path separator, but is not a Unix.
+        "mac os,               ':', false",
+        // OpenVMS uses the Unix path separator, but is not a Unix.
+        "openvms,              ':', false",
+        // Windows is told apart by the path separator alone.
+        "windows 11,           ';', false",
+    )
+    fun `detect Unix, excluding OpenVMS and classic Mac OS`(
+        osName: String,
+        pathSeparator: String,
+        expected: Boolean
+    ) {
+        OsFamily.Unix.matches(osName, pathSeparator) shouldBe expected
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "windows 11,           ';', Windows",
+        // A Mac is a Unix, too, but `macOS` is the more specific family.
+        "mac os x,             ':', macOS",
+        "darwin,               ':', macOS",
+        "linux,                ':', Unix",
+        "sunos,                ':', Unix",
+    )
+    fun `detect the most specific family`(
+        osName: String,
+        pathSeparator: String,
+        expected: OsFamily
+    ) {
+        OsFamily.detect(osName, pathSeparator) shouldBe expected
+    }
+
     @Test
-    fun `detect current OS`() {
-        assertDoesNotThrow {
-            OsFamily.detect()
+    fun `fail to detect an OS which belongs to none of the families`() {
+        shouldThrow<IllegalStateException> {
+            OsFamily.detect("openvms", ":")
         }
     }
 
     @Test
-    fun `tell if it is not current`() {
-        when (OsFamily.detect()) {
-            Windows -> macOS.isCurrent shouldBe false
-            macOS -> Unix.isCurrent shouldBe false
-            Unix -> macOS.isCurrent shouldBe false
+    fun `tell the current OS by the system properties`() {
+        val osName = System.getProperty("os.name", "").lowercase()
+        val pathSeparator = System.getProperty("path.separator", "")
+
+        OsFamily.entries.forEach {
+            it.isCurrent() shouldBe it.matches(osName, pathSeparator)
         }
+        OsFamily.detect() shouldBe OsFamily.detect(osName, pathSeparator)
     }
 }
