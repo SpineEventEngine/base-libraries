@@ -52,7 +52,7 @@ public enum OsFamily {
      * A Unix-like operating system, told by the path separator it uses.
      *
      * <p>The family includes {@link #macOS}, but excludes OpenVMS and
-     * classic (pre-OS X) macOS.
+     * classic (pre-OS X) Mac OS.
      */
     Unix {
         @Override
