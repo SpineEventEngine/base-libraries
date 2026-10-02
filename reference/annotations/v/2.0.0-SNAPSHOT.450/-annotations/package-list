@@ -1,0 +1,21 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:io.spine.annotation////PointingToDeclaration/-annotations/io.spine.annotation/index.html
+$dokka.location:io.spine.annotation/Beta///PointingToDeclaration/-annotations/io.spine.annotation/-beta/index.html
+$dokka.location:io.spine.annotation/Beta/value/#/PointingToDeclaration/-annotations/io.spine.annotation/-beta/value.html
+$dokka.location:io.spine.annotation/Experimental///PointingToDeclaration/-annotations/io.spine.annotation/-experimental/index.html
+$dokka.location:io.spine.annotation/Experimental/value/#/PointingToDeclaration/-annotations/io.spine.annotation/-experimental/value.html
+$dokka.location:io.spine.annotation/Generated///PointingToDeclaration/-annotations/io.spine.annotation/-generated/index.html
+$dokka.location:io.spine.annotation/Generated/comments/#/PointingToDeclaration/-annotations/io.spine.annotation/-generated/comments.html
+$dokka.location:io.spine.annotation/Generated/timestamp/#/PointingToDeclaration/-annotations/io.spine.annotation/-generated/timestamp.html
+$dokka.location:io.spine.annotation/Generated/value/#/PointingToDeclaration/-annotations/io.spine.annotation/-generated/value.html
+$dokka.location:io.spine.annotation/GeneratedMixin///PointingToDeclaration/-annotations/io.spine.annotation/-generated-mixin/index.html
+$dokka.location:io.spine.annotation/Internal///PointingToDeclaration/-annotations/io.spine.annotation/-internal/index.html
+$dokka.location:io.spine.annotation/Modified///PointingToDeclaration/-annotations/io.spine.annotation/-modified/index.html
+$dokka.location:io.spine.annotation/Modified/comments/#/PointingToDeclaration/-annotations/io.spine.annotation/-modified/comments.html
+$dokka.location:io.spine.annotation/Modified/timestamp/#/PointingToDeclaration/-annotations/io.spine.annotation/-modified/timestamp.html
+$dokka.location:io.spine.annotation/Modified/value/#/PointingToDeclaration/-annotations/io.spine.annotation/-modified/value.html
+$dokka.location:io.spine.annotation/SPI///PointingToDeclaration/-annotations/io.spine.annotation/-s-p-i/index.html
+$dokka.location:io.spine.annotation/TestOnly///PointingToDeclaration/-annotations/io.spine.annotation/-test-only/index.html
+$dokka.location:io.spine.annotation/VisibleForTesting///PointingToDeclaration/-annotations/io.spine.annotation/-visible-for-testing/index.html
+io.spine.annotation
