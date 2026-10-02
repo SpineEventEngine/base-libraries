@@ -59,6 +59,8 @@ internal class OsFamilySpec {
         // A Mac is a Unix, too.
         "mac os x,             ':', true",
         "darwin,               ':', true",
+        // Classic (pre-OS X) Mac OS uses the Unix path separator, but is not a Unix.
+        "mac os,               ':', false",
         // OpenVMS uses the Unix path separator, but is not a Unix.
         "openvms,              ':', false",
         // Windows is told apart by the path separator alone.
