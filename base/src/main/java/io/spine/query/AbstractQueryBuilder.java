@@ -131,6 +131,7 @@ abstract class AbstractQueryBuilder<I,
     @Override
     @Deprecated
     @CanIgnoreReturnValue
+    @SuppressWarnings("DeprecatedIsStillUsed") // in tests.
     public final B withMask(FieldMask mask) {
         checkNotNull(mask);
         return thisRef();
@@ -145,6 +146,7 @@ abstract class AbstractQueryBuilder<I,
     @Override
     @Deprecated
     @CanIgnoreReturnValue
+    @SuppressWarnings("DeprecatedIsStillUsed") // in tests.
     public final B withMask(String... maskPaths) {
         checkNotNull(maskPaths);
         return thisRef();
@@ -159,6 +161,7 @@ abstract class AbstractQueryBuilder<I,
     @Override
     @Deprecated
     @CanIgnoreReturnValue
+    @SuppressWarnings("DeprecatedIsStillUsed") // in tests.
     public final B withMask(Field... fields) {
         checkNotNull(fields);
         return thisRef();
@@ -183,7 +186,6 @@ abstract class AbstractQueryBuilder<I,
     @Override
     @SafeVarargs
     @CanIgnoreReturnValue
-    @SuppressWarnings("OverloadedVarargsMethod")    /* For convenience. */
     public final B either(Either<B>... parameters) {
         var asList = Arrays.asList(parameters);
         return either(asList);
