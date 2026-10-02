@@ -15,7 +15,6 @@
 package io.spine.query;
 
 import com.google.common.collect.ImmutableList;
-import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
 import io.spine.query.given.RecordQueryBuilderTestEnv;
@@ -37,7 +36,6 @@ import static io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns
 import static io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.stock_count;
 import static io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.when_founded;
 import static io.spine.query.given.RecordQueryBuilderTestEnv.assertHasParamValue;
-import static io.spine.query.given.RecordQueryBuilderTestEnv.fieldMaskWith;
 import static io.spine.query.given.RecordQueryBuilderTestEnv.generateIds;
 import static io.spine.query.given.RecordQueryBuilderTestEnv.manufacturerId;
 import static io.spine.query.given.RecordQueryBuilderTestEnv.queryManufacturer;
@@ -63,7 +61,7 @@ class RecordQueryBuilderTest {
             var subject = subjectWithNoParameters(actual);
             assertThat(subject.id()
                               .values()).isEmpty();
-            RecordQueryBuilderTestEnv.assertNoSortingMaskLimit(actual);
+            RecordQueryBuilderTestEnv.assertNoSortingAndLimit(actual);
         }
 
         @Test
@@ -168,33 +166,6 @@ class RecordQueryBuilderTest {
                                         .predicate()
                                         .operator();
             assertThat(topLevelOperator).isEqualTo(OR);
-        }
-
-        @Test
-        @DisplayName("with the field mask")
-        void withFieldMask() {
-            var mask = fieldMaskWith(is_traded);
-            var query = queryManufacturer()
-                    .withMask(mask)
-                    .build();
-
-            assertThat(query.mask()).isEqualTo(mask);
-        }
-
-        @Test
-        @DisplayName("with the field mask defined by the paths")
-        @SuppressWarnings("DuplicateStringLiteralInspection")   /* Field names just for tests. */
-        void withMaskPaths() {
-            var isin = "isin";
-            var whenFounded = "when_founded";
-            var query = queryManufacturer()
-                    .withMask(isin, whenFounded)
-                    .build();
-            var expected = FieldMask.newBuilder()
-                    .addPaths(isin)
-                    .addPaths(whenFounded)
-                    .build();
-            assertThat(query.mask()).isEqualTo(expected);
         }
 
         @Test
@@ -324,15 +295,6 @@ class RecordQueryBuilderTest {
             var parameters = predicate.parameters();
             assertHasParamValue(parameters, isin, EQUALS, isinValue);
             assertHasParamValue(parameters, when_founded, GREATER_OR_EQUALS, THURSDAY);
-        }
-
-        @Test
-        @DisplayName("of a field mask")
-        void ofFieldMask() {
-            var mask = fieldMaskWith(isin);
-            var maybeMask = queryManufacturer().withMask(mask).whichMask();
-            assertThat(maybeMask).isPresent();
-            assertThat(maybeMask.get()).isEqualTo(mask);
         }
 
         @Test

@@ -74,7 +74,6 @@ public final class RecordQueryTestEnv {
     disjunctiveBuilder(Either<RecordQueryBuilder<ManufacturerId, Manufacturer>>... items) {
         return queryManufacturer()
                 .either(items)
-                .withMask(isin.name().value())
                 .sortAscendingBy(isin)
                 .limit(42);
     }
@@ -88,14 +87,13 @@ public final class RecordQueryTestEnv {
 
     public static RecordQueryBuilder<ManufacturerId, Manufacturer> conjunctiveBuilder() {
         var withPredicates = conjunctivePredicates().apply(queryManufacturer());
-        return withMaskSortingAndLimit(withPredicates);
+        return withSortingAndLimit(withPredicates);
 
     }
 
     public static RecordQueryBuilder<ManufacturerId, Manufacturer>
-    withMaskSortingAndLimit(RecordQueryBuilder<ManufacturerId, Manufacturer> builder) {
-        return builder.withMask(isin.name().value())
-               .sortAscendingBy(when_founded)
-               .limit(18);
+    withSortingAndLimit(RecordQueryBuilder<ManufacturerId, Manufacturer> builder) {
+        return builder.sortAscendingBy(when_founded)
+                      .limit(18);
     }
 }

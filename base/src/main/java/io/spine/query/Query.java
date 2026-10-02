@@ -53,10 +53,16 @@ public interface Query<I, R extends Message> {
     @Nullable Integer limit();
 
     /**
-     * Returns the field mask to be applied to each of the resulting records.
+     * Returns the {@linkplain FieldMask#getDefaultInstance() default instance}
+     * of {@code FieldMask}.
      *
-     * <p>If the mask is not set, returns a {@linkplain FieldMask#getDefaultInstance()
-     * default instance} of the {@code FieldMask}.
+     * <p>Formerly, returned the field mask to be applied to each of the resulting records.
+     *
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
-    FieldMask mask();
+    @Deprecated
+    default FieldMask mask() {
+        return FieldMask.getDefaultInstance();
+    }
 }

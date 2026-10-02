@@ -80,7 +80,7 @@ public final class RecordQuery<I, R extends Message>
      * with those predicates that are already set for querying.
      *
      * <p>This method only processes the column predicates. Additional identifier conditions,
-     * field masks, sorting, or limit are ignored.
+     * sorting, or limit are ignored.
      */
     public RecordQuery<I, R> and(RecordPredicates<I, R> builder) {
         var result = joinToRootPredicate(builder, AND);
@@ -92,7 +92,7 @@ public final class RecordQuery<I, R extends Message>
      * with those predicates that are already set for querying.
      *
      * <p>This method only processes the column predicates. Additional identifier conditions,
-     * field masks, sorting, or limit are ignored.
+     * sorting, or limit are ignored.
      */
     public RecordQuery<I, R> either(RecordPredicates<I, R> predicates) {
         var result = joinToRootPredicate(predicates, OR);

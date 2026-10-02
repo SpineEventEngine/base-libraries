@@ -82,11 +82,17 @@ public interface QueryBuilder<I,
     @Nullable Integer whichLimit();
 
     /**
-     * Returns the field mask to be applied to each of the resulting records.
+     * Returns {@code Optional.empty()}.
      *
-     * <p>If the mask is not set, returns {@code Optional.empty()}.
+     * <p>Formerly, returned the field mask to be applied to each of the resulting records.
+     *
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
-    Optional<FieldMask> whichMask();
+    @Deprecated
+    default Optional<FieldMask> whichMask() {
+        return Optional.empty();
+    }
 
     /**
      * Adds a predicate to be treated in disjunction with the existing predicates.
@@ -178,38 +184,41 @@ public interface QueryBuilder<I,
     B limit(int numberOfRecords);
 
     /**
-     * Sets the field mask to be applied to each of the resulting records.
+     * Does nothing.
      *
-     * <p>If the mask is not set, the query results contain the records as-is.
-     *
-     * <p>Any previously set mask values are overridden by this method call.
+     * <p>Formerly, set the field mask to be applied to each of the resulting records.
      *
      * @return this instance of query builder, for chaining
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
+    @Deprecated
     @CanIgnoreReturnValue
     B withMask(FieldMask mask);
 
     /**
-     * Sets the paths for the field mask to apply to each of the resulting records.
+     * Does nothing.
      *
-     * <p>If the mask is not set, the query results contain the records as-is.
-     *
-     * <p>Any previously set mask values are overridden by this method call.
+     * <p>Formerly, set the paths for the field mask to apply to each of the resulting records.
      *
      * @return this instance of query builder, for chaining
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
+    @Deprecated
     @SuppressWarnings("OverloadedVarargsMethod")    // Each overload has a different parameter type.
     B withMask(String... maskPaths);
 
     /**
-     * Sets the fields to apply as a field mask to each of the resulting records.
+     * Does nothing.
      *
-     * <p>If the mask is not set, the query results contain the records as-is.
-     *
-     * <p>Any previously set mask values are overridden by this method call.
+     * <p>Formerly, set the fields to apply as a field mask to each of the resulting records.
      *
      * @return this instance of query builder, for chaining
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
+    @Deprecated
     @SuppressWarnings("OverloadedVarargsMethod")    // Each overload has a different parameter type.
     B withMask(Field... fields);
 

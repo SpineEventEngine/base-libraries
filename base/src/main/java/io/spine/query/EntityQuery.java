@@ -81,7 +81,6 @@ public abstract class EntityQuery<I,
         copyPredicate(destination);
         copySorting(destination);
         copyLimit(destination);
-        copyMask(destination);
     }
 
     /**
@@ -97,16 +96,6 @@ public abstract class EntityQuery<I,
     private void copyPredicate(AbstractQueryBuilder<I, S, ?, ?, ?> destination) {
         var predicate = subject().predicate();
         destination.replacePredicate(predicate);
-    }
-
-    /**
-     * Copies the field mask value from the current instance to the destination builder.
-     */
-    private void copyMask(AbstractQueryBuilder<I, S, ?, ?, ?> destination) {
-        var sourceMask = mask();
-        if (sourceMask != null) {
-            destination.withMask(sourceMask);
-        }
     }
 
     /**

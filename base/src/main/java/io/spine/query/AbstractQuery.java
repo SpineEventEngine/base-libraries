@@ -16,7 +16,6 @@ package io.spine.query;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
-import com.google.protobuf.FieldMask;
 import com.google.protobuf.Message;
 import org.jspecify.annotations.Nullable;
 
@@ -62,13 +61,6 @@ abstract class AbstractQuery<I, R extends Message, P extends SubjectParameter<R,
     private final @Nullable Integer limit;
 
     /**
-     * Defines which fields are returned for the matching records.
-     *
-     * <p>If not set, the records are returned as-is.
-     */
-    private final FieldMask mask;
-
-    /**
      * A common contract for the constructors of {@code AbstractQuery} implementations.
      *
      * <p>Checks that if the limit is set, at least one sorting directive is present as well.
@@ -76,7 +68,6 @@ abstract class AbstractQuery<I, R extends Message, P extends SubjectParameter<R,
     AbstractQuery(AbstractQueryBuilder<I, R, P, ?, ?> builder) {
         this.subject = new Subject<>(builder);
         this.sorting = checkNotNull(builder.sorting());
-        this.mask = builder.whichMask().orElse(FieldMask.getDefaultInstance());
         limit = ensureLimit(builder.whichLimit());
     }
 
@@ -107,17 +98,11 @@ abstract class AbstractQuery<I, R extends Message, P extends SubjectParameter<R,
     }
 
     @Override
-    public FieldMask mask() {
-        return mask;
-    }
-
-    @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("subject", subject)
                           .add("sorting", sorting)
                           .add("limit", limit)
-                          .add("mask", mask)
                           .toString();
     }
 
@@ -132,12 +117,11 @@ abstract class AbstractQuery<I, R extends Message, P extends SubjectParameter<R,
         AbstractQuery<?, ?, ?> query = (AbstractQuery<?, ?, ?>) o;
         return subject.equals(query.subject) &&
                 sorting.equals(query.sorting) &&
-                Objects.equals(limit, query.limit) &&
-                mask.equals(query.mask);
+                Objects.equals(limit, query.limit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subject, sorting, limit, mask);
+        return Objects.hash(subject, sorting, limit);
     }
 }

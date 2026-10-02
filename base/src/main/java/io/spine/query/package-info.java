@@ -183,28 +183,6 @@
  * method may only be used in queries that sort their results. Otherwise, a runtime exception
  * is thrown upon building the query.
  *
- * <h4>Field masks</h4>
- *
- * <p>Sometimes end-users are interested in obtaining only a part of the fields of stored messages.
- * In this case, they may specify a {@link com.google.protobuf.FieldMask FieldMask} to be applied
- * to each of the resulting records. The functionality of the field masks is supported fully,
- * as per the <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/FieldMask">original contract</a>.
- *
- * <p>Let's see it in action:
- *
- * <pre>
- *      FieldMask mask = fieldMaskWith(isTraded);   // Only keep the `is_traded` field in results.
- *     {@literal RecordQuery<ManufacturerId, Manufacturer> query = }
- *     {@literal    RecordQuery.newBuilder(ManufacturerId.class, Manufacturer.class) }
- *                    .withMask(mask)
- *                    .build();
- * </pre>
- *
- * <p>The query above selects all records of {@code Manufacturer} type, but applies the field
- * mask to each of the resulting records. Depending on the implementation of an underlying storage,
- * the field mask value may be used to optimize the call to the native storage, and fetch
- * only the required values, for instance, if they are stored separately as columns.
- *
  * <h3>Entity Queries</h3>
  *
  * <p>Among all the stored Protobuf messages, there is a special case. If a message is declared as
@@ -384,17 +362,6 @@
  * static methods generated in {@code ProjectView.Column} class. Each of them returns
  * the declaration of the Entity column corresponding to the Message field with
  * the {@code (column)} option.
- *
- * <h4>Field masks</h4>
- *
- * <p>It is also possible to set the mask for each resulting Protobuf message:
- *
- * <pre>
- *     FieldMask mask = fieldMaskWith(status());
- *     ProjectView.Query query = ProjectView.query()
- *                                          .withMask(mask)
- *                                          .build();
- * </pre>
  *
  * <h4>Entity states with no columns</h4>
  *

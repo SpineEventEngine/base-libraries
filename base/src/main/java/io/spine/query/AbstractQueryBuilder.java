@@ -25,14 +25,10 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.google.protobuf.util.FieldMaskUtil.fromStringList;
 import static io.spine.query.Direction.ASC;
 import static io.spine.query.Direction.DESC;
 import static io.spine.query.LogicalOperator.AND;
@@ -74,9 +70,6 @@ abstract class AbstractQueryBuilder<I,
 
     @MonotonicNonNull
     private Integer limit;
-
-    @MonotonicNonNull
-    private FieldMask mask;
 
     AbstractQueryBuilder(Class<I> idType, Class<R> recordType) {
         this.idType = idType;
@@ -120,11 +113,6 @@ abstract class AbstractQueryBuilder<I,
     }
 
     @Override
-    public Optional<FieldMask> whichMask() {
-        return Optional.ofNullable(mask);
-    }
-
-    @Override
     @CanIgnoreReturnValue
     public final B limit(int numberOfRecords) {
         ensureTopLevel("Limit of Query results");
@@ -134,43 +122,46 @@ abstract class AbstractQueryBuilder<I,
         return thisRef();
     }
 
+    /**
+     * Does nothing.
+     *
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
+     */
     @Override
+    @Deprecated
     @CanIgnoreReturnValue
     public final B withMask(FieldMask mask) {
-        ensureTopLevel("Field masks");
-        this.mask = checkNotNull(mask);
+        checkNotNull(mask);
         return thisRef();
     }
 
+    /**
+     * Does nothing.
+     *
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
+     */
     @Override
+    @Deprecated
     @CanIgnoreReturnValue
-    public final B withMask(String ...maskPaths) {
-        var pathList = ImmutableList.copyOf(maskPaths);
-        return withMask(pathList);
-    }
-
-    @Override
-    @CanIgnoreReturnValue
-    public final B withMask(Field... fields) {
-        var paths = Arrays.stream(fields)
-                .map(Field::toString)
-                .collect(toImmutableList());
-        return withMask(paths);
+    public final B withMask(String... maskPaths) {
+        checkNotNull(maskPaths);
+        return thisRef();
     }
 
     /**
-     * Sets the paths from the passed collection to apply as a field mask
-     * to each of the resulting records.
+     * Does nothing.
      *
-     * <p>This method acts similar to {@link #withMask(String...)}.
-     *
-     * @return this instance of builder
-     * @see #withMask(String...)
+     * @deprecated Field masks are no longer supported. The query results always contain
+     *         all the fields of the records. Please remove the call.
      */
-    final B withMask(Collection<String> paths) {
-        var recordType = whichRecordType();
-        var fieldMask = fromStringList(recordType, paths);
-        return withMask(fieldMask);
+    @Override
+    @Deprecated
+    @CanIgnoreReturnValue
+    public final B withMask(Field... fields) {
+        checkNotNull(fields);
+        return thisRef();
     }
 
     @Override
