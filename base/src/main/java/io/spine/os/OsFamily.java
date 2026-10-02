@@ -68,11 +68,11 @@ public enum OsFamily {
         @Override
         boolean matches(String osName, String pathSeparator) {
             var separatorMatches = ":".equals(pathSeparator);
-            var notMac = !macOS.matches(osName, pathSeparator)
+            var notClassicMac = !macOS.matches(osName, pathSeparator)
                     || osName.endsWith("x")
                     || osName.contains(DARWIN);
             var notVms = !osName.contains("openvms");
-            return separatorMatches && notVms && notMac;
+            return separatorMatches && notVms && notClassicMac;
         }
     };
 
@@ -88,7 +88,12 @@ public enum OsFamily {
      */
     private static final String DARWIN = "darwin";
 
-    /** The lower-cased name of the OS family. */
+    /**
+     * The substring of the lower-cased {@code os.name} value which identifies the family.
+     *
+     * <p>Defaults to the lower-cased constant name, unless a constant passes
+     * its own value, as {@link #macOS} does.
+     */
     private final String signature;
 
     /** Creates an instance with the signature taken from the lower-cased constant name. */
