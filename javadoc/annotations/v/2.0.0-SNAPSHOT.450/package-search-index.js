@@ -1,0 +1,1 @@
+var packageSearchIndex = [{"l":"io.spine.annotation","url":"io/spine/annotation/package-summary.html"}, {"l":"All packages","url":"index.html"}]
