@@ -107,6 +107,10 @@ the default (empty) mask, so the query results always contain all the fields of 
 - 2026-10-02 — reviewed: `spine-code-review` and `review-docs` approve. Applied: split
   `without validating them` into `with unknown paths` / `set inside 'either()'`, hoisted
   repeated mask inputs, env Javadoc, task-file facts (`delivery-server`, equality note).
-  Declined: null-rejection tests for the no-ops (Kotlin cannot pass `null` to these
-  non-null parameters without reflection). Re-ran: 135 `io.spine.query` tests and
-  `:base:detekt` green.
+  Re-ran: 135 `io.spine.query` tests and `:base:detekt` green.
+- 2026-10-02 — pre-PR round: `spine-code-review`, `review-docs` and `kotlin-engineer`
+  approve. Applied their nits: a `null` test for `withMask(FieldMask)`, `masked`/`unmasked`
+  names, a sorting assertion replacing an always-true `shouldNotBe null`, suppression
+  comments that say when to delete the tests. Not tested: `null` arrays passed to the
+  varargs overloads — spreading a `null` array from Kotlin throws before the call, so such
+  a test would pass without reaching the precondition.

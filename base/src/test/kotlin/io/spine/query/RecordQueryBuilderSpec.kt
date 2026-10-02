@@ -17,6 +17,7 @@ package io.spine.query
 import com.google.common.testing.EqualsTester
 import com.google.protobuf.FieldMask
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.optional.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -25,6 +26,7 @@ import io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.is_tra
 import io.spine.query.given.RecordQueryBuilderTestEnv.ManufacturerColumns.isin
 import io.spine.query.given.RecordQueryBuilderTestEnv.fieldMaskWith
 import io.spine.query.given.RecordQueryBuilderTestEnv.queryManufacturer
+import io.spine.testing.TestValues.nullRef
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -41,7 +43,7 @@ import org.junit.jupiter.api.Test
 @DisplayName("`RecordQueryBuilder` should")
 internal class RecordQueryBuilderSpec {
 
-    @Suppress("DEPRECATION") // Tests the deprecated API.
+    @Suppress("DEPRECATION") // Tests the deprecated mask API; remove together with it.
     @Nested inner class
     `ignore field masks` {
 
@@ -72,16 +74,16 @@ internal class RecordQueryBuilderSpec {
         @Test
         fun `keeping the query equal to the one without a mask`() {
             val isinValue = "JP 3633400001"
-            val withoutMask = queryManufacturer()
+            val unmasked = queryManufacturer()
                 .where(isin).`is`(isinValue)
                 .build()
-            val withMask = queryManufacturer()
+            val masked = queryManufacturer()
                 .where(isin).`is`(isinValue)
                 .withMask(mask)
                 .build()
 
             EqualsTester()
-                .addEqualityGroup(withoutMask, withMask)
+                .addEqualityGroup(unmasked, masked)
                 .testEquals()
         }
 
@@ -98,6 +100,13 @@ internal class RecordQueryBuilderSpec {
                 queryManufacturer()
                     .either(Either { it.withMask(mask) })
                     .build()
+            }
+        }
+
+        @Test
+        fun `rejecting a 'null' mask`() {
+            shouldThrow<NullPointerException> {
+                queryManufacturer().withMask(nullRef<FieldMask>())
             }
         }
     }

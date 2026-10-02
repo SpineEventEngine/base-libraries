@@ -21,7 +21,6 @@ import com.google.protobuf.Timestamp
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.optional.shouldBeEmpty
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.spine.base.EntityState
 import io.spine.base.Field
@@ -56,12 +55,12 @@ internal class EntityQuerySpec {
         val query = builder.build()
         val recordQuery = query.toRecordQuery()
 
-        recordQuery shouldNotBe null
+        recordQuery.sorting() shouldBe query.sorting()
         recordQuery.limit() shouldBe 5
     }
 
     @Test
-    @Suppress("DEPRECATION") // Tests the deprecated API.
+    @Suppress("DEPRECATION") // Tests the deprecated mask API; remove together with it.
     fun `ignore a field mask defined by subscribable fields`() {
         val builder = TestEntityQueryBuilder()
         val subscribableField = object : SubscribableField(Field.named("seconds")) {}
