@@ -29,7 +29,7 @@ import static io.spine.query.given.RecordQueryTestEnv.either2;
 import static io.spine.query.given.RecordQueryTestEnv.either3;
 import static io.spine.query.given.RecordQueryTestEnv.either4;
 import static io.spine.query.given.RecordQueryTestEnv.moreConjunctivePredicates;
-import static io.spine.query.given.RecordQueryTestEnv.withMaskSortingAndLimit;
+import static io.spine.query.given.RecordQueryTestEnv.withSortingAndLimit;
 
 /**
  * Tests for {@link RecordQuery} behaviour.
@@ -119,7 +119,7 @@ class RecordQueryTest {
                             r -> conjunctivePredicates().apply(r),
                             r -> moreConjunctivePredicates().apply(r)
                     );
-            var expected = withMaskSortingAndLimit(almostAsExpected).build();
+            var expected = withSortingAndLimit(almostAsExpected).build();
 
             var actual = query.either(moreConjunctivePredicates());
             assertThat(actual).isEqualTo(expected);
@@ -135,7 +135,7 @@ class RecordQueryTest {
                             r -> either1().apply(r),
                             r -> either2().apply(r)
                     );
-            var expected = withMaskSortingAndLimit(almostAsExpected).build();
+            var expected = withSortingAndLimit(almostAsExpected).build();
 
             var actual = query.either(disjunctivePredicates(either1(), either2()));
             assertThat(actual).isEqualTo(expected);

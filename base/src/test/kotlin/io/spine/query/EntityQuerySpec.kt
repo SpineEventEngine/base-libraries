@@ -19,8 +19,9 @@ import com.google.protobuf.Descriptors.Descriptor
 import com.google.protobuf.FieldMask
 import com.google.protobuf.Timestamp
 import io.kotest.matchers.collections.shouldNotBeEmpty
+import io.kotest.matchers.optional.shouldBeEmpty
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.spine.base.EntityState
 import io.spine.base.Field
 import io.spine.base.SubscribableField
@@ -48,28 +49,28 @@ internal class EntityQuerySpec {
         val builder = TestEntityQueryBuilder()
         val criterion = EntityCriterion(secondsColumn, builder)
         criterion.`is`(100L)
-        builder.withMask("seconds")
         builder.sortAscendingBy(secondsColumn)
         builder.limit(5)
 
         val query = builder.build()
         val recordQuery = query.toRecordQuery()
 
-        recordQuery shouldNotBe null
+        recordQuery.sorting() shouldBe query.sorting()
         recordQuery.limit() shouldBe 5
-        recordQuery.mask() shouldBe FieldMask.newBuilder().addPaths("seconds").build()
     }
 
     @Test
-    fun `apply a field mask defined by subscribable fields`() {
+    @Suppress("DEPRECATION") // Tests the deprecated mask API; remove together with it.
+    fun `ignore a field mask defined by subscribable fields`() {
         val builder = TestEntityQueryBuilder()
-        val field = Field.named("seconds")
-        val subscribableField = object : SubscribableField(field) {}
-        builder.withMask(subscribableField)
+        val subscribableField = object : SubscribableField(Field.named("seconds")) {}
+
+        builder.withMask(subscribableField) shouldBeSameInstanceAs builder
+        builder.whichMask().shouldBeEmpty()
 
         val query = builder.build()
-
-        query.mask() shouldBe FieldMask.newBuilder().addPaths(field.toString()).build()
+        query.mask() shouldBe FieldMask.getDefaultInstance()
+        query.toRecordQuery().mask() shouldBe FieldMask.getDefaultInstance()
     }
 
     @Test
@@ -126,7 +127,6 @@ internal class EntityQuerySpec {
         val builder = TestEntityQueryBuilder()
 
         builder.where(customColumn, 100L)
-        builder.withMask(Field.named("seconds"))
 
         val query = builder.build()
         query.subject().predicate().customParameters().shouldNotBeEmpty()

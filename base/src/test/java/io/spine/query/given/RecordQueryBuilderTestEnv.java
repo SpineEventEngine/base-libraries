@@ -37,7 +37,8 @@ import static io.spine.testing.TestValues.nullRef;
 import static io.spine.testing.TestValues.randomString;
 
 /**
- * Test environment data for {@link io.spine.query.RecordQueryBuilderTest RecordQueryBuilderTest}.
+ * Test environment data for {@link io.spine.query.RecordQueryBuilderTest RecordQueryBuilderTest}
+ * and {@code RecordQueryBuilderSpec}.
  */
 public final class RecordQueryBuilderTestEnv {
 
@@ -70,11 +71,10 @@ public final class RecordQueryBuilderTestEnv {
     }
 
     /**
-     * Asserts that the given query has no sorting, field mask and limit parameters set.
+     * Asserts that the given query has no sorting and limit parameters set.
      */
-    public static void assertNoSortingMaskLimit(RecordQuery<ManufacturerId, Manufacturer> query) {
+    public static void assertNoSortingAndLimit(RecordQuery<ManufacturerId, Manufacturer> query) {
         assertThat(query.sorting()).isEmpty();
-        assertThat(query.mask()).isEqualTo(FieldMask.getDefaultInstance());
         assertThat(query.limit()).isEqualTo(nullRef());
     }
 
