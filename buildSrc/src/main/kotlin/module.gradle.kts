@@ -1,27 +1,15 @@
 /*
- * Copyright 2026, TeamDev. All rights reserved.
+ * Copyright 2026 CodeMatters, Lda.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
  * https://www.apache.org/licenses/LICENSE-2.0
  *
- * Redistribution and use in source and/or binary forms, with or without
- * modification, must retain the above copyright notice and the following
- * disclaimer.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
  */
 
 import BuildSettings.javaVersion
@@ -30,6 +18,7 @@ import io.spine.dependency.build.CheckerFramework
 import io.spine.dependency.build.Dokka
 import io.spine.dependency.build.ErrorProne
 import io.spine.dependency.build.JSpecify
+import io.spine.dependency.kotlinx.Coroutines
 import io.spine.dependency.lib.Kotlin
 import io.spine.dependency.local.Base
 import io.spine.dependency.local.Logging
@@ -65,6 +54,7 @@ project.run {
     configureKotlin(javaVersion)
     addDependencies()
     forceConfigurations()
+    substituteAnnotations()
 
     val generatedDir = "$projectDir/generated"
     setTaskDependencies(generatedDir)
@@ -128,8 +118,11 @@ fun Module.forceConfigurations() {
             resolutionStrategy {
                 force(
                     Kotlin.bom,
+                    Coroutines.bom,
                     Dokka.BasePlugin.lib,
                     Reflect.lib,
+                    // `substituteAnnotations()` replaces it with `:annotations` elsewhere;
+                    // this pins the version for the configurations of Dokka.
                     Base.annotations,
                     Base.lib,
                     Logging.lib,
@@ -137,6 +130,34 @@ fun Module.forceConfigurations() {
             }
         }
     }
+}
+
+/**
+ * Resolves the published `spine-annotations` to the `:annotations` module of this build.
+ *
+ * Gradle knows the module as `io.spine:annotations`, while it is published as
+ * `io.spine:spine-annotations`. Because the coordinates differ, conflict resolution
+ * does not treat the published artifact, which `spine-logging` and `spine-testlib`
+ * bring transitively, as the same module. Without this substitution, both would end up
+ * on the classpath, and in the SBOM of the artifact.
+ *
+ * `:annotations` applies this script too, so its test classpath resolves the published
+ * artifact to the module itself, which is intended.
+ *
+ * The configurations of Dokka resolve its plugins, which are not built here,
+ * so they are left as they are.
+ */
+fun Module.substituteAnnotations() {
+    val annotations = Base.annotations.substringBeforeLast(':')
+    configurations
+        .matching { !it.name.startsWith("dokka") }
+        .configureEach {
+            resolutionStrategy.dependencySubstitution {
+                substitute(module(annotations))
+                    .using(project(":annotations"))
+                    .because("`:annotations` is the module published as `$annotations`.")
+            }
+        }
 }
 
 fun Module.setTaskDependencies(generatedDir: String) {
