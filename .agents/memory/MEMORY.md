@@ -6,9 +6,6 @@ See [README.md](README.md) for the format and routing rules.
 ## Feedback (validated patterns & corrections)
 
 - [copilot-review-request](feedback/copilot-review-request.md) — GraphQL `requestReviews` with `botIds: ["BOT_kgDOCnlnWA"]`; REST endpoint silently no-ops on re-requests.
-- [kotlin-test-formatting](feedback/kotlin-test-formatting.md) — `@Nested` should be on the same line as `inner class`, and backticked name on the next line.
-- [equals-tester](feedback/equals-tester.md) — Use Guava's `EqualsTester` for testing `equals()` and `hashCode()`.
-- [utility-class-testing](feedback/utility-class-testing.md) — Use `UtilityClassTest` as the base for testing utility classes.
 - [test-class-name-filter](feedback/test-class-name-filter.md) — Gradle `test` runs only `*Test`/`*Spec` classes; others are skipped silently.
 
 ## Project (durable context & rationale)
