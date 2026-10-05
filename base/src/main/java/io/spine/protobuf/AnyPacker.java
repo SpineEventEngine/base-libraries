@@ -127,8 +127,9 @@ public final class AnyPacker {
      * Please see the documentation of this class for the consequences.
      *
      * <p>Prefer this method over {@link Any#unpack(Class) Any.unpack(Class)}.
-     * This method does not use reflection for obtaining the default instance of
-     * the message, and it reports a failure with an unchecked exception.
+     * That method obtains the default instance of the message reflectively each time
+     * it parses the packed bytes, while this method does so only once per message class.
+     * This method also reports a failure with an unchecked exception.
      * Please see the "Implementation Note" section of this class for details.
      *
      * @param any
@@ -140,8 +141,9 @@ public final class AnyPacker {
      * @return unwrapped message instance
      * @throws UnexpectedTypeException
      *         if the type of the message packed into the passed {@code Any} differs from
-     *         the type of the given class, or if the packed bytes cannot be parsed into
-     *         a message of this class
+     *         the type of the given class, if the {@code Any} remembers the message as
+     *         an instance of another Java class, such as {@code DynamicMessage}, or if
+     *         the packed bytes cannot be parsed into a message of the given class
      */
     public static <T extends Message> T unpack(Any any, Class<T> cls) {
         checkNotNull(any);
