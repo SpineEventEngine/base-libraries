@@ -38,15 +38,16 @@ parses once, because `Any` remembers the unpacked message.
 ## Plan
 
 - [x] Create the branch from `origin/master`.
-- [x] Bump the version: `2.0.0-SNAPSHOT.451` -> `.452`.
+- [x] Bump the version: `2.0.0-SNAPSHOT.451` -> `.452`; re-bumped to `.460` in review.
 - [x] Add the tests to `AnyPackerSpec.kt`; run them against the unchanged `AnyPacker`.
       Exactly the tests pinning the new behavior must fail.
 - [x] Change `AnyPacker.unpack(Any, Class)`; all tests green.
 - [x] Rewrite the documentation: `AnyPacker` (class and method),
       `UnexpectedTypeException`, `AnyExts.kt`.
 - [x] `./gradlew build dokkaGenerate` on JDK 17; review the diff.
-- [ ] Commit (awaiting authorization): the version bump, the change, then
-      the regenerated dependency reports.
+- [x] Commit the version bump, the change, then the regenerated dependency reports.
+- [x] Open the PR: https://github.com/SpineEventEngine/base-libraries/pull/966
+- [x] Address the review notes (pre-PR reviewers and Copilot).
 
 ## Log
 
@@ -70,3 +71,14 @@ parses once, because `Any` remembers the unpacked message.
   Not addressed here.
 - 2026-10-05 — not verified: `core-jvm` was only read, not built or tested against
   this version; nothing was benchmarked (the repository has no JMH setup).
+- 2026-10-05 — pre-PR check PASS; PR #966 opened. Review notes addressed:
+  - The Javadoc of `unpack(Any, Class)` no longer claims that no reflection is used.
+    `Messages.getDefaultInstance()` uses it once per message class.
+  - Its `@throws` names the case of an `Any` remembering the message as an instance
+    of another Java class.
+  - `AnyPackerSpec`: the malformed-bytes test asserts that the type matches, and two
+    tests pin a type URL with several slashes (accepted by the typed overload,
+    rejected by `unpack(Any)`).
+  - Re-bumped to `.460` (breaking): an `Any` remembering a `DynamicMessage` is now
+    refused, and the typed overload throws `UnexpectedTypeException` instead of
+    `IllegalArgumentException` for an empty type URL.

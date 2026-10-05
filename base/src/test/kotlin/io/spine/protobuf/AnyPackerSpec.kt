@@ -52,6 +52,14 @@ internal class AnyPackerSpec {
 
     private val messageClass = MessageToPack::class.java
 
+    /**
+     * Packs [message] into an `Any` with a type URL that has several slashes.
+     */
+    private fun packWithSeveralSlashes(): AnyProto = any {
+        typeUrl = "example.org/types/${message.descriptorForType.fullName}"
+        value = message.toByteString()
+    }
+
     @Test
     fun `return the same 'Any' from 'pack()'`() {
         val any = TypeConverter.toAny(javaClass.simpleName)
@@ -75,6 +83,19 @@ internal class AnyPackerSpec {
 
         AnyPacker.unpack(AnyProto.pack(message), messageClass) shouldBe message
         AnyPacker.unpack(AnyProto.pack(message)) shouldBe message
+    }
+
+    @Test
+    fun `accept a type URL with several slashes if the class is given`() {
+        // Protobuf takes the type name from the segment after the last slash.
+        AnyPacker.unpack(packWithSeveralSlashes(), messageClass) shouldBe message
+    }
+
+    @Test
+    fun `reject a type URL with several slashes if the class is not given`() {
+        shouldThrow<IllegalArgumentException> {
+            AnyPacker.unpack(packWithSeveralSlashes())
+        }
     }
 
     @Test
@@ -156,6 +177,8 @@ internal class AnyPackerSpec {
                 typeUrl = TypeUrl.of(Empty::class.java).value()
                 value = ByteString.copyFromUtf8("malformed bytes")
             }
+            // The type matches. So, the failure must come from parsing the bytes.
+            malformed.isSameTypeAs(Empty.getDefaultInstance()) shouldBe true
 
             val exception = shouldThrow<UnexpectedTypeException> {
                 AnyPacker.unpack(malformed, Empty::class.java)
