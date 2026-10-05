@@ -48,6 +48,7 @@ parses once, because `Any` remembers the unpacked message.
 - [x] Commit the version bump, the change, then the regenerated dependency reports.
 - [x] Open the PR: https://github.com/SpineEventEngine/base-libraries/pull/966
 - [x] Address the review notes (pre-PR reviewers and Copilot).
+- [x] Make `TypeUrl` follow the `type_url` contract of `Any`: split at the last slash.
 
 ## Log
 
@@ -82,3 +83,9 @@ parses once, because `Any` remembers the unpacked message.
   - Re-bumped to `.460` (breaking): an `Any` remembering a `DynamicMessage` is now
     refused, and the typed overload throws `UnexpectedTypeException` instead of
     `IllegalArgumentException` for an empty type URL.
+- 2026-10-05 — at the maintainer's request, `TypeUrl` now follows the `type_url`
+  contract in `any.proto`: the type name is the content after the last slash, and
+  the prefix may contain slashes. It used to require exactly one slash. The tests
+  pinning the old rule (`TypeUrlSpec`, `TypeMembersSpec`) were replaced. The new
+  `TypeUrlSpec` and `AnyPackerSpec` tests failed against the old parsing, and pass
+  with the new one. `unpack(Any)` now accepts such type URLs too.

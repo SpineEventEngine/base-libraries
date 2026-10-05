@@ -37,13 +37,6 @@ internal class TypeMembersSpec {
                 TypeUrl.parse("no-separator-here")
             }
         }
-
-        @Test
-        fun `a string with too many parts`() {
-            shouldThrow<IllegalArgumentException> {
-                TypeUrl.parse("prefix/type/extra")
-            }
-        }
     }
 
     @Test

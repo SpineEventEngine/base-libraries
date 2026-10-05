@@ -86,16 +86,10 @@ internal class AnyPackerSpec {
     }
 
     @Test
-    fun `accept a type URL with several slashes if the class is given`() {
-        // Protobuf takes the type name from the segment after the last slash.
+    fun `accept a type URL with several slashes`() {
+        // The type name is the content after the last slash.
         AnyPacker.unpack(packWithSeveralSlashes(), messageClass) shouldBe message
-    }
-
-    @Test
-    fun `reject a type URL with several slashes if the class is not given`() {
-        shouldThrow<IllegalArgumentException> {
-            AnyPacker.unpack(packWithSeveralSlashes())
-        }
+        AnyPacker.unpack(packWithSeveralSlashes()) shouldBe message
     }
 
     @Test
