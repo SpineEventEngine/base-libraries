@@ -35,15 +35,42 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <p>When unpacking, the {@code AnyPacker} obtains a Java class matching the type URL
  * from the given instance of {@link Any}.
  *
- * @implNote This class does not use the {@link Any#unpack(Class)} method for unpacking
- *  for performance reasons.
+ * <h2>Memoization of unpacked messages</h2>
  *
- *  <p>The implementation of {@link Any#unpack(Class)} invokes the {@link Any#is(Class) is(Class)}
- *  method that obtains a default instance of a message by calling a method
- *  {@code getDefaultInstance()} reflectively.
+ * <p>An instance of {@code Any} remembers the message it was unpacked into, so that
+ * unpacking the same instance again does not parse the packed bytes anew.
+ * Please mind the consequences:
+ * <ul>
+ *     <li>Unpacking the same instance of {@code Any} more than once may return the same
+ *         instance of the message. It is safe because messages are immutable. Please
+ *         compare unpacked messages using {@code equals()}, and do not rely on getting
+ *         either the same or a new instance.
+ *     <li>An unpacked instance of {@code Any} holds a strong reference to the parsed
+ *         message for as long as the instance itself is reachable. A long-lived {@code Any}
+ *         thus keeps both the serialized and the parsed forms of the message in memory.
+ * </ul>
  *
- *  <p>We are aiming for better performance by caching the default instances
- *  when {@link Messages#getDefaultInstance(Class)} is called.
+ * @implNote Unpacking is delegated to {@link Any#unpackSameTypeAs(Message)}, which
+ *  remembers the parsed message in the instance of {@code Any}. The details below
+ *  describe the Protobuf Java runtime this library is built with.
+ *  <ul>
+ *      <li>The remembered message is not a part of the value of {@code Any}. It affects
+ *          neither equality nor serialization, and it is not passed to a builder.
+ *          An equal instance of {@code Any}, e.g. the one obtained by parsing,
+ *          is unpacked anew.
+ *      <li>Threads unpacking the same instance of {@code Any} for the first time
+ *          simultaneously may each parse the bytes and get distinct but equal messages.
+ *      <li>{@code Any} remembers the message along with its Java class, and refuses
+ *          to unpack into another class representing the same Protobuf type, such as
+ *          {@link com.google.protobuf.DynamicMessage DynamicMessage}.
+ *          {@link UnexpectedTypeException} is thrown in such a case.
+ *  </ul>
+ *
+ *  <p>This class does not use {@link Any#unpack(Class)} because that method obtains
+ *  the default instance of the message by calling {@code getDefaultInstance()}
+ *  reflectively each time it parses the bytes. The exemplar passed to
+ *  {@code unpackSameTypeAs()} comes from {@link Messages#getDefaultInstance(Class)},
+ *  which performs such a call only once per message class.
  *
  * @see Any#pack(Message, String)
  * @see #unpack(Any)
@@ -92,11 +119,16 @@ public final class AnyPacker {
     /**
      * Unwraps {@link Any} value into an instance of the given class.
      *
-     * <p>If there is no Java class for the type, {@link UnexpectedTypeException
-     * UnexpectedTypeException} is thrown.
+     * <p>The given class must represent the Protobuf type named in the type URL of
+     * the passed {@code Any}. The prefix of the type URL is not compared.
      *
-     * <p>Prefer this function for unpacking over the {@link Any#unpack(Class)}
-     * method for performance reasons.
+     * <p>The passed instance of {@code Any} remembers the unpacked message. Unpacking
+     * the same instance again may return the same message.
+     * Please see the documentation of this class for the consequences.
+     *
+     * <p>Prefer this method over {@link Any#unpack(Class) Any.unpack(Class)}.
+     * This method does not use reflection for obtaining the default instance of
+     * the message, and it reports a failure with an unchecked exception.
      * Please see the "Implementation Note" section of this class for details.
      *
      * @param any
@@ -106,18 +138,18 @@ public final class AnyPacker {
      * @param <T>
      *         the type enclosed into {@code Any}
      * @return unwrapped message instance
+     * @throws UnexpectedTypeException
+     *         if the type of the message packed into the passed {@code Any} differs from
+     *         the type of the given class, or if the packed bytes cannot be parsed into
+     *         a message of this class
      */
     public static <T extends Message> T unpack(Any any, Class<T> cls) {
         checkNotNull(any);
         checkNotNull(cls);
 
         var defaultInstance = Messages.getDefaultInstance(cls);
-        var expectedTypeUrl = TypeUrl.of(defaultInstance);
-        checkType(any, expectedTypeUrl);
         try {
-            @SuppressWarnings("unchecked")  // Ensured by the check above.
-            var result = (T) defaultInstance.getParserForType()
-                                            .parseFrom(any.getValue());
+            var result = any.unpackSameTypeAs(defaultInstance);
             return result;
         } catch (InvalidProtocolBufferException e) {
             throw new UnexpectedTypeException(e);
@@ -161,13 +193,6 @@ public final class AnyPacker {
         return any -> any == null
                       ? null
                       : unpack(any, type);
-    }
-
-    private static void checkType(Any any, TypeUrl expectedType) {
-        var actualType = TypeUrl.ofEnclosed(any);
-        if (!actualType.equals(expectedType)) {
-            throw new UnexpectedTypeException(expectedType, actualType);
-        }
     }
 
     private static @Nullable Message unpackOrNull(@Nullable Any any) {

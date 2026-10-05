@@ -23,11 +23,14 @@ import static java.lang.String.format;
  * match one we expect when unpacking.
  *
  * <p>Typically this exception wraps
- * {@link com.google.protobuf.InvalidProtocolBufferException InvalidProtocolBufferException} thrown
- * in unsuccessful call of {@link com.google.protobuf.Any#unpack(Class) Any.unpack(Class)}.
+ * {@link com.google.protobuf.InvalidProtocolBufferException InvalidProtocolBufferException}
+ * thrown in an unsuccessful call of
+ * {@link com.google.protobuf.Any#unpackSameTypeAs(com.google.protobuf.Message)
+ * Any.unpackSameTypeAs(Message)}.
  *
  * <p>Another usage scenario is a mismatch between
- * the {@linkplain TypeUrl}s of the instance wrapped by {@code Any} and the target message.
+ * the {@linkplain TypeUrl type URLs} of the instance wrapped by {@code Any} and
+ * the target message.
  */
 public class UnexpectedTypeException extends RuntimeException {
 
