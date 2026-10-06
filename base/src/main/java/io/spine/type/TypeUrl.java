@@ -14,7 +14,6 @@
 
 package io.spine.type;
 
-import com.google.common.base.Splitter;
 import com.google.errorprone.annotations.Immutable;
 import com.google.protobuf.Any;
 import com.google.protobuf.AnyOrBuilder;
@@ -43,10 +42,14 @@ import static java.lang.String.format;
 /**
  * A URL of a Protobuf type.
  *
- * <p>Consists of the two parts separated with a slash.
+ * <p>Consists of the two parts separated with the last slash of the URL.
  * The first part is the type URL prefix (for example, {@code "type.googleapis.com"}).
+ * The prefix is arbitrary: it may be empty or contain slashes itself.
  * The second part is a {@linkplain Descriptor#getFullName()
  * fully-qualified Protobuf type name}.
+ *
+ * <p>This follows the contract of the {@code type_url} field of {@link Any}, which
+ * identifies the type by the content after the last slash.
  *
  * @see Any#getTypeUrl()
  */
@@ -56,7 +59,6 @@ public final class TypeUrl implements Serializable {
     @Serial
     private static final long serialVersionUID = 0L;
     private static final String SEPARATOR = "/";
-    private static final Splitter splitter = Splitter.on(SEPARATOR);
 
     /** The prefix of the type URL. */
     private final String prefix;
@@ -148,7 +150,12 @@ public final class TypeUrl implements Serializable {
     /**
      * Creates a new instance from the passed type URL.
      *
+     * <p>The type name is the part of the URL after the last slash.
+     * The prefix is everything before that slash.
+     *
      * @param typeUrl the type URL of a Protobuf declaration such as message, enum, or service
+     * @throws IllegalArgumentException
+     *         if the passed value contains no slash, or if the type name is empty
      */
     @Internal
     public static TypeUrl parse(String typeUrl) {
@@ -166,12 +173,12 @@ public final class TypeUrl implements Serializable {
     }
 
     private static TypeUrl doParse(String typeUrl) {
-        var strings = splitter.splitToList(typeUrl);
-        if (strings.size() != 2) {
+        var separatorIndex = typeUrl.lastIndexOf(SEPARATOR);
+        if (separatorIndex < 0) {
             throw malformedTypeUrl(typeUrl);
         }
-        var prefix = strings.get(0);
-        var typeName = strings.get(1);
+        var prefix = typeUrl.substring(0, separatorIndex);
+        var typeName = typeUrl.substring(separatorIndex + 1);
         return create(prefix, typeName);
     }
 
@@ -185,6 +192,10 @@ public final class TypeUrl implements Serializable {
      *
      * @param any the instance of {@code Any} containing a {@code Message} instance of interest
      * @return a type URL
+     * @throws IllegalArgumentException
+     *         if the type URL of the passed {@code Any} contains no slash,
+     *         or if its type name is empty
+     * @see #parse(String)
      */
     public static TypeUrl ofEnclosed(AnyOrBuilder any) {
         var typeUrl = doParse(any.getTypeUrl());

@@ -85,6 +85,18 @@ internal class TypeUrlSpec {
         }
 
         @Test
+        fun `a type URL with several slashes`() {
+            // The type name is the content after the last slash.
+            val value = "example.org/types/$typeName"
+
+            val typeUrl = TypeUrl.parse(value)
+
+            typeUrl.prefix() shouldBe "example.org/types"
+            typeUrl.typeName().value() shouldBe typeName
+            typeUrl.value() shouldBe value
+        }
+
+        @Test
         fun `a descriptor of standard Protobuf type`() {
             val typeUrl = TypeUrl.from(descriptor)
             assertTypeUrl(typeUrl)
@@ -219,11 +231,6 @@ internal class TypeUrlSpec {
         @Test
         fun `empty type name`() {
             assertIllegalArgument { TypeUrl.parse("type.prefix/") }
-        }
-
-        @Test
-        fun `malformed type URL`() {
-            assertIllegalArgument { TypeUrl.parse("prefix/prefix/type.Name") }
         }
     }
 

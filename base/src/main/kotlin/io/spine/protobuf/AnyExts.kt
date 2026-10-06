@@ -20,11 +20,13 @@ import com.google.protobuf.Any as AnyProto
 /**
  * Unpacks this `Any` into the given message type.
  *
- * Prefer this extension function over the [com.google.protobuf.kotlin.unpack] extension
- * for the memory efficiency reasons. For more details on this recommendation, please see
- * the "Implementation Note" section of the [AnyPacker] class documentation.
+ * Prefer this extension function over the [com.google.protobuf.kotlin.unpack] extension,
+ * which finds the default instance of the message reflectively each time it parses
+ * the packed bytes. Both functions make this `Any` remember the unpacked message.
+ * For more details, please see the documentation of the [AnyPacker] class.
  *
- * @param T the concrete type of the message stored in the `Any`. The type cannot
+ * @param T The concrete type of the message stored in the `Any`.
+ *   The type cannot be an interface or a non-final class.
  * @see unpackKnownType
  */
 public inline fun <reified T : Message> AnyProto.unpack(): T {
