@@ -76,9 +76,14 @@ configurations.all {
 tasks {
     excludeGoogleProtoFromArtifacts()
 
-    // KSP reads the test sources, which include the output of `generateTestProto`.
-    matching { it.name == "kspTestKotlin" }.configureEach {
-        dependsOn("generateTestProto")
+    // KSP reads the Java sources that the Protobuf tasks write to `generated/<source set>/java`.
+    mapOf(
+        "kspKotlin" to "generateProto",
+        "kspTestKotlin" to "generateTestProto",
+    ).forEach { (ksp, generateProto) ->
+        matching { it.name == ksp }.configureEach {
+            dependsOn(generateProto)
+        }
     }
 }
 
