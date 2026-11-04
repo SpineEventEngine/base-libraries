@@ -27,6 +27,13 @@ import io.spine.gradle.report.pom.PomGenerator
 buildscript {
     standardSpineSdkRepositories()
     doForceVersions(configurations)
+    configurations {
+        all {
+            resolutionStrategy {
+                force(io.spine.dependency.local.Reflect.lib)
+            }
+        }
+    }
     dependencies {
         classpath(io.spine.dependency.local.ToolBase.protobufSetupPlugins)
     }
