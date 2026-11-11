@@ -26,10 +26,12 @@ import io.kotest.matchers.shouldBe
 import java.io.OutputStream
 import java.io.Serial
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-internal class `Extensions for 'Throwable' should` {
+@DisplayName("Extensions for `Throwable` should")
+internal class ThrowableExtsSpec {
 
     @Nested inner class
     `tell if it was caused by a rejection` {

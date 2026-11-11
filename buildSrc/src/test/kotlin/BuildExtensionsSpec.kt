@@ -13,10 +13,12 @@
  */
 
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import org.gradle.api.DefaultTask
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
+import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.api.tasks.JavaExec
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.DisplayName
@@ -70,4 +72,65 @@ internal class BuildExtensionsSpec {
             created shouldBe false
         }
     }
+
+    @Nested inner class
+    `make KSP tasks depend on the Protobuf generation` {
+
+        @Test
+        fun `of the main, test, and test fixtures source sets`() {
+            project.registerTasks(
+                "generateProto", "generateTestProto", "generateTestFixturesProto",
+                "kspKotlin", "kspTestKotlin", "kspTestFixturesKotlin",
+            )
+
+            project.configureTaskDependencies()
+            project.evaluate()
+
+            project.dependencyNamesOf("kspKotlin") shouldBe setOf("generateProto")
+            project.dependencyNamesOf("kspTestKotlin") shouldBe setOf("generateTestProto")
+            project.dependencyNamesOf("kspTestFixturesKotlin") shouldBe
+                    setOf("generateTestFixturesProto")
+        }
+
+        @Test
+        fun `also when the tasks are registered after evaluation`() {
+            project.configureTaskDependencies()
+            project.evaluate()
+
+            project.registerTasks("kspKotlin", "generateProto")
+
+            project.dependencyNamesOf("kspKotlin") shouldBe setOf("generateProto")
+        }
+
+        @Test
+        fun `doing nothing in a project without Protobuf tasks`() {
+            project.registerTasks("kspKotlin", "kspTestKotlin", "kspTestFixturesKotlin")
+
+            project.configureTaskDependencies()
+            project.evaluate()
+
+            project.dependencyNamesOf("kspKotlin").shouldBeEmpty()
+            project.dependencyNamesOf("kspTestKotlin").shouldBeEmpty()
+            project.dependencyNamesOf("kspTestFixturesKotlin").shouldBeEmpty()
+        }
+    }
+}
+
+private fun Project.registerTasks(vararg names: String) {
+    names.forEach { tasks.register(it) }
+}
+
+/**
+ * Evaluates this [ProjectBuilder] project, so that its `afterEvaluate` actions run.
+ *
+ * Relies on Gradle's internal [ProjectInternal] API because
+ * [ProjectBuilder] offers no public way to evaluate a project.
+ */
+private fun Project.evaluate() {
+    (this as ProjectInternal).evaluate()
+}
+
+private fun Project.dependencyNamesOf(taskName: String): Set<String> {
+    val task = tasks.named(taskName).get()
+    return task.taskDependencies.getDependencies(task).map { it.name }.toSet()
 }
