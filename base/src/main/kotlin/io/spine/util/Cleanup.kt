@@ -108,6 +108,114 @@ public fun Iterable<AutoCloseable>.closeAll(): Unit =
     toList().forEachThenThrow { it.close() }
 
 /**
+ * Runs the given [step], carrying the given [failure] forward as the first one.
+ *
+ * Use it when the steps are not known up front, so that [runAll] cannot take them all
+ * at once. For example, when some steps run only on a condition, or when cleaning up
+ * after a failure that has already happened.
+ *
+ * If the step succeeds, returns the given [failure], which may be `null`.
+ * If the step fails, returns the first of the failures: the given one, with the failure of
+ * the step [suppressed][withSuppressed], or the failure of the step, if [failure] is `null`.
+ * As with [withSuppressed], a failure is never added to itself. So, if [failure] is
+ * not `null`, the result is that very instance.
+ *
+ * The result is typed as `Throwable`, even if the given failure is a `RuntimeException`,
+ * since the step may fail with an [Error][kotlin.Error] or a checked exception.
+ *
+ * ## Collecting failures
+ *
+ * Collect the failures with this function, and then throw the kept one, if any,
+ * with [throwIfAny]:
+ *
+ * ```java
+ * import static io.spine.util.Cleanup.runKeepingFailure;
+ * import static io.spine.util.Cleanup.throwIfAny;
+ *
+ * Throwable failure = null;
+ * if (inbox != null) {
+ *     failure = runKeepingFailure(failure, inbox::unregister);
+ * }
+ * failure = runKeepingFailure(failure, storage::close);
+ * throwIfAny(failure);
+ * ```
+ *
+ * ## Cleaning up after a failure
+ *
+ * When a failure has already happened, the result is that failure. So the caller can
+ * rethrow it as is:
+ *
+ * ```java
+ * } catch (Throwable t) {
+ *     var unused = runKeepingFailure(t, context::close); // Returns `t`.
+ *     throw t;
+ * }
+ * ```
+ *
+ * ```kotlin
+ * } catch (e: Throwable) {
+ *     runKeepingFailure(e) { context.close() }
+ *     throw e
+ * }
+ * ```
+ *
+ * In Java, the result is assigned because the function's result must not be ignored:
+ * ignoring it would lose the failure of the step when there was no failure before.
+ * Rethrowing `t` keeps the precise rethrow of Java, so the method needs no
+ * `throws Throwable` clause.
+ *
+ * ## Errors and interruption
+ *
+ * A failure of any kind is caught, an [Error][kotlin.Error] too, as [runAll] does.
+ *
+ * If the step throws an `InterruptedException`, the interrupt status of the current
+ * thread is restored before this function returns, so the interruption is not lost.
+ * Unlike [runAll], which restores it once all its steps have run, this function restores
+ * it right away. The steps the caller runs next therefore see the interrupt status set.
+ * A later step that blocks, for example, awaiting termination, may then fail at once
+ * with another `InterruptedException`.
+ *
+ * @param failure The failure kept so far, or `null` if nothing has failed yet.
+ * @param step The step to run.
+ * @return The first failure, or `null` if nothing has failed.
+ * @see throwIfAny
+ */
+@Suppress("TooGenericExceptionCaught") // Catches every failure, as `runAll` does.
+public fun runKeepingFailure(failure: Throwable?, step: Runnable): Throwable? =
+    try {
+        step.run()
+        failure
+    } catch (e: InterruptedException) {
+        Thread.currentThread().interrupt()
+        failure.withSuppressed(e)
+    } catch (e: Throwable) {
+        failure.withSuppressed(e)
+    }
+
+/**
+ * Throws the given [failure], if it is not `null`.
+ *
+ * Throws the failure the way [runAll] does. An unchecked failure, which means
+ * a [RuntimeException] or an [Error][kotlin.Error], is thrown as is. A checked exception
+ * is thrown as the cause of an [IllegalStateException], so Java callers need not catch
+ * or declare one.
+ *
+ * Use it to throw a failure kept by [runKeepingFailure].
+ *
+ * @param failure The failure to throw, or `null` if nothing has failed.
+ * @throws RuntimeException The given failure, if it is a [RuntimeException].
+ * @throws kotlin.Error The given failure, if it is an [Error][kotlin.Error].
+ * @throws IllegalStateException With the given failure as the cause, if it is
+ *   a checked exception.
+ * @see runKeepingFailure
+ */
+public fun throwIfAny(failure: Throwable?) {
+    if (failure != null) {
+        throw failure.unchecked()
+    }
+}
+
+/**
  * Keeps the first of two failures, adding the [next] one to it as suppressed.
  *
  * If this failure is `null`, meaning that nothing has failed so far, returns [next].
@@ -130,6 +238,7 @@ public fun Iterable<AutoCloseable>.closeAll(): Unit =
  * ```
  *
  * When the steps can run one after another, [runAll] and [closeAll] do all of the above.
+ * When the steps are not known up front, [runKeepingFailure] runs them one at a time.
  *
  * ## Self-suppression
  *
@@ -199,9 +308,7 @@ private inline fun <T> Iterable<T>.forEachThenThrow(action: (T) -> Unit) {
     if (interrupted) {
         Thread.currentThread().interrupt()
     }
-    failure?.let {
-        throw it.unchecked()
-    }
+    throwIfAny(failure)
 }
 
 /**

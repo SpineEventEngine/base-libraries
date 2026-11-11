@@ -33,6 +33,11 @@ seven hand-written copies (and one in tests) with it, after bumping Base.
 - [x] `runAll(vararg Runnable)` and `Iterable<AutoCloseable>.closeAll()` in
       `Cleanup.kt` — catch `Throwable`, throw the first failure at the end; unchecked as is, checked
       wrapped into `IllegalStateException` (later failures stay on the cause).
+- [x] `runKeepingFailure(failure, step): Throwable?` + `throwIfAny(failure)` — run one
+      step carrying a failure that may already exist (requested from core-jvm for
+      `Repository.attemptClose()`, `BoundedContextBuilder.closeAfterFailure()`,
+      `Application.Builder.buildContexts()`); restores the interrupt status before
+      returning.
 - [x] `ThrowableExtsTest.kt` -> `ThrowableExtsSpec.kt`: the old class name matched
       neither `*Test` nor `*Spec`, so the suite never ran.
 - [x] `CleanupSpec` (Kotlin) + `CleanupJavaSpec` (Java bridge), in `io.spine.util`.
@@ -57,3 +62,10 @@ seven hand-written copies (and one in tests) with it, after bumping Base.
   `Cleanup.kt` there, together with `withSuppressed`, so `io.spine.util` does not
   depend on `io.spine.base`. `ThrowableExts.kt` is back to its `master` content.
   `build dokkaGenerate` green: 1165 tests, 0 failures (`base`: 1082).
+- 2026-11-11 — PR SpineEventEngine/base-libraries#970 opened.
+- 2026-11-11 — core-jvm asked for a single-step helper; added `runKeepingFailure`
+  and `throwIfAny`. Reviews: `spine-code-review` APPROVE, `kotlin-engineer` APPROVE,
+  `review-docs` APPROVE WITH CHANGES; doc fixes applied (incl. the documented Java
+  idiom `var unused = runKeepingFailure(t, …); throw t;`, compiled by the Java spec).
+  `build dokkaGenerate` green: 1181 tests, 0 failures (`base`: 1098). Published
+  `.464` to Maven Local for core-jvm; owner approved commit and push.

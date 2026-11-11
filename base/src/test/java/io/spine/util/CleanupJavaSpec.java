@@ -22,6 +22,8 @@ import java.util.List;
 import static com.google.common.truth.Truth.assertThat;
 import static io.spine.util.Cleanup.closeAll;
 import static io.spine.util.Cleanup.runAll;
+import static io.spine.util.Cleanup.runKeepingFailure;
+import static io.spine.util.Cleanup.throwIfAny;
 import static io.spine.util.Cleanup.withSuppressed;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -116,6 +118,79 @@ class CleanupJavaSpec {
 
         var thrown = assertThrows(IllegalStateException.class,
                                   () -> closeAll(List.of(resource)));
+
+        assertThat(thrown).hasCauseThat()
+                          .isSameInstanceAs(checked);
+    }
+
+    @Test
+    @DisplayName("carry a failure through `runKeepingFailure()` and throw it with `throwIfAny()`")
+    void carryFailure() {
+        var first = new IllegalStateException("first");
+        var second = new IllegalArgumentException("second");
+        var resource = new StubResource();
+
+        Throwable failure = null;
+        failure = runKeepingFailure(failure, () -> { throw first; });
+        failure = runKeepingFailure(failure, resource::close);
+        failure = runKeepingFailure(failure, () -> { throw second; });
+        var kept = failure;
+
+        var thrown = assertThrows(IllegalStateException.class, () -> throwIfAny(kept));
+
+        assertThat(thrown).isSameInstanceAs(first);
+        assertThat(thrown.getSuppressed()).asList()
+                                          .containsExactly(second);
+        assertThat(resource.closed).isTrue();
+    }
+
+    @Test
+    @DisplayName("return no failure from `runKeepingFailure()` if nothing fails")
+    void noFailure() {
+        var resource = new StubResource();
+
+        var failure = runKeepingFailure(null, resource::close);
+
+        assertThat(failure).isNull();
+        assertThat(resource.closed).isTrue();
+    }
+
+    @Test
+    @DisplayName("add the failure of a step to a failure that already happened")
+    void addToExistingFailure() {
+        var buildFailure = new IllegalStateException("build");
+        var closeFailure = new IllegalArgumentException("close");
+
+        var thrown = assertThrows(IllegalStateException.class,
+                                  () -> failBuild(buildFailure, () -> { throw closeFailure; }));
+
+        assertThat(thrown).isSameInstanceAs(buildFailure);
+        assertThat(thrown.getSuppressed()).asList()
+                                          .containsExactly(closeFailure);
+    }
+
+    /**
+     * Fails a build with the given failure, and cleans up the way the documentation
+     * of {@code runKeepingFailure()} suggests.
+     *
+     * <p>Rethrowing the caught failure keeps the precise rethrow of Java,
+     * so the method needs no {@code throws} clause.
+     */
+    private static void failBuild(RuntimeException failure, Runnable cleanup) {
+        try {
+            throw failure;
+        } catch (Throwable t) {
+            var unused = runKeepingFailure(t, cleanup); // Returns `t`.
+            throw t;
+        }
+    }
+
+    @Test
+    @DisplayName("wrap a checked failure into `IllegalStateException` in `throwIfAny()`")
+    void throwChecked() {
+        var checked = new Exception("checked");
+
+        var thrown = assertThrows(IllegalStateException.class, () -> throwIfAny(checked));
 
         assertThat(thrown).hasCauseThat()
                           .isSameInstanceAs(checked);

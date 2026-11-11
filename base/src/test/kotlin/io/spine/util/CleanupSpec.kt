@@ -259,6 +259,129 @@ internal class CleanupSpec {
         }
     }
 
+    @Nested inner class
+    `run a step keeping a failure` {
+
+        private val succeeding = Runnable { }
+
+        private fun failing(failure: Throwable) = Runnable { throw failure }
+
+        @Test
+        fun `returning no failure if nothing fails`() {
+            runKeepingFailure(null, succeeding) shouldBe null
+        }
+
+        @Test
+        fun `returning the failure of the step if there is no prior one`() {
+            val failure = IllegalStateException("step")
+
+            val result = runKeepingFailure(null, failing(failure))
+
+            result shouldBeSameInstanceAs failure
+            failure.suppressed.shouldBeEmpty()
+        }
+
+        @Test
+        fun `returning the prior failure if the step succeeds`() {
+            val prior = RuntimeException("prior")
+
+            runKeepingFailure(prior, succeeding) shouldBeSameInstanceAs prior
+            prior.suppressed.shouldBeEmpty()
+        }
+
+        @Test
+        fun `adding the failure of the step to the prior one as suppressed`() {
+            val prior = RuntimeException("prior")
+            val failure = IllegalStateException("step")
+
+            val result = runKeepingFailure(prior, failing(failure))
+
+            result shouldBeSameInstanceAs prior
+            prior.suppressed.toList() shouldContainExactly listOf(failure)
+        }
+
+        @Test
+        fun `not adding a failure to itself`() {
+            val failure = RuntimeException("same")
+
+            val result = runKeepingFailure(failure, failing(failure))
+
+            result shouldBeSameInstanceAs failure
+            failure.suppressed.shouldBeEmpty()
+        }
+
+        @Test
+        fun `catching an 'Error'`() {
+            val prior = RuntimeException("prior")
+            val error = AssertionError("Failed by a test hook.")
+
+            val result = runKeepingFailure(prior, failing(error))
+
+            result shouldBeSameInstanceAs prior
+            prior.suppressed.toList() shouldContainExactly listOf(error)
+        }
+
+        @Test
+        fun `accepting a lambda`() {
+            var ran = false
+
+            val result = runKeepingFailure(null) { ran = true }
+
+            result shouldBe null
+            ran shouldBe true
+        }
+
+        @Test
+        fun `restoring the interrupt status before returning`() {
+            val interruption = InterruptedException("interrupted")
+            try {
+                val result = runKeepingFailure(null, failing(interruption))
+
+                result shouldBeSameInstanceAs interruption
+                Thread.currentThread().isInterrupted shouldBe true
+            } finally {
+                // Clears the status, so that it does not leak to other tests.
+                Thread.interrupted()
+            }
+        }
+    }
+
+    @Nested inner class
+    `throw a kept failure` {
+
+        @Test
+        fun `doing nothing if there is no failure`() {
+            throwIfAny(null)
+        }
+
+        @Test
+        fun `throwing an unchecked failure as is`() {
+            val failure = IllegalStateException("unchecked")
+
+            val thrown = shouldThrow<IllegalStateException> { throwIfAny(failure) }
+
+            thrown shouldBeSameInstanceAs failure
+        }
+
+        @Test
+        fun `throwing an 'Error' as is`() {
+            val error = AssertionError("error")
+
+            val thrown = shouldThrow<AssertionError> { throwIfAny(error) }
+
+            thrown shouldBeSameInstanceAs error
+        }
+
+        @Test
+        fun `throwing a checked exception as the cause of 'IllegalStateException'`() {
+            val checked = IOException("checked")
+
+            val thrown = shouldThrow<IllegalStateException> { throwIfAny(checked) }
+
+            thrown.cause shouldBeSameInstanceAs checked
+        }
+    }
+
     /**
      * A resource which remembers that it was closed and then fails with
      * the given [failure], if any.
