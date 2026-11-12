@@ -173,14 +173,15 @@ class CleanupJavaSpec {
      * Fails a build with the given failure, and cleans up the way the documentation
      * of {@code runKeepingFailure()} suggests.
      *
-     * <p>Rethrowing the caught failure keeps the precise rethrow of Java,
+     * <p>The result of {@code runKeepingFailure()} is ignored because it is the caught
+     * failure itself. Rethrowing the caught failure keeps the precise rethrow of Java,
      * so the method needs no {@code throws} clause.
      */
     private static void failBuild(RuntimeException failure, Runnable cleanup) {
         try {
             throw failure;
         } catch (Throwable t) {
-            var unused = runKeepingFailure(t, cleanup); // Returns `t`.
+            runKeepingFailure(t, cleanup);
             throw t;
         }
     }

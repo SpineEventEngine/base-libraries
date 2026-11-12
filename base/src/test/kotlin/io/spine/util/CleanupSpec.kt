@@ -301,6 +301,24 @@ internal class CleanupSpec {
         }
 
         @Test
+        fun `adding the failure of the step to the prior one, even if the result is ignored`() {
+            val prior = RuntimeException("prior")
+            val failure = IllegalStateException("step")
+
+            val thrown = shouldThrow<RuntimeException> {
+                try {
+                    throw prior
+                } catch (e: RuntimeException) {
+                    runKeepingFailure(e, failing(failure))
+                    throw e
+                }
+            }
+
+            thrown shouldBeSameInstanceAs prior
+            thrown.suppressed.toList() shouldContainExactly listOf(failure)
+        }
+
+        @Test
         fun `not adding a failure to itself`() {
             val failure = RuntimeException("same")
 
