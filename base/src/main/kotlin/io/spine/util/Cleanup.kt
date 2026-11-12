@@ -16,6 +16,8 @@
 
 package io.spine.util
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue
+
 /**
  * Runs all the given [steps], even if some of them fail, and then throws the first
  * failure, with the later ones [suppressed][withSuppressed].
@@ -142,12 +144,13 @@ public fun Iterable<AutoCloseable>.closeAll(): Unit =
  *
  * ## Cleaning up after a failure
  *
- * When a failure has already happened, the result is that failure. So the caller can
- * rethrow it as is:
+ * When a failure has already happened, the result is that failure, with the failure of
+ * the step, if any, added to it as suppressed. So the caller can ignore the result and
+ * rethrow the failure it already holds:
  *
  * ```java
  * } catch (Throwable t) {
- *     var unused = runKeepingFailure(t, context::close); // Returns `t`.
+ *     runKeepingFailure(t, context::close);
  *     throw t;
  * }
  * ```
@@ -159,10 +162,12 @@ public fun Iterable<AutoCloseable>.closeAll(): Unit =
  * }
  * ```
  *
- * In Java, the result is assigned because the function's result must not be ignored:
- * ignoring it would lose the failure of the step when there was no failure before.
  * Rethrowing `t` keeps the precise rethrow of Java, so the method needs no
  * `throws Throwable` clause.
+ *
+ * The result can be ignored only when the given failure is not `null`. Otherwise,
+ * the failure of the step exists only in the result, so ignoring the result would lose it.
+ * When collecting failures, assign the result, as the "Collecting failures" section shows.
  *
  * ## Errors and interruption
  *
@@ -180,6 +185,7 @@ public fun Iterable<AutoCloseable>.closeAll(): Unit =
  * @return The first failure, or `null` if nothing has failed.
  * @see throwIfAny
  */
+@CanIgnoreReturnValue // Callers that hold a failure get it back, so they need not use the result.
 @Suppress("TooGenericExceptionCaught") // Catches every failure, as `runAll` does.
 public fun runKeepingFailure(failure: Throwable?, step: Runnable): Throwable? =
     try {
