@@ -77,7 +77,7 @@ val grGitVersion = "5.3.3"
  * This version may change from the [version of Kotlin][io.spine.dependency.lib.Kotlin.version]
  * used by the project.
  */
-val kotlinEmbeddedVersion = "2.4.10"
+val kotlinEmbeddedVersion = "2.4.21"
 
 /**
  * The version of Guava used in `buildSrc`.
@@ -105,7 +105,7 @@ val errorPronePluginVersion = "5.1.1"
  * @see <a href="https://github.com/google/protobuf-gradle-plugin/releases">
  *     Protobuf Gradle Plugins Releases</a>
  */
-val protobufPluginVersion = "0.10.0"
+val protobufPluginVersion = "0.10.1"
 
 /**
  * The version of Dokka Gradle Plugins.
