@@ -1166,6 +1166,13 @@ message GoesOption {
 }
 
 // Defines options of a message representing a state of an entity.
+//
+// The `(entity)` option is for top-level messages. It must not be applied to a message
+// nested in another message. An entity state itself may have nested messages and enums.
+//
+// In JVM projects, the file declaring an entity state must set the `java_multiple_files` option
+// to `true` because the Java class of the state must be a top-level class.
+//
 message EntityOption {
 
     // A type of an entity for state of which the message is defined.
